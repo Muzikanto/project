@@ -4,6 +4,8 @@ import {cn} from "@bem-react/classname";
 import {getFetch} from "../../utils/fetch";
 
 import './FrontPage.css'
+import LoadSelectedFile from "../../features/LoadSelectedFile/LoadSelectedFile";
+import FormImage from "../../features/FormImage/FormImage";
 
 
 const cnFront = cn('FrontPage');
@@ -16,7 +18,8 @@ class FrontPage extends React.Component {
     public render() {
         return (
             <section className={cnFront()}>
-                FrontPage
+                <LoadSelectedFile/>
+                <FormImage/>
             </section>
         )
     }

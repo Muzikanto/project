@@ -1,4 +1,4 @@
-import {join, resolve} from 'path';
+import {join} from 'path';
 import * as express from 'express';
 import * as compression from 'compression';
 import * as bodyParser from 'body-parser';
@@ -7,9 +7,9 @@ import * as morgan from 'morgan';
 import {preloadAll} from 'react-loadable';
 import {sessionOptions} from "./lib/psqlSessionStore";
 import loadUser from "./middleware/loadUser";
-import {connectSocket} from "./socket/index";
+import {connectSocket} from "./socket";
 import {Server, createServer} from "http"
-import {renderPages} from "./routes/renders/index";
+import {renderPages} from "./routes/renders";
 import apiRoutes from "./routes/api/index";
 
 const port = process.env.PORT || 3000;
@@ -62,7 +62,7 @@ function run() {
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(morgan('dev'));
 
-    app.use(express.static(resolve(__dirname, './resources/public')));
+    app.use('/resources', express.static(join(__dirname, '..', '..',  '/server/resources')));
 
     if (isDev) {
         const webpackDevServerProxy = require('http-proxy-middleware')({
@@ -80,8 +80,7 @@ function run() {
     app.use(sessionOptions);
     app.use(loadUser);
 
-    app.use(apiRoutes());
-    app.use(renderPages());
+    app.use(renderPages(apiRoutes(express.Router())));
 
     preloadAll().then(() => {
         server = createServer(app);

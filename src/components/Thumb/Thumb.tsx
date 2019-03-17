@@ -1,42 +1,38 @@
 import {cn} from '@bem-react/classname';
 import * as React from 'react';
-import './ImageBlock.css'
+import './Thumb.css'
 import {classnames} from "@bem-react/classnames";
 import {RefObject} from "react";
 
-const cnImage = cn('Image');
+const cnThumb = cn('Thumb');
 
-interface IImage {
+interface IThumb {
     src: string;
     className?: string;
     onClick?: () => void;
     refSrc?: RefObject<HTMLImageElement>;
 }
 
-class ImageBlock extends React.Component<IImage> {
+class Thumb extends React.Component<IThumb> {
     public state: { className: string } = {className: ''};
 
-    constructor(props: IImage) {
-        super(props)
-    }
-
     public render() {
-        const mainClass = classnames(cnImage());
+        const mainClass = classnames(cnThumb());
         return (
-            <div className={classnames(cnImage(), mainClass)}>
+            <div className={classnames(cnThumb(), mainClass)}>
                 <img ref={this.props.refSrc}
                      onMouseEnter={this.hovered}
                      onMouseOut={this.leave}
                      onMouseLeave={this.leave}
                      onClick={this.props.onClick}
-                     className={classnames(this.props.className, cnImage('Plane'), this.state.className, mainClass)}
+                     className={classnames(this.props.className, cnThumb('Plane'), this.state.className, mainClass)}
                      src={this.props.src}/>
             </div>
         )
     }
 
     private hovered = () => {
-        this.setState({className: cnImage('Hovered')})
+        this.setState({className: cnThumb('Hovered')})
     };
 
     private leave = () => {
@@ -44,5 +40,5 @@ class ImageBlock extends React.Component<IImage> {
     };
 }
 
-export default ImageBlock;
+export default Thumb;
 

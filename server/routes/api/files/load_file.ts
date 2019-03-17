@@ -6,7 +6,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination (_: express.Request, __: any, cb: (err: Error | null, path: string) => void) {
-        cb(null, path.join(__dirname, '../../../../resources/'));
+        cb(null, path.join(__dirname, '../../server/resources/'));
     },
     filename (_: express.Request, file: any, cb: (err: Error | null, name: string) => void) {
         cb(null, `image-${file.originalname}`);

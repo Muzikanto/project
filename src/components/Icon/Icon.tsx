@@ -11,7 +11,6 @@ interface IIcon {
     onClick?: () => void;
 }
 
-
 class Icon extends React.Component<IIcon> {
     public render() {
         return (<i className={classnames(this.props.className, cnIcon(this.props.name))} onClick={this.props.onClick}/>);

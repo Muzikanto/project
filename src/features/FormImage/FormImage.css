@@ -1,0 +1,30 @@
+.FormImage {
+    width: 200px;
+    background: burlywood;
+    border-radius: 15px;
+    height: min-content;
+}
+
+
+.FormImage-Img_empty{
+    width: 100%;
+}
+
+.FormImage-ImgCont {
+    display: flex;
+    height: 200px;
+}
+.FormImage-ImgCont_empty{
+    background-image: url(../../assets/logo.svg);
+    background-size: contain;
+}
+
+.FormImage-Label{
+    display: flex;
+    text-align: center;
+    flex-flow: column;
+}
+
+.FormImage-Button {
+    width: 100%;
+}

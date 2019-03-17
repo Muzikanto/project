@@ -1,5 +1,4 @@
 import * as got from 'got';
-import * as express from 'express';
 
 import {Router} from "express-serve-static-core";
 import {firstRender} from "./one";
@@ -8,8 +7,7 @@ import {IUserSession} from "../interfaces";
 const script = (url: string) => `<script type="text/javascript" src="${url}" async></script>`;
 const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
 
-export function renderPages(): Router {
-    const router = express.Router();
+export function renderPages(router: Router): Router {
     router.get(['/', '/page1'], firstRender(assets) as any);
 
     return router;
