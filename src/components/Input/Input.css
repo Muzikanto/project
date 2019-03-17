@@ -1,0 +1,12 @@
+.Input{
+    animation: showInput 0.3s;
+}
+
+@keyframes showInput {
+    from{
+       width: 0;
+    }
+    to{
+        width: 100%;
+    }
+}

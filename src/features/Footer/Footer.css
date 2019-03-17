@@ -1,0 +1,47 @@
+.Footer {
+    width: 100%;
+    color: gray;
+    text-align: center;
+    height: 64px;
+    line-height: 40px;
+}
+
+.Footer-Left {
+    margin-left: 40px;
+}
+
+.Footer a {
+    text-decoration: none;
+    float: left;
+    color: #858585;
+    letter-spacing: 0.01px;
+    text-align: left;
+}
+
+.Footer-Right {
+    float: right;
+    margin-right: 50px;
+}
+
+@media only screen  and (max-device-width: 767px) {
+    .Footer a {
+        font-size: 12px;
+    }
+
+    .Footer-Left > a {
+        padding-right: 10px;
+    }
+}
+
+@media only screen and (min-device-width: 768px){
+    .Footer a {
+        line-height: 64px;
+        font-size: 12px;
+    }
+
+    .Footer-Left > a {
+        padding-right: 20px;
+    }
+}
+
+

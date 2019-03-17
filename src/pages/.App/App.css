@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.PageContainer {
+    width: 100%;
+    min-height: 100vh;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.PageContainer_blur {
+    background: #2b2b2b;
+    filter: blur(3px);
+}
+
+.ContentContainer {
+    display: flex;
+    flex-grow: 1;
+}
+

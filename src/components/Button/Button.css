@@ -1,0 +1,36 @@
+.Button_basis_Link{
+
+}
+
+
+.Button_theme_Future {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    text-transform: uppercase;
+    color: #ff005a;
+    text-decoration: none;
+    border: 2px solid;
+    background: transparent;
+    padding: 7px 30px;
+    font-size: 12px;
+    font-weight: 700;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.Button_theme_Future:hover {
+    color: #8400ff;
+}
+
+
+
+
+.Button_size_Big{
+    padding: 10px 40px;
+    font-size: 14px;
+}
+
+.Button_size_Small{
+    padding: 5px 20px;
+    font-size: 10px;
+}

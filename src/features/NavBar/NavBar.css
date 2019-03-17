@@ -1,0 +1,116 @@
+.NavBar {
+    display: flex;
+    width: 100%;
+    background: #fff;
+    color: red;
+    box-shadow: 0 3px 10px -2px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    animation: showNavBar 0.5s;
+}
+
+@keyframes showNavBar {
+    from{
+       transform: translate(0, -100px);
+    }
+    to{
+        transform: translate(0, 0);
+    }
+}
+
+.NavBar-Logo {
+    animation-name: NavBar-Logo-spin;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    background: url(../../assets/logo.svg) no-repeat no-repeat center;
+
+    width: 108px;
+    height: 100%;
+
+    display: block;
+}
+
+.NavBar-Logo:hover{
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+.NavBar-Brand {
+    margin-left: 40px;
+
+}
+
+
+.NavBar-List {
+    list-style: none;
+    position: relative;
+    margin-right: 100px;
+    display: inline-table;
+}
+
+.NavBar-Right{
+    margin-left: auto;
+    list-style: none;
+    margin-right: 40px;
+}
+
+.NavBar-Item {
+    float: left;
+    transition: all .2s ease-in-out;
+}
+
+.NavBar-Item:hover {
+    background: rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.NavBar-Item:hover > ul {
+    z-index: 999999999999;
+    display: block;
+}
+
+.NavBar-Item > a {
+    display: block;
+    padding: 30px 20px;
+    color: #222;
+    font-size: .9em;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.NavBar-DropDown{
+    list-style-type: none;
+    display: none;
+    background: #fff;
+    position: absolute;
+    top: 100%;
+    box-shadow: -3px 3px 10px -2px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.NavBar-DropDown > li {
+    float: none;
+    position: relative;
+}
+
+.NavBar-DropDown > li > a {
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.NavBar-DropDown > ul {
+    position: absolute;
+    left: 100%;
+    top: 0;
+}
+
+@keyframes NavBar-Logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+

@@ -1,0 +1,7 @@
+*/node_modules
+.idea
+.git
+.trendbox.yml
+build/
+.cit.json
+README.md

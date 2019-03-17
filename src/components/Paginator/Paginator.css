@@ -1,0 +1,34 @@
+.hide{
+    display: none;
+    visibility: hidden;
+}
+
+.Paginator{
+    display: flex;
+    width: fit-content;
+    background: #fff981;
+    padding: 5px;
+    border: 2px solid brown;
+    height: min-content;
+}
+
+.Paginator-Item{
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    background:red;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid gray;
+}
+
+.Paginator-Item_active{
+    background: green;
+}
+
+.Paginator-Button{
+    width: 20px;
+    height: 20px;
+}
