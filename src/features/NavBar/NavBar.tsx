@@ -2,8 +2,8 @@ import * as React from 'react';
 import {cn} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 
-import {shortText} from "./NavBar.helpers/index";
-import {INavBar, INavBarItem} from "./NavBar.typings/index";
+import {shortText} from "./NavBar.helpers";
+import {INavBar, INavBarItem} from "./NavBar.typings";
 
 import './NavBar.css'
 

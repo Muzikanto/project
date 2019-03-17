@@ -1,6 +1,6 @@
 import * as io from 'socket.io-client';
+import {ISocketOptions} from "./typings";
 
-export type ISocketOptions = any;
 
 const initialState: ISocketOptions = io(process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'localhost:3000', {
     reconnection: false,

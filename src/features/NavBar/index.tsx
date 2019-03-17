@@ -1,18 +1,12 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import {dropSession, setUser} from "../../actions/User";
-import {IdropSession} from "../../actions/User/User.typings";
-import {IUser} from "../../reducers/UserReducer";
-import {IStore} from "../../reducers/index";
+import {dropSession} from "../../actions/User";
+import {IStore} from "../../reducers";
 import NavBarUI from "./NavBar";
+import {INavBarContainer} from "./NavBar.typings";
 
 
-interface INavBar {
-    user: IUser;
-    dropSession: IdropSession;
-}
-
-class NavBar extends React.Component<INavBar> {
+class NavBar extends React.Component<INavBarContainer> {
     protected AppComponent = NavBarUI;
 
     protected items = [
@@ -22,8 +16,9 @@ class NavBar extends React.Component<INavBar> {
 
     public render() {
         const {user} = this.props;
+        const App = this.AppComponent;
         return (
-            <this.AppComponent user={user} dropSession={this.dropSession} items={this.items}/>
+            <App user={user} dropSession={this.dropSession} items={this.items}/>
         )
     }
     private dropSession = () => {
@@ -36,8 +31,7 @@ const mapStateToProps = (state: IStore) => ({
 });
 
 const mapDispatchToProps = {
-    setUser,
     dropSession,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar as any);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

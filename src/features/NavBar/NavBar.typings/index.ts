@@ -1,4 +1,5 @@
 import {IUser} from "../../../reducers/UserReducer";
+import {IdropSession} from "../../../actions/User/User.typings";
 
 
 interface INavBarItem {
@@ -8,12 +9,20 @@ interface INavBarItem {
 }
 
 interface INavBar {
-    user: IUser;
-    dropSession: () => void;
+    user: IUser | null;
+    dropSession: IdropSession;
     items: INavBarItem[];
 }
 
+type INavBarContainer = {
+    user: IUser | null;
+    dropSession: IdropSession;
+};
+
+
+
 export {
     INavBar,
-    INavBarItem
+    INavBarItem,
+    INavBarContainer
 }

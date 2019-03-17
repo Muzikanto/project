@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {sendData} from "../../../utils/SendData";
+import {sendData} from "../../utils/SendData";
 
 const fs = require('fs');
 

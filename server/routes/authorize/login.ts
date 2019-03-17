@@ -1,10 +1,12 @@
 import * as express from 'express';
-import {UserAuthorize} from "../../../models/postgreSql/user";
-import {sendData} from "../../../utils/SendData";
-import {checkValid} from "../../../utils/validate";
-import {IRequestSession} from "../../interfaces";
+import {UserAuthorize} from "../../models/postgreSql/user";
+import {sendData} from "../../utils/SendData";
+import {checkValid} from "../../utils/validate";
+import {IRequestSession} from "../interfaces";
+import {Application} from "express";
 
-export const loginRouter = async (req: IRequestSession, res: express.Response, _: express.NextFunction) => {
+
+export const loginRouter = (async (req: IRequestSession, res: express.Response, _: express.NextFunction) => {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -17,4 +19,4 @@ export const loginRouter = async (req: IRequestSession, res: express.Response, _
     } catch (err) {
         sendData(res, 403, err.message);
     }
-};
+}) as Application;

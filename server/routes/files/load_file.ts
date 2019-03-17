@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as path from 'path';
-import {sendData} from "../../../utils/SendData";
+import {sendData} from "../../utils/SendData";
 
 const multer = require('multer');
 

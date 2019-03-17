@@ -7,15 +7,19 @@ import {registerRouter} from "./authorize/register";
 import {sendFileRouter} from "./files/send_file";
 import {getPublicFilesListRouter} from "./files/get_publicFiles_list";
 import {loadFileRouter} from "./files/load_file";
+import {renderWithApp} from "./helpers/render";
+import App from "../../src/pages/.App/App";
 
 
 export default function apiRoutes(router: Router): Router {
+    router.get(['/', '/page1', '/register'], renderWithApp(App));
+
     router.get('/api/test', testRouter);
 
     /* User */
-    router.post('/api/authorize', loginRouter as any);
-    router.post('/api/logout', logoutRouter as any);
-    router.post('/api/registration', registerRouter as any);
+    router.post('/api/authorize', loginRouter);
+    router.post('/api/logout', logoutRouter);
+    router.post('/api/registration', registerRouter);
 
     /* Resources */
     router.post('/api/data/image', loadFileRouter);

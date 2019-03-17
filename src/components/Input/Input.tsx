@@ -1,28 +1,8 @@
 import * as React from 'react';
-import {compose, IClassNameProps} from "@bem-react/core";
-import InputTypeBase from "./_bemType/Input_type_base/Input_type_base";
 import {ChangeEvent} from "react";
 import './Input.css';
-import InputTypeWithLabel from "./_bemType/Input_type_withLabel/Input_type_withLabel";
-
-
-interface IInput extends IClassNameProps {
-    pattern?: string;
-    type?: string;
-    value?: string;
-    title?: string;
-    required?: boolean;
-    className?: string;
-
-    placeholder?: string;
-    bemType?: 'withLabel'
-    name?: string;
-    onChangeCB?: (value: string) => void;
-
-    icon?: string;
-
-    success?: boolean;
-}
+import {IInput} from "./Input.typings";
+import {ComposedInput} from "./Input.compose";
 
 
 class Input extends React.Component<IInput> {
@@ -45,15 +25,4 @@ class Input extends React.Component<IInput> {
     }
 }
 
-export interface IInputProps extends IInput{
-    bemOnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-const ComposedInput = compose<IInputProps>(
-    InputTypeWithLabel
-)(InputTypeBase);
-
 export default Input;
-
-
-

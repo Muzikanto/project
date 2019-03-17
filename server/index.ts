@@ -9,8 +9,7 @@ import {sessionOptions} from "./lib/psqlSessionStore";
 import loadUser from "./middleware/loadUser";
 import {connectSocket} from "./socket";
 import {Server, createServer} from "http"
-import {renderPages} from "./routes/renders";
-import apiRoutes from "./routes/api/index";
+import apiRoutes from "./routes";
 
 const port = process.env.PORT || 3000;
 const isDev = process.env.NODE_ENV === 'development';
@@ -25,11 +24,8 @@ let server: Server;
 
 if (isDev) {
     run();
-    module.hot && module.hot.accept('./routes/renders/index', () => {
-        run();
-    });
 
-    module.hot && module.hot.accept('./routes/api/index', () => {
+    module.hot && module.hot.accept('./routes/index', () => {
         run();
     });
 
@@ -80,7 +76,7 @@ function run() {
     app.use(sessionOptions);
     app.use(loadUser);
 
-    app.use(renderPages(apiRoutes(express.Router())));
+    app.use(apiRoutes(express.Router()));
 
     preloadAll().then(() => {
         server = createServer(app);
