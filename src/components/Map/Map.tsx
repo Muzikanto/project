@@ -40,4 +40,3 @@ class Map extends React.Component<IMapCont> {
 
 
 export default Map;
-

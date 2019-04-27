@@ -44,8 +44,9 @@ if (isDev) {
         });
     }
 
-    if (cluster.isWorker)
+    if (cluster.isWorker) {
         run();
+    }
 }
 
 function run() {

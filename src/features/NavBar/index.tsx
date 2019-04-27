@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {dropSession} from "../../actions/User";
-import {IStore} from "../../reducers";
 import NavBarUI from "./NavBar";
 import {INavBarContainer} from "./NavBar.typings";
+import {IStore} from "../../reducers/typings";
 
 
-class NavBar extends React.Component<INavBarContainer> {
+class _NavBar extends React.Component<INavBarContainer> {
     protected AppComponent = NavBarUI;
 
     protected items = [
@@ -34,4 +34,6 @@ const mapDispatchToProps = {
     dropSession,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+const NavBar = connect(mapStateToProps, mapDispatchToProps)(_NavBar);
+
+export default NavBar;

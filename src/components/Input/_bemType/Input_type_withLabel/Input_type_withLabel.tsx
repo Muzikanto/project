@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {IInputProps} from "../../Input";
 import {cn} from "@bem-react/classname";
 import './Input_type_withLabel.css';
 import {classnames} from "@bem-react/classnames";
 import {withBemMod} from "@bem-react/core";
+import {IInputProps} from "../../Input.typings";
 
 const cnInput = cn('Input_withLabel');
 

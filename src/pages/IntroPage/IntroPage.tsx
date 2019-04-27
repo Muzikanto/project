@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {cn} from "@bem-react/classname";
 import Map from "../../components/Map/Map";
-import './IntroPage.css'
 import CircleChart from "../../components/Chart/Circle/Circle";
-
+import './IntroPage.css'
 
 const cnInto = cn('IntoPage');
 
@@ -26,4 +25,3 @@ class IntroPage extends React.Component {
 }
 
 export default IntroPage;
-

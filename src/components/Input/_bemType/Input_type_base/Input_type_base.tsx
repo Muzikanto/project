@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {classnames} from "@bem-react/classnames";
-import {IInputProps} from "../../Input";
+import {IInputProps} from "../../Input.typings";
 import Icon from "../../../Icon/Icon";
 import './Input_type_base.css';
 import {cn} from "@bem-react/classname";

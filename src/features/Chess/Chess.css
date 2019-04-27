@@ -1,0 +1,45 @@
+.Chess-Container{
+    width: 640px;
+    height: 640px;
+    background: gray;
+    margin-top: 100px;
+    box-sizing: content-box;
+    border: solid 1px;
+    line-height:0
+}
+
+.Chess-Cell {
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    text-align: center;
+}
+
+.Chess-Cell_black {
+    background: black;
+}
+
+.Chess-Cell_white {
+    background: white;
+}
+
+.Chess-Cell_active {
+    background: #4caf50;
+}
+
+.Chess-Cell_attack {
+    background: #af2f21;
+}
+
+.Chess-Cell_current {
+    background: #a8af3b;
+}
+
+.Chess-Item {
+    width: 50%;
+    height: 50%;
+    margin: 50% auto 0 auto;
+    color: red;
+}
+
+

@@ -1,8 +1,6 @@
 import { cn } from '@bem-react/classname';
 import * as React from 'react';
-
 import './Footer.css'
-
 
 const cnFooter = cn('Footer');
 

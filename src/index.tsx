@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
+import {hydrate} from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {preloadReady} from 'react-loadable';
 import {Provider} from "react-redux";
@@ -8,7 +7,6 @@ import thunk from 'redux-thunk';
 import {applyMiddleware, createStore} from 'redux';
 import {register} from './registerServiceWorker';
 import reducers from "./reducers";
-
 import App from "./pages/.App/App";
 
 register();
@@ -24,7 +22,7 @@ const store = createStore(reducers, applyMiddleware(thunk));
 })();
 
 const render = (Component: React.ComponentType) => preloadReady().then(() => {
-        ReactDOM.hydrate(
+        hydrate(
             <Provider store={store}>
                 <Router>
                     <Component/>
@@ -35,6 +33,8 @@ const render = (Component: React.ComponentType) => preloadReady().then(() => {
     }
 );
 
-render(App);
+render(App).then();
 
-module.hot && module.hot.accept('./pages/.App/App', () => render(require('./pages/.App/App')));
+module.hot && module.hot.accept('./pages/.App/App', () => {
+    render(require('./pages/.App/App').default).then();
+});
