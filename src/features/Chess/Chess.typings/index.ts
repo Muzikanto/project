@@ -1,19 +1,39 @@
 export interface IChessState {
-    arr: IChessFigure[];
-    next: {
-        [key: number]: 1 | 2;
+    field: IChessField;
+    current?: {
+        pos: IChessPos;
+        item: IChessItem;
     };
-    current?: number;
-}
-
-export interface IChessHashMap {
-    [key: string]: {
-        text: string,
-        hod: (index: number) => {
-            attack: number[],
-            active: number[]
-        };
+    playerHod: 'white' | 'black';
+    check: 'white' | 'black' | '';
+    king: {
+        white: IChessPos;
+        black: IChessPos;
     }
 }
 
-export type IChessFigure = 'Слон' | 'Ладья' | 'Конь' | 'Пешка' | 'Ферзь' | 'Король' | '';
+export type IChessField = IChessItem[][];
+
+export interface IChessPos {
+    x: number;
+    y: number;
+}
+
+export type IChessFigure = 'bishop' | 'rook' | 'knight' | 'pawn' | 'queen' | 'king' | '';
+export type IChessAction = '' | 'active' | 'attack';
+
+export interface IChessItem {
+    type: IChessFigure;
+    action: IChessAction;
+    player: 'black' | 'white' | '';
+}
+
+export interface IChessNewAction extends IChessPos {
+    action: IChessAction;
+    figure: IChessFigure;
+}
+
+export interface IChessProps {
+    rotate?: boolean;
+    helper?: boolean;
+}

@@ -14,7 +14,7 @@ class FrontPage extends React.Component {
     public render() {
         return (
             <section className={cnFront()}>
-                <Chess/>
+                <Chess rotate={true} helper={true}/>
             </section>
         )
     }
