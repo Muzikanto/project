@@ -1,7 +1,7 @@
 import {Socket} from "socket.io";
 import {socketCheckAuth, socketSessionReload} from "./init";
-import {Socket_new_message} from "./Messages";
 import {Server} from "http";
+import {SocketChessHod} from "./Chess";
 
 export const connectSocket = (server: Server) => {
     const io: any = require('socket.io').listen(server);
@@ -11,7 +11,8 @@ export const connectSocket = (server: Server) => {
 
     io.sockets.on('connection', (socket: Socket) => {
         // const username = socket.client.request.user.name;
-        socket.on('new_message_send', Socket_new_message(io));
+        console.log(socket.client.id);
+        socket.on('CHESS_SEND', SocketChessHod(io));
     });
     return io;
 };

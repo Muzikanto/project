@@ -10,6 +10,9 @@ import {
     IChessState
 } from "./Chess.typings";
 import './Chess.css'
+import {connect} from "react-redux";
+import {IStore} from "../../reducers/typings";
+import {actionChessHod} from "../../actions/Chess";
 
 const cnChess = cn('Chess');
 
@@ -68,7 +71,7 @@ class Chess extends React.Component<IChessProps> {
             pawnPositions.push({x: i, y: 6});
         }
         for (const v of pawnPositions) {
-        field[v.y][v.x].type = 'pawn';
+            field[v.y][v.x].type = 'pawn';
         }
 
         for (let y = 0; y < 2; y++) {
@@ -115,6 +118,7 @@ class Chess extends React.Component<IChessProps> {
 
     private onClick(item: IChessItem, pos: IChessPos) {
         return () => {
+            this.props.actionChessHod({test: 1});
             const current = this.state.current;
             const isMyChess = !current && item.player === this.state.playerHod ||
                 current && (item.action || item.player === this.state.playerHod);
@@ -138,11 +142,11 @@ class Chess extends React.Component<IChessProps> {
         if (current && item.type !== 'king') {
             const field = this.copyField();
 
-            if(current.item.type === 'pawn' && (this.state.playerHod === 'white' && pos.y === 0 || this.state.playerHod === 'black' && pos.y === 7)){
+            if (current.item.type === 'pawn' && (this.state.playerHod === 'white' && pos.y === 0 || this.state.playerHod === 'black' && pos.y === 7)) {
                 let newFigure: IChessFigure = '';
-                while(true) {
+                while (true) {
                     const value = prompt('Enter new Figure: rook, queen, knight, bishop') as IChessFigure;
-                    if (value === 'rook' || value === 'queen' || value === 'knight' || value === 'bishop'){
+                    if (value === 'rook' || value === 'queen' || value === 'knight' || value === 'bishop') {
                         newFigure = value;
                         break;
                     } else {
@@ -427,6 +431,10 @@ class Chess extends React.Component<IChessProps> {
     }
 }
 
-export {
-    Chess
+const mapStateToProps = (_: IStore) => ({});
+
+const mapActionsToProps = {
+    actionChessHod
 };
+
+export default connect(mapStateToProps, mapActionsToProps)(Chess);

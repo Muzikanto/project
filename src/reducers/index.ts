@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux'
-import UserReducer  from "./UserReducer";
-import socket  from "./socket";
+import User  from "./User";
+import socket  from "./Socket";
 import {IStore} from "./typings";
 
 
 const Reducers = combineReducers<IStore>({
-    UserReducer,
+    UserReducer: User,
     socket
 });
 

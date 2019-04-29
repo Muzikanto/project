@@ -1,12 +1,13 @@
-import {IUserOptions} from "../UserReducer";
+import {IUserOptions} from "../User";
 
-interface IStore {
+export interface IStore {
     UserReducer: IUserOptions;
     socket: ISocketOptions;
 }
 
 export type ISocketOptions = any;
 
-export {
-    IStore
+export interface IReducerAction {
+    type: string;
+    data: any;
 }

@@ -1,4 +1,4 @@
-import {IUserOptions} from "../../../reducers/UserReducer";
+import {IUserOptions} from "../../../reducers/User";
 
 type IsetUser = (data: IUserOptions) => void;
 type IdropSession = () => void;

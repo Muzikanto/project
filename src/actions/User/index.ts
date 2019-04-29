@@ -1,5 +1,5 @@
 import {postFetch} from "../../utils/fetch";
-import {IUserOptions} from "../../reducers/UserReducer";
+import {IUserOptions} from "../../reducers/User";
 import {IauthorizeParams, IregisterParams} from "./User.typings/index";
 
 export const setUser = (data: IUserOptions) => (dispatch: any) => {

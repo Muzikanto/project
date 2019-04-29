@@ -1,4 +1,4 @@
-import {IUser} from "../../../reducers/UserReducer";
+import {IUser} from "../../../reducers/User";
 import {IdropSession} from "../../../actions/User/User.typings";
 
 

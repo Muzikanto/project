@@ -14,7 +14,7 @@ const initialState: IUserOptions = {
     user: null
 };
 
-const UserReducer = (state = initialState, action: any) => {
+const User = (state = initialState, action: any) => {
     switch (action.type) {
         case 'SET_USER':
             return {...state, ...action.data};
@@ -23,4 +23,4 @@ const UserReducer = (state = initialState, action: any) => {
     }
 };
 
-export default UserReducer;
+export default User;
