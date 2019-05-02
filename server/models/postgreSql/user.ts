@@ -29,7 +29,8 @@ export function UserRegister(nick: string, email: string, password: string) {
                     reject(new authError('User not Created'));
             }
         } catch (err) {
-            reject(new authError('Error Register'));
+            console.log(err)
+            reject(new authError('Error Login'));
         }
     });
 }

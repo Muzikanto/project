@@ -1,6 +1,7 @@
 import {authError, IAuthError} from "../models/postgreSql/base";
 
 interface IData {
+    nick?: string;
     password?: string;
     email?: string;
     password_repeat?: string;
@@ -8,6 +9,10 @@ interface IData {
 
 export function checkValid(obj: IData) {
     return new Promise((resolve: () => void, reject: (err: IAuthError) => void) => {
+        if (typeof obj.nick === "string") {
+            const v = checkOtherValid("Nick", obj.nick);
+            if (v) reject(new authError(v));
+        }
         if (typeof obj.email === "string") {
             const v = checkEmailValid(obj.email);
             if (v) reject(new authError(v));

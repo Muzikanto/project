@@ -1,29 +1,21 @@
-import {IUserOptions} from "../../../reducers/User";
+import {IUserOptions} from "../../../reducers/User/User.typings";
 
-type IsetUser = (data: IUserOptions) => void;
-type IdropSession = () => void;
+export type IactionSetUser = (data: IUserOptions) => void;
 
-interface IauthorizeParams {
+export type IactionDropSession = () => void;
+
+export interface IactionAuthorizeParams {
     email: string,
     password: string
 }
 
-type Iauthorize = (params: IauthorizeParams) => void;
+export type IactionAuthorize = (params: IactionAuthorizeParams) => void;
 
-interface IregisterParams {
+export interface IactionRegisterParams {
     nick: string,
     email: string,
     password: string,
     password2: string
 }
 
-type Iregister = (params: IregisterParams) => void;
-
-export {
-    IsetUser,
-    Iauthorize,
-    IauthorizeParams,
-    Iregister,
-    IregisterParams,
-    IdropSession,
-}
+export type IactionRegister = (params: IactionRegisterParams) => void;

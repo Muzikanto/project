@@ -10,19 +10,13 @@ import {
     IChessState
 } from "./Chess.typings";
 import './Chess.css'
-import {connect} from "react-redux";
-import {IStore} from "../../reducers/typings";
-import {actionChessHod} from "../../actions/Chess";
 
 const cnChess = cn('Chess');
 
 class Chess extends React.Component<IChessProps> {
-    state: IChessState;
-
-    constructor(props: IChessProps) {
-        super(props);
-        this.state = {
-            field: this.getStartField(),
+    static createChessState() {
+        return {
+            field: Chess.getStartField(),
             playerHod: 'white',
             check: '',
             current: undefined,
@@ -36,10 +30,10 @@ class Chess extends React.Component<IChessProps> {
                     y: 0
                 }
             }
-        }
+        } as IChessState;
     }
 
-    private getStartField(): IChessField {
+    static getStartField(): IChessField {
         const field = new Array(8).fill(0);
         for (let y = 0; y < 8; y++) {
             field[y] = new Array(8).fill('');
@@ -86,20 +80,17 @@ class Chess extends React.Component<IChessProps> {
 
     public render() {
         return (
-            <div className={cnChess('Container', {
-                hod: this.props.rotate && this.state.playerHod
-            })}>
+            <div className={cnChess('Container')}>
                 {
-                    this.state.field.map((row: IChessItem[], y: number) => {
+                    this.props.state.field.map((row: IChessItem[], y: number) => {
                         return row.map((el: IChessItem, x: number) => {
                             const cellMix = {
                                 ...(x + y % 2) % 2 === 0 ? {white: true} : {black: true},
                                 action: this.props.helper && el.action,
-                                current: this.state.current && this.state.current.pos.y === y && this.state.current.pos.x === x,
+                                current: this.props.state.current && this.props.state.current.pos.y === y && this.props.state.current.pos.x === x,
                             };
                             const itemMix = {
                                 color: el.player,
-                                hod: this.props.rotate && this.state.playerHod,
                                 figure: el.type
                             };
 
@@ -118,16 +109,16 @@ class Chess extends React.Component<IChessProps> {
 
     private onClick(item: IChessItem, pos: IChessPos) {
         return () => {
-            this.props.actionChessHod({test: 1});
-            const current = this.state.current;
-            const isMyChess = !current && item.player === this.state.playerHod ||
-                current && (item.action || item.player === this.state.playerHod);
+            const current = this.props.state.current;
+            const isMyChess = !current && item.player === this.props.state.playerHod ||
+                current && (item.action || item.player === this.props.state.playerHod);
 
             if (isMyChess) {
                 if (item.action && current) {
                     this.moveFigure(item, pos);
                 } else {
-                    this.setState({
+                    this.props.actionChessSend({
+                        ...this.props.state,
                         current: {pos, item},
                         field: this.getNewField(item, pos)
                     });
@@ -137,12 +128,12 @@ class Chess extends React.Component<IChessProps> {
     }
 
     protected moveFigure(item: IChessItem, pos: IChessPos) {
-        const current = this.state.current;
+        const current = this.props.state.current;
 
         if (current && item.type !== 'king') {
             const field = this.copyField();
 
-            if (current.item.type === 'pawn' && (this.state.playerHod === 'white' && pos.y === 0 || this.state.playerHod === 'black' && pos.y === 7)) {
+            if (current.item.type === 'pawn' && (this.props.state.playerHod === 'white' && pos.y === 0 || this.props.state.playerHod === 'black' && pos.y === 7)) {
                 let newFigure: IChessFigure = '';
                 while (true) {
                     const value = prompt('Enter new Figure: rook, queen, knight, bishop') as IChessFigure;
@@ -162,18 +153,19 @@ class Chess extends React.Component<IChessProps> {
 
             const newKingPos: any = {};
             if (current.item.type === 'king') {
-                newKingPos[this.state.playerHod] = pos;
+                newKingPos[this.props.state.playerHod] = pos;
             }
 
-            const kingPos = current.item.type === 'king' ? pos : this.state.king[this.state.playerHod];
+            const kingPos = current.item.type === 'king' ? pos : this.props.state.king[this.props.state.playerHod];
             const isShah = this.checkShah(kingPos, field);
 
             if (!isShah) {
-                this.setState({
+                this.props.actionChessSend({
+                    ...this.props.state,
                     current: undefined,
                     field,
-                    king: {...this.state.king, ...newKingPos},
-                    playerHod: this.state.playerHod === 'black' ? 'white' : 'black',
+                    king: {...this.props.state.king, ...newKingPos},
+                    playerHod: this.props.state.playerHod === 'black' ? 'white' : 'black',
                 });
             }
         }
@@ -220,7 +212,7 @@ class Chess extends React.Component<IChessProps> {
             const secondField = this.copyField();
             secondField[action.y][action.x] = {...figure};
             secondField[pos.y][pos.x] = {type: '', player: '', action: ''};
-            !this.checkShah(figure.type === 'king' ? action : this.state.king[this.state.playerHod], secondField) && checkedActions.push(action);
+            !this.checkShah(figure.type === 'king' ? action : this.props.state.king[this.props.state.playerHod], secondField) && checkedActions.push(action);
         }
 
         return checkedActions;
@@ -237,15 +229,15 @@ class Chess extends React.Component<IChessProps> {
             hardActions,
         } = this.getVectorsAndActions();
 
-        const line = hardActions(lineVectors(), this.state.playerHod, pos, field)
+        const line = hardActions(lineVectors(), this.props.state.playerHod, pos, field)
             .filter(el => el.figure === 'queen' || el.figure === 'rook');
-        const diagonal = hardActions(diagonalVectors(), this.state.playerHod, pos, field)
+        const diagonal = hardActions(diagonalVectors(), this.props.state.playerHod, pos, field)
             .filter(el => el.figure === 'queen' || el.figure === 'bishop');
-        const horse = easyActions(horseVectors(), this.state.playerHod, pos, field)
+        const horse = easyActions(horseVectors(), this.props.state.playerHod, pos, field)
             .filter(el => el.figure === 'knight');
-        const king = easyActions(kingVectors(), this.state.playerHod, pos, field)
+        const king = easyActions(kingVectors(), this.props.state.playerHod, pos, field)
             .filter(el => el.figure === 'king');
-        const pawn = pawnActions(this.state.playerHod, pos, field)
+        const pawn = pawnActions(this.props.state.playerHod, pos, field)
             .filter(el => el.figure === 'pawn');
 
         return [...line, ...diagonal, ...horse, ...king, ...pawn].filter(el => el.action === 'attack').length !== 0;
@@ -423,7 +415,7 @@ class Chess extends React.Component<IChessProps> {
         for (let y = 0; y < 8; y++) {
             field[y] = [];
             for (let x = 0; x < 8; x++) {
-                field[y][x] = {...this.state.field[y][x], action: ''};
+                field[y][x] = {...this.props.state.field[y][x], action: ''};
             }
         }
 
@@ -431,10 +423,4 @@ class Chess extends React.Component<IChessProps> {
     }
 }
 
-const mapStateToProps = (_: IStore) => ({});
-
-const mapActionsToProps = {
-    actionChessHod
-};
-
-export default connect(mapStateToProps, mapActionsToProps)(Chess);
+export default Chess;

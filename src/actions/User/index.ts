@@ -1,39 +1,41 @@
 import {postFetch} from "../../utils/fetch";
-import {IUserOptions} from "../../reducers/User";
-import {IauthorizeParams, IregisterParams} from "./User.typings/index";
+import {IactionAuthorizeParams, IactionRegisterParams} from "./User.typings";
+import {Dispatch} from "redux";
+import {IUserOptions} from "../../reducers/User/User.typings";
+import actions from "../index";
 
-export const setUser = (data: IUserOptions) => (dispatch: any) => {
+export const actionSetUser = (data: IUserOptions) => (dispatch: Dispatch) => {
     dispatch({
         data,
-        type: 'SET_USER'
+        type: actions.SET_USER
     });
 };
 
-export const dropSession = () => async (dispatch: any) => {
+export const actionDropSession = () => async (dispatch: Dispatch) => {
     try {
         await postFetch('/api/logout', {});
-        setUser({user: null})(dispatch);
+        actionSetUser({user: null})(dispatch);
     } catch (err) {
         console.log(err);
     }
 };
 
-export const authorize = (params: IauthorizeParams) => async (dispatch: any) => {
+export const actionAuthorize = (params: IactionAuthorizeParams) => async (dispatch: Dispatch) => {
     try {
         const data = await postFetch('/api/authorize', params);
         if (data.status === 200) {
-            setUser({user: data.response.user})(dispatch);
+            actionSetUser({user: data.response.user})(dispatch);
         }
     } catch (err) {
         console.log(err);
     }
 };
 
-export const register = (params: IregisterParams) => async (dispatch: any) => {
+export const actionRegister = (params: IactionRegisterParams) => async (dispatch: Dispatch) => {
     try {
-        const data = await postFetch('/api/registration', params);
+        const data = await postFetch('/api/register', params);
         if (data.status === 200) {
-            setUser({user: data.response.user})(dispatch);
+            actionSetUser({user: data.response.user})(dispatch);
         }
     } catch (err) {
         console.log(err);

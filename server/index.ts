@@ -25,9 +25,11 @@ let server: Server;
 if (isDev) {
     run();
 
-    module.hot && module.hot.accept('./routes/index', () => {
-        run();
-    });
+    for(const pathToHotFiles of ['./routes/index', './socket/index']) {
+        module.hot && module.hot.accept(pathToHotFiles, () => {
+            run();
+        });
+    }
 
     process.argv.push('--config-overrides', './.config/webpack.client.js');
     require('react-app-rewired/scripts/start');

@@ -1,4 +1,4 @@
-import {IactionChessHod} from "../../../actions/Chess";
+import {IactionChessSend} from "../../../actions/Chess";
 
 export interface IChessState {
     field: IChessField;
@@ -36,8 +36,11 @@ export interface IChessNewAction extends IChessPos {
 }
 
 export interface IChessProps {
-    actionChessHod: IactionChessHod;
+    actionChessSend: IactionChessSend;
 
-    rotate?: boolean;
+    state: IChessState;
+
     helper?: boolean;
 }
+
+export interface IChessContainerProps extends IChessProps{}

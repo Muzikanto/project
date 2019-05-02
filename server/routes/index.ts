@@ -1,5 +1,4 @@
 import {Router} from "express-serve-static-core";
-
 import {testRouter} from "./test";
 import {loginRouter} from "./authorize/login";
 import {logoutRouter} from "./authorize/logout";
@@ -10,7 +9,6 @@ import {loadFileRouter} from "./files/load_file";
 import {renderWithApp} from "./helpers/render";
 import App from "../../src/pages/.App/App";
 
-
 export default function apiRoutes(router: Router): Router {
     router.get(['/', '/page1', '/register'], renderWithApp(App));
 
@@ -19,7 +17,7 @@ export default function apiRoutes(router: Router): Router {
     /* User */
     router.post('/api/authorize', loginRouter);
     router.post('/api/logout', logoutRouter);
-    router.post('/api/registration', registerRouter);
+    router.post('/api/register', registerRouter);
 
     /* Resources */
     router.post('/api/data/image', loadFileRouter);

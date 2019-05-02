@@ -1,11 +1,7 @@
-import {getSendData, ISendData} from "../utils/SendData";
+import actions from "../../src/actions";
+import {IChessState} from "../../src/features/Chess/Chess.typings";
+import * as SocketIO from "socket.io";
 
-interface IChessHod {
-    text: string
-}
-
-export const SocketChessHod = (io: any) => async (_: IChessHod, cb: (data: ISendData) => void) => {
-    console.log('CHESS_RESPONSE')
-    io.sockets.emit('CHESS_RESPONSE', {response: true});
-    cb(getSendData(200, 'Success Send', {}));
+export const SocketChessHod = (_: SocketIO.Server, socket: SocketIO.Socket) => async (data: IChessState) => {
+    socket.broadcast.emit(actions.CHESS_RESPONSE, data)
 };

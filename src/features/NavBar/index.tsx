@@ -1,14 +1,11 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import {dropSession} from "../../actions/User";
+import {actionDropSession} from "../../actions/User";
 import NavBarUI from "./NavBar";
-import {INavBarContainer} from "./NavBar.typings";
+import {INavBarContainerProps} from "./NavBar.typings";
 import {IStore} from "../../reducers/typings";
 
-
-class _NavBar extends React.Component<INavBarContainer> {
-    protected AppComponent = NavBarUI;
-
+class NavBar extends React.Component<INavBarContainerProps> {
     protected items = [
         {url: '/page1', text: 'Map'},
         {url: '/page2', text: 'NotFound'},
@@ -16,24 +13,23 @@ class _NavBar extends React.Component<INavBarContainer> {
 
     public render() {
         const {user} = this.props;
-        const App = this.AppComponent;
+
         return (
-            <App user={user} dropSession={this.dropSession} items={this.items}/>
+            <NavBarUI user={user} dropSession={this.dropSession} items={this.items}/>
         )
     }
+
     private dropSession = () => {
-        this.props.dropSession();
+        this.props.actionDropSession();
     };
 }
 
 const mapStateToProps = (state: IStore) => ({
-    user: state.UserReducer.user,
+    user: state.User.user,
 });
 
 const mapDispatchToProps = {
-    dropSession,
+    actionDropSession,
 };
 
-const NavBar = connect(mapStateToProps, mapDispatchToProps)(_NavBar);
-
-export default NavBar;
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

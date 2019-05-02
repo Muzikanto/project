@@ -1,16 +1,13 @@
 import * as React from 'react';
 import {cn} from "@bem-react/classname";
 import {Link} from "react-router-dom";
-
 import {shortText} from "./NavBar.helpers";
-import {INavBar, INavBarItem} from "./NavBar.typings";
-
+import {INavBarProps, INavBarItem} from "./NavBar.typings";
 import './NavBar.css'
-
 
 const cnNav = cn('NavBar');
 
-class NavBar extends React.Component<INavBar> {
+class NavBar extends React.Component<INavBarProps> {
     protected getItems() {
         return this.props.items.map((el: INavBarItem) => {
             if (!el.popup) {
@@ -34,11 +31,11 @@ class NavBar extends React.Component<INavBar> {
     protected getRight() {
         return !this.props.user ?
             <ul className={cnNav('Right')}>
-                <li className={cnNav('Item')}><Link to={'#'}>Войти</Link></li>
-                <li className={cnNav('Item')}><Link to={'#'}>Регистрация</Link></li>
+                <li className={cnNav('Item')}><Link to={'/login'}>Войти</Link></li>
+                <li className={cnNav('Item')}><Link to={'/register'}>Регистрация</Link></li>
             </ul>
             : <ul className={cnNav('Right')}>
-                <li className={cnNav('Item')}><Link to={'$'}>{shortText(this.props.user.name, 8)}</Link></li>
+                <li className={cnNav('Item')}><Link to={'$'}>{shortText(this.props.user.nick, 10)}</Link></li>
                 <li className={cnNav('Item')}><Link to="#" onClick={this.props.dropSession}>Выйти</Link></li>
             </ul>;
     }
