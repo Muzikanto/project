@@ -2,12 +2,16 @@
     width: 640px;
     height: 640px;
     background: gray;
-    margin-top: 100px;
+    margin-top: 20px;
     box-sizing: content-box;
     border: solid 1px;
     line-height:0;
     cursor: pointer;
     user-select: none;
+}
+
+.Chess-Container_player_black {
+    transform: rotate(180deg);
 }
 
 /* */
@@ -53,6 +57,10 @@
      padding: 50% 0;
      text-align: center;
  }
+
+.Chess-Item_player_black {
+    transform: rotate(180deg);
+}
 
 .Chess-Item_color_black {
     background: url(assets/spriteMap.png) no-repeat;

@@ -1,4 +1,4 @@
-import {IactionChessSend} from "../../../actions/Chess";
+import {IactionChessJoin, IactionChessSend, IactionChessStartGame} from "../../../actions/Chess";
 
 export interface IChessState {
     field: IChessField;
@@ -7,6 +7,7 @@ export interface IChessState {
         item: IChessItem;
     };
     playerHod: 'white' | 'black';
+    player: 'white' | 'black';
     check: 'white' | 'black' | '';
     king: {
         white: IChessPos;
@@ -37,10 +38,16 @@ export interface IChessNewAction extends IChessPos {
 
 export interface IChessProps {
     actionChessSend: IactionChessSend;
+    actionChessStartGame: IactionChessStartGame;
+    actionChessJoin: IactionChessJoin;
 
     state: IChessState;
+    users: { [key: string]: string };
 
     helper?: boolean;
 }
 
-export interface IChessContainerProps extends IChessProps{}
+export interface IChessStart {
+    users: { [key: string]: string };
+    room: string;
+}

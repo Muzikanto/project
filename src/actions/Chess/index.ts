@@ -9,3 +9,19 @@ export const actionChessSend= (data: IChessState) => (dispatch: Dispatch) => {
         type: actions.CHESS_SEND
     });
 };
+
+export type IactionChessStartGame = () => void;
+export const actionChessStartGame= () => (dispatch: Dispatch) => {
+    dispatch({
+        data: null,
+        type: actions.CHESS_START
+    });
+};
+
+export type IactionChessJoin = (room: string) => void;
+export const actionChessJoin= (room: string) => (dispatch: Dispatch) => {
+    dispatch({
+        data: room,
+        type: actions.CHESS_JOIN
+    });
+};

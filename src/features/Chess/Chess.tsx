@@ -14,10 +14,11 @@ import './Chess.css'
 const cnChess = cn('Chess');
 
 class Chess extends React.Component<IChessProps> {
-    static createChessState() {
+    static createChessState(withFigures: boolean) {
         return {
-            field: Chess.getStartField(),
+            field: Chess.getStartField(withFigures),
             playerHod: 'white',
+            player: 'white',
             check: '',
             current: undefined,
             king: {
@@ -33,7 +34,7 @@ class Chess extends React.Component<IChessProps> {
         } as IChessState;
     }
 
-    static getStartField(): IChessField {
+    static getStartField(withFigures: boolean): IChessField {
         const field = new Array(8).fill(0);
         for (let y = 0; y < 8; y++) {
             field[y] = new Array(8).fill('');
@@ -44,34 +45,36 @@ class Chess extends React.Component<IChessProps> {
             }
         }
 
-        for (const v of [{x: 0, y: 0}, {x: 0, y: 7}, {x: 7, y: 0}, {x: 7, y: 7}]) {
-            field[v.y][v.x].type = 'rook';
-        }
-        for (const v of [{x: 1, y: 0}, {x: 6, y: 0}, {x: 1, y: 7}, {x: 6, y: 7}]) {
-            field[v.y][v.x].type = 'knight';
-        }
-        for (const v of [{x: 2, y: 0}, {x: 5, y: 0}, {x: 2, y: 7}, {x: 5, y: 7}]) {
-            field[v.y][v.x].type = 'bishop';
-        }
-        for (const v of [{x: 3, y: 0}, {x: 3, y: 7}]) {
-            field[v.y][v.x].type = 'queen';
-        }
-        for (const v of [{x: 4, y: 0}, {x: 4, y: 7}]) {
-            field[v.y][v.x].type = 'king';
-        }
-        const pawnPositions = [];
-        for (let i = 0; i < 8; i++) {
-            pawnPositions.push({x: i, y: 1});
-            pawnPositions.push({x: i, y: 6});
-        }
-        for (const v of pawnPositions) {
-            field[v.y][v.x].type = 'pawn';
-        }
+        if (withFigures) {
+            for (const v of [{x: 0, y: 0}, {x: 0, y: 7}, {x: 7, y: 0}, {x: 7, y: 7}]) {
+                field[v.y][v.x].type = 'rook';
+            }
+            for (const v of [{x: 1, y: 0}, {x: 6, y: 0}, {x: 1, y: 7}, {x: 6, y: 7}]) {
+                field[v.y][v.x].type = 'knight';
+            }
+            for (const v of [{x: 2, y: 0}, {x: 5, y: 0}, {x: 2, y: 7}, {x: 5, y: 7}]) {
+                field[v.y][v.x].type = 'bishop';
+            }
+            for (const v of [{x: 3, y: 0}, {x: 3, y: 7}]) {
+                field[v.y][v.x].type = 'queen';
+            }
+            for (const v of [{x: 4, y: 0}, {x: 4, y: 7}]) {
+                field[v.y][v.x].type = 'king';
+            }
+            const pawnPositions = [];
+            for (let i = 0; i < 8; i++) {
+                pawnPositions.push({x: i, y: 1});
+                pawnPositions.push({x: i, y: 6});
+            }
+            for (const v of pawnPositions) {
+                field[v.y][v.x].type = 'pawn';
+            }
 
-        for (let y = 0; y < 2; y++) {
-            for (let x = 0; x < 8; x++) {
-                field[y + 6][x].player = 'white';
-                field[y][x].player = 'black';
+            for (let y = 0; y < 2; y++) {
+                for (let x = 0; x < 8; x++) {
+                    field[y + 6][x].player = 'white';
+                    field[y][x].player = 'black';
+                }
             }
         }
 
@@ -80,31 +83,45 @@ class Chess extends React.Component<IChessProps> {
 
     public render() {
         return (
-            <div className={cnChess('Container')}>
-                {
-                    this.props.state.field.map((row: IChessItem[], y: number) => {
-                        return row.map((el: IChessItem, x: number) => {
-                            const cellMix = {
-                                ...(x + y % 2) % 2 === 0 ? {white: true} : {black: true},
-                                action: this.props.helper && el.action,
-                                current: this.props.state.current && this.props.state.current.pos.y === y && this.props.state.current.pos.x === x,
-                            };
-                            const itemMix = {
-                                color: el.player,
-                                figure: el.type
-                            };
+            <>
+                <button onClick={()=>this.startGame()}>Start</button>
+                <button onClick={()=>this.joinToRoom()}>Join</button>
+                <label>{Object.keys(this.props.users).join(' ')}</label>
+                <div className={cnChess('Container', {player: this.props.state.player})}>
+                    {
+                        this.props.state.field.map((row: IChessItem[], y: number) => {
+                            return row.map((el: IChessItem, x: number) => {
+                                const cellMix = {
+                                    ...(x + y % 2) % 2 === 0 ? {white: true} : {black: true},
+                                    action: this.props.helper && el.action,
+                                    current: this.props.state.current && this.props.state.current.pos.y === y && this.props.state.current.pos.x === x,
+                                };
+                                const itemMix = {
+                                    color: el.player,
+                                    figure: el.type,
+                                    player: this.props.state.player,
+                                };
 
-                            return (
-                                <div key={`ChessCell${y}-${x}`} className={cnChess('Cell', cellMix)}
-                                     onClick={this.onClick(el, {y, x})}>
-                                    <div className={cnChess('Item', itemMix)}/>
-                                </div>
-                            )
-                        });
-                    })
-                }
-            </div>
+                                return (
+                                    <div key={`ChessCell${y}-${x}`} className={cnChess('Cell', cellMix)}
+                                         onClick={this.onClick(el, {y, x})}>
+                                        <div className={cnChess('Item', itemMix)}/>
+                                    </div>
+                                )
+                            });
+                        })
+                    }
+                </div>
+            </>
         )
+    }
+
+    private startGame() {
+        this.props.actionChessStartGame();
+    }
+
+    private joinToRoom() {
+        this.props.actionChessJoin('room');
     }
 
     private onClick(item: IChessItem, pos: IChessPos) {
