@@ -1,14 +1,14 @@
 import * as express from 'express';
 import * as path from 'path';
-import {sendData} from "../../utils/SendData";
+import {sendResponse} from "../../utils/SendData";
 
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination (_: express.Request, __: any, cb: (err: Error | null, path: string) => void) {
+    destination(_: express.Request, __: any, cb: (err: Error | null, path: string) => void) {
         cb(null, path.join(__dirname, '../../server/resources/'));
     },
-    filename (_: express.Request, file: any, cb: (err: Error | null, name: string) => void) {
+    filename(_: express.Request, file: any, cb: (err: Error | null, name: string) => void) {
         cb(null, `image-${file.originalname}`);
     }
 });
@@ -32,11 +32,11 @@ export const loadFileRouter = (req: express.Request, res: express.Response) => {
 
     loader(req, res, (err: Error) => {
         if (err instanceof multer.MulterError) {
-            sendData(res, 403, err.message);
+            sendResponse(res, {status: 403, message: err.message});
         } else if (err) {
-            sendData(res, 400, err.message);
+            sendResponse(res, {status: 400, message: err.message});
         } else
-            sendData(res, 200, 'Success Load');
+            sendResponse(res, {status: 200, message: 'Success Load'});
     });
 };
 

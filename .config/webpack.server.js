@@ -62,6 +62,7 @@ const plugins = [
         files: ['./src/**/*.ts']
     })
 ];
+
 isDev && plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new StartServerPlugin('index.js')

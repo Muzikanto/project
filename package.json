@@ -24,6 +24,13 @@
       "...": "..."
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Muzikanto/project.git"
+  },
+  "contributors": [
+    "Muzikanto"
+  ],
   "cacheDirectories": [
     "node_modules"
   ],
@@ -37,7 +44,7 @@
     "postgreSql",
     "redux"
   ],
-  "author": "Maxim",
+  "author": "Muzikanto",
   "dependencies": {
     "@bem-react/classname": "^1.2.0",
     "@bem-react/classnames": "^1.1.0",

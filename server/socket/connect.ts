@@ -1,23 +1,13 @@
 import {authError, IAuthError} from "../models/postgreSql/base";
 import {UserFindById} from "../models/postgreSql/user";
 import {LoadSession} from "../models/postgreSql/session";
-import {ISession, IUserSession} from "../routes/interfaces";
-import {Handshake, Socket} from "socket.io";
+import {ISession, IUserSession} from "../routes/typings";
+import {IHandshake, ISocket} from "./socket.typings";
 
 const cookie = require('cookie');
 const async = require('async');
 const config = require('../../config.json');
 const cookieParser = require('cookie-parser');
-
-export interface ISocket extends Socket {
-    handshake: IHandshake;
-}
-
-export interface IHandshake extends Handshake {
-    user: IUserSession;
-    session: ISession;
-    cookies: any;
-}
 
 export function socketCheckAuth(handshake: IHandshake, mainCallback: (e: Event | Error | null, check?: boolean) => void) {
     async.waterfall([

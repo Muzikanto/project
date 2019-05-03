@@ -1,7 +1,7 @@
 import * as express from 'express';
 import {UserFindById} from "../models/postgreSql/user";
 import {RequestHandlerParams} from "express-serve-static-core";
-import {IRequestSession} from "../routes/interfaces";
+import {IRequestSession} from "../routes/typings";
 
 
 const loadUser = async (req: IRequestSession, res: express.Response, next: express.NextFunction) => {

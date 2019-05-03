@@ -1,6 +1,4 @@
-# Create React App (improved)
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/awinogradov/cra-ssr-boilerplate.svg)](https://greenkeeper.io/)
+# React SSR-Project
 
 ## What's inside?
 
@@ -9,6 +7,8 @@
 - [stream rendering](https://reactjs.org/docs/react-dom-server.html#rendertonodestream) because it's fast;
 - [react-app-rewired](https://github.com/timarney/react-app-rewired) for improving base `react-scripts`;
 - [TypeScript](https://www.typescriptlang.org/) as a main language for client and server;
+- [Redux](https://redux.js.org) a predictable state container for JavaScript apps.
+- [Socket IO](https://socket.io) featuring the fastest and most reliable real-time engine
 
 ## Usage
 
@@ -18,9 +18,6 @@
 ```
 
 Point your browser to [http://localhost:3000/](http://localhost:3000/). 
-### How it works
-
-`react-scripts` uses `webpack-dev-server` for incremental building and HMR, it works fine and the only one way to use it with SSR it's proxy. `webpack-dev-server` compiles all static files, but `Express` renders `html` on the different port. It's the reason why we need to use the proxy for static files and ws to `webpack-dev-server` from `Express`.
 
 ## Building
 

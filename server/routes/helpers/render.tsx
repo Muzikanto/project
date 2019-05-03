@@ -8,7 +8,7 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 
 import Reducers from "../../../src/reducers/index";
-import {IRequestSession, IUserSession} from "../interfaces";
+import {IRequestSession, IUserSession} from "../typings";
 import {ReactType} from "react";
 import {Application} from "express";
 

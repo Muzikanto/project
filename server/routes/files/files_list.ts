@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {sendData} from "../../utils/SendData";
+import {sendResponse} from "../../utils/SendData";
 
 const fs = require('fs');
 
@@ -7,7 +7,7 @@ export const getPublicFilesListRouter = function(_: express.Request, res: expres
     fs.readdir('./server/resources', function (err: Error, files: string[]) {
         if (err)
             console.log(err);
-        sendData(res, 200, 'Load Public Files Names', {files});
+        sendResponse(res, {status: 200, message: 'Load Public Files Names', response: {files}});
     });
 };
 
