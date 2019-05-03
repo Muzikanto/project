@@ -130,7 +130,7 @@ class Chess extends React.Component<IChessProps> {
             const isMyChess = !current && item.player === this.props.state.playerHod ||
                 current && (item.action || item.player === this.props.state.playerHod);
 
-            if (isMyChess) {
+            if (isMyChess && this.props.state.player === this.props.state.playerHod) {
                 if (item.action && current) {
                     this.moveFigure(item, pos);
                 } else {

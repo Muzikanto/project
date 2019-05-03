@@ -13,17 +13,17 @@ const initialState: IChessOptions = {
 const ChessReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
         case actions.CHESS_SEND:
-            socket.emit(actions.CHESS_SEND, action.data);
+            socket.emit(actions.CHESS_SEND, {state: action.data, room: state.room});
 
-            return {...state, state: action.data};
+            return {...state, state: {...state.state, ...action.data}};
         case actions.ON_CHESS_RESPONSE:
-            return {...state, state: action.data};
+            return {...state, state: {...state.state, ...action.data}};
         case actions.CHESS_START:
             socket.emit(actions.CHESS_START, state);
 
             return state;
         case actions.ON_CHESS_START:
-            console.log(action.data.room);
+            console.log(action.data.state.player);
             return action.data;
         case actions.CHESS_JOIN:
             socket.emit(actions.CHESS_JOIN, action.data);

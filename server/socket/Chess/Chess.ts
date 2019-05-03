@@ -7,10 +7,9 @@ import {IChessOptions} from "../../../src/reducers/Chess/Chess.typings";
 export const connectChessSockets = (socket: SocketIO.Socket, io: SocketIO.Server) => {
     const nick = socket.client.request.user.nick;
 
-    socket.on(actions.CHESS_SEND, (data: IChessState) => {
-        delete data.player;
-        delete data.current;
-        socket.broadcast.emit(actions.ON_CHESS_RESPONSE, data)
+    socket.on(actions.CHESS_SEND, ({state, room}: { state: IChessState, room: string }) => {
+        delete state.player;
+        socket.broadcast.to(room).emit(actions.ON_CHESS_RESPONSE, state)
     });
 
     socket.on(actions.CHESS_START, ({users, room}: IChessStart) => {
@@ -20,12 +19,12 @@ export const connectChessSockets = (socket: SocketIO.Socket, io: SocketIO.Server
             users,
         };
 
-        io.sockets.clients((err: Error, clients: string[])=>{
+        io.sockets.in(room).clients((err: Error, clients: string[]) => {
             if (room) {
                 if (!err && clients && clients.length > 1) {
-                    io.sockets.connected[clients[0]].emit(actions.ON_CHESS_START, response);
+                    socket.emit(actions.ON_CHESS_START, response);
                     response.state.player = 'black';
-                    io.sockets.connected[clients[1]].emit(actions.ON_CHESS_START, response);
+                    socket.broadcast.to(room).emit(actions.ON_CHESS_START, response);
                 } else {
                     socket.emit(actions.ON_CHESS_ERROR, "Need two players");
                 }
@@ -37,6 +36,9 @@ export const connectChessSockets = (socket: SocketIO.Socket, io: SocketIO.Server
 
     socket.on(actions.CHESS_JOIN, (room: string) => {
         socket.join(room);
-        io.sockets.emit(actions.ON_CHESS_JOIN, {nick, room})
+
+        const response = {nick, room};
+
+        io.to(room).emit(actions.ON_CHESS_JOIN, response);
     });
 };
