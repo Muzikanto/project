@@ -1,7 +1,7 @@
 import actions from "../../../src/actions";
 import * as SocketIO from "socket.io";
-import {IChessStart, IChessState} from "../../../src/features/Chess/Chess.typings";
-import Chess from "../../../src/features/Chess/Chess";
+import {IChessStart, IChessState} from "../../../src/pages/ChessPage/ChessPage.components/Chess/Chess.typings";
+import Chess from "../../../src/pages/ChessPage/ChessPage.components/Chess/Chess";
 import {IChessOptions} from "../../../src/reducers/Chess/Chess.typings";
 
 export const connectChessSockets = (socket: SocketIO.Socket, io: SocketIO.Server) => {

@@ -1,4 +1,4 @@
-import {IChessState} from "../../../features/Chess/Chess.typings";
+import {IChessState} from "../../../pages/ChessPage/ChessPage.components/Chess/Chess.typings";
 
 export type IChessOptions = {
     state: IChessState;

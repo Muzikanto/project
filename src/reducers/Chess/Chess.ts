@@ -1,6 +1,6 @@
 import {IReducerAction} from "../typings";
 import actions from "../../actions";
-import Chess from "../../features/Chess/Chess";
+import Chess from "../../pages/ChessPage/ChessPage.components/Chess/Chess";
 import {IChessOptions} from "./Chess.typings";
 import socket from "../socket";
 

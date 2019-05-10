@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {FormEvent, RefObject} from 'react';
 import {connect} from "react-redux";
-import {actionRegister} from "../../actions/User";
+import {actionRegister} from "../../../../actions/User";
 import RegisterFormUI from "./RegisterForm";
 import {IRegisterFormContainerProps} from "./RegisterForm.typings";
-import Input from "../../components/Input/Input";
-import {IStore} from "../../reducers/typings";
+import Input from "../../../../components/Input/Input";
+import {IStore} from "../../../../reducers/typings";
 
 
 class RegisterForm extends React.Component<IRegisterFormContainerProps> {

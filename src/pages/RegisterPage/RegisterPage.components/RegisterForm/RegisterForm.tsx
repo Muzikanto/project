@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {cn} from "@bem-react/classname";
 import {IRegisterFormProps} from "./RegisterForm.typings";
-import Input from "../../components/Input/Input";
 import './RegisterForm.css';
-import Button from "../../components/Button/Button";
+import Input from "../../../../components/Input/Input";
+import Button from "../../../../components/Button/Button";
 
 const cnRegisterForm = cn('RegisterForm');
 

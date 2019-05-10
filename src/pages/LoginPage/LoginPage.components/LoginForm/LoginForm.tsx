@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {cn} from "@bem-react/classname";
 import {ILoginFormProps} from "./LoginForm.typings";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
+import Input from "../../../../components/Input/Input";
+import Button from "../../../../components/Button/Button";
 import './LoginForm.css';
 
 const cnLoginForm = cn('LoginForm');

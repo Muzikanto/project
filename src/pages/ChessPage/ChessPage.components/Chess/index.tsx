@@ -1,5 +1,5 @@
-import {IStore} from "../../reducers/typings";
-import {actionChessSend, actionChessJoin, actionChessStartGame} from "../../actions/Chess";
+import {IStore} from "../../../../reducers/typings";
+import {actionChessSend, actionChessJoin, actionChessStartGame} from "../../../../actions/Chess";
 import {connect} from "react-redux";
 import Chess from "./Chess";
 

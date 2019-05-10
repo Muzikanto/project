@@ -10,7 +10,7 @@ import {renderWithApp} from "./helpers/render";
 import App from "../../src/pages/.App/App";
 
 export default function apiRoutes(router: Router): Router {
-    router.get(['/', '/page1', '/register'], renderWithApp(App));
+    router.get(['/', '/page1', '/register', '/login', '/chess'], renderWithApp(App));
 
     router.get('/api/test', testRouter);
 

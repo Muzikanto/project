@@ -1,5 +1,5 @@
-import {IUser} from "../../../reducers/User/User.typings";
-import {IactionDropSession} from "../../../actions/User/User.typings";
+import {IUser} from "../../../../reducers/User/User.typings";
+import {IactionDropSession} from "../../../../actions/User/User.typings";
 
 export interface INavBarItem {
     url: string;

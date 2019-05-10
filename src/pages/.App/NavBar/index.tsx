@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import {actionDropSession} from "../../actions/User";
+import {actionDropSession} from "../../../actions/User";
 import NavBarUI from "./NavBar";
 import {INavBarContainerProps} from "./NavBar.typings";
-import {IStore} from "../../reducers/typings";
+import {IStore} from "../../../reducers/typings";
 
 class NavBar extends React.Component<INavBarContainerProps> {
     protected items = [
         {url: '/page1', text: 'Map'},
+        {url: '/chess', text: 'Chess'},
         {url: '/page2', text: 'NotFound'},
         {url: '#', text: 'About', popup: [{url: '/page1', text: 'Map'}, {url: '/page2', text: 'NotFound'}]}];
 

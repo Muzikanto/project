@@ -1,4 +1,4 @@
-import {IactionChessJoin, IactionChessSend, IactionChessStartGame} from "../../../actions/Chess";
+import {IactionChessJoin, IactionChessSend, IactionChessStartGame} from "../../../../../actions/Chess";
 
 export interface IChessState {
     field: IChessField;

@@ -1,6 +1,6 @@
-import {IactionAuthorize} from "../../../actions/User/User.typings";
+import {IactionAuthorize} from "../../../../../actions/User/User.typings";
 import {FormEvent, RefObject} from "react";
-import Input from "../../../components/Input/Input";
+import Input from "../../../../../components/Input/Input";
 
 export interface ILoginFormProps {
     onSubmit: (e: FormEvent) => void;

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {FormEvent, RefObject} from 'react';
 import {connect} from "react-redux";
-import {actionAuthorize} from "../../actions/User";
+import {actionAuthorize} from "../../../../actions/User";
 import RegisterFormUI from "./LoginForm";
 import {ILoginFormPropsContainrProps} from "./LoginForm.typings";
-import Input from "../../components/Input/Input";
-import {IStore} from "../../reducers/typings";
+import Input from "../../../../components/Input/Input";
+import {IStore} from "../../../../reducers/typings";
 
 class LoginForm extends React.Component<ILoginFormPropsContainrProps> {
     refEmail: RefObject<Input>;
