@@ -1,5 +1,6 @@
 import {IVector2D} from "../../../Game.typings";
-import {Entity} from "../../Entity/Entity";
+import {Entity} from "../../Entity/Enemy/Entity";
+import {Bullet} from "../../Entity/Bullet/Bullet";
 
 export namespace Game {
     export interface IPlayer extends IVector2D {
@@ -12,7 +13,7 @@ export namespace Game {
     }
 
     export interface IEntitys {
-        [key: string]: Entity
+        [key: string]: Entity | Bullet;
     }
 
 }

@@ -3,7 +3,7 @@ import {RefObject} from 'react';
 import Canvas from "../../components/Canvas/Canvas";
 import {cn} from "@bem-react/classname";
 import './Game.css';
-import {Entity} from "./Game.components/Entity/Entity";
+import {Entity} from "./Game.components/Entity/Enemy/Entity";
 import {GameState} from "./Game.components/State/State";
 import {Player} from "./Game.components/Player/Player";
 
@@ -35,8 +35,7 @@ class Game extends React.Component {
         GameState.createPlayer(new Player({
             id: 'muzikanto',
             name: 'player',
-            x: 100,
-            y: 100,
+            pos: {x: 100, y: 100},
             speed: 1.8,
             radius: 20,
             showHealth: true,
@@ -47,8 +46,7 @@ class Game extends React.Component {
 
         GameState.createEntity(new Entity({
             name: 'player',
-            x: 500,
-            y: 200,
+            pos: {x: 500, y: 200},
             isStatic: true,
             isSolid: true,
             radius: 20,

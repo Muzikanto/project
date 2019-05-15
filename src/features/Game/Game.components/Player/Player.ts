@@ -1,11 +1,14 @@
 import {GameState} from "../State/State";
 import {IVector2D} from "../../Game.typings";
-import {Entity} from "../Entity/Entity";
-import {Gun} from "../Gun/Gun";
+import {Entity} from "../Entity/Enemy/Entity";
+import Gun from "../Gun/Common";
+import Rifle from "../Gun/Rifle/Rifle";
+import Shotgun from "../Gun/Shotgun/Shotgun";
+import Pistol from "../Gun/Pistol/Pistol";
 
 class Player extends Entity {
     public cursor: IVector2D = {x: 0, y: 0};
-    public gun = new Gun(this);
+    public gun: Gun = this.newGun(49);
 
     public update(ctx: CanvasRenderingContext2D) {
         this.movePlayer();
@@ -31,7 +34,7 @@ class Player extends Entity {
             const {keyCode} = e;
             keysPressed[keyCode] = true;
 
-            this.gun.newGun(keyCode);
+            this.newGun(keyCode);
         });
 
         document.addEventListener('keyup', (e: KeyboardEvent) => {
@@ -40,11 +43,22 @@ class Player extends Entity {
         });
     }
 
+    public newGun(number: number) {
+        if (number >= 49 && number <= 51) {
+            const gun = new ([Pistol, Rifle, Shotgun][number - 49])({player: this});
+            this.gun = gun;
+
+            return gun;
+        } else {
+            return new Pistol({player: this});
+        }
+    }
+
     protected draw(ctx: CanvasRenderingContext2D): void {
         super.draw(ctx);
 
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.arc(this.pos.x, this.pos.y, this.radius, 0, 2 * Math.PI);
 
         this.gun.update(ctx);
 
@@ -58,10 +72,10 @@ class Player extends Entity {
             const dy = keysPressed['87'] && -1 || keysPressed['83'] && 1;
 
             if (dx) {
-                this.x += dx * this.speed;
+                this.pos.x += dx * this.speed;
             }
             if (dy) {
-                this.y += dy * this.speed;
+                this.pos.y += dy * this.speed;
             }
         }
     }
