@@ -5,6 +5,7 @@ import {cn} from "@bem-react/classname";
 import './Game.css';
 import {Entity} from "./Game.components/Entity/Entity";
 import {GameState} from "./Game.components/State/State";
+import {Player} from "./Game.components/Player/Player";
 
 const cnGame = cn('Game');
 
@@ -31,18 +32,29 @@ class Game extends React.Component {
             throw new Error('Object is null');
         }
 
-        GameState.player.setControlls(canvas);
+        GameState.createPlayer(new Player({
+            id: 'muzikanto',
+            name: 'player',
+            x: 100,
+            y: 100,
+            speed: 1.8,
+            radius: 20,
+            showHealth: true,
+            isSolid: true,
+        }), canvas);
 
         setInterval(this.canvasRender.bind(this), 1000 / 60);
 
-        new Entity({
+        GameState.createEntity(new Entity({
             name: 'player',
             x: 500,
             y: 200,
             isStatic: true,
+            isSolid: true,
             radius: 20,
             hp: 5,
-        }).create();
+            showHealth: true,
+        }));
     }
 
     render() {
@@ -62,11 +74,9 @@ class Game extends React.Component {
         const ctx = this.ctx;
 
         if (ctx) {
-            const {player, entitys} = GameState;
+            const {entitys} = GameState;
 
             this.drawMap(ctx);
-
-            player.update(ctx);
 
             for (const name in entitys) {
                 entitys[name].update(ctx);

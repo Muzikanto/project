@@ -2,13 +2,15 @@ import {IVector2D} from "../../Game.typings";
 import Game from "../../Game";
 import {IEntityProps} from "./Entity.typings";
 import {GameState} from "../State/State";
+import {normalizeVectorDistance} from "../../Game.helpers";
 
 export class Entity {
     public x: number;
     public y: number;
 
     public isStatic: boolean;
-    public start: IVector2D | undefined;
+    public isSolid: boolean = false;
+    public start: IVector2D;
     public target: IVector2D | undefined;
     public speed: number | undefined;
 
@@ -18,6 +20,10 @@ export class Entity {
 
     public radius: number;
     public hp: number;
+    public maxHp: number;
+    public showHealth: boolean = false;
+
+    private damage: number | undefined;
 
     constructor(props: IEntityProps) {
         const {entitysID} = GameState;
@@ -26,22 +32,27 @@ export class Entity {
 
         this.x = props.x;
         this.y = props.y;
+
+        this.isSolid = Boolean(props.isSolid);
         this.isStatic = Boolean(props.isStatic);
+
         this.speed = props.speed;
         this.target = props.target;
-        this.start = props.start;
+        this.start = {
+            x: props.x,
+            y: props.y
+        };
 
-        this.id = id;
+        this.id = props.id || id;
         this.parent = props.parent;
         this.name = props.name;
 
         this.radius = props.radius || 5;
         this.hp = props.hp || 1;
-    }
+        this.maxHp = this.hp;
+        this.showHealth = Boolean(props.showHealth);
 
-
-    public create() {
-        GameState.entitys[this.id] = this;
+        this.damage = props.damage;
     }
 
     public update(ctx: CanvasRenderingContext2D): void {
@@ -55,35 +66,52 @@ export class Entity {
 
     //
 
+    protected draw(ctx: CanvasRenderingContext2D): void {
+        if (this.showHealth) {
+            ctx.beginPath();
+            ctx.rect(this.x - this.radius, this.y - this.radius * 1.5, this.radius * 2, 5);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.fillStyle = 'red';
+            ctx.fillRect(this.x - this.radius, this.y - this.radius * 1.5, this.radius * 2 * this.hp / this.maxHp, 5);
+            ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+
+    protected checkInstanciateEntitys() {
+        const list = GameState.entitys;
+
+        for (const name in list) {
+            if (name !== this.id) {
+                if (list[name].isSolid && this.checkInstanciate(list[name])) {
+                    list[name].instanciateAction(this);
+                    this.instanciateAction(list[name]);
+                }
+            }
+        }
+    }
+
+    // Столкновения
+
     private moveToTarget(): void {
-        if (this.start && this.target && this.speed) {
+        if (this.target && this.speed) {
             const {speed, target, start} = this;
 
-            const d1 = target.x - start.x;
-            const d2 = target.y - start.y;
+            const {x, y} = normalizeVectorDistance(start, target);
 
-            // Уравниваем длинну вектора
-            const k = Math.sqrt(d1 ** 2 + d2 ** 2);
-
-            const dx = (d1 / k) * speed;
-            const dy = (d2 / k) * speed;
-
-            this.x += dx;
-            this.y += dy;
+            this.x += x * speed;
+            this.y += y * speed;
 
             if (this.checkExitOfCanvas()) {
                 this.drop();
             }
         }
     }
-
-    private draw(ctx: CanvasRenderingContext2D): void {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        ctx.stroke();
-    }
-
-    // Столкновения
 
     private checkExitOfCanvas(): boolean {
         const {width, height} = Game.settings;
@@ -100,25 +128,12 @@ export class Entity {
         return instX && instY;
     }
 
-    private checkInstanciateEntitys() {
-        const list = GameState.entitys;
-
-        for (const name in list) {
-            if (name !== this.id) {
-                if (this.checkInstanciate(list[name])) {
-                    list[name].instanciateAction(this);
-                    this.instanciateAction(list[name]);
-                }
-            }
-        }
-    }
-
     // События
 
     private instanciateAction(to: Entity) {
-        if (this.name === 'bullet' && to.name === 'player') {
+        if (this.name === 'bullet' && to.name === 'player' && this.parent !== to.id) {
             this.drop();
-            to.newHealth(-1);
+            to.newHealth(-(this.damage || 1));
         }
     }
 
