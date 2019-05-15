@@ -8,9 +8,10 @@ import {getPublicFilesListRouter} from "./files/files_list";
 import {loadFileRouter} from "./files/files_load";
 import {renderWithApp} from "./helpers/render";
 import App from "../../src/pages/.App/App";
+import AppRouters from "../../src/pages/.App/App.routers";
 
 export default function apiRoutes(router: Router): Router {
-    router.get(['/', '/page1', '/register', '/login', '/chess'], renderWithApp(App));
+    router.get(['/', ...AppRouters.map(el => el.url)], renderWithApp(App));
 
     router.get('/api/test', testRouter);
 

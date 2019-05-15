@@ -17,7 +17,8 @@
     "only-arrow-functions": false,
     "no-var-requires": false,
     "variable-name": false,
-    "forin": false
+    "forin": false,
+    "no-namespace": false
   },
   "jsRules": {
     "forin": true

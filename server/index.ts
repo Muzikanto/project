@@ -27,7 +27,7 @@ if (isDev) {
 
     for(const pathToHotFiles of ['./routes/index', './socket/index', '../dist/server/index.js']) {
         module.hot && module.hot.accept(pathToHotFiles, () => {
-            run();
+            // run();
         });
     }
 
