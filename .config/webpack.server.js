@@ -108,12 +108,14 @@ module.exports = {
         }, {
             test: /\.css$/,
             loaders: 'null-loader'
-        },
-            {
-                test: /\.svg$/,
-                loader: 'svg-inline-loader'
-            }
-        ]
+        }, {
+            test: /\.svg$/,
+            loader: 'svg-inline-loader'
+        }, {
+            test : /\.png$/,
+            exclude: /(node_modules)/,
+            loader : 'file-loader'
+        }]
     },
     plugins
 };

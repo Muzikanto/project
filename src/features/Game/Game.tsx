@@ -3,9 +3,12 @@ import {RefObject} from 'react';
 import Canvas from "../../components/Canvas/Canvas";
 import {cn} from "@bem-react/classname";
 import './Game.css';
-import {Entity} from "./Game.components/Entity/Enemy/Entity";
+import {Enemy} from "./Game.components/Entity/Entity.childs/Enemy/Enemy";
 import {GameState} from "./Game.components/State/State";
 import {Player} from "./Game.components/Player/Player";
+import Shotgun from "./Game.components/Entity/Entity.childs/Gun/Gun.childs/Shotgun/Shotgun";
+import Pistol from "./Game.components/Entity/Entity.childs/Gun/Gun.childs/Pistol/Pistol";
+import Rifle from "./Game.components/Entity/Entity.childs/Gun/Gun.childs/Rifle/Rifle";
 
 const cnGame = cn('Game');
 
@@ -35,24 +38,36 @@ class Game extends React.Component {
         GameState.createPlayer(new Player({
             id: 'muzikanto',
             name: 'player',
-            pos: {x: 100, y: 100},
-            speed: 1.8,
+            controll: {
+                pos: {x: 100, y: 100},
+                speed: 1.8,
+            },
+            health: {
+                showHp: true,
+                hp: 10,
+            },
+            inventory: [
+                new Pistol({ammo: 7})
+            ],
             radius: 20,
-            showHealth: true,
-            isSolid: true,
         }), canvas);
 
         setInterval(this.canvasRender.bind(this), 1000 / 60);
 
-        GameState.createEntity(new Entity({
+        GameState.createEntity(new Enemy({
             name: 'player',
-            pos: {x: 500, y: 200},
-            isStatic: true,
-            isSolid: true,
+            controll: {
+                pos: {x: 500, y: 200},
+            },
+            inventory: [new Rifle({ammo: 7})],
+            health: {
+                hp: 5,
+                showHp: true,
+            },
             radius: 20,
-            hp: 5,
-            showHealth: true,
         }));
+
+        GameState.createEntity(new Shotgun({ammo: 5}));
     }
 
     render() {

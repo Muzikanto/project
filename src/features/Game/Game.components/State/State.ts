@@ -1,7 +1,6 @@
 import {Game} from "./State.typings";
 import {Player} from "../Player/Player";
-import {Entity} from "../Entity/Enemy/Entity";
-import {Bullet} from "../Entity/Bullet/Bullet";
+import IEntity = Game.IEntity;
 
 class GameState {
     public static keysPressed: Game.IKeysPressed = {};
@@ -9,7 +8,7 @@ class GameState {
     public static entityID: number = 0;
     public static player: Player;
 
-    public static createEntity(entity: Entity | Bullet) {
+    public static createEntity(entity: IEntity) {
         GameState.entitys[entity.id] = entity;
     }
 

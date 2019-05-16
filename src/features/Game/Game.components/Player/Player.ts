@@ -1,18 +1,30 @@
 import {GameState} from "../State/State";
 import {IVector2D} from "../../Game.typings";
-import {Entity} from "../Entity/Enemy/Entity";
-import Gun from "../Gun/Common";
-import Rifle from "../Gun/Rifle/Rifle";
-import Shotgun from "../Gun/Shotgun/Shotgun";
-import Pistol from "../Gun/Pistol/Pistol";
+import Gun from "../Entity/Entity.childs/Gun/Gun";
+import {IEnemyProps} from "../Entity/Entity.childs/Enemy/Enemy.typings";
+import {Enemy} from "../Entity/Entity.childs/Enemy/Enemy";
+import Moved from "../_Other/Moved/Moved";
 
-class Player extends Entity {
+class Player extends Enemy {
     public cursor: IVector2D = {x: 0, y: 0};
-    public gun: Gun = this.newGun(49);
+    public hand: Gun | undefined;
+
+    constructor(props: IEnemyProps) {
+        super(props);
+
+        this.controll = new PlayerMoved({
+            ...props.controll,
+            parent: this,
+        })
+    }
 
     public update(ctx: CanvasRenderingContext2D) {
-        this.movePlayer();
-        this.draw(ctx);
+        super.update(ctx);
+
+        this.controll.update();
+        if (this.hand) {
+            this.hand.update(ctx);
+        }
     }
 
     public setControlls(canvas: HTMLCanvasElement) {
@@ -27,14 +39,17 @@ class Player extends Entity {
 
         canvas.addEventListener('click', (e: MouseEvent) => {
             const {layerY, layerX} = e;
-            this.gun.shot({x: layerX, y: layerY});
+
+            if (this.hand) {
+                this.hand.shot({x: layerX, y: layerY});
+            }
         });
 
         document.addEventListener('keydown', (e: KeyboardEvent) => {
             const {keyCode} = e;
             keysPressed[keyCode] = true;
 
-            this.newGun(keyCode);
+            this.setItemInHand(keyCode);
         });
 
         document.addEventListener('keyup', (e: KeyboardEvent) => {
@@ -43,29 +58,18 @@ class Player extends Entity {
         });
     }
 
-    public newGun(number: number) {
-        if (number >= 49 && number <= 51) {
-            const gun = new ([Pistol, Rifle, Shotgun][number - 49])({player: this});
-            this.gun = gun;
+    private setItemInHand(number: number) {
+        if (number >= 49 && number <= 59) {
+            const item = this.inventory.items[number - 49];
+            item && item.setPlayer(this);
 
-            return gun;
-        } else {
-            return new Pistol({player: this});
+            this.hand = item;
         }
     }
+}
 
-    protected draw(ctx: CanvasRenderingContext2D): void {
-        super.draw(ctx);
-
-        ctx.beginPath();
-        ctx.arc(this.pos.x, this.pos.y, this.radius, 0, 2 * Math.PI);
-
-        this.gun.update(ctx);
-
-        ctx.stroke();
-    }
-
-    private movePlayer(): void {
+class PlayerMoved extends Moved {
+    public move(): void {
         if (this.speed) {
             const {keysPressed} = GameState;
             const dx = keysPressed['65'] && -1 || keysPressed['68'] && 1;

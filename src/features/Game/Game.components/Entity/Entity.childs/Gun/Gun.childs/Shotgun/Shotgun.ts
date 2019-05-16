@@ -1,15 +1,24 @@
-import Gun from "../Common";
-import {normalizeVectorDistance} from "../../../Game.helpers";
-import {IVector2D} from "../../../Game.typings";
+import Gun from "../../Gun";
+import {IVector2D} from "../../../../../../Game.typings";
+import {IGunProps_noName} from "../../Gun.typings";
 
 class Shotgun extends Gun {
     public loading = 1000;
     protected damage = 0.3;
     protected speed = 15;
 
+    protected cut = {x: 420, y: 0, w: 200, h: 100};
+    protected translate = {x: -17.5, y: -17.5};
+    protected size = {w: 55, h: 35};
+
+    constructor(props: IGunProps_noName) {
+        super({...props, name: 'Shotgun'});
+    }
+
     public createBullets(target: IVector2D) {
         if (this.player) {
-            const pos = this.player.pos;
+            this.ammo--;
+            const {controll: {pos}} = this.player;
 
             for (let i = 0; i < 16; i++) {
                 const r1 = 100;
@@ -23,19 +32,6 @@ class Shotgun extends Gun {
             }
         }
     }
-
-    protected drawInPlayer(ctx: CanvasRenderingContext2D) {
-        if (this.player) {
-            const {pos, cursor} = this.player;
-            const target = normalizeVectorDistance(pos, cursor);
-
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-            ctx.lineTo(pos.x + target.x * 50, pos.y + target.y * 50);
-            ctx.arc(pos.x + target.x * 50, pos.y + target.y * 50, 3, 0, 2 * Math.PI);
-            ctx.stroke();
-        }
-    };
 }
 
 export default Shotgun;

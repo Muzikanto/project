@@ -1,9 +1,8 @@
-import {IVector2D} from "../../../Game.typings";
-
-export interface ICommonEntity {
-    id?: string
+export interface ICommonEntity extends ICommonEntity_noName{
     name: string;
-    parent?: string;
+}
 
-    pos: IVector2D;
+export interface ICommonEntity_noName {
+    id?: string
+    parent_id?: string;
 }

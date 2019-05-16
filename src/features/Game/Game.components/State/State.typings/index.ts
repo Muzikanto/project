@@ -1,6 +1,7 @@
 import {IVector2D} from "../../../Game.typings";
-import {Entity} from "../../Entity/Enemy/Entity";
-import {Bullet} from "../../Entity/Bullet/Bullet";
+import {Enemy} from "../../Entity/Entity.childs/Enemy/Enemy";
+import {Bullet} from "../../Entity/Entity.childs/Bullet/Bullet";
+import Gun from "../../Entity/Entity.childs/Gun/Gun";
 
 export namespace Game {
     export interface IPlayer extends IVector2D {
@@ -13,7 +14,9 @@ export namespace Game {
     }
 
     export interface IEntitys {
-        [key: string]: Entity | Bullet;
+        [key: string]: IEntity;
     }
+
+    export type IEntity = Enemy | Bullet | Gun;
 
 }
