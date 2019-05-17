@@ -12,10 +12,10 @@
 - [Bem](https://github.com/bem/bem-react) classname, di, core
 
 ## For React
-- [bit](https://github.com/teambit/bit) Компоненты
-- [toolbox](https://github.com/react-toolbox/react-toolbox) Компоненты
-- [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap) Компоненты
-- [storybook](https://github.com/storybooks/storybook) Хелпер по компонентам
+- [bit](https://github.com/teambit/bit) Components
+- [toolbox](https://github.com/react-toolbox/react-toolbox) Components
+- [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap) Components
+- [storybook](https://github.com/storybooks/storybook) Helper for components
 
 
 ## Usage
