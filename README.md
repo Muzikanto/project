@@ -11,8 +11,9 @@
 - [Socket IO](https://socket.io) featuring the fastest and most reliable real-time engine
 
 ## For React
-Библиотека с реакт компонентами https://github.com/teambit/bit
-Сторибук с компонентами https://github.com/storybooks/storybook
+- [react-components](https://github.com/teambit/bit) Библиотека с реакт компонентами ;
+- [react-storybook](https://github.com/storybooks/storybook) Сторибук с компонентами 
+
 
 ## Usage
 
