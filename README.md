@@ -10,6 +10,10 @@
 - [Redux](https://redux.js.org) a predictable state container for JavaScript apps.
 - [Socket IO](https://socket.io) featuring the fastest and most reliable real-time engine
 
+## For React
+Библиотека с реакт компонентами https://bit.dev
+Сторибук с компонентами https://github.com/storybooks/storybook
+
 ## Usage
 
 ``` bash
