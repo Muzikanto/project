@@ -9,6 +9,7 @@
 - [TypeScript](https://www.typescriptlang.org/) as a main language for client and server;
 - [Redux](https://github.com/reduxjs/redux) a predictable state container for JavaScript apps.
 - [Socket IO](https://github.com/socketio/socket.io) featuring the fastest and most reliable real-time engine
+- [Bem](https://github.com/bem/bem-react) classname, di, core
 
 ## For React
 - [bit](https://github.com/teambit/bit) Компоненты
