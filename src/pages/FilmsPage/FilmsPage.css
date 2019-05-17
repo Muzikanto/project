@@ -1,0 +1,7 @@
+.FilmsPage {
+    padding: 40px;
+    width: 100%;
+    align-items: start;
+    display: flex;
+    justify-content: space-evenly;
+}

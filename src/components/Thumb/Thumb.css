@@ -1,18 +1,12 @@
-.Thumb {
-    border: solid 2px white;
-    overflow: hidden;
-    box-sizing: border-box;
+.Thumb{
+    max-width: 345px;
 }
 
-.Image-Hovered {
-    transform: scale(1.5);
-    transition-duration: 0.5s;
+.Thumb-Header {
+    display: flex;
+    padding: 10px;
 }
 
-.Image-Plane {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    margin-left: auto;
-    margin-right: auto;
+.Thumb-Image {
+    object-fit: cover;
 }

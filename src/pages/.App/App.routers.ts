@@ -4,13 +4,15 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import LoginPage from "../LoginPage/LoginPage";
 import ChessPage from "../ChessPage/ChessPage";
 import GamePage from "../GamePage/GamePage";
+import FilmsPage from "../FilmsPage/FilmsPage";
 
 const AppRouters: Array<{ url: string, el: ComponentClass }> = [
     {url: '/page1', el: IntroPage},
     {url: '/register', el: RegisterPage},
     {url: '/login', el: LoginPage},
     {url: '/games/chess', el: ChessPage},
-    {url: '/games/test', el: GamePage}
+    {url: '/games/test', el: GamePage},
+    {url: '/films', el: FilmsPage}
 ];
 
 export default AppRouters;
