@@ -11,9 +11,10 @@
 - [Socket IO](https://socket.io) featuring the fastest and most reliable real-time engine
 
 ## For React
-- [bit](https://github.com/teambit/bit) Библиотека с реакт компонентами
-- [toolbox]https://github.com/react-toolbox/react-toolbox) Библиотека с реакт компонентами
-- [storybook](https://github.com/storybooks/storybook) Сторибук с компонентами 
+- [bit](https://github.com/teambit/bit) Компоненты
+- [toolbox](https://github.com/react-toolbox/react-toolbox) Компоненты
+- [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap) Компоненты
+- [storybook](https://github.com/storybooks/storybook) Хелпер по компонентам
 
 
 ## Usage
