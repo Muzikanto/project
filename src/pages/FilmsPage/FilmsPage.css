@@ -1,14 +1,3 @@
-.Films-Container {
-    padding: 40px;
-    margin: auto;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 30px;
-    grid-row-gap: 30px;
-    justify-items: center;
-}
-
-.Films-Item {
-    grid-column: span 1;
+.ContentContainer {
+    flex-direction: column;
 }

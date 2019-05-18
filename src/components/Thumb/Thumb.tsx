@@ -4,7 +4,7 @@ import {cn} from "@bem-react/classname";
 import {IThumbProps} from "./Thumb.typings";
 import ThumbHeader from "./Thumb.Components/Thumb-Header/Thumb-Header";
 import './Thumb.css';
-import ThumbBottom from "./Thumb.Components/Thumb-Bottom/Thumb-Bottom";
+import ThumbBottom from "./Thumb.Components/Thumb-Bottom/";
 import ThumbContent from "./Thumb.Components/Thumb-Content/Thumb-Content";
 
 const cnThumb = cn('Thumb');
@@ -12,6 +12,7 @@ const cnThumb = cn('Thumb');
 class Thumb extends React.Component<IThumbProps> {
     render(): React.ReactNode {
         const {
+            id,
             genres,
             url,
             stars,
@@ -37,6 +38,7 @@ class Thumb extends React.Component<IThumbProps> {
                    url={url}
                />
                 <ThumbBottom
+                    id={id}
                     isLiked={isLiked}
                     share={share}
                     stars={stars}

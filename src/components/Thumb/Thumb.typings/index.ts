@@ -3,5 +3,5 @@ import {IThumbBottomProps} from "../Thumb.Components/Thumb-Bottom/Thumb-Bottom.t
 import {IThumbContentProps} from "../Thumb.Components/Thumb-Content/Thumb-Content.typings";
 
 export interface IThumbProps extends IThumbHeaderProps, IThumbBottomProps, IThumbContentProps{
-
+    id: string;
 }

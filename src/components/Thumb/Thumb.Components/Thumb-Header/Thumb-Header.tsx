@@ -2,17 +2,10 @@ import Avatar from "@material-ui/core/Avatar";
 import {IconButton} from "@material-ui/core";
 import * as React from "react";
 import CardHeader from "@material-ui/core/CardHeader";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import {IThumbHeaderProps} from "./Thumb-Header.typings";
-
-const options = [
-    'None',
-    'Atria',
-    'Callisto',
-    'Dione',
-];
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 class ThumbHeader extends React.Component<IThumbHeaderProps> {
     state = {
@@ -20,11 +13,11 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
     };
 
     handleClick = (event: any) => {
-        this.setState({ anchorEl: event.currentTarget });
+        this.setState({anchorEl: event.currentTarget});
     };
 
     handleClose = () => {
-        this.setState({ anchorEl: null });
+        this.setState({anchorEl: null});
     };
 
     render(): React.ReactNode {
@@ -35,7 +28,7 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
             className,
         } = this.props;
 
-        const { anchorEl } = this.state;
+        const {anchorEl} = this.state;
 
         return (
             <CardHeader
@@ -45,8 +38,12 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
                     </Avatar>
                 }
                 action={
-                    <IconButton>
-                        <MoreVertIcon onClick={this.handleClick}/>
+                    <>
+                        <div onClick={this.handleClick}>
+                            <IconButton>
+                                <MoreVertIcon/>
+                            </IconButton>
+                        </div>
                         <Menu
                             id="long-menu"
                             anchorEl={anchorEl}
@@ -55,17 +52,17 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
                             PaperProps={{
                                 style: {
                                     maxHeight: 48 * 4.5,
-                                    width: 200,
+                                    width: 150,
                                 },
                             }}
                         >
-                            {options.map(option => (
-                                <MenuItem key={option} selected={option === 'Pyxis'} onClick={this.handleClose}>
+                            {['test1', 'test2'].map(option => (
+                                <MenuItem key={option} selected={option === 'test1'} onClick={this.handleClose}>
                                     {option}
                                 </MenuItem>
                             ))}
                         </Menu>
-                    </IconButton>
+                    </>
                 }
                 titleTypographyProps={{variant: 'h5'}}
                 title={title}
