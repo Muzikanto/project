@@ -1,7 +1,14 @@
-.FilmsPage {
+.Films-Container {
     padding: 40px;
-    width: 100%;
-    align-items: start;
-    display: flex;
-    justify-content: space-evenly;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    justify-items: center;
+}
+
+.Films-Item {
+    grid-column: span 1;
 }
