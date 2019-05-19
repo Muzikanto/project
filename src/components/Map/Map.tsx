@@ -1,10 +1,7 @@
 import * as React from 'react';
 import {cn} from "@bem-react/classname";
-
-import {CreateMap, IMap, ymaps} from "./api/init";
-
+import {CreateMap, IMap} from "./api/init";
 import './Map.css';
-
 
 const cnMapCont = cn('Map');
 
@@ -24,10 +21,10 @@ class Map extends React.Component<IMapCont> {
     public componentDidMount() {
         CreateMap(this.props.id, (map: IMap) => {
             this.setState({map});
-            map.geoObjects.add(new ymaps.Placemark([55.684758, 37.738521], {
-                balloonContent: 'the color of <strong>the water on Bondi Beach</strong>',
-                iconCaption: 'text'
-            }))
+            // map.geoObjects.add(new ymaps.Placemark([55.684758, 37.738521], {
+            //     balloonContent: 'the color of <strong>the water on Bondi Beach</strong>',
+            //     iconCaption: 'text'
+            // }))
         });
     };
 

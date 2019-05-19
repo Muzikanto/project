@@ -16,27 +16,23 @@ class DialogTypeContent extends React.Component<IDialogProps> {
         const {open, handleClose, film} = this.props;
 
         return (
-            <DialogCore
-                maxWidth={false}
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle id="alert-dialog-slide-title">
-                    {film ? film.title : '404'}
-                </DialogTitle>
-                <DialogContent style={{display: 'flex'}}>
-                    {film ?
+            film ?
+                <DialogCore
+                    maxWidth={false}
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">
+                        {film.title}
+                    </DialogTitle>
+                    <DialogContent style={{display: 'flex'}}>
                         <YouTube id={film.trailer}/>
-                        :
-                        <Typography variant={'h5'}>
-                            Film Not Found
-                        </Typography>}
-                </DialogContent>
-            </DialogCore>
+                    </DialogContent>
+                </DialogCore> : null
         )
     }
 }

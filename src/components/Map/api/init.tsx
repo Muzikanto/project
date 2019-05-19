@@ -27,4 +27,4 @@ const CreateMap = (containerId: any, callback: (map: any) => void) => {
     });
 };
 
-export {CreateMap, IMap, ymaps};
+export {CreateMap, IMap};

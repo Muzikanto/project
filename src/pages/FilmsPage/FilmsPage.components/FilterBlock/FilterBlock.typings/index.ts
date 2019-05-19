@@ -7,6 +7,7 @@ import {
     IactionFilmsSetFilterGenres,
     IactionFilmsSetFilterStars, IactionFilmsSetSort
 } from "../../../../../actions/Films";
+import {actionDialogOpen, IactionDialogOpen} from "../../../../../actions/Dialog";
 
 export interface IFilterBlockProps {
     className?: string;
@@ -18,6 +19,7 @@ export interface IFilterBlockProps {
     starsOnChange: (current: string) => void;
     sortOnChange: (current: string) => void;
     findOnClick: () => void;
+    addOnClick: () => void;
 
     genres: string[];
     dates: string[];
@@ -38,4 +40,5 @@ export interface IFilterBlockContainerProps {
     actionFilmsSetSort: IactionFilmsSetSort;
     actionFilmsFirstLoad: IactionFilmsFirstLoad;
     actionFilmsLoad: IactionFilmsLoad;
+    actionDialogOpen: IactionDialogOpen;
 }

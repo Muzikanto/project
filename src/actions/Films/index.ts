@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
-import {IFilmsFiltersOptions} from "../../reducers/Films/Films.typings";
-import {getFetch} from "../../utils/fetch";
+import {IFilm} from "../../reducers/Films/Films.typings";
+import {getFetch, postFetch} from "../../utils/fetch";
 import {IStore} from "../../reducers/typings";
+import {actionDialogTypes} from "../Dialog";
 
 export const actionFilmsTypes = {
     FILMS_SET_STAR: 'FILMS_SET_STAR',
@@ -24,6 +25,26 @@ export const actionFilmsLoad = () => async (dispatch: Dispatch, getState: () => 
         });
     } catch (e) {
         console.log('Error load');
+    }
+};
+
+export type IactionFilmsAdd = (film: IFilm) => void;
+export const actionFilmsAdd = (film: IFilm) => async (dispatch: Dispatch) => {
+    try {
+        const {response, status} = await postFetch('/api/films/add', film);
+
+        if (status === 200) {
+            dispatch({
+                data: {open: false, type: 'content', value: 5, id: null},
+                type: actionDialogTypes.DIALOG_OPEN
+            });
+            dispatch({
+                data: [response],
+                type: actionFilmsTypes.FILMS_LOAD
+            });
+        }
+    } catch (e) {
+        console.log('Error Add Film', e);
     }
 };
 

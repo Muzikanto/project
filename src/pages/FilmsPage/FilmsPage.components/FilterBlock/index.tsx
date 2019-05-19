@@ -11,6 +11,7 @@ import {
     actionFilmsSetSort
 } from "../../../../actions/Films";
 import {historyState} from "../../../../history";
+import {actionDialogOpen} from "../../../../actions/Dialog";
 
 class FilterBlock extends React.Component<IFilterBlockContainerProps> {
     componentDidMount(): void {
@@ -54,6 +55,9 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                 findOnClick={() => {
                     this.props.actionFilmsLoad();
                 }}
+                addOnClick={()=> {
+                    this.props.actionDialogOpen({type: 'add_film', value: 0, id: null, open: true});
+                }}
             />
         );
     }
@@ -70,6 +74,7 @@ const mapActionsToProps = {
     actionFilmsSetFilterStars,
     actionFilmsFirstLoad,
     actionFilmsLoad,
+    actionDialogOpen,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(FilterBlock);

@@ -3,10 +3,11 @@ import {IDialogConteinerProps} from "./Dialog.typings";
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {actionDialogOpen} from "../../../../actions/Dialog";
-import {actionFilmsSetStar} from "../../../../actions/Films";
+import {actionFilmsAdd, actionFilmsSetStar} from "../../../../actions/Films";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
+import DialogTypeAddFilm from "./Dialog_type_addFilm/Dialog_type_addFilm";
 
 class DialogStars extends React.Component<IDialogConteinerProps> {
     render(): React.ReactNode {
@@ -17,25 +18,33 @@ class DialogStars extends React.Component<IDialogConteinerProps> {
             id,
         } = this.props.dialog;
 
-        if (type === 'stars') {
-            return (
-                <DialogTypeStars
-                    open={open}
-                    value={value}
-                    handleClose={this.handleClose}
-                    handleChange={this.handleChange}
-                />
-            )
-        } else {
-            const film: IFilm | null | '' = id && this.findFilm(id);
+        switch (type) {
+            case 'stars':
+                return (
+                    <DialogTypeStars
+                        open={open}
+                        value={value}
+                        handleClose={this.handleClose}
+                        handleChange={this.handleChange}
+                    />
+                );
+            case 'content':
+                const film: IFilm | null | '' = id && this.findFilm(id);
 
-            return (
-                <DialogTypeContent
+                return (
+                    <DialogTypeContent
+                        open={open}
+                        handleClose={this.handleClose}
+                        film={film ? film : null}
+                    />
+                );
+
+            case 'add_film':
+                return <DialogTypeAddFilm
                     open={open}
                     handleClose={this.handleClose}
-                    film={film ? film : null}
+                    onClickAdd={(film: IFilm) => this.props.actionFilmsAdd(film)}
                 />
-            );
         }
     }
 
@@ -71,6 +80,7 @@ const mapStateToProps = (store: IStore) => ({
 const mapDispatchesToProps = {
     actionDialogOpen,
     actionFilmsSetStar,
+    actionFilmsAdd,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(DialogStars);
