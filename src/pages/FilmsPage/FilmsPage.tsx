@@ -1,17 +1,20 @@
 import * as React from 'react';
 import Dialog from "./FilmsPage.components/Dialog/";
-import './FilmsPage.css'
 import FilmsList from "./FilmsPage.components/FilmsList/";
-import Filter from "./FilmsPage.components/Filter/Filter";
+import FilterBlock from "./FilmsPage.components/FilterBlock/";
+import {cn} from "@bem-react/classname";
+import './FilmsPage.css';
+
+const cnFilmsPage = cn('FilmsPage');
 
 class FilmsPage extends React.Component {
     public render() {
         return (
-            <>
-                <Filter/>
-                <FilmsList/>
+            <div className={cnFilmsPage()}>
+                <FilterBlock className={cnFilmsPage('Filter')}/>
+                <FilmsList className={cnFilmsPage('List')}/>
                 <Dialog/>
-            </>
+            </div>
         )
     }
 }

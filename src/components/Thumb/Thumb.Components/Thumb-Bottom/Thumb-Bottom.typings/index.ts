@@ -1,17 +1,8 @@
-import {IactionDialogOpen} from "../../../../../actions/Dialog";
-
 export interface IThumbBottomProps {
     isLiked: boolean;
     share: number;
     stars: number;
-}
+    title: string
 
-export interface IThumbBottomPropsFromContainer {
-    setIsFavorite: () => void;
-}
-
-export interface IThumbBottomContainerProps extends IThumbBottomProps {
-    id: string;
-
-    actionDialogOpen: IactionDialogOpen;
+    onStarClick: () => void;
 }

@@ -33,7 +33,7 @@ const pool = new Pool({
                 salt: 'varchar(50) NOT NULL',
                 created: 'timestamp DEFAULT CURRENT_TIMESTAMP'
             }
-        },
+        }
     ]);
     try {
         await DB.psqlPromise(pool, createTables);

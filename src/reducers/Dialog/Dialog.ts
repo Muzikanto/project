@@ -1,11 +1,12 @@
-import {IDialogOptions} from "./Dialog-Favorites.typings";
-import {IReducerAction} from "../../typings";
-import {actionDialogTypes} from "../../../actions/Dialog";
+import {IDialogOptions} from "./Dialog.typings";
+import {IReducerAction} from "../typings";
+import {actionDialogTypes} from "../../actions/Dialog";
 
 const initialState: IDialogOptions = {
     open: false,
     value: 5,
     id: null,
+    type: 'content',
 };
 
 const DialogReducer = (state = initialState, action: IReducerAction) => {

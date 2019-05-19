@@ -4,7 +4,7 @@ import {cn} from "@bem-react/classname";
 import {IThumbProps} from "./Thumb.typings";
 import ThumbHeader from "./Thumb.Components/Thumb-Header/Thumb-Header";
 import './Thumb.css';
-import ThumbBottom from "./Thumb.Components/Thumb-Bottom/";
+import ThumbBottom from "./Thumb.Components/Thumb-Bottom/Thumb-Bottom";
 import ThumbContent from "./Thumb.Components/Thumb-Content/Thumb-Content";
 
 const cnThumb = cn('Thumb');
@@ -22,6 +22,8 @@ class Thumb extends React.Component<IThumbProps> {
             date,
             avatar,
             isLiked,
+            onContentClick,
+            onStarClick,
         } = this.props;
 
         return (
@@ -33,12 +35,14 @@ class Thumb extends React.Component<IThumbProps> {
                     className={cnThumb('Header')}
                 />
                <ThumbContent
+                   onContentClick={onContentClick}
                    className={cnThumb('Image')}
                    genres={genres}
                    url={url}
                />
                 <ThumbBottom
-                    id={id}
+                    title={title}
+                    onStarClick={onStarClick}
                     isLiked={isLiked}
                     share={share}
                     stars={stars}

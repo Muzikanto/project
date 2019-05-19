@@ -8,17 +8,18 @@ import './NavBar.css'
 const cnNav = cn('NavBar');
 
 class NavBar extends React.Component<INavBarProps> {
+
     protected getItems() {
         return this.props.items.map((el: INavBarItem) => {
             if (!el.popup) {
-                return (<li key={el.text + 'nav'} className={cnNav('Item')}><Link to={el.url}>{el.text}</Link></li>)
+                return this.getItem(el);
             } else {
                 return (
                     <li key={el.text + 'nav'} className={cnNav('Item')}><Link to={el.url}>{el.text}</Link>
                         <ul className={cnNav('DropDown')}>
                             {
                                 el.popup.map((el2: { url: string, text: string }) => {
-                                    return ( <li key={el2.text + 'nav'} className={cnNav('Item')}><Link to={el2.url}>{el2.text}</Link></li>)
+                                    return this.getItem(el2);
                                 })
                             }
                         </ul>
@@ -28,15 +29,26 @@ class NavBar extends React.Component<INavBarProps> {
         });
     }
 
+    protected getItem(el: INavBarItem) {
+        return (
+            <li
+                key={el.text + 'nav'}
+                className={cnNav('Item')}
+            >
+                <Link to={el.url}>{el.text}</Link>
+            </li>
+        );
+    }
+
     protected getRight() {
         return !this.props.user ?
             <ul className={cnNav('Right')}>
-                <li className={cnNav('Item')}><Link to={'/login'}>Войти</Link></li>
-                <li className={cnNav('Item')}><Link to={'/register'}>Регистрация</Link></li>
+                {this.getItem({text: 'Войти', url: '/login'})}
+                {this.getItem({text: 'Регистрация', url: '/register'})}
             </ul>
             : <ul className={cnNav('Right')}>
-                <li className={cnNav('Item')}><Link to={'$'}>{shortText(this.props.user.nick, 10)}</Link></li>
-                <li className={cnNav('Item')}><Link to="#" onClick={this.props.dropSession}>Выйти</Link></li>
+                {this.getItem({text: shortText(this.props.user.nick, 10), url: '#'})}
+                {this.getItem({text: 'Выйти', url: '#'})}
             </ul>;
     }
 

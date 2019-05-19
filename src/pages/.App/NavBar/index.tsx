@@ -9,8 +9,8 @@ class NavBar extends React.Component<INavBarContainerProps> {
     protected items = [
         {url: '/films', text: 'Films'},
         {url: '/page1', text: 'Map'},
+        {url: '#', text: 'Games', popup: [{url: '/games/chess', text: 'Chess'}, {url: '/games/test', text: 'Test'}]},
         {url: '/page2', text: 'NotFound'},
-        {url: '#', text: 'Games', popup: [{url: '/games/chess', text: 'Chess'}, {url: '/games/test', text: 'Test'}]}
     ];
 
     public render() {

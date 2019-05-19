@@ -1,7 +1,4 @@
 .FilmsList-Container {
-    padding: 40px;
-    margin: auto;
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 30px;

@@ -3,7 +3,7 @@ import * as express from 'express';
 import * as got from 'got';
 
 import {renderToNodeStream} from 'react-dom/server';
-import {StaticRouter as Router} from 'react-router';
+import {Router, StaticRouter} from 'react-router';
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 
@@ -26,9 +26,9 @@ export const renderWithApp = (App: ReactType): Application => {
 
         const stream = renderToNodeStream(
             <Provider store={store}>
-                <Router location={req.url} context={{}}>
-                    <App/>
-                </Router>
+                    <StaticRouter location={req.url} context={{}}>
+                        <App/>
+                    </StaticRouter>
             </Provider>
         );
 

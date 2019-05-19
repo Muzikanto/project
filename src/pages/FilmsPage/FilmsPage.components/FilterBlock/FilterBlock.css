@@ -1,0 +1,10 @@
+.FilterBlock-Select {
+    min-width: 100px !important;
+    max-width: 240px;
+    width: 20%;
+}
+
+.FilterBlock-Items {
+    display: flex;
+    justify-content: space-around;
+}

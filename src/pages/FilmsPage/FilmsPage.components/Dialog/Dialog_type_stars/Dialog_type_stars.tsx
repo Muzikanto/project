@@ -5,16 +5,16 @@ import DialogCore from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Slide from "@material-ui/core/Slide";
-import {IDialogFavoritesProps} from "./Dialog.typings";
+import {IDialogProps} from "./Dialog.typings";
 
 function Transition(props: any) {
     return <Slide direction="up" {...props} />;
 }
 
-class Dialog extends React.Component<IDialogFavoritesProps> {
+class DialogTypeStars extends React.Component<IDialogProps> {
     state: { value: number };
 
-    constructor(props: IDialogFavoritesProps) {
+    constructor(props: IDialogProps) {
         super(props);
 
         this.state = {
@@ -65,4 +65,4 @@ class Dialog extends React.Component<IDialogFavoritesProps> {
     }
 }
 
-export default Dialog;
+export default DialogTypeStars;

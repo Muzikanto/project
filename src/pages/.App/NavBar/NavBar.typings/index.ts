@@ -4,7 +4,7 @@ import {IactionDropSession} from "../../../../actions/User/User.typings";
 export interface INavBarItem {
     url: string;
     text: string;
-    popup?: Array<{ url: string, text: string }>;
+    popup?: Array<{ url: string, text: string, isHref?: boolean}>;
 }
 
 export interface INavBarProps {

@@ -10,19 +10,22 @@ class ThumbContent extends React.Component<IThumbContentProps> {
             genres,
             url,
             className,
+            onContentClick,
         } = this.props;
 
         return (
-            <CardActionArea>
-                <CardMedia
-                    component="img"
-                    className={className}
-                    image={url}
-                />
-                <CardContent>
-                    <b>Genres:</b> {genres.join()}
-                </CardContent>
-            </CardActionArea>
+            <div onClick={onContentClick}>
+                <CardActionArea>
+                    <CardMedia
+                        component="img"
+                        className={className}
+                        image={url}
+                    />
+                    <CardContent>
+                        <b>Genres:</b> {genres.join()}
+                    </CardContent>
+                </CardActionArea>
+            </div>
         )
     }
 }

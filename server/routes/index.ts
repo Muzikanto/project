@@ -9,6 +9,7 @@ import {loadFileRouter} from "./files/files_load";
 import {renderWithApp} from "./helpers/render";
 import App from "../../src/pages/.App/App";
 import AppRouters from "../../src/pages/.App/App.routers";
+import {loadFilms} from "./Films/load";
 
 export default function apiRoutes(router: Router): Router {
     router.get(['/', ...AppRouters.map(el => el.url)], renderWithApp(App));
@@ -24,6 +25,10 @@ export default function apiRoutes(router: Router): Router {
     router.post('/api/data/image', loadFileRouter);
     router.get('/api/resources_list', getPublicFilesListRouter);
     router.get('/api/resources/:name', sendFileRouter);
+
+    /* Films */
+
+    router.get('/api/films/get', loadFilms);
 
     return router;
 };
