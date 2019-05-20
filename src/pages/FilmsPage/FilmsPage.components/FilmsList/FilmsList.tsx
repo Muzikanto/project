@@ -9,23 +9,20 @@ const cnFilms = cn('FilmsList');
 
 class FilmsList extends React.Component<IFilmsListProps> {
     public render() {
+        const {
+            onStarClick,
+            onContentClick,
+            className
+        } = this.props;
+
         return (
-            <div className={cnFilms('Container', [this.props.className])}>
+            <div className={cnFilms('Container', [className])}>
                 {
                     this.props.arr.map((props: IFilm, index: number) =>
                         <Thumb
-                            onContentClick={() => this.props.actionDialogOpen({
-                                open: true,
-                                value: 10,
-                                id: props.id,
-                                type: 'content'
-                            })}
-                            onStarClick={() => this.props.actionDialogOpen({
-                                open: true,
-                                value: props.stars,
-                                id: props.id,
-                                type: 'stars'
-                            })}
+                            onContentClick={onContentClick(props)}
+                            onStarClick={props.isLiked ? () => {
+                            } : onStarClick(props)}
                             trailer={props.trailer}
                             date={props.date}
                             stars={props.stars}

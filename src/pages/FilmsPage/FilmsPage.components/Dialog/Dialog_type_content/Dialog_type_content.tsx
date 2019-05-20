@@ -4,7 +4,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Slide from "@material-ui/core/Slide";
 import {IDialogProps} from "./Dialog.typings";
-import {Typography} from "@material-ui/core";
 import YouTube from '../../../../../components/Youtube/Youtube';
 
 function Transition(props: any) {
@@ -30,7 +29,7 @@ class DialogTypeContent extends React.Component<IDialogProps> {
                         {film.title}
                     </DialogTitle>
                     <DialogContent style={{display: 'flex'}}>
-                        <YouTube id={film.trailer}/>
+                        <YouTube id={film.trailer} width={640} height={390}/>
                     </DialogContent>
                 </DialogCore> : null
         )

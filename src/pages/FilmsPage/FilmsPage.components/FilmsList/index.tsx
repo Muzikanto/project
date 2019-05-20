@@ -7,12 +7,28 @@ import {deepCopy} from "../../../../utils/copy";
 import {actionDialogOpen} from "../../../../actions/Dialog";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 
-class FilmsPage extends React.Component<IFilmsListContainerProps> {
+class FilmsList extends React.Component<IFilmsListContainerProps> {
     public render() {
+        const {actionDialogOpen} = this.props;
         const arr = this.sort(this.props.arr);
 
         return (
-            <UI arr={arr} className={this.props.className} actionDialogOpen={this.props.actionDialogOpen}/>
+            <UI
+                arr={arr}
+                onContentClick={
+                    (film: IFilm) => () => actionDialogOpen({
+                        open: true,
+                        film,
+                        type: 'content'
+                    })}
+                className={this.props.className}
+                onStarClick={
+                    (film: IFilm) => () => actionDialogOpen({
+                        open: true,
+                        film,
+                        type: 'stars'
+                    })}
+            />
         )
     }
 
@@ -34,4 +50,4 @@ const mapDispatchesToProps = {
     actionDialogOpen,
 };
 
-export default connect(mapStateToProps, mapDispatchesToProps)(FilmsPage);
+export default connect(mapStateToProps, mapDispatchesToProps)(FilmsList);

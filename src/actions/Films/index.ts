@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {IFilm} from "../../reducers/Films/Films.typings";
 import {getFetch, postFetch} from "../../utils/fetch";
 import {IStore} from "../../reducers/typings";
-import {actionDialogTypes} from "../Dialog";
+import {actionDialogOpen, actionDialogTypes} from "../Dialog";
 
 export const actionFilmsTypes = {
     FILMS_SET_STAR: 'FILMS_SET_STAR',
@@ -36,13 +36,10 @@ export const actionFilmsAdd = (film: IFilm) => async (dispatch: Dispatch) => {
 
         if (status === 200) {
             dispatch({
-                data: {open: false, type: 'content', value: 5, id: null},
-                type: actionDialogTypes.DIALOG_OPEN
-            });
-            dispatch({
                 data: [response],
                 type: actionFilmsTypes.FILMS_LOAD
             });
+            actionDialogOpen({open: false, film: null, type: 'content'})(dispatch);
         }
     } catch (e) {
         console.log('Error Add Film', e);

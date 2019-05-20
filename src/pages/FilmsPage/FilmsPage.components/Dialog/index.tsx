@@ -13,62 +13,54 @@ class DialogStars extends React.Component<IDialogConteinerProps> {
     render(): React.ReactNode {
         const {
             open,
-            value,
+            film,
             type,
-            id,
         } = this.props.dialog;
 
-        switch (type) {
-            case 'stars':
-                return (
-                    <DialogTypeStars
-                        open={open}
-                        value={value}
-                        handleClose={this.handleClose}
-                        handleChange={this.handleChange}
-                    />
-                );
-            case 'content':
-                const film: IFilm | null | '' = id && this.findFilm(id);
+        if (film) {
+            const {stars} = film;
 
-                return (
-                    <DialogTypeContent
-                        open={open}
-                        handleClose={this.handleClose}
-                        film={film ? film : null}
-                    />
-                );
-
-            case 'add_film':
-                return <DialogTypeAddFilm
+            switch (type) {
+                case 'stars':
+                    return (
+                        <DialogTypeStars
+                            open={open}
+                            value={stars}
+                            handleClose={this.handleClose}
+                            handleChange={this.handleChangeStars}
+                        />
+                    );
+                case 'content':
+                    return (
+                        <DialogTypeContent
+                            open={open}
+                            handleClose={this.handleClose}
+                            film={film}
+                        />
+                    );
+            }
+        } else {
+            if (type === 'add_film') {
+                return (<DialogTypeAddFilm
                     open={open}
                     handleClose={this.handleClose}
                     onClickAdd={(film: IFilm) => this.props.actionFilmsAdd(film)}
-                />
-        }
-    }
-
-    private findFilm = (id: string): IFilm | null => {
-        for (const v of this.props.arr) {
-            if (v.id === id) {
-                return v;
+                />);
             }
         }
 
         return null;
-    };
+    }
 
-    private handleChange = (star: number) => () => {
-        const {id} = this.props.dialog;
-
-        if (id) {
-            this.props.actionDialogOpen({open: false, value: 5, id: null, type: 'content'});
-            this.props.actionFilmsSetStar({star, id});
+    private handleChangeStars = (star: number) => () => {
+        if (this.props.dialog.film) {
+            this.props.actionDialogOpen({open: false, film: null, type: 'content'});
+            this.props.actionFilmsSetStar({star, id: this.props.dialog.film.id});
         }
     };
 
     private handleClose = () => {
-        this.props.actionDialogOpen({open: false, value: 5, id: null, type: 'content'});
+        this.props.actionDialogOpen({open: false, film: null, type: 'content'});
     };
 }
 

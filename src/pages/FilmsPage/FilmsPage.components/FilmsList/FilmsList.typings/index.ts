@@ -1,5 +1,5 @@
 import {IFilm, IFilmsFiltersOptions} from "../../../../../reducers/Films/Films.typings";
-import {IactionDialogOpen} from "../../../../../actions/Dialog";
+import {actionDialogOpen, IactionDialogOpen} from "../../../../../actions/Dialog";
 
 export interface IFilmsListProps {
     className?: string;
@@ -7,9 +7,13 @@ export interface IFilmsListProps {
     // stateToProps
     arr: IFilm[];
 
-    actionDialogOpen: IactionDialogOpen;
+    onContentClick: (film: IFilm) => () => void;
+    onStarClick: (film: IFilm) => () => void;
 }
 
-export interface IFilmsListContainerProps extends IFilmsListProps {
+export interface IFilmsListContainerProps {
+    className?: string;
+    arr: IFilm[];
     filters: IFilmsFiltersOptions;
+    actionDialogOpen: IactionDialogOpen;
 }

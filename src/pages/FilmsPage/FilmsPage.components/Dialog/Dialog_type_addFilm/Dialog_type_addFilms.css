@@ -17,10 +17,11 @@
 }
 
 .DialogAddFilm-Date {
-    margin: 15px auto !important;
+    margin-top: 10px !important;
     margin-left: 8% !important;
 }
 
 .DialogAddFilm-Btn {
+   margin-top: 15px;
    margin-left: 39%;
 }

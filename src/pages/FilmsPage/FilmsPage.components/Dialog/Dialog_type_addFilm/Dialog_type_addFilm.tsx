@@ -12,6 +12,7 @@ import {cn} from "@bem-react/classname";
 import SelectCheckBox from "../../../../../components/Select/Select_checkBox/Select_checkBox";
 import {getGenres} from "../../../base";
 import Thumb from "../../../../../components/Thumb/Thumb";
+import Youtube, {parseYoutubeId} from "../../../../../components/Youtube/Youtube";
 
 const cnDialog = cn('DialogAddFilm');
 
@@ -25,6 +26,7 @@ class DialogTypeAddFilm extends React.Component<IDialogProps> {
         date: new Date(),
         genres: [],
         image_src: '',
+        trailer_id: '',
     };
 
     protected handleChange = (name: string) => (e: any) => {
@@ -49,6 +51,14 @@ class DialogTypeAddFilm extends React.Component<IDialogProps> {
                 </DialogTitle>
                 <DialogContent className={cnDialog()}>
                     <div className={cnDialog('Controls')}>
+                        <DatePicker
+                            className={cnDialog('Date')}
+                            label={'Date'}
+                            value={this.state.date}
+                            onChange={(date) => {
+                                this.setState({date})
+                            }}
+                        />
                         <TextField
                             className={cnDialog('Name')}
                             id="add-film-name"
@@ -74,13 +84,37 @@ class DialogTypeAddFilm extends React.Component<IDialogProps> {
                             onChange={this.handleChange('image_src')}
                             margin="normal"
                         />
-                        <DatePicker
-                            className={cnDialog('Date')}
-                            label={'Date'}
-                            value={this.state.date}
-                            onChange={(date) => {
-                                this.setState({date})
+                        <Youtube
+                            autoplay={false}
+                            id={this.state.trailer_id}
+                            width={345}
+                            height={190}
+                        />
+                        <TextField
+                            className={cnDialog('Name')}
+                            id="add-film-trailer-id"
+                            label="Trailer id"
+                            value={this.state.trailer_id}
+                            onChange={this.handleChange('trailer_id')}
+                            margin="normal"
+                        />
+                    </div>
+                    <div>
+                        <Thumb
+                            onContentClick={() => {
                             }}
+                            onStarClick={() => {
+                            }}
+                            id={'testID'}
+                            title={this.state.name || 'Name'}
+                            avatar={'T'}
+                            date={this.state.date.getTime()}
+                            url={this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png'}
+                            genres={this.state.genres}
+                            stars={0}
+                            share={0}
+                            isLiked={false}
+                            trailer={''}
                         />
                         <div onClick={this.add} className={cnDialog('Btn')}>
                             <Button variant="contained"
@@ -91,22 +125,6 @@ class DialogTypeAddFilm extends React.Component<IDialogProps> {
                             </Button>
                         </div>
                     </div>
-                    <Thumb
-                        onContentClick={() => {
-                        }}
-                        onStarClick={() => {
-                        }}
-                        id={'testID'}
-                        title={this.state.name}
-                        avatar={'T'}
-                        date={this.state.date.getTime()}
-                        url={this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png'}
-                        genres={this.state.genres}
-                        stars={0}
-                        share={0}
-                        isLiked={false}
-                        trailer={''}
-                    />
                 </DialogContent>
             </DialogCore>
         )
@@ -115,15 +133,15 @@ class DialogTypeAddFilm extends React.Component<IDialogProps> {
     private add = () => {
         this.props.onClickAdd({
             id: '',
-            title: 'Avengers',
+            title: this.state.name,
             avatar: '',
-            date: 1558338633987,
-            url: 'https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg',
-            genres: ['Fantasy', 'Thriller'],
+            date: this.state.date.getTime(),
+            url: this.state.image_src,
+            genres: this.state.genres,
             stars: 0,
             share: 0,
             isLiked: false,
-            trailer: 'gbcVZgO4n4E',
+            trailer: parseYoutubeId(this.state.trailer_id),
         });
     }
 }

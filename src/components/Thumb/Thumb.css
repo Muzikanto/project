@@ -10,3 +10,7 @@
 .Thumb-Image {
     object-fit: cover;
 }
+
+.Thumb-Content{
+    max-height: 230px;
+}

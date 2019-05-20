@@ -4,8 +4,7 @@ import {actionDialogTypes} from "../../actions/Dialog";
 
 const initialState: IDialogOptions = {
     open: false,
-    value: 5,
-    id: null,
+    film: null,
     type: 'content',
 };
 

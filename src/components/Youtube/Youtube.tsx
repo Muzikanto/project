@@ -1,29 +1,42 @@
 import * as React from 'react';
 import YouTubeBase from 'react-youtube';
+import {IYoutubeProps} from "./Youtube.typings";
 
-class Youtube extends React.Component<{id: string}> {
+class Youtube extends React.Component<IYoutubeProps> {
     render() {
-        const {id} = this.props;
+        const {
+            id,
+            width,
+            height,
+            autoplay,
+        } = this.props;
+
         const opts = {
-            height: '390',
-            width: '640',
+            height,
+            width,
             playerVars: {
-                autoplay: 1
+                autoplay: Number(Boolean(autoplay)),
             }
         };
 
         return (
             <YouTubeBase
-                videoId={id}
+                videoId={parseYoutubeId(id)}
                 opts={opts as any}
                 onReady={this._onReady}
             />
         );
     }
 
-    _onReady(event: any) {
+    private _onReady(event: any) {
         event.target.pauseVideo();
     }
+}
+
+export function parseYoutubeId(str: string) {
+    const index = str.indexOf('v=');
+
+    return index === -1 ? str : str.slice(str.indexOf('v=') + 2);
 }
 
 export default Youtube;
