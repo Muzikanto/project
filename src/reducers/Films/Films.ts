@@ -4,41 +4,20 @@ import {actionFilmsTypes} from "../../actions/Films";
 import {historyPush, queryToObject} from "../../utils/historyPush";
 import {IObject} from "../../utils/typings";
 
-const initialState: IFilmsOptions = {
-    arr: [
-        {
-            id: 'test',
-            title: 'Avangers',
-            avatar: 'М',
-            date: 1258338633987,
-            url: 'https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg',
-            genres: ['Fantasy', 'Thriller'],
-            stars: 3,
-            share: 1,
-            isLiked: true,
-            trailer: 'gbcVZgO4n4E',
+export function getBaseFilmsReducerState(): IFilmsOptions {
+    return {
+        arr: [],
+        filters: {
+            genres: [],
+            stars: '7',
+            dates: [],
+            sort: 'Star'
         },
-        {
-            id: 'test2',
-            title: 'Star Wars',
-            avatar: 'F',
-            date: 1558338633987,
-            url: 'http://www.spletnik.ru/img/2015/12/ayna/20151208-star-post.jpg',
-            genres: ['Fantasy'],
-            stars: 7.5,
-            share: 5,
-            isLiked: false,
-            trailer: 'OvyJhD5lbOw',
-        }
-    ],
-    filters: {
-        genres: [],
-        stars: '7',
-        dates: [],
-        sort: 'Star'
-    },
-    open_filters: false,
-};
+        open_filters: false,
+    };
+}
+
+const initialState = getBaseFilmsReducerState();
 
 const FilmsReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
@@ -51,17 +30,17 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
                 sort: sort || 'Star',
             };
 
-            return {...state, filters, open_filters: open_filters === 'true' };
+            return {...state, filters, open_filters: open_filters === 'true'};
 
         case actionFilmsTypes.FILMS_LOAD:
             const hash: IObject = {};
 
-            for(const v of state.arr) {
+            for (const v of state.arr) {
                 hash[v.id] = true;
             }
 
-            for(const v of action.data) {
-                if(!hash[v.id]) {
+            for (const v of action.data) {
+                if (!hash[v.id]) {
                     state.arr.push(v);
                 }
             }

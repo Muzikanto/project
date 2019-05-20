@@ -8,7 +8,7 @@ export const actionDialogTypes = {
 export type IactionDialogOpen = (data: IDialogOptions) => void;
 export const actionDialogOpen = (data: IDialogOptions) => (dispatch: Dispatch) => {
     dispatch({
-        data: data,
+        data,
         type: actionDialogTypes.DIALOG_OPEN
     });
 };

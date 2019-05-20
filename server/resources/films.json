@@ -1,0 +1,61 @@
+[
+  {
+    "id": 0,
+    "title": "Вспомнить всё",
+    "avatar": "",
+    "date": 1558381145771,
+    "url": "http://ic.pics.livejournal.com/colonelcassad/19281164/70441/600.jpg",
+    "genres": [
+      "Fantastic",
+      "Action"
+    ],
+    "stars": 0,
+    "share": 0,
+    "isLiked": false,
+    "trailer": "r1NWhl5M_2Y"
+  },
+  {
+    "id": 1,
+    "title": "Мстители 4",
+    "avatar": "",
+    "date": 1556307960000,
+    "url": "https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg",
+    "genres": [
+      "Fantastic",
+      "Action"
+    ],
+    "stars": 0,
+    "share": 0,
+    "isLiked": false,
+    "trailer": "QCv8Q1hklgE"
+  },
+  {
+    "id": 2,
+    "title": "Звёздные войны",
+    "avatar": "F",
+    "date": 1558338633987,
+    "url": "http://www.spletnik.ru/img/2015/12/ayna/20151208-star-post.jpg",
+    "genres": [
+      "Fantastic"
+    ],
+    "stars": 0,
+    "share": 0,
+    "isLiked": false,
+    "trailer": "OvyJhD5lbOw"
+  },
+  {
+    "id": 3,
+    "title": "Железный Человек",
+    "avatar": "",
+    "date": 1209675600000,
+    "url": "https://u.kanobu.ru/editor/images/54/6a32acac-3e57-4d61-916e-1e7e82678048.jpg",
+    "genres": [
+      "Fantastic",
+      "Action"
+    ],
+    "stars": 0,
+    "share": 0,
+    "isLiked": false,
+    "trailer": "fMKZMI8ByTs"
+  }
+]

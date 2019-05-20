@@ -36,7 +36,7 @@ class Thumb extends React.Component<IThumbProps> {
                 />
                <ThumbContent
                    onContentClick={onContentClick}
-                   className={cnThumb('Image')}
+                   className={cnThumb('Content')}
                    genres={genres}
                    url={url}
                />

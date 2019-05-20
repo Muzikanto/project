@@ -1,7 +1,7 @@
-import {ICommonEntity, ICommonEntity_noName} from "../../../Entity.typings";
+import {ICommonEntity, ICommonEntityNoName} from "../../../Entity.typings";
 import {Enemy} from "../../Enemy/Enemy";
 
-export interface IGunProps_noName extends ICommonEntity_noName {
+export interface IGunProps_noName extends ICommonEntityNoName {
     ammo?: number;
     parent?: Enemy;
 }

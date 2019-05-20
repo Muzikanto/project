@@ -6,10 +6,24 @@
 }
 
 .FilmsPage-List {
+    animation: SHOW;
+    animation-duration: 0.5s;
     margin: 40px auto 40px auto;
 }
 
 .FilmsPage-Filter {
     width: 100%;
+    animation: SHOW;
+    animation-duration: 0.5s;
     margin-top: 20px !important;
+}
+
+@keyframes SHOW {
+    from {
+        opacity: 0;
+    }
+
+    to{
+       opacity: 1;
+    }
 }

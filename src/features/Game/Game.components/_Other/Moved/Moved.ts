@@ -4,7 +4,7 @@ import {normalizeVectorDistance} from "../../../Game.helpers";
 import CommonEntity from "../../Entity/CommonEntity";
 import {Enemy} from "../../Entity/Entity.childs/Enemy/Enemy";
 import {GameState} from "../../State/State";
-import {IMovedProps_parent} from "./Moved.typings";
+import {IMovedPropsParent} from "./Moved.typings";
 
 class Moved {
     public pos: IVector2D;
@@ -14,7 +14,7 @@ class Moved {
 
     protected parent: CommonEntity;
 
-    constructor(props: IMovedProps_parent) {
+    constructor(props: IMovedPropsParent) {
         this.pos = props.pos;
         this.parent = props.parent;
         this.speed = props.speed;

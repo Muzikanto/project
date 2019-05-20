@@ -7,29 +7,16 @@ import {applyMiddleware, createStore} from 'redux';
 import {register} from './registerServiceWorker';
 import reducers from "./reducers";
 import App from "./pages/.App/App";
-import actions, {socketActionsToDispatches} from "./actions";
+import {socketActionsToDispatches} from "./actions";
 import socket from "./reducers/socket";
 import {Router} from 'react-router';
 import {historyState} from "./history";
 
 register();
-
-export const store = createStore(reducers, applyMiddleware(thunk));
+// @ts-ignore
+export const store = createStore(reducers, window.__PRELOADED_STATE__, applyMiddleware(thunk));
 
 (() => {
-    try {
-        // @ts-ignore
-        const preload = window.__PRELOADED_STATE__;
-        // @ts-ignore
-        delete window.__PRELOADED_STATE__;
-        store.dispatch({
-            type: actions.SET_USER,
-            data: {user: preload.user}
-        });
-    } catch (e) {
-        console.log('Error preload');
-    }
-
     const list = socketActionsToDispatches as { [key: string]: string };
 
     for (const key in list) {

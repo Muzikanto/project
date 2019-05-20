@@ -5,8 +5,8 @@ export type IactionSetUser = (data: IUserOptions) => void;
 export type IactionDropSession = () => void;
 
 export interface IactionAuthorizeParams {
-    email: string,
-    password: string
+    email: string;
+    password: string;
 }
 
 export type IactionAuthorize = (params: IactionAuthorizeParams) => void;

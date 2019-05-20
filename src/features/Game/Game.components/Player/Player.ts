@@ -3,7 +3,7 @@ import {IVector2D} from "../../Game.typings";
 import Gun from "../Entity/Entity.childs/Gun/Gun";
 import {IEnemyProps} from "../Entity/Entity.childs/Enemy/Enemy.typings";
 import {Enemy} from "../Entity/Entity.childs/Enemy/Enemy";
-import Moved from "../_Other/Moved/Moved";
+import PlayerMoved from "./Moved";
 
 class Player extends Enemy {
     public cursor: IVector2D = {x: 0, y: 0};
@@ -64,23 +64,6 @@ class Player extends Enemy {
             item && item.setPlayer(this);
 
             this.hand = item;
-        }
-    }
-}
-
-class PlayerMoved extends Moved {
-    public move(): void {
-        if (this.speed) {
-            const {keysPressed} = GameState;
-            const dx = keysPressed['65'] && -1 || keysPressed['68'] && 1;
-            const dy = keysPressed['87'] && -1 || keysPressed['83'] && 1;
-
-            if (dx) {
-                this.pos.x += dx * this.speed;
-            }
-            if (dy) {
-                this.pos.y += dy * this.speed;
-            }
         }
     }
 }

@@ -3,14 +3,17 @@ import * as express from 'express';
 import * as got from 'got';
 
 import {renderToNodeStream} from 'react-dom/server';
-import {Router, StaticRouter} from 'react-router';
-import {createStore} from "redux";
+import {StaticRouter} from 'react-router';
+import {createStore, DeepPartial} from "redux";
 import {Provider} from "react-redux";
 
 import Reducers from "../../../src/reducers/index";
-import {IRequestSession, IUserSession} from "../typings";
+import {IRequestSession} from "../typings";
 import {ReactType} from "react";
 import {Application} from "express";
+import {filmReader} from "../Films/add";
+import {IStore} from "../../../src/reducers/typings";
+import {getBaseFilmsReducerState} from "../../../src/reducers/Films/Films";
 
 const script = (url: string) => `<script type="text/javascript" src="${url}" async></script>`;
 const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
@@ -19,16 +22,24 @@ export const renderWithApp = (App: ReactType): Application => {
     return (async (req: IRequestSession, res: express.Response, next: express.NextFunction) => {
         const {styles, scripts} = await assets(req.headers.host);
 
-        const store = createStore(Reducers);
-        store.dispatch({type: 'SET_USER', data: {user: req.user}});
+        const preloadState: Partial<IStore> = {
+            User: {
+                user: req.user
+            },
+            FilmsReducer: {
+                ...getBaseFilmsReducerState(),
+                arr: filmReader.read('films.json'),
+            },
+        };
+        const store = createStore(Reducers, preloadState, undefined);
 
-        res.write(renderPage(styles, {user: req.user}));
+        res.write(renderPage(styles, preloadState));
 
         const stream = renderToNodeStream(
             <Provider store={store}>
-                    <StaticRouter location={req.url} context={{}}>
-                        <App/>
-                    </StaticRouter>
+                <StaticRouter location={req.url} context={{}}>
+                    <App/>
+                </StaticRouter>
             </Provider>
         );
 
@@ -45,11 +56,7 @@ export const renderWithApp = (App: ReactType): Application => {
     }) as Application;
 };
 
-interface IRreloadState {
-    user: IUserSession | null
-}
-
-export function renderPage(styles: string[], preloadState: IRreloadState) {
+export function renderPage(styles: string[], preloadState: DeepPartial<IStore>) {
     return `<!DOCTYPE html>
             <html lang="en">
             <head>
@@ -60,7 +67,7 @@ export function renderPage(styles: string[], preloadState: IRreloadState) {
             <meta name="robots" content="all,follow">
             <meta charset="utf-8">
             <meta name="theme-color" content="#000000">
-            <title>Title</title>
+            <title>Muziknato</title>
             <link rel="manifest" href="manifest.json">
             <link rel="shortcut icon" href="favicon.ico">
             ${styles.join('')}
@@ -81,6 +88,7 @@ async function assets(host?: string) {
 
     for (const key in assetsMap) {
         const asset = assetsMap[key];
+
         if (!asset.endsWith('.map') && asset.endsWith('.js')) {
             const tag = script(asset);
             asset.includes('.chunk') ? chunks.push(tag) : bundle.push(tag);
@@ -97,7 +105,7 @@ async function assets(host?: string) {
     };
 }
 
-function getPreloadStateScript(preloadState: IRreloadState) {
+function getPreloadStateScript(preloadState: DeepPartial<IStore>) {
     return `<script> window.__PRELOADED_STATE__ = ${JSON.stringify(preloadState).replace(
         /</g,
         '\\\\\u003c'

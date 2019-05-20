@@ -9,6 +9,6 @@ export interface IMovedProps {
     speed?: number
 }
 
-export interface IMovedProps_parent extends IMovedProps{
+export interface IMovedPropsParent extends IMovedProps{
     parent: CommonEntity;
 }

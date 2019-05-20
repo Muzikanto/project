@@ -1,8 +1,8 @@
-export interface ICommonEntity extends ICommonEntity_noName{
+export interface ICommonEntity extends ICommonEntityNoName{
     name: string;
 }
 
-export interface ICommonEntity_noName {
+export interface ICommonEntityNoName {
     id?: string
     parent_id?: string;
 }

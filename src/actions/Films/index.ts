@@ -40,6 +40,9 @@ export const actionFilmsAdd = (film: IFilm) => async (dispatch: Dispatch) => {
                 type: actionFilmsTypes.FILMS_LOAD
             });
             actionDialogOpen({open: false, film: null, type: 'content'})(dispatch);
+        } else {
+            // Need Logic
+            console.log(response)
         }
     } catch (e) {
         console.log('Error Add Film', e);
@@ -54,7 +57,10 @@ export const actionFilmsFirstLoad = (data: string) => (dispatch: Dispatch) => {
     });
 };
 
-type IactionFilmsSetStarOptions = { star: number, id: string };
+interface IactionFilmsSetStarOptions {
+    star: number;
+    id: string ;
+}
 export type IactionFilmsSetStar = (data: IactionFilmsSetStarOptions) => void;
 export const actionFilmsSetStar = (data: IactionFilmsSetStarOptions) => (dispatch: Dispatch) => {
     dispatch({

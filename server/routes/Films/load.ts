@@ -3,40 +3,15 @@ import {sendResponse} from "../../utils/SendData";
 import {IRequestSession} from "../typings";
 import {Application} from "express";
 import {IFilm} from "../../../src/reducers/Films/Films.typings";
+import {filmReader} from "./add";
 
 export const loadFilms = (async (req: IRequestSession, res: express.Response, _: express.NextFunction) => {
-    const body = req.body;
-    console.log(body);
+    // const body = req.body;
 
     try {
-        const arr: IFilm[] = [
-            {
-                id: 'test',
-                title: 'Avangers',
-                avatar: 'М',
-                date: 1558338633987,
-                url: 'https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg',
-                genres: ['Fantasy', 'Thriller'],
-                stars: 3,
-                share: 1,
-                isLiked: true,
-                trailer: 'gbcVZgO4n4E',
-            },
-            {
-                id: 'test2',
-                title: 'Star Wars',
-                avatar: 'F',
-                date: 1558338633987,
-                url: 'http://www.spletnik.ru/img/2015/12/ayna/20151208-star-post.jpg',
-                genres: ['Fantasy'],
-                stars: 7.5,
-                share: 5,
-                isLiked: false,
-                trailer: 'OvyJhD5lbOw',
-            }
-        ];
+        const arr: IFilm[] = filmReader.read('films.json');
 
-        sendResponse(res, {status: 200, message: 'Success Authorize', response: {arr}});
+        sendResponse(res, {status: 200, message: 'Success Load Films', response: {arr}});
     } catch (err) {
         sendResponse(res, {status: 403, message: err.message});
     }
