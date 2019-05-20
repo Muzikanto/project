@@ -10,7 +10,7 @@ const initialState: IFilmsOptions = {
             id: 'test',
             title: 'Avangers',
             avatar: 'М',
-            date: '26 april 2019',
+            date: 1258338633987,
             url: 'https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg',
             genres: ['Fantasy', 'Thriller'],
             stars: 3,
@@ -22,7 +22,7 @@ const initialState: IFilmsOptions = {
             id: 'test2',
             title: 'Star Wars',
             avatar: 'F',
-            date: '15 november 2017',
+            date: 1558338633987,
             url: 'http://www.spletnik.ru/img/2015/12/ayna/20151208-star-post.jpg',
             genres: ['Fantasy'],
             stars: 7.5,
@@ -36,18 +36,14 @@ const initialState: IFilmsOptions = {
         stars: '7',
         dates: [],
         sort: 'Star'
-    }
+    },
+    open_filters: false,
 };
-
-for (let i = 0; i < 10; i++) {
-    // initialState.arr.push(initialState.arr[0]);
-    // initialState.arr.push(initialState.arr[1]);
-}
 
 const FilmsReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
         case actionFilmsTypes.FILMS_FIRST_LOAD:
-            const {genres, sort, dates, stars} = queryToObject(action.data);
+            const {genres, sort, dates, stars, open_filters} = queryToObject(action.data);
             const filters: IFilmsFiltersOptions = {
                 genres: genres ? genres.split(';') : state.filters.genres,
                 dates: dates ? dates.split(';') : state.filters.dates,
@@ -55,7 +51,7 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
                 sort: sort || 'Star',
             };
 
-            return {...state, filters};
+            return {...state, filters, open_filters: open_filters === 'true' };
 
         case actionFilmsTypes.FILMS_LOAD:
             const hash: IObject = {};
@@ -99,6 +95,10 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
         case actionFilmsTypes.FILMS_SET_SORT:
             historyPush({sort: action.data});
             return {...state, filters: {...state.filters, sort: action.data}};
+
+        case actionFilmsTypes.FILMS_OPEN_FILTER:
+            historyPush({open_filters: action.data});
+            return {...state, open_filters: action.data};
 
         default:
             return state

@@ -4,7 +4,7 @@ import UI from './FilterBlock';
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {
-    actionFilmsFirstLoad, actionFilmsLoad,
+    actionFilmsFirstLoad, actionFilmsLoad, actionFilmsOpenFilter,
     actionFilmsSetFilterDates,
     actionFilmsSetFilterGenres,
     actionFilmsSetFilterStars,
@@ -12,6 +12,7 @@ import {
 } from "../../../../actions/Films";
 import {historyState} from "../../../../history";
 import {actionDialogOpen} from "../../../../actions/Dialog";
+import {getGenres} from "../../base";
 
 class FilterBlock extends React.Component<IFilterBlockContainerProps> {
     componentDidMount(): void {
@@ -19,23 +20,23 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
     }
 
     render(): React.ReactNode {
-        const {className, filters} = this.props;
+        const {
+            className,
+            filters,
+            open_filters,
+        } = this.props;
 
-        const genres = [
-            'Fantastic',
-            'Thriller',
-        ];
-        for (let i = 0; i < 5; i++) {
-            genres.push(genres[0] + i, genres[1] + i);
-        }
+        const genres = getGenres()
 
         const dates = new Array(10).fill(0).map((_, index: number) => (2019 - index).toString());
         const stars = new Array(10).fill(0).map((_, index: number) => (10 - index).toString());
+        const sortData = ['Star', 'Date'];
 
         return (
             <UI
                 className={className}
                 filters={filters}
+                open_filters={open_filters}
                 genres={genres}
                 genresOnChange={(current: string[]) =>
                     this.props.actionFilmsSetFilterGenres(current)
@@ -48,16 +49,19 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                 starsOnChange={(current: string) =>
                     this.props.actionFilmsSetFilterStars(current)
                 }
-                sort={['Star', 'Date']}
+                sort={sortData}
                 sortOnChange={(current: string) =>
                     this.props.actionFilmsSetSort(current)
                 }
                 findOnClick={() => {
                     this.props.actionFilmsLoad();
                 }}
-                addOnClick={()=> {
+                addOnClick={() => {
                     this.props.actionDialogOpen({type: 'add_film', value: 0, id: null, open: true});
                 }}
+                onExpandFilters={() =>
+                    this.props.actionFilmsOpenFilter(!open_filters)
+                }
             />
         );
     }
@@ -65,6 +69,7 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
 
 const mapStateToProps = (store: IStore) => ({
     filters: store.FilmsReducer.filters,
+    open_filters: store.FilmsReducer.open_filters,
 });
 
 const mapActionsToProps = {
@@ -75,6 +80,7 @@ const mapActionsToProps = {
     actionFilmsFirstLoad,
     actionFilmsLoad,
     actionDialogOpen,
+    actionFilmsOpenFilter,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(FilterBlock);

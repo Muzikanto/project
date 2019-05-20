@@ -1,5 +1,26 @@
 .DialogAddFilm{
     display: flex;
-    flex-direction: column;
     align-items: center;
+}
+
+.DialogAddFilm-Controls {
+    max-width: 345px;
+    margin-right: 15px;
+}
+
+.DialogAddFilm-Genres {
+    width: 100%;
+}
+
+.DialogAddFilm-Name {
+    width: 100%;
+}
+
+.DialogAddFilm-Date {
+    margin: 15px auto !important;
+    margin-left: 8% !important;
+}
+
+.DialogAddFilm-Btn {
+   margin-left: 39%;
 }

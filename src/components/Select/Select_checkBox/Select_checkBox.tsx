@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import {ISelectCheckBoxProps, ISelectCheckBoxState} from "./Select_checkBox.typings";
+import {ISelectCheckBoxProps} from "./Select_checkBox.typings";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

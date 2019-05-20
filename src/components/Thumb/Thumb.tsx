@@ -6,13 +6,13 @@ import ThumbHeader from "./Thumb.Components/Thumb-Header/Thumb-Header";
 import './Thumb.css';
 import ThumbBottom from "./Thumb.Components/Thumb-Bottom/Thumb-Bottom";
 import ThumbContent from "./Thumb.Components/Thumb-Content/Thumb-Content";
+import {parseDate} from "../../utils/parseDate";
 
 const cnThumb = cn('Thumb');
 
 class Thumb extends React.Component<IThumbProps> {
     render(): React.ReactNode {
         const {
-            id,
             genres,
             url,
             stars,
@@ -30,7 +30,7 @@ class Thumb extends React.Component<IThumbProps> {
             <Card className={cnThumb({}, [className])}>
                 <ThumbHeader
                     title={title}
-                    date={date}
+                    date={parseDate(date)}
                     avatar={avatar}
                     className={cnThumb('Header')}
                 />

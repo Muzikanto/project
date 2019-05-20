@@ -1,28 +1,30 @@
 import * as React from 'react';
 import {DatePicker as DatePickerBase, MuiPickersUtilsProvider} from 'material-ui-pickers';
 import DateFnsUtils from "@date-io/date-fns";
+import {IDatePicker} from "./DatePicker.typings";
 
-class DatePicker extends React.Component {
-    state = {
-        selectedDate: new Date('2014-08-18T21:11:54'),
-    };
-
-    handleDateChange = (date: Date) => {
-        this.setState({selectedDate: date});
-    };
-
-    setState(state: any, callback?: () => void): void {
-        super.setState(state);
-    }
-
+class DatePicker extends React.Component<IDatePicker> {
     render() {
+        const {
+            label,
+            onChange,
+            value,
+            className,
+        } = this.props;
+
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePickerBase
-                    label="Basic example"
-                    value={this.state.selectedDate}
-                    onChange={this.handleDateChange}
-                    animateYearScrolling
+                    className={className}
+                    label={label}
+                    value={value}
+                    variant={'outlined'}
+                    onChange={onChange}
+                    keyboard
+                    format={"dd/MM/yyyy"}
+                    mask={[/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]}
+                    minDate={new Date('2000-01-01T21:11:54')}
+                    maxDate={new Date(Date.now() + 75000000000)}
                 />
             </MuiPickersUtilsProvider>
         );

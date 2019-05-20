@@ -5,9 +5,9 @@ import Typography from "@material-ui/core/Typography";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {IFilterBlockProps} from "./FilterBlock.typings";
-import SelectCheckBox from "./FilterBlock.components/Select_checkBox/Select_checkBox";
+import SelectCheckBox from "../../../../components/Select/Select_checkBox/Select_checkBox";
 import {cn} from "@bem-react/classname";
-import Select from "./FilterBlock.components/Select/Select";
+import Select from "../../../../components/Select/Select/Select";
 import Button from "@material-ui/core/Button";
 import './FilterBlock.css';
 
@@ -28,10 +28,12 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
             filters,
             findOnClick,
             addOnClick,
+            open_filters,
+            onExpandFilters,
         } = this.props;
 
         return (
-            <ExpansionPanel className={className}>
+            <ExpansionPanel className={className} onChange={onExpandFilters} expanded={open_filters}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     <Typography variant={'h5'}>Filters</Typography>
                 </ExpansionPanelSummary>

@@ -12,6 +12,7 @@ export const actionFilmsTypes = {
     FILMS_SET_SORT: 'FILMS_SET_SORT',
     FILMS_FIRST_LOAD: 'FILMS_FIRST_LOAD',
     FILMS_LOAD: 'FILMS_LOAD',
+    FILMS_OPEN_FILTER: 'FILMS_OPEN_FILTER',
 };
 
 export type IactionFilmsLoad = () => void;
@@ -98,5 +99,13 @@ export const actionFilmsSetSort = (data: IactionFilmsSetSortOptions) => (dispatc
     dispatch({
         data,
         type: actionFilmsTypes.FILMS_SET_SORT
+    });
+};
+
+export type IactionFilmsOpenFilter = (open: boolean) => void;
+export const actionFilmsOpenFilter = (data: boolean) => (dispatch: Dispatch) => {
+    dispatch({
+        data,
+        type: actionFilmsTypes.FILMS_OPEN_FILTER
     });
 };

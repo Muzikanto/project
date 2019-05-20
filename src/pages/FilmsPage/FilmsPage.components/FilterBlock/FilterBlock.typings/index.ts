@@ -1,18 +1,17 @@
 import {IFilmsFiltersOptions} from "../../../../../reducers/Films/Films.typings";
-import {ISelectCheckBoxState} from "../FilterBlock.components/Select_checkBox/Select_checkBox.typings";
 import {
-    actionFilmsLoad,
-    IactionFilmsFirstLoad, IactionFilmsLoad,
+    IactionFilmsFirstLoad, IactionFilmsLoad, IactionFilmsOpenFilter,
     IactionFilmsSetFilterDates,
     IactionFilmsSetFilterGenres,
     IactionFilmsSetFilterStars, IactionFilmsSetSort
 } from "../../../../../actions/Films";
-import {actionDialogOpen, IactionDialogOpen} from "../../../../../actions/Dialog";
+import {IactionDialogOpen} from "../../../../../actions/Dialog";
 
 export interface IFilterBlockProps {
     className?: string;
 
     filters: IFilmsFiltersOptions;
+    open_filters: boolean
 
     genresOnChange: (current: string[]) => void;
     datesOnChange: (current: string[]) => void;
@@ -20,6 +19,7 @@ export interface IFilterBlockProps {
     sortOnChange: (current: string) => void;
     findOnClick: () => void;
     addOnClick: () => void;
+    onExpandFilters: () => void;
 
     genres: string[];
     dates: string[];
@@ -32,6 +32,7 @@ export interface IFilterBlockContainerProps {
 
     // stateToProps
     filters: IFilmsFiltersOptions;
+    open_filters: boolean;
 
     // dispatches
     actionFilmsSetFilterGenres: IactionFilmsSetFilterGenres;
@@ -41,4 +42,5 @@ export interface IFilterBlockContainerProps {
     actionFilmsFirstLoad: IactionFilmsFirstLoad;
     actionFilmsLoad: IactionFilmsLoad;
     actionDialogOpen: IactionDialogOpen;
+    actionFilmsOpenFilter: IactionFilmsOpenFilter;
 }
