@@ -29,10 +29,11 @@ class NavBar extends React.Component<INavBarProps> {
         });
     }
 
-    protected getItem(el: INavBarItem) {
+    protected getItem(el: INavBarItem, onClick?: () => void) {
         return (
             <li
                 key={el.text + 'nav'}
+                onClick={onClick}
                 className={cnNav('Item')}
             >
                 <Link to={el.url}>{el.text}</Link>
@@ -48,7 +49,7 @@ class NavBar extends React.Component<INavBarProps> {
             </ul>
             : <ul className={cnNav('Right')}>
                 {this.getItem({text: shortText(this.props.user.nick, 10), url: '#'})}
-                {this.getItem({text: 'Выйти', url: '#'})}
+                {this.getItem({text: 'Выйти', url: '#'}, this.props.dropSession)}
             </ul>;
     }
 

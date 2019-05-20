@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {cn} from "@bem-react/classname";
-import {ILoginFormProps} from "./LoginForm.typings";
+import InputShow from '../../../../components/Input/Input_show/InputShow'
 import Input from "../../../../components/Input/Input";
-import Button from "../../../../components/Button/Button";
+import {ILoginFormProps} from "./LoginForm.typings";
+import Button from "@material-ui/core/Button";
 import './LoginForm.css';
 
 const cnLoginForm = cn('LoginForm');
@@ -10,11 +11,14 @@ const cnLoginForm = cn('LoginForm');
 class LoginForm extends React.Component<ILoginFormProps> {
     public render() {
         return (
-            <form className={cnLoginForm()} onSubmit={this.props.onSubmit} action={'#'}>
-                <Input bemType={'withLabel'} placeholder={'Email'}  ref={this.props.refs.email}/>
-                <Input bemType={'withLabel'} placeholder={'Password'} ref={this.props.refs.password}/>
-                <Button type={'submit'} theme={'Future'} size={'Big'} text={'Sign Up'}
-                        className={cnLoginForm('Btn')}/>
+            <form className={cnLoginForm()} action={'#'}>
+                <Input label={'Email'} ref={this.props.refEmail} className={cnLoginForm('Item')}/>
+                <InputShow label={'Password'} ref={this.props.refPassword} className={cnLoginForm('Item')}/>
+                <div onClick={this.props.onSubmit} className={cnLoginForm('Btn')}>
+                    <Button variant="contained" size="large" color="primary">
+                        Sign In
+                    </Button>
+                </div>
             </form>
         )
     }

@@ -6,6 +6,10 @@
 }
 
 .LoginForm-Btn {
-    width: 40%;
-    margin: 15px auto 0 auto;
+    display: flex;
+    align-self: center;
+}
+
+.LoginForm-Item {
+    margin-bottom: 10px !important;
 }

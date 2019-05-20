@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {actionDropSession} from "../../../actions/User";
-import NavBarUI from "./NavBar";
+import UI from "./NavBar";
 import {INavBarContainerProps} from "./NavBar.typings";
 import {IStore} from "../../../reducers/typings";
 
@@ -17,7 +17,7 @@ class NavBar extends React.Component<INavBarContainerProps> {
         const {user} = this.props;
 
         return (
-            <NavBarUI user={user} dropSession={this.dropSession} items={this.items}/>
+            <UI user={user} dropSession={this.dropSession} items={this.items}/>
         )
     }
 

@@ -13,10 +13,11 @@ export const actionSetUser = (data: IUserOptions) => (dispatch: Dispatch) => {
 
 export const actionDropSession = () => async (dispatch: Dispatch) => {
     try {
-        await postFetch('/api/logout', {});
+        await postFetch('/api/logout');
+
         actionSetUser({user: null})(dispatch);
     } catch (err) {
-        console.log(err);
+        // Need Logic
     }
 };
 
@@ -25,9 +26,11 @@ export const actionAuthorize = (params: IactionAuthorizeParams) => async (dispat
         const data = await postFetch('/api/authorize', params);
         if (data.status === 200) {
             actionSetUser({user: data.response.user})(dispatch);
+        } else {
+            // Need Logic
         }
     } catch (err) {
-        console.log(err);
+        // Need Logic
     }
 };
 
@@ -36,8 +39,10 @@ export const actionRegister = (params: IactionRegisterParams) => async (dispatch
         const data = await postFetch('/api/register', params);
         if (data.status === 200) {
             actionSetUser({user: data.response.user})(dispatch);
+        } else {
+            // Need Logic
         }
     } catch (err) {
-        console.log(err);
+        // Need Logic
     }
 };

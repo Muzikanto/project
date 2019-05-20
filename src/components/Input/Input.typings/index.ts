@@ -1,30 +1,9 @@
-import {IClassNameProps} from "@bem-react/core";
-import {ChangeEvent} from "react";
+export interface IInputState {
+    value: string;
+    error: boolean;
+}
 
-interface IInput extends IClassNameProps {
-    pattern?: string;
-    type?: string;
-    value?: string;
-    title?: string;
-    required?: boolean;
+export interface IInputProps {
+    label?: string;
     className?: string;
-
-    placeholder?: string;
-    bemType?: 'withLabel'
-    name?: string;
-    onChangeCB?: (value: string) => void;
-
-    icon?: string;
-
-    success?: boolean;
-}
-
-interface IInputProps extends IInput{
-    bemOnChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-
-export {
-    IInput,
-    IInputProps
 }
