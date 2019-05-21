@@ -28,12 +28,12 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
             filters,
             findOnClick,
             addOnClick,
-            open_filters,
+            filter_open,
             onExpandFilters,
         } = this.props;
 
         return (
-            <ExpansionPanel className={className} onChange={onExpandFilters} expanded={open_filters}>
+            <ExpansionPanel className={className} onChange={onExpandFilters} expanded={filter_open}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     <Typography variant={'h5'}>Filters</Typography>
                 </ExpansionPanelSummary>
@@ -42,7 +42,7 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
                         onChange={genresOnChange}
                         className={cnFilterBlock('Select')}
                         arr={genres}
-                        current={filters.genres}
+                        current={filters.filter_genres}
                         label={'Genres'}
                     />
                     <SelectCheckBox
@@ -50,20 +50,20 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
                         className={cnFilterBlock('Select')}
                         arr={dates}
                         label={'Date'}
-                        current={filters.dates}
+                        current={filters.filter_dates}
                     />
                     <Select
                         onChange={starsOnChange}
                         className={cnFilterBlock('Select')}
                         arr={stars}
-                        current={filters.stars}
+                        current={filters.filter_stars}
                         label={'Min Stars'}
                     />
                     <Select
                         onChange={sortOnChange}
                         className={cnFilterBlock('Select')}
                         label={'Sort'}
-                        current={filters.sort}
+                        current={filters.filter_sort}
                         arr={sort}
                     />
                     <div style={{display: 'flex'}} onClick={findOnClick}>

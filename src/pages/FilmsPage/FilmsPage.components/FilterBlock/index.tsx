@@ -4,15 +4,14 @@ import UI from './FilterBlock';
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {
-    actionFilmsFirstLoad, actionFilmsLoad, actionFilmsOpenFilter,
-    actionFilmsSetFilterDates,
-    actionFilmsSetFilterGenres,
-    actionFilmsSetFilterStars,
-    actionFilmsSetSort
+    actionFilmsFirstLoad,
+    actionFilmsFind,
+    actionFilmsSetFilter,
 } from "../../../../actions/Films";
 import {historyState} from "../../../../history";
-import {actionDialogOpen} from "../../../../actions/Dialog";
+import {actionDialog} from "../../../../actions/Dialog";
 import {getGenres} from "../../base";
+import {IFilmsFilterSort} from "../../../../reducers/Films/Films.typings";
 
 class FilterBlock extends React.Component<IFilterBlockContainerProps> {
     componentDidMount(): void {
@@ -23,44 +22,43 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
         const {
             className,
             filters,
-            open_filters,
         } = this.props;
 
-        const genres = getGenres()
+        const genres = getGenres();
 
         const dates = new Array(10).fill(0).map((_, index: number) => (2019 - index).toString());
         const stars = new Array(10).fill(0).map((_, index: number) => (10 - index).toString());
-        const sortData = ['Star', 'Date'];
+        const sortData: IFilmsFilterSort[] = ['Star', 'Date'];
 
         return (
             <UI
                 className={className}
                 filters={filters}
-                open_filters={open_filters}
+                filter_open={filters.filter_open}
                 genres={genres}
-                genresOnChange={(current: string[]) =>
-                    this.props.actionFilmsSetFilterGenres(current)
+                genresOnChange={(filter_genres: string[]) =>
+                    this.props.actionFilmsSetFilter({filter_genres})
                 }
                 dates={dates}
-                datesOnChange={(current: string[]) =>
-                    this.props.actionFilmsSetFilterDates(current)
+                datesOnChange={(filter_dates: string[]) =>
+                    this.props.actionFilmsSetFilter({filter_dates})
                 }
                 stars={stars}
-                starsOnChange={(current: string) =>
-                    this.props.actionFilmsSetFilterStars(current)
+                starsOnChange={(filter_stars: string) =>
+                    this.props.actionFilmsSetFilter({filter_stars})
                 }
                 sort={sortData}
-                sortOnChange={(current: string) =>
-                    this.props.actionFilmsSetSort(current)
+                sortOnChange={(filter_sort: IFilmsFilterSort) =>
+                    this.props.actionFilmsSetFilter({filter_sort})
                 }
                 findOnClick={() => {
-                    this.props.actionFilmsLoad();
+                    this.props.actionFilmsFind();
                 }}
                 addOnClick={() => {
-                    this.props.actionDialogOpen({type: 'add_film', film: null, open: true});
+                    this.props.actionDialog({type: 'add_film', film: null, open: true});
                 }}
                 onExpandFilters={() =>
-                    this.props.actionFilmsOpenFilter(!open_filters)
+                    this.props.actionFilmsSetFilter({filter_open: !filters.filter_open})
                 }
             />
         );
@@ -68,19 +66,20 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
 }
 
 const mapStateToProps = (store: IStore) => ({
-    filters: store.FilmsReducer.filters,
-    open_filters: store.FilmsReducer.open_filters,
+    filters: {
+        filter_dates: store.FilmsReducer.filter_dates,
+        filter_genres: store.FilmsReducer.filter_genres,
+        filter_open: store.FilmsReducer.filter_open,
+        filter_sort: store.FilmsReducer.filter_sort,
+        filter_stars: store.FilmsReducer.filter_stars,
+    }
 });
 
 const mapActionsToProps = {
-    actionFilmsSetFilterGenres,
-    actionFilmsSetSort,
-    actionFilmsSetFilterDates,
-    actionFilmsSetFilterStars,
+    actionFilmsSetFilter,
     actionFilmsFirstLoad,
-    actionFilmsLoad,
-    actionDialogOpen,
-    actionFilmsOpenFilter,
+    actionFilmsFind,
+    actionDialog,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(FilterBlock);

@@ -4,31 +4,31 @@ import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {IFilmsListContainerProps} from "./FilmsList.typings";
 import {deepCopy} from "../../../../utils/copy";
-import {actionDialogOpen} from "../../../../actions/Dialog";
+import {actionDialog} from "../../../../actions/Dialog";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 
 class FilmsList extends React.Component<IFilmsListContainerProps> {
     public render() {
-        const {actionDialogOpen} = this.props;
+        const {actionDialog} = this.props;
         const arr = this.sort(this.props.arr);
 
         return (
             <UI
-                menuItems={[{
-                    text: 'Редактировать', action: () => {
-
-                    }
-                }]}
                 arr={arr}
+                className={this.props.className}
+                onEditFilmClick={
+                    (film: IFilm) => () => {
+                        actionDialog({open: true, film, type: 'change_film'})
+                    }
+                }
                 onContentClick={
-                    (film: IFilm) => () => actionDialogOpen({
+                    (film: IFilm) => () => actionDialog({
                         open: true,
                         film,
                         type: 'content'
                     })}
-                className={this.props.className}
                 onStarClick={
-                    (film: IFilm) => () => actionDialogOpen({
+                    (film: IFilm) => () => actionDialog({
                         open: true,
                         film,
                         type: 'stars'
@@ -38,7 +38,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
     }
 
     protected sort(arr: IFilm[]): IFilm[] {
-        if (this.props.filters.sort === 'Star') {
+        if (this.props.filter_sort === 'Star') {
             return deepCopy(arr).sort((a: IFilm, b: IFilm) => b.stars - a.stars)
         } else {
             return deepCopy(arr);
@@ -48,11 +48,11 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
 
 const mapStateToProps = (store: IStore) => ({
     arr: store.FilmsReducer.arr,
-    filters: store.FilmsReducer.filters,
+    filter_sort: store.FilmsReducer.filter_sort,
 });
 
 const mapDispatchesToProps = {
-    actionDialogOpen,
+    actionDialog,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(FilmsList);

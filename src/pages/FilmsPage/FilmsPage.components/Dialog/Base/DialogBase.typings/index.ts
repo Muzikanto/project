@@ -1,4 +1,4 @@
 export interface IDialogBaseProps {
-    open: boolean
+    open?: boolean
     handleClose: () => void;
 }

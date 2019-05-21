@@ -1,25 +1,26 @@
-export interface IFilmsOptions {
+export interface IFilmsOptions extends IFilmsOptionsFilters{
     arr: IFilm[];
-    filters: IFilmsFiltersOptions
-    open_filters: boolean;
+}
+
+export type IFilmsFilterSort = 'Star' | 'Date';
+
+export interface IFilmsOptionsFilters {
+    filter_genres: string[];
+    filter_dates: string[];
+    filter_stars: string;
+    filter_sort: IFilmsFilterSort;
+    filter_open: boolean;
 }
 
 export interface IFilm {
-    id:string;
-    title: string;
-    avatar:string;
+    id: string;
+    name: string;
+    avatar: string;
     date: number;
-    url: string;
+    image_src: string;
     genres: string[];
     stars: number;
     share: number;
     isLiked: boolean;
-    trailer: string;
-}
-
-export interface IFilmsFiltersOptions {
-    genres: string[];
-    dates: string[];
-    stars: string;
-    sort: string;
+    trailerId: string;
 }

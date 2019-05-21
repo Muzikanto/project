@@ -18,7 +18,7 @@ class DialogBase<Props extends IDialogBaseProps> extends React.Component<Props> 
         return (
             <DialogCore
                 maxWidth={false}
-                open={open}
+                open={Boolean(open)}
                 TransitionComponent={this.getTransitionComponent}
                 keepMounted
                 onClose={handleClose}

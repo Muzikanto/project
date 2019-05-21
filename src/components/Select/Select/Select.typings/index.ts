@@ -1,10 +1,12 @@
+import {IFilmsFilterSort} from "../../../../reducers/Films/Films.typings";
+
 export interface ISelectProps {
     current: string;
     label: string;
     arr: string[];
     className?: string;
 
-    onChange: (current: string) => void;
+    onChange: (current: IFilmsFilterSort) => void;
 }
 
 export interface ISelectState {

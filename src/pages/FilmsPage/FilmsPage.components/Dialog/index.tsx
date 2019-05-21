@@ -2,14 +2,15 @@ import * as React from "react";
 import {IDialogConteinerProps} from "./Dialog.typings";
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
-import {actionDialogOpen} from "../../../../actions/Dialog";
+import {actionDialog} from "../../../../actions/Dialog";
 import {actionFilmsAdd, actionFilmsSetStar} from "../../../../actions/Films";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 import DialogTypeAddFilm from "./Dialog_type_addFilm/Dialog_type_addFilm";
+import DialogTypeChangeFilm from "./Dialog_type_changeFilm/Dialog_type_changeFilm";
 
-class DialogStars extends React.Component<IDialogConteinerProps> {
+class Dialog extends React.Component<IDialogConteinerProps> {
     render(): React.ReactNode {
         const {
             open,
@@ -40,6 +41,14 @@ class DialogStars extends React.Component<IDialogConteinerProps> {
                             film={film}
                         />
                     );
+                case 'change_film':
+                    return (<DialogTypeChangeFilm
+                        open={open}
+                        handleClose={this.handleClose}
+
+                        film={film}
+                        onClickAdd={(film: IFilm) => this.props.actionFilmsAdd(film)}
+                    />);
             }
         } else {
             if (type === 'add_film') {
@@ -57,13 +66,13 @@ class DialogStars extends React.Component<IDialogConteinerProps> {
 
     private handleChangeStars = (star: number) => () => {
         if (this.props.dialog.film) {
-            this.props.actionDialogOpen({open: false, film: null, type: 'content'});
+            this.props.actionDialog({open: false, film: null, type: null});
             this.props.actionFilmsSetStar({star, id: this.props.dialog.film.id});
         }
     };
 
     private handleClose = () => {
-        this.props.actionDialogOpen({open: false, film: null, type: 'content'});
+        this.props.actionDialog({open: false, film: null, type: null});
     };
 }
 
@@ -73,9 +82,9 @@ const mapStateToProps = (store: IStore) => ({
 });
 
 const mapDispatchesToProps = {
-    actionDialogOpen,
+    actionDialog,
     actionFilmsSetStar,
     actionFilmsAdd,
 };
 
-export default connect(mapStateToProps, mapDispatchesToProps)(DialogStars);
+export default connect(mapStateToProps, mapDispatchesToProps)(Dialog);

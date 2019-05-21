@@ -11,9 +11,9 @@ class FilmsList extends React.Component<IFilmsListProps> {
     public render() {
         const {
             className,
-            contentProps,
-            headerProps,
-            footerProps,
+            onStarClick,
+            onContentClick,
+            onEditFilmClick,
             arr,
         } = this.props;
 
@@ -22,11 +22,15 @@ class FilmsList extends React.Component<IFilmsListProps> {
                 {
                     arr.map((props: IFilm, index: number) =>
                         <Thumb
-                            headerProps={}
-                            menuItems={menuItems}
+                            menuItems={
+                                [{
+                                    text: 'Редактировать',
+                                    action: onEditFilmClick(props),
+                                }]
+                            }
                             onContentClick={onContentClick(props)}
                             onStarClick={props.isLiked ? () => {} : onStarClick(props)}
-                            trailer={props.trailer}
+                            trailerId={props.trailerId}
                             date={props.date}
                             stars={props.stars}
                             share={props.share}
@@ -34,9 +38,9 @@ class FilmsList extends React.Component<IFilmsListProps> {
                             isLiked={props.isLiked}
                             id={props.id}
                             avatar={props.avatar}
-                            title={props.title}
+                            name={props.name}
                             key={'Thumb' + index}
-                            url={props.url}
+                            image_src={props.image_src}
                             className={cnFilms('Item')}/>)
                 }
             </div>

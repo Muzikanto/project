@@ -1,22 +1,19 @@
-import {IFilmsFiltersOptions} from "../../../../../reducers/Films/Films.typings";
 import {
-    IactionFilmsFirstLoad, IactionFilmsLoad, IactionFilmsOpenFilter,
-    IactionFilmsSetFilterDates,
-    IactionFilmsSetFilterGenres,
-    IactionFilmsSetFilterStars, IactionFilmsSetSort
+    IactionFilmsFirstLoad, IactionFilmsFind, IactionFilmsSetFilter
 } from "../../../../../actions/Films";
-import {IactionDialogOpen} from "../../../../../actions/Dialog";
+import {IactionDialog} from "../../../../../actions/Dialog";
+import {IFilmsFilterSort, IFilmsOptionsFilters} from "../../../../../reducers/Films/Films.typings";
 
 export interface IFilterBlockProps {
     className?: string;
 
-    filters: IFilmsFiltersOptions;
-    open_filters: boolean
+    filters: IFilmsOptionsFilters;
+    filter_open: boolean
 
     genresOnChange: (current: string[]) => void;
     datesOnChange: (current: string[]) => void;
     starsOnChange: (current: string) => void;
-    sortOnChange: (current: string) => void;
+    sortOnChange: (current: IFilmsFilterSort) => void;
     findOnClick: () => void;
     addOnClick: () => void;
     onExpandFilters: () => void;
@@ -24,23 +21,18 @@ export interface IFilterBlockProps {
     genres: string[];
     dates: string[];
     stars: string[];
-    sort: string[];
+    sort: IFilmsFilterSort[];
 }
 
 export interface IFilterBlockContainerProps {
     className?: string;
 
     // stateToProps
-    filters: IFilmsFiltersOptions;
-    open_filters: boolean;
+    filters: IFilmsOptionsFilters;
 
     // dispatches
-    actionFilmsSetFilterGenres: IactionFilmsSetFilterGenres;
-    actionFilmsSetFilterDates: IactionFilmsSetFilterDates;
-    actionFilmsSetFilterStars: IactionFilmsSetFilterStars;
-    actionFilmsSetSort: IactionFilmsSetSort;
+    actionFilmsSetFilter: IactionFilmsSetFilter;
     actionFilmsFirstLoad: IactionFilmsFirstLoad;
-    actionFilmsLoad: IactionFilmsLoad;
-    actionDialogOpen: IactionDialogOpen;
-    actionFilmsOpenFilter: IactionFilmsOpenFilter;
+    actionFilmsFind: IactionFilmsFind;
+    actionDialog: IactionDialog;
 }

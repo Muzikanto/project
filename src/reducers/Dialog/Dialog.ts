@@ -10,7 +10,7 @@ const initialState: IDialogOptions = {
 
 const DialogReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
-        case actionDialogTypes.DIALOG_OPEN:
+        case actionDialogTypes.DIALOG_ACTION:
             return {...state, ...action.data};
         default:
             return state

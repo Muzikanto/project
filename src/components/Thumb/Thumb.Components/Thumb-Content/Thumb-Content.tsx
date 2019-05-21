@@ -8,18 +8,18 @@ class ThumbContent extends React.Component<IThumbContentProps> {
     render(): React.ReactNode {
         const {
             genres,
-            url,
+            image_src,
             className,
             onContentClick,
         } = this.props;
-
+        console.log(image_src)
         return (
             <div onClick={onContentClick}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
                         className={className}
-                        image={url}
+                        image={image_src}
                     />
                     <CardContent>
                         <b>Genres:</b> {genres.join()}

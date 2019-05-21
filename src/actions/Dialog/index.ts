@@ -2,13 +2,13 @@ import {Dispatch} from "redux";
 import {IDialogOptions} from "../../reducers/Dialog/Dialog.typings";
 
 export const actionDialogTypes = {
-    DIALOG_OPEN: 'DIALOG_OPEN',
+    DIALOG_ACTION: 'DIALOG_ACTION',
 };
 
-export type IactionDialogOpen = (data: IDialogOptions) => void;
-export const actionDialogOpen = (data: IDialogOptions) => (dispatch: Dispatch) => {
+export type IactionDialog = (data: IDialogOptions) => void;
+export const actionDialog = (data: IDialogOptions) => (dispatch: Dispatch) => {
     dispatch({
         data,
-        type: actionDialogTypes.DIALOG_OPEN
+        type: actionDialogTypes.DIALOG_ACTION
     });
 };

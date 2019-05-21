@@ -1,6 +1,6 @@
 import * as React from "react";
 import Slide from "@material-ui/core/Slide";
-import {IDialogProps} from "./Dialog_type_addFilm.typings";
+import {IDialogTypeAddProps, IDialogTypeAddState} from "./Dialog_type_addFilm.typings";
 import {Button} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from "../../../../../components/DatePicker/DatePicker";
@@ -15,13 +15,13 @@ import {TransitionProps} from "@material-ui/core/transitions/transition";
 
 const cnDialog = cn('DialogAddFilm');
 
-class DialogTypeAddFilm extends DialogBase<IDialogProps> {
-    state = {
+class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Props> {
+    state: IDialogTypeAddState = {
         name: '',
         date: new Date(),
         genres: [],
         image_src: '',
-        trailer_id: '',
+        trailerId: '',
     };
 
     protected getTitle(): string {
@@ -67,7 +67,7 @@ class DialogTypeAddFilm extends DialogBase<IDialogProps> {
                     />
                     <Youtube
                         autoplay={false}
-                        id={this.state.trailer_id}
+                        id={this.state.trailerId}
                         width={345}
                         height={190}
                     />
@@ -75,8 +75,8 @@ class DialogTypeAddFilm extends DialogBase<IDialogProps> {
                         className={cnDialog('Name')}
                         id="add-film-trailer-id"
                         label="Trailer id"
-                        value={this.state.trailer_id}
-                        onChange={this.handleChange('trailer_id')}
+                        value={this.state.trailerId}
+                        onChange={this.handleChange('trailerId')}
                         margin="normal"
                     />
                 </div>
@@ -88,17 +88,17 @@ class DialogTypeAddFilm extends DialogBase<IDialogProps> {
                         onStarClick={() => {
                         }}
                         id={'testID'}
-                        title={this.state.name || 'Name'}
+                        name={this.state.name || 'Name'}
                         avatar={'T'}
                         date={this.state.date.getTime()}
-                        url={this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png'}
+                        image_src={this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png'}
                         genres={this.state.genres}
                         stars={0}
                         share={0}
                         isLiked={false}
-                        trailer={''}
+                        trailerId={''}
                     />
-                    <div onClick={this.add} className={cnDialog('Btn')}>
+                    <div onClick={this.submit} className={cnDialog('Btn')}>
                         <Button variant="contained"
                                 size="medium"
                                 color="secondary"
@@ -115,18 +115,18 @@ class DialogTypeAddFilm extends DialogBase<IDialogProps> {
         return <Slide direction="up" {...props} />
     }
 
-    private add = () => {
+    protected submit = () => {
         this.props.onClickAdd({
             id: '',
-            title: this.state.name,
+            name: this.state.name,
             avatar: '',
             date: this.state.date.getTime(),
-            url: this.state.image_src,
+            image_src: this.state.image_src,
             genres: this.state.genres,
             stars: 0,
             share: 0,
             isLiked: false,
-            trailer: parseYoutubeId(this.state.trailer_id),
+            trailerId: parseYoutubeId(this.state.trailerId),
         });
     }
 }

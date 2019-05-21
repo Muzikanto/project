@@ -2,7 +2,7 @@ import {IThumbMenuitems} from "../../Thumb-Menu/Thumb-Menu.typings";
 
 export interface IThumbHeaderProps {
     avatar: string;
-    title: string;
+    name: string;
     date: string;
     className?: string;
 

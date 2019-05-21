@@ -1,19 +1,17 @@
-import {IFilm, IFilmsFiltersOptions, IFilmsOptions} from "./Films.typings";
+import {IFilm, IFilmsOptions} from "./Films.typings";
 import {IReducerAction} from "../typings";
 import {actionFilmsTypes} from "../../actions/Films";
 import {historyPush, queryToObject} from "../../utils/historyPush";
-import {IObject} from "../../utils/typings";
+import {IObject, IObjectStr} from "../../utils/typings";
 
 export function getBaseFilmsReducerState(): IFilmsOptions {
     return {
         arr: [],
-        filters: {
-            genres: [],
-            stars: '7',
-            dates: [],
-            sort: 'Star'
-        },
-        open_filters: false,
+        filter_genres: [],
+        filter_dates: [],
+        filter_stars: '7',
+        filter_sort: 'Star',
+        filter_open: false,
     };
 }
 
@@ -22,17 +20,25 @@ const initialState = getBaseFilmsReducerState();
 const FilmsReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
         case actionFilmsTypes.FILMS_FIRST_LOAD:
-            const {genres, sort, dates, stars, open_filters} = queryToObject(action.data);
-            const filters: IFilmsFiltersOptions = {
-                genres: genres ? genres.split(';') : state.filters.genres,
-                dates: dates ? dates.split(';') : state.filters.dates,
-                stars: stars || state.filters.stars,
-                sort: sort || 'Star',
+            const {
+                filter_genres,
+                filter_sort,
+                filter_dates,
+                filter_stars,
+                filter_open
+            } = queryToObject(action.data);
+
+            const payload: Partial<IFilmsOptions> = {
+                filter_genres: filter_genres ? filter_genres.split(';') : undefined,
+                filter_stars,
+                filter_dates: filter_dates ? filter_dates.split(';') : undefined,
+                filter_sort: filter_sort as any,
+                filter_open: filter_open === 'true'
             };
 
-            return {...state, filters, open_filters: open_filters === 'true'};
+            return {...state, ...payload};
 
-        case actionFilmsTypes.FILMS_LOAD:
+        case actionFilmsTypes.FILMS_ADD:
             const hash: IObject = {};
 
             for (const v of state.arr) {
@@ -47,6 +53,9 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
 
             return {...state, arr: [...state.arr]};
 
+        case actionFilmsTypes.FILMS_FIND:
+            return {...state, arr: [...state.arr, action.data]};
+
         case actionFilmsTypes.FILMS_SET_STAR:
             const arr: IFilm[] = state.arr.map(el => {
                 if (el.id === action.data.id) {
@@ -59,25 +68,17 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
 
             return {...state, arr};
 
-        case actionFilmsTypes.FILMS_SET_FILTER_GENRES:
-            historyPush({genres: action.data.join(';')});
-            return {...state, filters: {...state.filters, genres: action.data}};
+        case actionFilmsTypes.FILMS_SET_FILTER:
+            const data: IObject = action.data;
+            const toHistory: IObjectStr = {};
 
-        case actionFilmsTypes.FILMS_SET_FILTER_DATES:
-            historyPush({dates: action.data.join(';')});
-            return {...state, filters: {...state.filters, dates: action.data}};
+            for(const key in data) {
+                toHistory[key] = Array.isArray(data[key]) ? data[key].join(';') : data[key]
+            }
 
-        case actionFilmsTypes.FILMS_SET_FILTER_STARS:
-            historyPush({stars: action.data});
-            return {...state, filters: {...state.filters, stars: action.data}};
+            historyPush(toHistory);
 
-        case actionFilmsTypes.FILMS_SET_SORT:
-            historyPush({sort: action.data});
-            return {...state, filters: {...state.filters, sort: action.data}};
-
-        case actionFilmsTypes.FILMS_OPEN_FILTER:
-            historyPush({open_filters: action.data});
-            return {...state, open_filters: action.data};
+            return {...state, ...action.data};
 
         default:
             return state

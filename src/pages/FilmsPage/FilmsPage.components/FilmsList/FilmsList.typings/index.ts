@@ -1,28 +1,20 @@
-import {IFilm, IFilmsFiltersOptions} from "../../../../../reducers/Films/Films.typings";
-import {actionDialogOpen, IactionDialogOpen} from "../../../../../actions/Dialog";
-import {IThumbMenuitems} from "../../../../../components/Thumb/Thumb.Components/Thumb-Menu/Thumb-Menu.typings";
+import {IFilm, IFilmsFilterSort} from "../../../../../reducers/Films/Films.typings";
+import {IactionDialog} from "../../../../../actions/Dialog";
 
 export interface IFilmsListProps {
     className?: string;
 
+    // stateToProps
     arr: IFilm[];
 
-    headerProps: {
-        menuItems: IThumbMenuitems;
-    }
-    contentProps: {
-        onContentClick: (film: IFilm) => () => void;
-    }
-    footerProps: {
-        onStarClick: (film: IFilm) => () => void;
-    }
+    onEditFilmClick: (film: IFilm) => () => void;
+    onContentClick: (film: IFilm) => () => void;
+    onStarClick: (film: IFilm) => () => void;
 }
 
 export interface IFilmsListContainerProps {
     className?: string;
-
     arr: IFilm[];
-    filters: IFilmsFiltersOptions;
-
-    actionDialogOpen: IactionDialogOpen;
+    filter_sort: IFilmsFilterSort;
+    actionDialog: IactionDialog;
 }

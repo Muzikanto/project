@@ -14,11 +14,11 @@ class Thumb extends React.Component<IThumbProps> {
     render(): React.ReactNode {
         const {
             genres,
-            url,
+            image_src,
             stars,
             share,
             className,
-            title,
+            name,
             date,
             avatar,
             isLiked,
@@ -31,7 +31,7 @@ class Thumb extends React.Component<IThumbProps> {
             <Card className={cnThumb({}, [className])}>
                 <ThumbHeader
                     menuItems={menuItems}
-                    title={title}
+                    name={name}
                     date={parseDate(date)}
                     avatar={avatar}
                     className={cnThumb('Header')}
@@ -40,10 +40,10 @@ class Thumb extends React.Component<IThumbProps> {
                    onContentClick={onContentClick}
                    className={cnThumb('Content')}
                    genres={genres}
-                   url={url}
+                   image_src={image_src}
                />
                 <ThumbBottom
-                    title={title}
+                    name={name}
                     onStarClick={onStarClick}
                     isLiked={isLiked}
                     share={share}

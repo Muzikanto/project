@@ -6,14 +6,14 @@ import {IDialogProps} from "./Dialog.typings";
 
 class DialogTypeContent extends DialogBase<IDialogProps> {
     protected getTitle(): string {
-        return this.props.film.title;
+        return this.props.film.name;
     }
 
     protected getContent(): React.ReactNode {
         const {film} = this.props;
 
         return (
-             <YouTube id={film.trailer} width={640} height={390}/>
+             <YouTube id={film.trailerId} width={640} height={390}/>
         )
     }
 }

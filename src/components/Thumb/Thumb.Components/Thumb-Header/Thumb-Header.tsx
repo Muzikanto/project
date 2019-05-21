@@ -7,7 +7,7 @@ import ThumbMenu from "../Thumb-Menu/Thumb-Menu";
 class ThumbHeader extends React.Component<IThumbHeaderProps> {
     render(): React.ReactNode {
         const {
-            title,
+            name,
             date,
             avatar,
             className,
@@ -23,7 +23,7 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
                 }
                 action={<ThumbMenu items={menuItems}/>}
                 titleTypographyProps={{variant: 'h5'}}
-                title={title}
+                title={name}
                 subheader={date}
                 className={className}
             />

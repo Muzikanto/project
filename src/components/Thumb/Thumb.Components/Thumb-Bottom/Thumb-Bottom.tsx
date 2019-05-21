@@ -12,7 +12,7 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
         const {
             stars,
             share,
-            title,
+            name,
         } = this.props;
 
         return (
@@ -33,7 +33,7 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Find in Google">
-                        <a target={'_blank'} rel="noopener noreferrer" href={'https://www.google.com/search?q=' + title}
+                        <a target={'_blank'} rel="noopener noreferrer" href={'https://www.google.com/search?q=' + name}
                            style={{textDecoration: 'none'}}>
                             <Button size="small" color="primary">
                                 Learn More
