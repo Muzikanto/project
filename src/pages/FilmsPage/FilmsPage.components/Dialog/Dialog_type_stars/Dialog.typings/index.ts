@@ -1,7 +1,6 @@
-export interface IDialogProps {
-    value: number;
-    open: boolean;
+import {IDialogBaseProps} from "../../Base/DialogBase.typings";
 
-    handleClose: () => void;
-    handleChange: (value: number) => () => void;
+export interface IDialogProps  extends IDialogBaseProps{
+    stars: number;
+    handleChange: (stars: number) => () => void;
 }

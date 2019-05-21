@@ -1,8 +1,10 @@
 export function getGenres() {
     return [
-        'Fantastic',
-        'Thriller',
-        'Drama',
-        'Action',
+        'Фантастика',
+        'Боевик',
+        'Драма',
+        'Приключение',
+        'Мелодрамма',
+        'Фэнтэзи',
     ]
 }

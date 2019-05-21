@@ -25,8 +25,9 @@ class DialogStars extends React.Component<IDialogConteinerProps> {
                     return (
                         <DialogTypeStars
                             open={open}
-                            value={stars}
                             handleClose={this.handleClose}
+
+                            stars={stars}
                             handleChange={this.handleChangeStars}
                         />
                     );
@@ -35,6 +36,7 @@ class DialogStars extends React.Component<IDialogConteinerProps> {
                         <DialogTypeContent
                             open={open}
                             handleClose={this.handleClose}
+
                             film={film}
                         />
                     );
@@ -44,6 +46,7 @@ class DialogStars extends React.Component<IDialogConteinerProps> {
                 return (<DialogTypeAddFilm
                     open={open}
                     handleClose={this.handleClose}
+
                     onClickAdd={(film: IFilm) => this.props.actionFilmsAdd(film)}
                 />);
             }

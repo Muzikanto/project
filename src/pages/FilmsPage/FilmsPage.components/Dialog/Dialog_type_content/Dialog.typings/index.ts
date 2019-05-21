@@ -1,7 +1,6 @@
 import {IFilm} from "../../../../../../reducers/Films/Films.typings";
+import {IDialogBaseProps} from "../../Base/DialogBase.typings";
 
-export interface IDialogProps {
-    open: boolean;
-    handleClose: () => void;
-    film: IFilm | null;
+export interface IDialogProps extends IDialogBaseProps{
+    film: IFilm;
 }

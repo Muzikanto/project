@@ -1,37 +1,19 @@
 import * as React from "react";
-import DialogCore from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import Slide from "@material-ui/core/Slide";
-import {IDialogProps} from "./Dialog.typings";
 import YouTube from '../../../../../components/Youtube/Youtube';
+import DialogBase from "../Base/DialogBase";
+import {IDialogProps} from "./Dialog.typings";
 
-function Transition(props: any) {
-    return <Slide direction="right" {...props} />;
-}
 
-class DialogTypeContent extends React.Component<IDialogProps> {
-    render(): React.ReactNode {
-        const {open, handleClose, film} = this.props;
+class DialogTypeContent extends DialogBase<IDialogProps> {
+    protected getTitle(): string {
+        return this.props.film.title;
+    }
+
+    protected getContent(): React.ReactNode {
+        const {film} = this.props;
 
         return (
-            film ?
-                <DialogCore
-                    maxWidth={false}
-                    open={open}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description"
-                >
-                    <DialogTitle id="alert-dialog-slide-title">
-                        {film.title}
-                    </DialogTitle>
-                    <DialogContent style={{display: 'flex'}}>
-                        <YouTube id={film.trailer} width={640} height={390}/>
-                    </DialogContent>
-                </DialogCore> : null
+             <YouTube id={film.trailer} width={640} height={390}/>
         )
     }
 }
