@@ -14,6 +14,11 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
 
         return (
             <UI
+                menuItems={[{
+                    text: 'Редактировать', action: () => {
+
+                    }
+                }]}
                 arr={arr}
                 onContentClick={
                     (film: IFilm) => () => actionDialogOpen({

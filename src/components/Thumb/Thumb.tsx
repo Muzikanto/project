@@ -24,11 +24,13 @@ class Thumb extends React.Component<IThumbProps> {
             isLiked,
             onContentClick,
             onStarClick,
+            menuItems,
         } = this.props;
 
         return (
             <Card className={cnThumb({}, [className])}>
                 <ThumbHeader
+                    menuItems={menuItems}
                     title={title}
                     date={parseDate(date)}
                     avatar={avatar}

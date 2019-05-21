@@ -82,6 +82,7 @@ class DialogTypeAddFilm extends DialogBase<IDialogProps> {
                 </div>
                 <div>
                     <Thumb
+                        menuItems={[]}
                         onContentClick={() => {
                         }}
                         onStarClick={() => {

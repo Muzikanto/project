@@ -10,19 +10,22 @@ const cnFilms = cn('FilmsList');
 class FilmsList extends React.Component<IFilmsListProps> {
     public render() {
         const {
-            onStarClick,
-            onContentClick,
-            className
+            className,
+            contentProps,
+            headerProps,
+            footerProps,
+            arr,
         } = this.props;
 
         return (
             <div className={cnFilms('Container', [className])}>
                 {
-                    this.props.arr.map((props: IFilm, index: number) =>
+                    arr.map((props: IFilm, index: number) =>
                         <Thumb
+                            headerProps={}
+                            menuItems={menuItems}
                             onContentClick={onContentClick(props)}
-                            onStarClick={props.isLiked ? () => {
-                            } : onStarClick(props)}
+                            onStarClick={props.isLiked ? () => {} : onStarClick(props)}
                             trailer={props.trailer}
                             date={props.date}
                             stars={props.stars}

@@ -19,4 +19,4 @@ class FilmsPage extends React.Component {
     }
 }
 
-export default FilmsPage
+export default FilmsPage;

@@ -29,7 +29,7 @@ export const store = createStore(reducers, window.__PRELOADED_STATE__, applyMidd
     }
 })();
 
-const render = (Component: React.ComponentType) => preloadReady().then(() => {
+export const reactRender = (Component: React.ComponentType) => preloadReady().then(() => {
     hydrate(
         <Provider store={store}>
             <Router history={historyState}>
@@ -40,8 +40,8 @@ const render = (Component: React.ComponentType) => preloadReady().then(() => {
     )
 });
 
-render(App).then();
+reactRender(App).then();
 
-module.hot && module.hot.accept('./pages/.App/App', () => {
-    render(require('./pages/.App/App').default).then();
+module.hot && module.hot.accept('./pages/FilmsPage/FilmsPage', () => {
+    reactRender(require('./pages/.App/App').default).then();
 });
