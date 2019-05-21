@@ -8,7 +8,3 @@ export interface ISelectProps {
 
     onChange: (current: IFilmsFilterSort) => void;
 }
-
-export interface ISelectState {
-    current: string;
-}

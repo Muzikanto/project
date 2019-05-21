@@ -12,7 +12,7 @@ class ThumbContent extends React.Component<IThumbContentProps> {
             className,
             onContentClick,
         } = this.props;
-        console.log(image_src)
+
         return (
             <div onClick={onContentClick}>
                 <CardActionArea>

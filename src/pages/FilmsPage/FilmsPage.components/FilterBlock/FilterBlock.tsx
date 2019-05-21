@@ -28,12 +28,11 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
             filters,
             findOnClick,
             addOnClick,
-            filter_open,
             onExpandFilters,
         } = this.props;
 
         return (
-            <ExpansionPanel className={className} onChange={onExpandFilters} expanded={filter_open}>
+            <ExpansionPanel className={className} onChange={onExpandFilters} expanded={filters.filter_open}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                     <Typography variant={'h5'}>Filters</Typography>
                 </ExpansionPanelSummary>

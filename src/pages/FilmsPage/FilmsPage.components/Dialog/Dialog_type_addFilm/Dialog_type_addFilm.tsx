@@ -29,6 +29,8 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
     }
 
     protected getContent(): React.ReactNode {
+        const {submitText} = this.props;
+
         return (
             <>
                 <div className={cnDialog('Controls')}>
@@ -103,7 +105,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
                                 size="medium"
                                 color="secondary"
                         >
-                            Add
+                            {submitText}
                         </Button>
                     </div>
                 </div>
@@ -116,7 +118,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
     }
 
     protected submit = () => {
-        this.props.onClickAdd({
+        this.props.onSubmit({
             id: '',
             name: this.state.name,
             avatar: '',

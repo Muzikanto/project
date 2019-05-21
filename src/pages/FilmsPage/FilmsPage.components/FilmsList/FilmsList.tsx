@@ -41,7 +41,8 @@ class FilmsList extends React.Component<IFilmsListProps> {
                             name={props.name}
                             key={'Thumb' + index}
                             image_src={props.image_src}
-                            className={cnFilms('Item')}/>)
+                            className={cnFilms('Item')}
+                        />)
                 }
             </div>
         )

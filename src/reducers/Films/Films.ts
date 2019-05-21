@@ -28,13 +28,23 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
                 filter_open
             } = queryToObject(action.data);
 
-            const payload: Partial<IFilmsOptions> = {
-                filter_genres: filter_genres ? filter_genres.split(';') : undefined,
-                filter_stars,
-                filter_dates: filter_dates ? filter_dates.split(';') : undefined,
-                filter_sort: filter_sort as any,
-                filter_open: filter_open === 'true'
-            };
+            const payload: Partial<IFilmsOptions> = {};
+
+            if (filter_genres) {
+                payload.filter_genres = decodeURI(filter_genres).split(';');
+            }
+            if (filter_dates) {
+                payload.filter_dates = filter_dates.split(';');
+            }
+            if (filter_stars) {
+                payload.filter_stars = filter_stars;
+            }
+            if (filter_sort === 'Star' || filter_sort === 'Date') {
+                payload.filter_sort = filter_sort;
+            }
+            if (filter_open) {
+                payload.filter_open = filter_open === 'true'
+            }
 
             return {...state, ...payload};
 
@@ -54,7 +64,7 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
             return {...state, arr: [...state.arr]};
 
         case actionFilmsTypes.FILMS_FIND:
-            return {...state, arr: [...state.arr, action.data]};
+            return {...state, arr: action.data};
 
         case actionFilmsTypes.FILMS_SET_STAR:
             const arr: IFilm[] = state.arr.map(el => {
@@ -68,11 +78,24 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
 
             return {...state, arr};
 
+        case actionFilmsTypes.FILMS_CHANGE:
+            const arrFilms = state.arr.map((el: IObject) => {
+                if (el.id === action.data.id) {
+                    for (const key in action.data) {
+                        el[key] = action.data[key];
+                    }
+                }
+
+                return el;
+            });
+
+            return {...state, arr: arrFilms};
+
         case actionFilmsTypes.FILMS_SET_FILTER:
             const data: IObject = action.data;
             const toHistory: IObjectStr = {};
 
-            for(const key in data) {
+            for (const key in data) {
                 toHistory[key] = Array.isArray(data[key]) ? data[key].join(';') : data[key]
             }
 

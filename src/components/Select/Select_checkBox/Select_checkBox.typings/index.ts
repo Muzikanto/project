@@ -7,7 +7,3 @@ export interface ISelectCheckBoxProps {
 
     onChange: (current: string[]) => void;
 }
-
-export interface ISelectCheckBoxState {
-    current: string[];
-}

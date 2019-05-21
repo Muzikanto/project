@@ -65,7 +65,6 @@ export function renderPage(styles: string[], preloadState: DeepPartial<IStore>) 
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <meta name="description" content="ReactApp">
             <meta name="robots" content="all,follow">
-            <meta charset="utf-8">
             <meta name="theme-color" content="#000000">
             <title>Muziknato</title>
             <link rel="manifest" href="manifest.json">

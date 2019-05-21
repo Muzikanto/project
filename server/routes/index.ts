@@ -9,8 +9,9 @@ import {loadFileRouter} from "./files/files_load";
 import {renderWithApp} from "./helpers/render";
 import App from "../../src/pages/.App/App";
 import AppRouters from "../../src/pages/.App/App.routers";
-import {loadFilms} from "./Films/load";
+import {findFilmsRouter} from "./Films/find";
 import {addFilmRouter} from "./Films/add";
+import {changeFilmRouter} from "./Films/change";
 
 export default function apiRoutes(router: Router): Router {
     router.get(['/', ...AppRouters.map(el => el.url)], renderWithApp(App));
@@ -28,8 +29,9 @@ export default function apiRoutes(router: Router): Router {
     router.get('/api/resources/:name', sendFileRouter);
 
     /* Films */
-    router.get('/api/films/get', loadFilms);
+    router.get('/api/films/find', findFilmsRouter);
     router.post('/api/films/add', addFilmRouter);
+    router.post('/api/films/change', changeFilmRouter);
 
     return router;
 };

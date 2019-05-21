@@ -34,7 +34,6 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
             <UI
                 className={className}
                 filters={filters}
-                filter_open={filters.filter_open}
                 genres={genres}
                 genresOnChange={(filter_genres: string[]) =>
                     this.props.actionFilmsSetFilter({filter_genres})

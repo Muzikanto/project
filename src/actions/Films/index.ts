@@ -10,6 +10,7 @@ export const actionFilmsTypes = {
     FILMS_FIRST_LOAD: 'FILMS_FIRST_LOAD',
     FILMS_FIND: 'FILMS_FIND',
     FILMS_ADD: 'FILMS_ADD',
+    FILMS_CHANGE: 'FILMS_CHANGE',
 };
 
 export type IactionFilmsFind = () => void;
@@ -18,16 +19,12 @@ export const actionFilmsFind = () => async (dispatch: Dispatch, getState: () => 
         const {
             filter_dates,
             filter_genres,
-            filter_open,
-            filter_sort,
             filter_stars,
         } = getState().FilmsReducer;
 
-        const {response} = await getFetch('/api/films/get', {
+        const {response} = await getFetch('/api/films/find', {
             filter_dates,
             filter_genres,
-            filter_open,
-            filter_sort,
             filter_stars
         });
 
@@ -36,6 +33,7 @@ export const actionFilmsFind = () => async (dispatch: Dispatch, getState: () => 
             type: actionFilmsTypes.FILMS_FIND
         });
     } catch (e) {
+        // Need Logic
         console.log('Error load');
     }
 };
@@ -50,13 +48,35 @@ export const actionFilmsAdd = (film: IFilm) => async (dispatch: Dispatch) => {
                 data: film,
                 type: actionFilmsTypes.FILMS_ADD
             });
-            actionDialog({open: false, film: null, type: 'content'})(dispatch);
+            actionDialog({open: false, film: null, type: null})(dispatch);
         } else {
             // Need Logic
             console.log(response)
         }
     } catch (e) {
+        // Need Logic
         console.log('Error Add Film', e);
+    }
+};
+
+export type IactionFilmsChange = (film: IFilm) => void;
+export const actionFilmsChange = (film: IFilm) => async (dispatch: Dispatch) => {
+    try {
+        const {response, status} = await postFetch('/api/films/change', film);
+
+        if (status === 200) {
+            dispatch({
+                data: film,
+                type: actionFilmsTypes.FILMS_CHANGE
+            });
+            actionDialog({open: false, film: null, type: null})(dispatch);
+        } else {
+            // Need Logic
+            console.log(response)
+        }
+    } catch (e) {
+        // Need Logic
+        console.log('Error Change Film', e);
     }
 };
 

@@ -41,8 +41,8 @@ class DialogTypeStars extends DialogBase<IDialogProps> {
         return arr;
     }
 
-    private onFocusStar = (value: number) => () => {
-        this.setState({value});
+    private onFocusStar = (stars: number) => () => {
+        this.setState({stars});
     }
 }
 

@@ -39,9 +39,11 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
 
     protected sort(arr: IFilm[]): IFilm[] {
         if (this.props.filter_sort === 'Star') {
-            return deepCopy(arr).sort((a: IFilm, b: IFilm) => b.stars - a.stars)
+            return deepCopy(arr)
+                .sort((a: IFilm, b: IFilm) => b.stars - a.stars);
         } else {
-            return deepCopy(arr);
+            return deepCopy(arr)
+                .sort((a: IFilm, b: IFilm) => b.date - a.date);
         }
     }
 }

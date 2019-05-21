@@ -8,7 +8,6 @@ export interface IFilterBlockProps {
     className?: string;
 
     filters: IFilmsOptionsFilters;
-    filter_open: boolean
 
     genresOnChange: (current: string[]) => void;
     datesOnChange: (current: string[]) => void;
