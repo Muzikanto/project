@@ -1,11 +1,12 @@
 import * as express from 'express';
+import {IObject} from "../../src/utils/typings";
 
-export const sendResponse = (res: express.Response, data: ISendData) => {
+export function sendResponse<Response extends IObject>(res: express.Response, data: ISendData<Response>) {
     res.send(JSON.stringify(data));
-};
+}
 
-export interface ISendData {
+export interface ISendData<Response> {
     status: number;
     message: string;
-    response?: { [key: string]: any };
+    response?: Response;
 }

@@ -43,7 +43,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                 .sort((a: IFilm, b: IFilm) => b.stars - a.stars);
         } else {
             return deepCopy(arr)
-                .sort((a: IFilm, b: IFilm) => b.date - a.date);
+                .sort((a: IFilm, b: IFilm) =>new Date(b.date).getTime() - new Date(a.date).getTime());
         }
     }
 }

@@ -1,5 +1,5 @@
 import {IactionDialog} from "../../../../../actions/Dialog";
-import {IactionFilmsAdd, IactionFilmsChange, IactionFilmsSetStar} from "../../../../../actions/Films";
+import {IactionCreateFilm, IactionFilmsChange, IactionFilmsSetStar} from "../../../../../actions/Films";
 import {IDialogOptions} from "../../../../../reducers/Dialog/Dialog.typings";
 import {IFilm} from "../../../../../reducers/Films/Films.typings";
 
@@ -9,6 +9,6 @@ export interface IDialogConteinerProps {
 
     actionDialog: IactionDialog;
     actionFilmsSetStar: IactionFilmsSetStar;
-    actionFilmsAdd: IactionFilmsAdd;
+    actionCreateFilm: IactionCreateFilm;
     actionFilmsChange: IactionFilmsChange;
 }

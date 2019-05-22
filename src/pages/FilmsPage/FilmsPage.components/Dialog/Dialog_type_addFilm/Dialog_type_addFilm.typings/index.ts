@@ -12,5 +12,5 @@ export interface IDialogTypeAddState {
     date: Date;
     genres: string[];
     image_src: string;
-    trailerId: string;
+    trailer_id: string;
 }

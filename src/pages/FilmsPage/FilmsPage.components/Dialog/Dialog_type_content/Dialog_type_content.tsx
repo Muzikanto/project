@@ -13,7 +13,7 @@ class DialogTypeContent extends DialogBase<IDialogProps> {
         const {film} = this.props;
 
         return (
-             <YouTube id={film.trailerId} width={640} height={390}/>
+             <YouTube id={film.trailer_id} width={640} height={390}/>
         )
     }
 }

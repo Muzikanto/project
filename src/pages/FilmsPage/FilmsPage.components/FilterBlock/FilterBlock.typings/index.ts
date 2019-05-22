@@ -1,5 +1,5 @@
 import {
-    IactionFilmsFirstLoad, IactionFilmsFind, IactionFilmsSetFilter
+    IactionFilmsFirstLoad, IactionSelectFilms, IactionFilmsSetFilter
 } from "../../../../../actions/Films";
 import {IactionDialog} from "../../../../../actions/Dialog";
 import {IFilmsFilterSort, IFilmsOptionsFilters} from "../../../../../reducers/Films/Films.typings";
@@ -32,6 +32,6 @@ export interface IFilterBlockContainerProps {
     // dispatches
     actionFilmsSetFilter: IactionFilmsSetFilter;
     actionFilmsFirstLoad: IactionFilmsFirstLoad;
-    actionFilmsFind: IactionFilmsFind;
+    actionSelectFilms: IactionSelectFilms;
     actionDialog: IactionDialog;
 }

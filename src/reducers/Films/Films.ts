@@ -48,28 +48,16 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
 
             return {...state, ...payload};
 
-        case actionFilmsTypes.FILMS_ADD:
-            const hash: IObject = {};
+        case actionFilmsTypes.FILM_CREATE:
+            return {...state, arr: [...state.arr, action.data]};
 
-            for (const v of state.arr) {
-                hash[v.id] = true;
-            }
-
-            for (const v of action.data) {
-                if (!hash[v.id]) {
-                    state.arr.push(v);
-                }
-            }
-
-            return {...state, arr: [...state.arr]};
-
-        case actionFilmsTypes.FILMS_FIND:
+        case actionFilmsTypes.FILMS_SELECTED:
             return {...state, arr: action.data};
 
         case actionFilmsTypes.FILMS_SET_STAR:
             const arr: IFilm[] = state.arr.map(el => {
                 if (el.id === action.data.id) {
-                    el.isLiked = true;
+                    el.set_star = true;
                     el.stars = action.data.star;
                 }
 

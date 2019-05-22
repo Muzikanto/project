@@ -6,7 +6,6 @@ import ThumbHeader from "./Thumb.Components/Thumb-Header/Thumb-Header";
 import './Thumb.css';
 import ThumbBottom from "./Thumb.Components/Thumb-Bottom/Thumb-Bottom";
 import ThumbContent from "./Thumb.Components/Thumb-Content/Thumb-Content";
-import {parseDate} from "../../utils/parseDate";
 
 const cnThumb = cn('Thumb');
 
@@ -16,12 +15,12 @@ class Thumb extends React.Component<IThumbProps> {
             genres,
             image_src,
             stars,
-            share,
+            is_favorite,
             className,
             name,
             date,
             avatar,
-            isLiked,
+            set_star,
             onContentClick,
             onStarClick,
             menuItems,
@@ -32,7 +31,7 @@ class Thumb extends React.Component<IThumbProps> {
                 <ThumbHeader
                     menuItems={menuItems}
                     name={name}
-                    date={parseDate(date)}
+                    date={date}
                     avatar={avatar}
                     className={cnThumb('Header')}
                 />
@@ -45,8 +44,8 @@ class Thumb extends React.Component<IThumbProps> {
                 <ThumbBottom
                     name={name}
                     onStarClick={onStarClick}
-                    isLiked={isLiked}
-                    share={share}
+                    set_star={set_star}
+                    is_favorite={is_favorite}
                     stars={stars}
                 />
             </Card>

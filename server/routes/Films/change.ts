@@ -3,7 +3,7 @@ import {sendResponse} from "../../utils/SendData";
 import {IRequestSession} from "../typings";
 import {Application} from "express";
 import {IFilm} from "../../../src/reducers/Films/Films.typings";
-import {filmReader} from "./add";
+import {filmReader} from "./create";
 
 export const changeFilmRouter = (async (req: IRequestSession, res: express.Response, _: express.NextFunction) => {
     const body = req.body;

@@ -11,7 +11,7 @@ import Reducers from "../../../src/reducers/index";
 import {IRequestSession} from "../typings";
 import {ReactType} from "react";
 import {Application} from "express";
-import {filmReader} from "../Films/add";
+import {filmReader} from "../Films/create";
 import {IStore} from "../../../src/reducers/typings";
 import {getBaseFilmsReducerState} from "../../../src/reducers/Films/Films";
 

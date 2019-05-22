@@ -5,6 +5,7 @@
 .Thumb-Header {
     display: flex;
     padding: 10px;
+    white-space: nowrap;
 }
 
 .Thumb-Content{

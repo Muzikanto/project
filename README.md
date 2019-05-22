@@ -44,15 +44,6 @@ Point your browser to [http://localhost:3000/](http://localhost:3000/).
 
 ### License [MIT](LICENSE)
 
-
-## Other
-- connect heroku postgreSql
-
-``` bash
-DB settings -> advanced
-ssl = true
-sslFactory = org.postgresql.ssl.NonValidatingFactory
-```
-
-- travis 
-gem install travis.
+### Поиск в проекте
+- // Need Logic - нужна реализация
+- // Need Refac - нужны изменения

@@ -12,6 +12,7 @@ import Thumb from "../../../../../components/Thumb/Thumb";
 import Youtube, {parseYoutubeId} from "../../../../../components/Youtube/Youtube";
 import DialogBase from "../Base/DialogBase";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
+import {dateToSqlFormat} from "../../../../../utils/parseDate";
 
 const cnDialog = cn('DialogAddFilm');
 
@@ -21,7 +22,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
         date: new Date(),
         genres: [],
         image_src: '',
-        trailerId: '',
+        trailer_id: '',
     };
 
     protected getTitle(): string {
@@ -69,7 +70,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
                     />
                     <Youtube
                         autoplay={false}
-                        id={this.state.trailerId}
+                        id={this.state.trailer_id}
                         width={345}
                         height={190}
                     />
@@ -77,8 +78,8 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
                         className={cnDialog('Name')}
                         id="add-film-trailer-id"
                         label="Trailer id"
-                        value={this.state.trailerId}
-                        onChange={this.handleChange('trailerId')}
+                        value={this.state.trailer_id}
+                        onChange={this.handleChange('trailer_id')}
                         margin="normal"
                     />
                 </div>
@@ -92,13 +93,13 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
                         id={'testID'}
                         name={this.state.name || 'Name'}
                         avatar={'T'}
-                        date={this.state.date.getTime()}
+                        date={dateToSqlFormat(this.state.date)}
                         image_src={this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png'}
                         genres={this.state.genres}
                         stars={0}
-                        share={0}
-                        isLiked={false}
-                        trailerId={''}
+                        is_favorite={false}
+                        set_star={false}
+                        trailer_id={''}
                     />
                     <div onClick={this.submit} className={cnDialog('Btn')}>
                         <Button variant="contained"
@@ -122,13 +123,13 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
             id: '',
             name: this.state.name,
             avatar: '',
-            date: this.state.date.getTime(),
+            date: dateToSqlFormat(this.state.date),
             image_src: this.state.image_src,
             genres: this.state.genres,
             stars: 0,
-            share: 0,
-            isLiked: false,
-            trailerId: parseYoutubeId(this.state.trailerId),
+            is_favorite: false,
+            set_star: false,
+            trailer_id: parseYoutubeId(this.state.trailer_id),
         });
     }
 }

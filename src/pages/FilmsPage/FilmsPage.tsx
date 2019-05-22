@@ -11,8 +11,10 @@ class FilmsPage extends React.Component {
     public render() {
         return (
             <div className={cnFilmsPage()}>
-                <FilterBlock className={cnFilmsPage('Filter')}/>
-                <FilmsList className={cnFilmsPage('List')}/>
+                <section>
+                    <FilterBlock className={cnFilmsPage('Filter')}/>
+                    <FilmsList className={cnFilmsPage('List')}/>
+                </section>
                 <Dialog/>
             </div>
         )

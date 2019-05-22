@@ -2,6 +2,7 @@ import * as React from "react";
 import DialogTypeAddFilm from "../Dialog_type_addFilm/Dialog_type_addFilm";
 import {IDialogTypeChangeProps} from "./Dialog_type_changeFilm.typings";
 import {parseYoutubeId} from "../../../../../components/Youtube/Youtube";
+import {dateToSqlFormat} from "../../../../../utils/parseDate";
 
 class DialogTypeChangeFilm extends DialogTypeAddFilm<IDialogTypeChangeProps> {
     constructor(props: IDialogTypeChangeProps) {
@@ -20,8 +21,8 @@ class DialogTypeChangeFilm extends DialogTypeAddFilm<IDialogTypeChangeProps> {
     protected submit = () => {
         this.props.onSubmit({
             ...this.props.film,
-            date: this.state.date.getTime(),
-            trailerId: parseYoutubeId(this.state.trailerId),
+            date: dateToSqlFormat(this.state.date),
+            trailer_id: parseYoutubeId(this.state.trailer_id),
         })
     }
 }

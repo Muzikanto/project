@@ -1,1 +1,65 @@
-[{"id":0,"name":"Вспомнить всё","avatar":"","date":1558381145771,"image_src":"http://ic.pics.livejournal.com/colonelcassad/19281164/70441/600.jpg","genres":["Фантастика","Боевик"],"stars":5,"share":0,"isLiked":false,"trailerId":"r1NWhl5M_2Y"},{"id":1,"name":"Мстители 4","avatar":"","date":1556307960000,"image_src":"https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg","genres":["Фантастика","Боевик"],"stars":5,"share":0,"isLiked":false,"trailerId":"QCv8Q1hklgE"},{"id":2,"name":"Звёздные войны","avatar":"F","date":1513324200000,"image_src":"http://www.spletnik.ru/img/2015/12/ayna/20151208-star-post.jpg","genres":["Фантастика"],"stars":5,"share":0,"isLiked":false,"trailerId":"OvyJhD5lbOw"},{"id":3,"name":"Железный Человек","avatar":"","date":1209675600000,"image_src":"https://u.kanobu.ru/editor/images/54/6a32acac-3e57-4d61-916e-1e7e82678048.jpg","genres":["Фантастика","Боевик"],"stars":5,"share":0,"isLiked":false,"trailerId":"fMKZMI8ByTs"}]
+[
+  {
+    "id": 0,
+    "name": "Вспомнить всё",
+    "avatar": "",
+    "date": "2019-01-11",
+    "image_src": "http://ic.pics.livejournal.com/colonelcassad/19281164/70441/600.jpg",
+    "genres": [
+      "Фантастика",
+      "Боевик"
+    ],
+    "stars": 5,
+    "share": 0,
+    "set_star": false,
+    "is_favorite": false,
+    "trailer_id": "r1NWhl5M_2Y"
+  },
+  {
+    "id": 1,
+    "name": "Мстители 4",
+    "avatar": "",
+    "date": "2019-01-11",
+    "image_src": "https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg",
+    "genres": [
+      "Фантастика",
+      "Боевик"
+    ],
+    "stars": 5,
+    "share": 0,
+    "set_star": false,
+    "is_favorite": false,
+    "trailer_id": "QCv8Q1hklgE"
+  },
+  {
+    "id": 2,
+    "name": "Звёздные войны",
+    "avatar": "F",
+    "date": "2019-01-11",
+    "image_src": "http://www.spletnik.ru/img/2015/12/ayna/20151208-star-post.jpg",
+    "genres": [
+      "Фантастика"
+    ],
+    "stars": 5,
+    "share": 0,
+    "set_star": false,
+    "is_favorite": false,
+    "trailer_id": "OvyJhD5lbOw"
+  },
+  {
+    "id": 3,
+    "name": "Железный Человек",
+    "avatar": "",
+    "date": "2019-01-11",
+    "image_src": "https://u.kanobu.ru/editor/images/54/6a32acac-3e57-4d61-916e-1e7e82678048.jpg",
+    "genres": [
+      "Фантастика",
+      "Боевик"
+    ],
+    "stars": 5,
+    "share": 0,
+    "set_star": false,
+    "is_favorite": false,
+    "trailer_id": "fMKZMI8ByTs"
+  }
+]

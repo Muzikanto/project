@@ -1,11 +1,25 @@
 .FilmsList-Container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     justify-items: center;
 }
 
 .FilmsList-Item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     grid-column: span 1;
+}
+
+@media only screen and (min-width: 1050px)  {
+    .FilmsList-Container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (min-width: 700px) and (max-width: 1050px)  {
+    .FilmsList-Container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

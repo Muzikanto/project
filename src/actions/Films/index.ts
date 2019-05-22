@@ -3,18 +3,20 @@ import {IFilm, IFilmsOptionsFilters} from "../../reducers/Films/Films.typings";
 import {getFetch, postFetch} from "../../utils/fetch";
 import {IStore} from "../../reducers/typings";
 import {actionDialog} from "../Dialog";
+import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "../../../server/routes/Films/create";
+import {IselectFilmsRouserResponse, IselectFilmsRouterQuery} from "../../../server/routes/Films/select";
 
 export const actionFilmsTypes = {
     FILMS_SET_FILTER: 'FILMS_SET_FILTER',
     FILMS_SET_STAR: 'FILMS_SET_STAR',
     FILMS_FIRST_LOAD: 'FILMS_FIRST_LOAD',
-    FILMS_FIND: 'FILMS_FIND',
-    FILMS_ADD: 'FILMS_ADD',
+    FILMS_SELECTED: 'FILMS_SELECTED',
+    FILM_CREATE: 'FILM_CREATE',
     FILMS_CHANGE: 'FILMS_CHANGE',
 };
 
-export type IactionFilmsFind = () => void;
-export const actionFilmsFind = () => async (dispatch: Dispatch, getState: () => IStore) => {
+export type IactionSelectFilms = () => void;
+export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () => IStore) => {
     try {
         const {
             filter_dates,
@@ -22,36 +24,41 @@ export const actionFilmsFind = () => async (dispatch: Dispatch, getState: () => 
             filter_stars,
         } = getState().FilmsReducer;
 
-        const {response} = await getFetch('/api/films/find', {
-            filter_dates,
-            filter_genres,
+        const {response, status} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', {
+            filter_dates: filter_dates.join(','),
+            filter_genres: filter_genres.join(','),
             filter_stars
         });
-
-        dispatch({
-            data: response.arr,
-            type: actionFilmsTypes.FILMS_FIND
-        });
+        console.log(response)
+        if (status === 200 && false) {
+            dispatch({
+                data: response,
+                type: actionFilmsTypes.FILMS_SELECTED,
+            });
+        } else {
+            // Need Logic
+            console.log('Error load no 200');
+        }
     } catch (e) {
         // Need Logic
         console.log('Error load');
     }
 };
 
-export type IactionFilmsAdd = (film: IFilm) => void;
-export const actionFilmsAdd = (film: IFilm) => async (dispatch: Dispatch) => {
+export type IactionCreateFilm = (film: IFilm) => void;
+export const actionCreateFilm = (film: IFilm) => async (dispatch: Dispatch) => {
     try {
-        const {response, status} = await postFetch('/api/films/add', film);
+        const {response, status} = await postFetch<IcreateFilmRouterQuery, IcreateFilmRouterResponse>('/api/films/create', film);
 
         if (status === 200) {
             dispatch({
-                data: film,
-                type: actionFilmsTypes.FILMS_ADD
+                data: response,
+                type: actionFilmsTypes.FILM_CREATE
             });
             actionDialog({open: false, film: null, type: null})(dispatch);
         } else {
             // Need Logic
-            console.log(response)
+            console.log(status, response)
         }
     } catch (e) {
         // Need Logic

@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {
     actionFilmsFirstLoad,
-    actionFilmsFind,
+    actionSelectFilms,
     actionFilmsSetFilter,
 } from "../../../../actions/Films";
 import {historyState} from "../../../../history";
@@ -27,7 +27,7 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
         const genres = getGenres();
 
         const dates = new Array(10).fill(0).map((_, index: number) => (2019 - index).toString());
-        const stars = new Array(10).fill(0).map((_, index: number) => (10 - index).toString());
+        const stars = new Array(7).fill(0).map((_, index: number) => (10 - index).toString());
         const sortData: IFilmsFilterSort[] = ['Star', 'Date'];
 
         return (
@@ -51,7 +51,7 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                     this.props.actionFilmsSetFilter({filter_sort})
                 }
                 findOnClick={() => {
-                    this.props.actionFilmsFind();
+                    this.props.actionSelectFilms();
                 }}
                 addOnClick={() => {
                     this.props.actionDialog({type: 'add_film', film: null, open: true});
@@ -77,7 +77,7 @@ const mapStateToProps = (store: IStore) => ({
 const mapActionsToProps = {
     actionFilmsSetFilter,
     actionFilmsFirstLoad,
-    actionFilmsFind,
+    actionSelectFilms,
     actionDialog,
 };
 

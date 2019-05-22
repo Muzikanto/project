@@ -1,10 +1,12 @@
-interface IfetchData{
-    response:{[key:string]:any};
-    status:number;
-    message:string;
+import {IObject, IObjectStr} from "./typings";
+
+interface IfetchData<Response> {
+    response: Response;
+    status: number;
+    message: string;
 }
 
-export function postFetch(url: string, body?: { [key: string]: any }):Promise<IfetchData> {
+export function postFetch<Body = IObject, Response = IObject>(url: string, body?: Body): Promise<IfetchData<Response>> {
     return fetch(url, {
         headers: {
             'Accept': 'application/json',
@@ -15,11 +17,16 @@ export function postFetch(url: string, body?: { [key: string]: any }):Promise<If
     }).then(data => data.json())
 }
 
+function f<t extends IObjectStr>(p: t) {
+    p['test'] = '1';
+}
 
-export function getFetch(url: string, params: { [key: string]: any } = {}):Promise<IfetchData> {
-    return fetch(Object.keys(params).reduce((acc: any, key: string) => {
+export function getFetch<Body extends IObject, Response = IObject>(url: string, params: Body): Promise<IfetchData<Response>> {
+    const urlWithParams = Object.keys(params).reduce((acc: any, key: string) => {
         return acc + `${key}=${params[key]}&`;
-    }, url + '?'), {
+    }, url + '?');
+
+    return fetch(urlWithParams, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

@@ -7,7 +7,7 @@ const cnFront = cn('FrontPage');
 
 class FrontPage extends React.Component {
     public componentDidMount() {
-        getFetch('/api/test').then();
+        getFetch('/api/test', {}).then();
     }
 
     public render() {

@@ -16,11 +16,11 @@ export interface IFilm {
     id: string;
     name: string;
     avatar: string;
-    date: number;
+    date: string;
     image_src: string;
-    genres: string[];
     stars: number;
-    share: number;
-    isLiked: boolean;
-    trailerId: string;
+    set_star: boolean;
+    is_favorite: boolean;
+    trailer_id: string;
+    genres: string[];
 }

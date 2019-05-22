@@ -29,13 +29,13 @@ class FilmsList extends React.Component<IFilmsListProps> {
                                 }]
                             }
                             onContentClick={onContentClick(props)}
-                            onStarClick={props.isLiked ? () => {} : onStarClick(props)}
-                            trailerId={props.trailerId}
+                            onStarClick={props.set_star ? () => {} : onStarClick(props)}
+                            trailer_id={props.trailer_id}
                             date={props.date}
                             stars={props.stars}
-                            share={props.share}
+                            is_favorite={props.is_favorite}
                             genres={props.genres}
-                            isLiked={props.isLiked}
+                            set_star={props.set_star}
                             id={props.id}
                             avatar={props.avatar}
                             name={props.name}

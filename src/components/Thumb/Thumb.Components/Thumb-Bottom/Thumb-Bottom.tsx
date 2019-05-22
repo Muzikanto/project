@@ -10,8 +10,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 class ThumbBottom extends React.Component<IThumbBottomProps> {
     render(): React.ReactNode {
         const {
+            set_star,
+            is_favorite,
             stars,
-            share,
             name,
         } = this.props;
 
@@ -20,16 +21,15 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                 <CardActions>
                     <Tooltip title="Stars">
                         <div onClick={this.props.onStarClick}>
-                            <IconButton color={this.props.isLiked ? 'secondary' : undefined}>
+                            <IconButton color={set_star ? 'secondary' : undefined}>
                                 <StarIcon/>
                                 {stars}
                             </IconButton>
                         </div>
                     </Tooltip>
                     <Tooltip title="Shared">
-                        <IconButton>
+                        <IconButton color={is_favorite ? 'secondary' : undefined}>
                             <ShareIcon/>
-                            {share}
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Find in Google">

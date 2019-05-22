@@ -3,7 +3,7 @@ import {IDialogConteinerProps} from "./Dialog.typings";
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {actionDialog} from "../../../../actions/Dialog";
-import {actionFilmsAdd, actionFilmsChange, actionFilmsSetStar} from "../../../../actions/Films";
+import {actionCreateFilm, actionFilmsChange, actionFilmsSetStar} from "../../../../actions/Films";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
@@ -58,7 +58,7 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                     open={open}
                     handleClose={this.handleClose}
 
-                    onSubmit={(film: IFilm) => this.props.actionFilmsAdd(film)}
+                    onSubmit={(film: IFilm) => this.props.actionCreateFilm(film)}
                 />);
             }
         }
@@ -86,7 +86,7 @@ const mapStateToProps = (store: IStore) => ({
 const mapDispatchesToProps = {
     actionDialog,
     actionFilmsSetStar,
-    actionFilmsAdd,
+    actionCreateFilm,
     actionFilmsChange,
 };
 
