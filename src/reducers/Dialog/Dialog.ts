@@ -1,6 +1,6 @@
 import {IDialogOptions} from "./Dialog.typings";
 import {IReducerAction} from "../typings";
-import {actionDialogTypes} from "../../actions/Dialog";
+import {actionDialogTypes} from "./Dialog.actions";
 
 const initialState: IDialogOptions = {
     open: false,

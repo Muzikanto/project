@@ -15,7 +15,7 @@
     height: 200px;
 }
 .FormImage-ImgCont_empty{
-    background-image: url(../../assets/logo.svg);
+    background-image: url(../../pages/.App/NavBar/Navbar.assets/logo.svg);
     background-size: contain;
 }
 

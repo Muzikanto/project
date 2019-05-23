@@ -1,25 +1,32 @@
 import * as React from 'react';
 import * as express from 'express';
 import * as got from 'got';
-
 import {renderToNodeStream} from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 import {createStore, DeepPartial} from "redux";
 import {Provider} from "react-redux";
-
 import Reducers from "../../../src/reducers/index";
 import {IRequestSession} from "../typings";
 import {ReactType} from "react";
 import {Application} from "express";
-import {filmReader} from "../Films/create";
 import {IStore} from "../../../src/reducers/typings";
 import {getBaseFilmsReducerState} from "../../../src/reducers/Films/Films";
+import {SelectFilms} from "../../models/postgreSql/films/select";
+import {IselectFilmsRouterQuery} from "../Films/select";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import JssProvider from 'react-jss/lib/JssProvider';
+import {SheetsRegistry} from 'jss';
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import createGenerateClassName from "@material-ui/core/styles/createGenerateClassName";
+import green from '@material-ui/core/colors/green';
 
 const script = (url: string) => `<script type="text/javascript" src="${url}" async></script>`;
 const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
 
 export const renderWithApp = (App: ReactType): Application => {
     return (async (req: IRequestSession, res: express.Response, next: express.NextFunction) => {
+        const filters = req.query as IselectFilmsRouterQuery;
+
         const {styles, scripts} = await assets(req.headers.host);
 
         const preloadState: Partial<IStore> = {
@@ -28,17 +35,34 @@ export const renderWithApp = (App: ReactType): Application => {
             },
             FilmsReducer: {
                 ...getBaseFilmsReducerState(),
-                arr: filmReader.read('films.json'),
+                arr: await SelectFilms(filters),
             },
         };
         const store = createStore(Reducers, preloadState, undefined);
 
-        res.write(renderPage(styles, preloadState));
+        const sheetsRegistry = new SheetsRegistry();
+        // Create a sheetsManager instance.
+        const sheetsManager = new Map();
+        // Create a theme instance.
+        const theme = createMuiTheme({
+            palette: {
+                primary: green,
+                type: 'light',
+            },
+        });
+        // Create a new class name generator.
+        const generateClassName = createGenerateClassName();
+
+        res.write(renderPage(styles, preloadState, sheetsRegistry.toString()));
 
         const stream = renderToNodeStream(
             <Provider store={store}>
                 <StaticRouter location={req.url} context={{}}>
-                    <App/>
+                    <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+                        <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
+                            <App/>
+                        </MuiThemeProvider>
+                    </JssProvider>
                 </StaticRouter>
             </Provider>
         );
@@ -56,7 +80,7 @@ export const renderWithApp = (App: ReactType): Application => {
     }) as Application;
 };
 
-export function renderPage(styles: string[], preloadState: DeepPartial<IStore>) {
+export function renderPage(styles: string[], preloadState: DeepPartial<IStore>, css: string) {
     return `<!DOCTYPE html>
             <html lang="en">
             <head>
@@ -70,6 +94,7 @@ export function renderPage(styles: string[], preloadState: DeepPartial<IStore>) 
             <link rel="manifest" href="manifest.json">
             <link rel="shortcut icon" href="favicon.ico">
             ${styles.join('')}
+            <style id="jss-server-side">${css}</style>
             <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript" async></script>
             </head>${getPreloadStateScript(preloadState)}
             <body><div id="root">`

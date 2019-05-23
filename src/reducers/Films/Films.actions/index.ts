@@ -1,10 +1,12 @@
 import {Dispatch} from "redux";
-import {IFilm, IFilmsOptionsFilters} from "../../reducers/Films/Films.typings";
-import {getFetch, postFetch} from "../../utils/fetch";
-import {IStore} from "../../reducers/typings";
-import {actionDialog} from "../Dialog";
-import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "../../../server/routes/Films/create";
-import {IselectFilmsRouserResponse, IselectFilmsRouterQuery} from "../../../server/routes/Films/select";
+import {IFilm, IFilmsOptionsFilters} from "../Films.typings";
+import {getFetch, postFetch} from "../../../utils/fetch";
+import {IStore} from "../../typings";
+import {actionDialog} from "../../Dialog/Dialog.actions";
+import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "../../../../server/routes/Films/create";
+import {IselectFilmsRouserResponse, IselectFilmsRouterQuery} from "../../../../server/routes/Films/select";
+import {IchangeFilmRouterQuery, IchangeFilmRouterResponse} from "../../../../server/routes/Films/change";
+import {IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse} from "../../../../server/routes/Films/changeStars";
 
 export const actionFilmsTypes = {
     FILMS_SET_FILTER: 'FILMS_SET_FILTER',
@@ -29,8 +31,8 @@ export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () =
             filter_genres: filter_genres.join(','),
             filter_stars
         });
-        console.log(response)
-        if (status === 200 && false) {
+
+        if (status === 200) {
             dispatch({
                 data: response,
                 type: actionFilmsTypes.FILMS_SELECTED,
@@ -69,7 +71,7 @@ export const actionCreateFilm = (film: IFilm) => async (dispatch: Dispatch) => {
 export type IactionFilmsChange = (film: IFilm) => void;
 export const actionFilmsChange = (film: IFilm) => async (dispatch: Dispatch) => {
     try {
-        const {response, status} = await postFetch('/api/films/change', film);
+        const {response, status} = await postFetch<IchangeFilmRouterQuery, IchangeFilmRouterResponse>('/api/films/change', film);
 
         if (status === 200) {
             dispatch({
@@ -95,17 +97,25 @@ export const actionFilmsFirstLoad = (data: string) => (dispatch: Dispatch) => {
     });
 };
 
-interface IactionFilmsSetStarOptions {
-    star: number;
-    id: string;
-}
+export type IactionChangeStars = (data: IchangeStarsFilmRouterQuery) => void;
+export const actionChangeStars = (data: IchangeStarsFilmRouterQuery) => async (dispatch: Dispatch) => {
+    try {
+        const {response, status} = await postFetch<IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse>('/api/films/change_star', data);
 
-export type IactionFilmsSetStar = (data: IactionFilmsSetStarOptions) => void;
-export const actionFilmsSetStar = (data: IactionFilmsSetStarOptions) => (dispatch: Dispatch) => {
-    dispatch({
-        data,
-        type: actionFilmsTypes.FILMS_SET_STAR
-    });
+        if (status === 200) {
+            dispatch({
+                data,
+                type: actionFilmsTypes.FILMS_SET_STAR
+            });
+            actionDialog({open: false, film: null, type: null})(dispatch);
+        } else {
+            // Need Logic
+            console.log(response)
+        }
+    } catch (e) {
+        // Need Logic
+        console.log('Error Change Film', e);
+    }
 };
 
 export type IactionFilmsSetFilter = (data: Partial<IFilmsOptionsFilters>) => void;

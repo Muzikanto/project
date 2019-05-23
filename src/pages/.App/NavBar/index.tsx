@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import {actionDropSession} from "../../../actions/User";
+import {actionDropSession} from "../../../reducers/User/User.actions";
 import UI from "./NavBar";
 import {INavBarContainerProps} from "./NavBar.typings";
 import {IStore} from "../../../reducers/typings";

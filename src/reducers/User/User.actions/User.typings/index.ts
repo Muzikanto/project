@@ -1,4 +1,4 @@
-import {IUserOptions} from "../../../reducers/User/User.typings";
+import {IUserOptions} from "../../User.typings";
 
 export type IactionSetUser = (data: IUserOptions) => void;
 

@@ -1,8 +1,8 @@
 import {IReducerAction} from "../typings";
-import actions from "../../actions";
 import Chess from "../../pages/ChessPage/ChessPage.components/Chess/Chess";
 import {IChessOptions} from "./Chess.typings";
 import socket from "../socket";
+import {actionsChessTypes} from "./Chess.actions";
 
 const initialState: IChessOptions = {
     state: Chess.createChessState(false),
@@ -12,31 +12,31 @@ const initialState: IChessOptions = {
 
 const ChessReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
-        case actions.CHESS_SEND:
-            socket.emit(actions.CHESS_SEND, {state: action.data, room: state.room});
+        case actionsChessTypes.CHESS_SEND:
+            socket.emit(actionsChessTypes.CHESS_SEND, {state: action.data, room: state.room});
 
             return {...state, state: {...state.state, ...action.data}};
-        case actions.ON_CHESS_RESPONSE:
+        case actionsChessTypes.ON_CHESS_RESPONSE:
             return {...state, state: {...state.state, ...action.data}};
-        case actions.CHESS_START:
-            socket.emit(actions.CHESS_START, state);
+        case actionsChessTypes.CHESS_START:
+            socket.emit(actionsChessTypes.CHESS_START, state);
 
             return state;
-        case actions.ON_CHESS_START:
+        case actionsChessTypes.ON_CHESS_START:
             console.log(action.data.state.player);
             return action.data;
-        case actions.CHESS_JOIN:
-            socket.emit(actions.CHESS_JOIN, action.data);
+        case actionsChessTypes.CHESS_JOIN:
+            socket.emit(actionsChessTypes.CHESS_JOIN, action.data);
 
             return state;
-        case actions.ON_CHESS_JOIN:
+        case actionsChessTypes.ON_CHESS_JOIN:
             const {nick, room} = action.data;
 
             const users = {...state.users};
             users[nick] = nick;
 
             return {...state, users, room};
-        case actions.ON_CHESS_ERROR:
+        case actionsChessTypes.ON_CHESS_ERROR:
             alert(action.data);
 
             return state;

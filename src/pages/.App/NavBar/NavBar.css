@@ -23,7 +23,7 @@
     animation-iteration-count: infinite;
     animation-fill-mode: none;
     animation-play-state: running;
-    background: url(../../../assets/logo.svg) no-repeat no-repeat center;
+    background: url(Navbar.assets/logo.svg) no-repeat no-repeat center;
 
     width: 108px;
     height: 100%;

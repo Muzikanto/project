@@ -1,6 +1,6 @@
 import {IUserOptions} from "./User.typings";
 import {IReducerAction} from "../typings";
-import actions from "../../actions";
+import {actionsUserTypes} from "./User.actions";
 
 const initialState: IUserOptions = {
     user: null,
@@ -8,7 +8,7 @@ const initialState: IUserOptions = {
 
 const UserReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
-        case actions.SET_USER:
+        case actionsUserTypes.SET_USER:
             return {...state, ...action.data};
         default:
             return state

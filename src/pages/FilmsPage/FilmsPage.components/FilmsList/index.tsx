@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {IFilmsListContainerProps} from "./FilmsList.typings";
 import {deepCopy} from "../../../../utils/copy";
-import {actionDialog} from "../../../../actions/Dialog";
+import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 
 class FilmsList extends React.Component<IFilmsListContainerProps> {

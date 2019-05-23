@@ -7,9 +7,9 @@ import {
     actionFilmsFirstLoad,
     actionSelectFilms,
     actionFilmsSetFilter,
-} from "../../../../actions/Films";
+} from "../../../../reducers/Films/Films.actions";
 import {historyState} from "../../../../history";
-import {actionDialog} from "../../../../actions/Dialog";
+import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {getGenres} from "../../base";
 import {IFilmsFilterSort} from "../../../../reducers/Films/Films.typings";
 

@@ -2,8 +2,8 @@ import * as React from "react";
 import {IDialogConteinerProps} from "./Dialog.typings";
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
-import {actionDialog} from "../../../../actions/Dialog";
-import {actionCreateFilm, actionFilmsChange, actionFilmsSetStar} from "../../../../actions/Films";
+import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
+import {actionCreateFilm, actionFilmsChange, actionChangeStars} from "../../../../reducers/Films/Films.actions";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
@@ -66,10 +66,10 @@ class Dialog extends React.Component<IDialogConteinerProps> {
         return null;
     }
 
-    private handleChangeStars = (star: number) => () => {
+    private handleChangeStars = (stars: number) => () => {
         if (this.props.dialog.film) {
             this.props.actionDialog({open: false, film: null, type: null});
-            this.props.actionFilmsSetStar({star, id: this.props.dialog.film.id});
+            this.props.actionChangeStars({stars, id: this.props.dialog.film.id});
         }
     };
 
@@ -85,7 +85,7 @@ const mapStateToProps = (store: IStore) => ({
 
 const mapDispatchesToProps = {
     actionDialog,
-    actionFilmsSetStar,
+    actionChangeStars,
     actionCreateFilm,
     actionFilmsChange,
 };

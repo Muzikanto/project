@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FormEvent, RefObject} from 'react';
 import {connect} from "react-redux";
-import {actionAuthorize} from "../../../../actions/User";
+import {actionAuthorize} from "../../../../reducers/User/User.actions";
 import UI from "./LoginForm";
 import {ILoginFormPropsContainerProps} from "./LoginForm.typings";
 import {IStore} from "../../../../reducers/typings";

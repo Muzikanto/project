@@ -1,6 +1,6 @@
 import * as express from 'express';
 import {Application} from 'express';
-import {UserRegister} from "../../models/postgreSql/user";
+import {UserRegister} from "../../models/postgreSql/user/user";
 import {sendResponse} from "../../utils/SendData";
 import {checkValid} from "../../utils/validate";
 import {IRequestSession} from "../typings";

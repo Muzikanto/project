@@ -1,6 +1,6 @@
-import {pool} from "./base";
+import {pool} from "../base";
 import * as DB from "@muzikanto/pg";
-import {IUserSession} from "../../routes/typings";
+import {IUserSession} from "../../../routes/typings";
 
 const table = 'session';
 

@@ -1,6 +1,6 @@
 import {IFilm, IFilmsOptions} from "./Films.typings";
 import {IReducerAction} from "../typings";
-import {actionFilmsTypes} from "../../actions/Films";
+import {actionFilmsTypes} from "./Films.actions";
 import {historyPush, queryToObject} from "../../utils/historyPush";
 import {IObject, IObjectStr} from "../../utils/typings";
 
@@ -52,7 +52,14 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
             return {...state, arr: [...state.arr, action.data]};
 
         case actionFilmsTypes.FILMS_SELECTED:
-            return {...state, arr: action.data};
+            return {
+                ...state,
+                arr: action.data.map((el: IFilm) => ({
+                    ...el,
+                    is_favorite: Boolean(el.is_favorite),
+                    set_star: Boolean(el.set_star)
+                }))
+            };
 
         case actionFilmsTypes.FILMS_SET_STAR:
             const arr: IFilm[] = state.arr.map(el => {

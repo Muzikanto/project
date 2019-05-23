@@ -1,7 +1,7 @@
 import {
     IactionFilmsFirstLoad, IactionSelectFilms, IactionFilmsSetFilter
-} from "../../../../../actions/Films";
-import {IactionDialog} from "../../../../../actions/Dialog";
+} from "../../../../../reducers/Films/Films.actions";
+import {IactionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 import {IFilmsFilterSort, IFilmsOptionsFilters} from "../../../../../reducers/Films/Films.typings";
 
 export interface IFilterBlockProps {

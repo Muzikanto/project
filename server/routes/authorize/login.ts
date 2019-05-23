@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {UserAuthorize} from "../../models/postgreSql/user";
+import {UserAuthorize} from "../../models/postgreSql/user/user";
 import {sendResponse} from "../../utils/SendData";
 import {checkValid} from "../../utils/validate";
 import {IRequestSession} from "../typings";

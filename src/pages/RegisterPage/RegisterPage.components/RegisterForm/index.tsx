@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FormEvent, RefObject} from 'react';
 import {connect} from "react-redux";
-import {actionRegister} from "../../../../actions/User";
+import {actionRegister} from "../../../../reducers/User/User.actions";
 import UI from "./RegisterForm";
 import {IRegisterFormContainerProps} from "./RegisterForm.typings";
 import {IStore} from "../../../../reducers/typings";

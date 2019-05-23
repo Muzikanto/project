@@ -1,12 +1,15 @@
 import * as util from 'util';
 import {Pool} from "pg";
 import {psqlPromise} from "./utils";
+import {SaveFilmsToJSON} from "./save";
 
 const config = require('../../../config.json');
 const pool = new Pool({
     connectionString: config.postgresSqlUrl,
     ssl: true
 });
+
+// SaveFilmsToJSON();
 
 const session =
 `
@@ -26,6 +29,7 @@ create table if not exists films (
     date Date,
     image_src varchar(100),
     stars int,
+    stars_users bigint default 0,
     trailer_id varchar(20),
     created timestamp default current_timestamp
 );
@@ -69,7 +73,6 @@ create table if not exists films_user (
 
 (async () => {
     try {
-        await psqlPromise(pool, 'DROP TABLE films_user');
         await psqlPromise(pool, session + users + films + films_genres + user_films);
     } catch (err) {
         console.log('Error Create Tables', err);

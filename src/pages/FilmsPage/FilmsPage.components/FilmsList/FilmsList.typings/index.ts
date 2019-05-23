@@ -1,5 +1,5 @@
 import {IFilm, IFilmsFilterSort} from "../../../../../reducers/Films/Films.typings";
-import {IactionDialog} from "../../../../../actions/Dialog";
+import {IactionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 
 export interface IFilmsListProps {
     className?: string;

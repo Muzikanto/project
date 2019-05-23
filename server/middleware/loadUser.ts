@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {UserFindById} from "../models/postgreSql/user";
+import {UserFindById} from "../models/postgreSql/user/user";
 import {RequestHandlerParams} from "express-serve-static-core";
 import {IRequestSession} from "../routes/typings";
 

@@ -20,7 +20,7 @@ class FormImage extends React.Component {
         return (
             <form onSubmit={this.onSubmit} className={cnFormImage()}>
                 <div className={cnFormImage('ImgCont', {empty: this.state.empty})}>
-                    <img src={require('../../assets/logo.svg')}
+                    <img src={require('../../pages/.App/NavBar/Navbar.assets/logo.svg')}
                          alt={'Text'}
                          className={cnFormImage('Img', {empty: this.state.empty})}
                          onClick={this.openModalSelectFile}

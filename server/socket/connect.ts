@@ -1,6 +1,6 @@
 import {authError, IAuthError} from "../models/postgreSql/base";
-import {UserFindById} from "../models/postgreSql/user";
-import {LoadSession} from "../models/postgreSql/session";
+import {UserFindById} from "../models/postgreSql/user/user";
+import {LoadSession} from "../models/postgreSql/session/session";
 import {ISession, IUserSession} from "../routes/typings";
 import {IHandshake, ISocket} from "./socket.typings";
 

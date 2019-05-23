@@ -1,65 +1,51 @@
 [
   {
-    "id": 0,
-    "name": "Вспомнить всё",
     "avatar": "",
-    "date": "2019-01-11",
-    "image_src": "http://ic.pics.livejournal.com/colonelcassad/19281164/70441/600.jpg",
-    "genres": [
-      "Фантастика",
-      "Боевик"
-    ],
-    "stars": 5,
-    "share": 0,
-    "set_star": false,
-    "is_favorite": false,
-    "trailer_id": "r1NWhl5M_2Y"
-  },
-  {
-    "id": 1,
-    "name": "Мстители 4",
-    "avatar": "",
-    "date": "2019-01-11",
-    "image_src": "https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg",
-    "genres": [
-      "Фантастика",
-      "Боевик"
-    ],
-    "stars": 5,
-    "share": 0,
-    "set_star": false,
-    "is_favorite": false,
-    "trailer_id": "QCv8Q1hklgE"
-  },
-  {
+    "created": "2019-05-23T06:03:57.499Z",
+    "date": "2019-04-22T21:00:00.000Z",
     "id": 2,
-    "name": "Звёздные войны",
-    "avatar": "F",
-    "date": "2019-01-11",
-    "image_src": "http://www.spletnik.ru/img/2015/12/ayna/20151208-star-post.jpg",
-    "genres": [
-      "Фантастика"
-    ],
-    "stars": 5,
-    "share": 0,
-    "set_star": false,
-    "is_favorite": false,
-    "trailer_id": "OvyJhD5lbOw"
-  },
-  {
-    "id": 3,
-    "name": "Железный Человек",
-    "avatar": "",
-    "date": "2019-01-11",
     "image_src": "https://u.kanobu.ru/editor/images/54/6a32acac-3e57-4d61-916e-1e7e82678048.jpg",
+    "name": "Железный Человек",
+    "stars": 0,
+    "trailer_id": "fMKZMI8ByTs",
+    "set_star": null,
+    "is_favorite": null,
     "genres": [
       "Фантастика",
       "Боевик"
-    ],
-    "stars": 5,
-    "share": 0,
-    "set_star": false,
-    "is_favorite": false,
-    "trailer_id": "fMKZMI8ByTs"
+    ]
+  },
+  {
+    "avatar": "",
+    "created": "2019-05-23T06:03:18.629Z",
+    "date": "2019-04-22T21:00:00.000Z",
+    "id": 1,
+    "image_src": "http://ic.pics.livejournal.com/colonelcassad/19281164/70441/600.jpg",
+    "name": "Вспомнить всё",
+    "stars": 0,
+    "trailer_id": "r1NWhl5M_2Y",
+    "set_star": null,
+    "is_favorite": null,
+    "genres": [
+      "Фантастика",
+      "Боевик"
+    ]
+  },
+  {
+    "avatar": "",
+    "created": "2019-05-23T06:04:20.585Z",
+    "date": "2019-04-21T21:00:00.000Z",
+    "id": 3,
+    "image_src": "https://cdnimg.rg.ru/img/content/167/02/68/kinopoisk.ru-Avengers_3A-Endgame-3193444_d_850.jpg",
+    "name": "Мстители 4",
+    "stars": 0,
+    "trailer_id": "QCv8Q1hklgE",
+    "set_star": null,
+    "is_favorite": null,
+    "genres": [
+      "Фантастика",
+      "Драма",
+      "Боевик"
+    ]
   }
 ]

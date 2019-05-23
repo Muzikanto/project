@@ -1,7 +1,7 @@
 export function parseDate(d: string) {
-    const arr = d.split('-');
+    const date = new Date(d);
 
-    return `${arr[2]} ${nameMonth(Number(arr[1]) - 1)} ${arr[0]}`;
+    return `${date.getDate()} ${nameMonth(date.getMonth())} ${date.getFullYear()}`;
 }
 
 export function nameMonth(v: number) {

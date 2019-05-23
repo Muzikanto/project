@@ -1,6 +1,6 @@
-import {IUserSession} from "../../routes/typings";
-import {authError, IAuthError, pool} from "./base";
-import {encriptString} from "../crypto";
+import {IUserSession} from "../../../routes/typings";
+import {authError, IAuthError, pool} from "../base";
+import {encriptString} from "../../crypto";
 import * as DB from "@muzikanto/pg";
 
 const table = 'users';

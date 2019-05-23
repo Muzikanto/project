@@ -22,6 +22,7 @@ class Input<State = {}, Props ={}> extends React.Component<IInputProps & Props> 
         return (
             <TextField
                 error={this.state.error}
+                classes={{}}
                 className={className}
                 variant="outlined"
                 type={this.getType()}

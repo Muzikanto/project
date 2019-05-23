@@ -1,13 +1,16 @@
-import {postFetch} from "../../utils/fetch";
+import {postFetch} from "../../../utils/fetch";
 import {IactionAuthorizeParams, IactionRegisterParams} from "./User.typings";
 import {Dispatch} from "redux";
-import {IUserOptions} from "../../reducers/User/User.typings";
-import actions from "../index";
+import {IUserOptions} from "../User.typings";
+
+export const actionsUserTypes = {
+    SET_USER: 'SET_USER',
+};
 
 export const actionSetUser = (data: IUserOptions) => (dispatch: Dispatch) => {
     dispatch({
         data,
-        type: actions.SET_USER
+        type: actionsUserTypes.SET_USER
     });
 };
 
