@@ -90,16 +90,19 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
                         }}
                         onStarClick={() => {
                         }}
-                        id={'testID'}
-                        name={this.state.name || 'Name'}
-                        avatar={'T'}
-                        date={dateToSqlFormat(this.state.date)}
-                        image_src={this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png'}
-                        genres={this.state.genres}
-                        stars={0}
-                        is_favorite={false}
-                        set_star={false}
-                        trailer_id={''}
+                        film={{
+                            id: 'testID',
+                            name: this.state.name || "Name",
+                            avatar: 'T',
+                            date: dateToSqlFormat(this.state.date),
+                            image_src: this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png',
+                            genres: this.state.genres,
+                            stars: 0,
+                            is_favorite: false,
+                            set_star: false,
+                            trailer_id: '',
+                            stars_users: 0,
+                        }}
                     />
                     <div onClick={this.submit} className={cnDialog('Btn')}>
                         <Button variant="contained"
@@ -119,16 +122,12 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
     }
 
     protected submit = () => {
-        this.props.onSubmit({
-            id: '',
+        this.props.onCreate({
             name: this.state.name,
             avatar: '',
             date: dateToSqlFormat(this.state.date),
             image_src: this.state.image_src,
             genres: this.state.genres,
-            stars: 0,
-            is_favorite: false,
-            set_star: false,
             trailer_id: parseYoutubeId(this.state.trailer_id),
         });
     }

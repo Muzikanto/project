@@ -1,0 +1,10 @@
+.LineProgress{
+    position: absolute !important;
+    left: 0;
+    width: 100%;
+    display: none;
+}
+
+.LineProgress_show {
+    display: block;
+}

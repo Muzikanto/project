@@ -18,7 +18,11 @@ export function ChangeFilm(film: IFilm) {
                 values: [film.name, film.avatar, film.date, film.image_src, film.trailer_id, film.id]
             });
 
-            console.log(filmsRows)
+            if (filmsRows.rowCount > 0) {
+                resolve();
+            } else {
+                reject(new authError('No Update film'));
+            }
 
         } catch (err) {
             console.log(err);

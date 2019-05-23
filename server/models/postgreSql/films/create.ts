@@ -1,5 +1,5 @@
 import {authError, IAuthError, pool} from "../base";
-import {IFilm} from "../../../../src/reducers/Films/Films.typings";
+import {IFilm, IFilmToCreate} from "../../../../src/reducers/Films/Films.typings";
 import {psqlPromise} from "../utils";
 
 const getCreateQuery = (values: any[], genres: string[]) => {
@@ -12,18 +12,18 @@ const getCreateQuery = (values: any[], genres: string[]) => {
 
     return {values, text: `
 ${genres.length > 0 ? 'with rows as (' : ''}    
-    INSERT INTO films (name, avatar, date, image_src, stars, trailer_id) 
-    VALUES ($1, $2, $3, $4, $5, $6) returning id 
+    INSERT INTO films (name, avatar, date, image_src,  trailer_id) 
+    VALUES ($1, $2, $3, $4, $5) returning id 
 ${genres.length > 0 ? ') ' + genresQuery : ''}
 `
 }
 };
 
-export function CreateFilm(film: IFilm) {
+export function CreateFilm(film: IFilmToCreate) {
     return new Promise(async (resolve: (film: IFilm) => void, reject: (err: IAuthError) => void) => {
         try {
             const query = getCreateQuery([
-                film.name, film.avatar, film.date, film.image_src, film.stars, film.trailer_id
+                film.name, film.avatar, film.date, film.image_src, film.trailer_id
             ], film.genres);
             const response = await psqlPromise(pool, query);
 

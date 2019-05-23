@@ -8,9 +8,11 @@ import {parseDate} from "../../../../utils/parseDate";
 class ThumbHeader extends React.Component<IThumbHeaderProps> {
     render(): React.ReactNode {
         const {
-            name,
-            date,
-            avatar,
+            film: {
+                name,
+                date,
+                avatar,
+            },
             className,
             menuItems,
         } = this.props;

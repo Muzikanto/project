@@ -1,7 +1,7 @@
 import * as util from 'util';
 import {Pool} from "pg";
 import {psqlPromise} from "./utils";
-import {SaveFilmsToJSON} from "./save";
+import {SaveFilmsToJSON, LoadFilmsFromJSON} from "./save";
 
 const config = require('../../../config.json');
 const pool = new Pool({
@@ -10,6 +10,7 @@ const pool = new Pool({
 });
 
 // SaveFilmsToJSON();
+// LoadFilmsFromJSON();
 
 const session =
 `
@@ -28,7 +29,7 @@ create table if not exists films (
     avatar varchar(10),
     date Date,
     image_src varchar(100),
-    stars int,
+    stars bigint default 5,
     stars_users bigint default 0,
     trailer_id varchar(20),
     created timestamp default current_timestamp

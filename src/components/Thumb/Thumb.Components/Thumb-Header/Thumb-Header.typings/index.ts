@@ -1,9 +1,8 @@
 import {IThumbMenuitems} from "../../Thumb-Menu/Thumb-Menu.typings";
+import {IFilm} from "../../../../../reducers/Films/Films.typings";
 
 export interface IThumbHeaderProps {
-    avatar: string;
-    name: string;
-    date: string;
+    film: IFilm;
     className?: string;
 
     menuItems: IThumbMenuitems;

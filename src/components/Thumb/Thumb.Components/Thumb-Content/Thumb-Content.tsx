@@ -7,8 +7,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 class ThumbContent extends React.Component<IThumbContentProps> {
     render(): React.ReactNode {
         const {
-            genres,
-            image_src,
+            film: {
+                genres,
+                image_src,
+            },
             className,
             onContentClick,
         } = this.props;

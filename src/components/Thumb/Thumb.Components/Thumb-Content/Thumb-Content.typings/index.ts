@@ -1,6 +1,7 @@
+import {IFilm} from "../../../../../reducers/Films/Films.typings";
+
 export interface IThumbContentProps {
-    genres: string[];
-    image_src: string;
+    film: IFilm;
     className?: string;
     onContentClick: () => void;
 }

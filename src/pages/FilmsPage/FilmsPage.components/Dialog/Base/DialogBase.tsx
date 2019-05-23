@@ -6,7 +6,7 @@ import Slide from "@material-ui/core/Slide";
 import {IDialogBaseProps} from "./DialogBase.typings";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 
-class DialogBase<Props extends IDialogBaseProps> extends React.Component<Props> {
+class DialogBase<Props  extends IDialogBaseProps> extends React.Component<Props> {
     state = {};
 
     render(): React.ReactNode {

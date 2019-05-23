@@ -6,7 +6,7 @@ import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {actionCreateFilm, actionFilmsChange, actionChangeStars} from "../../../../reducers/Films/Films.actions";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
-import {IFilm} from "../../../../reducers/Films/Films.typings";
+import {IFilm, IFilmToCreate} from "../../../../reducers/Films/Films.typings";
 import DialogTypeAddFilm from "./Dialog_type_addFilm/Dialog_type_addFilm";
 import DialogTypeChangeFilm from "./Dialog_type_changeFilm/Dialog_type_changeFilm";
 
@@ -48,7 +48,8 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                         handleClose={this.handleClose}
 
                         film={film}
-                        onSubmit={(film: IFilm) => this.props.actionFilmsChange(film)}
+                        onChange={(film: IFilm) => this.props.actionFilmsChange(film)}
+                        onCreate={()=>{}}
                     />);
             }
         } else {
@@ -58,7 +59,7 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                     open={open}
                     handleClose={this.handleClose}
 
-                    onSubmit={(film: IFilm) => this.props.actionCreateFilm(film)}
+                    onCreate={(film: IFilmToCreate) => this.props.actionCreateFilm(film)}
                 />);
             }
         }

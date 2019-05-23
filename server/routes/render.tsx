@@ -5,20 +5,21 @@ import {renderToNodeStream} from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 import {createStore, DeepPartial} from "redux";
 import {Provider} from "react-redux";
-import Reducers from "../../../src/reducers/index";
-import {IRequestSession} from "../typings";
+import Reducers from "../../src/reducers";
+import {IRequestSession} from "./typings";
 import {ReactType} from "react";
 import {Application} from "express";
-import {IStore} from "../../../src/reducers/typings";
-import {getBaseFilmsReducerState} from "../../../src/reducers/Films/Films";
-import {SelectFilms} from "../../models/postgreSql/films/select";
-import {IselectFilmsRouterQuery} from "../Films/select";
+import {IStore} from "../../src/reducers/typings";
+import {getBaseFilmsReducerState} from "../../src/reducers/Films/Films";
+import {SelectFilms} from "../models/postgreSql/films/select";
+import {IselectFilmsRouterQuery} from "./Films/select";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import JssProvider from 'react-jss/lib/JssProvider';
 import {SheetsRegistry} from 'jss';
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import createGenerateClassName from "@material-ui/core/styles/createGenerateClassName";
-import green from '@material-ui/core/colors/green';
+import {muiTheme} from "../../src/utils/mui";
+import {prepareFilms} from "../../src/reducers/Films/Films.helpers";
+import {IFilm} from "../../src/reducers/Films/Films.typings";
 
 const script = (url: string) => `<script type="text/javascript" src="${url}" async></script>`;
 const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
@@ -26,16 +27,21 @@ const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
 export const renderWithApp = (App: ReactType): Application => {
     return (async (req: IRequestSession, res: express.Response, next: express.NextFunction) => {
         const filters = req.query as IselectFilmsRouterQuery;
-
         const {styles, scripts} = await assets(req.headers.host);
 
+        let films: IFilm[] = [];
+        try {
+            films = prepareFilms(await SelectFilms(filters))
+        } catch (e) {
+            // Need Logic
+        }
         const preloadState: Partial<IStore> = {
             User: {
                 user: req.user
             },
             FilmsReducer: {
                 ...getBaseFilmsReducerState(),
-                arr: await SelectFilms(filters),
+                arr: films,
             },
         };
         const store = createStore(Reducers, preloadState, undefined);
@@ -43,23 +49,15 @@ export const renderWithApp = (App: ReactType): Application => {
         const sheetsRegistry = new SheetsRegistry();
         // Create a sheetsManager instance.
         const sheetsManager = new Map();
-        // Create a theme instance.
-        const theme = createMuiTheme({
-            palette: {
-                primary: green,
-                type: 'light',
-            },
-        });
         // Create a new class name generator.
         const generateClassName = createGenerateClassName();
 
         res.write(renderPage(styles, preloadState, sheetsRegistry.toString()));
-
         const stream = renderToNodeStream(
             <Provider store={store}>
                 <StaticRouter location={req.url} context={{}}>
                     <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-                        <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
+                        <MuiThemeProvider theme={muiTheme} sheetsManager={sheetsManager}>
                             <App/>
                         </MuiThemeProvider>
                     </JssProvider>
@@ -68,7 +66,6 @@ export const renderWithApp = (App: ReactType): Application => {
         );
 
         stream.pipe(res, {end: false});
-
         stream.on('end', () => {
             res.write(`</div>${scripts.join('')}</body></html>`);
             res.end();
@@ -95,7 +92,6 @@ export function renderPage(styles: string[], preloadState: DeepPartial<IStore>, 
             <link rel="shortcut icon" href="favicon.ico">
             ${styles.join('')}
             <style id="jss-server-side">${css}</style>
-            <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript" async></script>
             </head>${getPreloadStateScript(preloadState)}
             <body><div id="root">`
 }

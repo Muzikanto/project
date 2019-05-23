@@ -20,27 +20,18 @@ class FilmsList extends React.Component<IFilmsListProps> {
         return (
             <div className={cnFilms('Container', [className])}>
                 {
-                    arr.map((props: IFilm, index: number) =>
+                    arr.map((film: IFilm, index: number) =>
                         <Thumb
+                            film={film}
                             menuItems={
                                 [{
                                     text: 'Редактировать',
-                                    action: onEditFilmClick(props),
+                                    action: onEditFilmClick(film),
                                 }]
                             }
-                            onContentClick={onContentClick(props)}
-                            onStarClick={props.set_star ? () => {} : onStarClick(props)}
-                            trailer_id={props.trailer_id}
-                            date={props.date}
-                            stars={props.stars}
-                            is_favorite={props.is_favorite}
-                            genres={props.genres}
-                            set_star={props.set_star}
-                            id={props.id}
-                            avatar={props.avatar}
-                            name={props.name}
+                            onContentClick={onContentClick(film)}
+                            onStarClick={film.set_star ? () => {} : onStarClick(film)}
                             key={'Thumb' + index}
-                            image_src={props.image_src}
                             className={cnFilms('Item')}
                         />)
                 }

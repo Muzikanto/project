@@ -11,6 +11,10 @@ import socket from "./reducers/socket";
 import {Router} from 'react-router';
 import {historyState} from "./history";
 import {actionsChesSocketToDispatchesTypes} from "./reducers/Chess/Chess.actions";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import JssProvider from 'react-jss/lib/JssProvider';
+import createGenerateClassName from "@material-ui/core/styles/createGenerateClassName";
+import {muiTheme} from "./utils/mui";
 
 register();
 // @ts-ignore
@@ -29,11 +33,18 @@ export const store = createStore(reducers, window.__PRELOADED_STATE__, applyMidd
     }
 })();
 
+
+const generateClassName = createGenerateClassName();
+
 export const reactRender = (Component: React.ComponentType) => preloadReady().then(() => {
     hydrate(
         <Provider store={store}>
             <Router history={historyState}>
-                <Component/>
+                <JssProvider generateClassName={generateClassName}>
+                    <MuiThemeProvider theme={muiTheme}>
+                        <Component/>
+                    </MuiThemeProvider>
+                </JssProvider>
             </Router>
         </Provider>,
         document.getElementById('root')

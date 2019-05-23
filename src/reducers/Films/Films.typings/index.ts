@@ -23,4 +23,14 @@ export interface IFilm {
     is_favorite: boolean;
     trailer_id: string;
     genres: string[];
+    stars_users: number;
+}
+
+export interface IFilmToCreate {
+    name: string;
+    avatar: string;
+    date: string;
+    image_src: string;
+    trailer_id: string;
+    genres: string[];
 }

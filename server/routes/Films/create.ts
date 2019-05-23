@@ -3,10 +3,10 @@ import {sendResponse} from "../../utils/SendData";
 import {IRequestSession} from "../typings";
 import {Application} from "express";
 import {CreateFilm} from "../../models/postgreSql/films/create";
-import {IFilm} from "../../../src/reducers/Films/Films.typings";
+import {IFilm, IFilmToCreate} from "../../../src/reducers/Films/Films.typings";
 
+export type IcreateFilmRouterQuery = IFilmToCreate;
 export type IcreateFilmRouterResponse = IFilm;
-export type IcreateFilmRouterQuery = IFilm;
 
 export const createFilmRouter = (async (req: IRequestSession, res: express.Response, _: express.NextFunction) => {
     const body = req.body as IcreateFilmRouterQuery;

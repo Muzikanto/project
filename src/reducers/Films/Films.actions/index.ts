@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {IFilm, IFilmsOptionsFilters} from "../Films.typings";
+import {IFilm, IFilmsOptionsFilters, IFilmToCreate} from "../Films.typings";
 import {getFetch, postFetch} from "../../../utils/fetch";
 import {IStore} from "../../typings";
 import {actionDialog} from "../../Dialog/Dialog.actions";
@@ -7,6 +7,7 @@ import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "../../../../ser
 import {IselectFilmsRouserResponse, IselectFilmsRouterQuery} from "../../../../server/routes/Films/select";
 import {IchangeFilmRouterQuery, IchangeFilmRouterResponse} from "../../../../server/routes/Films/change";
 import {IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse} from "../../../../server/routes/Films/changeStars";
+import {actionShowProgress} from "../../Other/Other.actions";
 
 export const actionFilmsTypes = {
     FILMS_SET_FILTER: 'FILMS_SET_FILTER',
@@ -19,6 +20,7 @@ export const actionFilmsTypes = {
 
 export type IactionSelectFilms = () => void;
 export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () => IStore) => {
+    actionShowProgress({showProgress: true})(dispatch);
     try {
         const {
             filter_dates,
@@ -45,10 +47,12 @@ export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () =
         // Need Logic
         console.log('Error load');
     }
+    actionShowProgress({showProgress: false})(dispatch);
 };
 
-export type IactionCreateFilm = (film: IFilm) => void;
-export const actionCreateFilm = (film: IFilm) => async (dispatch: Dispatch) => {
+export type IactionCreateFilm = (film: IFilmToCreate) => void;
+export const actionCreateFilm = (film: IFilmToCreate) => async (dispatch: Dispatch) => {
+    actionShowProgress({showProgress: true})(dispatch);
     try {
         const {response, status} = await postFetch<IcreateFilmRouterQuery, IcreateFilmRouterResponse>('/api/films/create', film);
 
@@ -66,10 +70,12 @@ export const actionCreateFilm = (film: IFilm) => async (dispatch: Dispatch) => {
         // Need Logic
         console.log('Error Add Film', e);
     }
+    actionShowProgress({showProgress: false})(dispatch);
 };
 
 export type IactionFilmsChange = (film: IFilm) => void;
 export const actionFilmsChange = (film: IFilm) => async (dispatch: Dispatch) => {
+    actionShowProgress({showProgress: true})(dispatch);
     try {
         const {response, status} = await postFetch<IchangeFilmRouterQuery, IchangeFilmRouterResponse>('/api/films/change', film);
 
@@ -87,18 +93,22 @@ export const actionFilmsChange = (film: IFilm) => async (dispatch: Dispatch) => 
         // Need Logic
         console.log('Error Change Film', e);
     }
+    actionShowProgress({showProgress: false})(dispatch);
 };
 
 export type IactionFilmsFirstLoad = (data: string) => void;
 export const actionFilmsFirstLoad = (data: string) => (dispatch: Dispatch) => {
+    actionShowProgress({showProgress: true})(dispatch);
     dispatch({
         data,
         type: actionFilmsTypes.FILMS_FIRST_LOAD
     });
+    actionShowProgress({showProgress: false})(dispatch);
 };
 
 export type IactionChangeStars = (data: IchangeStarsFilmRouterQuery) => void;
 export const actionChangeStars = (data: IchangeStarsFilmRouterQuery) => async (dispatch: Dispatch) => {
+    actionShowProgress({showProgress: true})(dispatch);
     try {
         const {response, status} = await postFetch<IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse>('/api/films/change_star', data);
 
@@ -116,6 +126,7 @@ export const actionChangeStars = (data: IchangeStarsFilmRouterQuery) => async (d
         // Need Logic
         console.log('Error Change Film', e);
     }
+    actionShowProgress({showProgress: false})(dispatch);
 };
 
 export type IactionFilmsSetFilter = (data: Partial<IFilmsOptionsFilters>) => void;

@@ -12,15 +12,8 @@ const cnThumb = cn('Thumb');
 class Thumb extends React.Component<IThumbProps> {
     render(): React.ReactNode {
         const {
-            genres,
-            image_src,
-            stars,
-            is_favorite,
+            film,
             className,
-            name,
-            date,
-            avatar,
-            set_star,
             onContentClick,
             onStarClick,
             menuItems,
@@ -30,23 +23,17 @@ class Thumb extends React.Component<IThumbProps> {
             <Card className={cnThumb({}, [className])}>
                 <ThumbHeader
                     menuItems={menuItems}
-                    name={name}
-                    date={date}
-                    avatar={avatar}
+                    film={film}
                     className={cnThumb('Header')}
                 />
                <ThumbContent
                    onContentClick={onContentClick}
                    className={cnThumb('Content')}
-                   genres={genres}
-                   image_src={image_src}
+                   film={film}
                />
                 <ThumbBottom
-                    name={name}
+                    film={film}
                     onStarClick={onStarClick}
-                    set_star={set_star}
-                    is_favorite={is_favorite}
-                    stars={stars}
                 />
             </Card>
         );

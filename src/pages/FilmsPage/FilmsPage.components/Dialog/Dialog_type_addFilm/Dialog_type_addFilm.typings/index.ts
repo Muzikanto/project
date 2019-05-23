@@ -1,8 +1,8 @@
-import {IFilm} from "../../../../../../reducers/Films/Films.typings";
 import {IDialogBaseProps} from "../../Base/DialogBase.typings";
+import {IFilmToCreate} from "../../../../../../reducers/Films/Films.typings";
 
 export interface IDialogTypeAddProps extends IDialogBaseProps{
-    onSubmit: (data: IFilm)=> void;
+    onCreate: (data: IFilmToCreate)=> void;
     submitText: string;
     contentClassName?: string;
 }

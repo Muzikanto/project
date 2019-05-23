@@ -1,7 +1,8 @@
 import {IFilm} from "../../../reducers/Films/Films.typings";
 import {IThumbMenuitems} from "../Thumb.Components/Thumb-Menu/Thumb-Menu.typings";
 
-export interface IThumbProps extends IFilm {
+export interface IThumbProps {
+    film: IFilm;
     onContentClick: () => void;
     onStarClick: ()=>void;
     menuItems: IThumbMenuitems;

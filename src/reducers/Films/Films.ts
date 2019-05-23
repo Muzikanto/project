@@ -3,6 +3,7 @@ import {IReducerAction} from "../typings";
 import {actionFilmsTypes} from "./Films.actions";
 import {historyPush, queryToObject} from "../../utils/historyPush";
 import {IObject, IObjectStr} from "../../utils/typings";
+import {prepareFilms} from "./Films.helpers";
 
 export function getBaseFilmsReducerState(): IFilmsOptions {
     return {
@@ -54,11 +55,7 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
         case actionFilmsTypes.FILMS_SELECTED:
             return {
                 ...state,
-                arr: action.data.map((el: IFilm) => ({
-                    ...el,
-                    is_favorite: Boolean(el.is_favorite),
-                    set_star: Boolean(el.set_star)
-                }))
+                arr: prepareFilms(action.data),
             };
 
         case actionFilmsTypes.FILMS_SET_STAR:
