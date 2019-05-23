@@ -1,17 +1,17 @@
 import {IUserSession} from "../../../routes/typings";
-import {authError, IAuthError, pool} from "../base";
+import {HttpError,  pool} from "../base";
 import {encriptString} from "../../crypto";
 import * as DB from "@muzikanto/pg";
 
 const table = 'users';
 
 export function UserRegister(nick: string, email: string, password: string) {
-    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err: IAuthError) => void) => {
+    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err: HttpError) => void) => {
         try {
             const selectQuery = DB.getParamsSelect(table, {}, {email});
             const select = await DB.psqlPromise(pool, selectQuery);
             if (select.rows.length > 0)
-                reject(new authError('Email занят'));
+                reject(new HttpError('Email занят'));
             else {
                 const insertQuery = DB.getParamsInsert(table, {
                     nick, email,
@@ -26,26 +26,26 @@ export function UserRegister(nick: string, email: string, password: string) {
                 if (user.rows.length > 0)
                     resolve(user.rows[0]);
                 else
-                    reject(new authError('User not Created'));
+                    reject(new HttpError('User not Created'));
             }
         } catch (err) {
             console.log(err)
-            reject(new authError('Error LoginPage.components'));
+            reject(new HttpError('Error LoginPage.components'));
         }
     });
 }
 
 export function UserAuthorize(email: string, password: string) {
-    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err: IAuthError) => void) => {
+    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err: HttpError) => void) => {
         try {
             const sqlFindUser = DB.getParamsSelect(table, {select: ['id', 'nick', 'hashed_password']}, {email});
             const findUser = await DB.psqlPromise(pool, sqlFindUser);
             if (findUser.rows.length === 0) {
-                reject(new authError('Пользователь не найден'));
+                reject(new HttpError('Пользователь не найден'));
             } else {
                 const user = findUser.rows[0] as IUserSession & {hashed_password:string};
                 if (user.hashed_password !== encriptString(password))
-                    reject(new authError('Пароль неверен'));
+                    reject(new HttpError('Пароль неверен'));
                 else
                     resolve({
                         id: user.id,
@@ -54,20 +54,20 @@ export function UserAuthorize(email: string, password: string) {
                     });
             }
         } catch (err) {
-            reject(new authError('Error Authorize'));
+            reject(new HttpError('Error Authorize'));
         }
     });
 }
 
 export function UserFindById(id: number) {
-    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err?: IAuthError) => void) => {
+    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err?: HttpError) => void) => {
         try {
             const selectQuery = DB.getParamsSelect(table, {}, {id});
             const select = await DB.psqlPromise(pool, selectQuery);
             if (select.rows.length > 0)
                 resolve(select.rows[0]);
             else
-                reject(new authError('Пользователь не существует'));
+                reject(new HttpError('Пользователь не существует'));
         } catch (err) {
             reject();
         }

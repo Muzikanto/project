@@ -85,11 +85,11 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
                 </div>
                 <div>
                     <Thumb
+                        user={{id: 0, email: '', nick: 'Nick'}}
                         menuItems={[]}
-                        onContentClick={() => {
-                        }}
-                        onStarClick={() => {
-                        }}
+                        onContentClick={() => {}}
+                        onStarClick={() => {}}
+                        onFavoriteClick={()=>{}}
                         film={{
                             id: 'testID',
                             name: this.state.name || "Name",

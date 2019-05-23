@@ -1,4 +1,4 @@
-import {authError, IAuthError} from "../models/postgreSql/base";
+import {HttpError} from "../models/postgreSql/base";
 import {UserFindById} from "../models/postgreSql/user/user";
 import {LoadSession} from "../models/postgreSql/session/session";
 import {ISession, IUserSession} from "../routes/typings";
@@ -35,7 +35,7 @@ export function socketCheckAuth(handshake: IHandshake, mainCallback: (e: Event |
     ], function (err: Error) {
         if (!err) return mainCallback(null, true);
         else {
-            if (err instanceof authError) return mainCallback(null, false);
+            if (err instanceof HttpError) return mainCallback(null, false);
             else mainCallback(err);
         }
     });
@@ -81,7 +81,7 @@ function loadUser(session: ISession, callback: (e: Event | Error | null, user?: 
             .then((user: IUserSession) => {
                 callback(null, user);
             })
-            .catch((err: IAuthError) => {
+            .catch((err: HttpError) => {
                 callback(err);
             });
     }

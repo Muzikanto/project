@@ -1,12 +1,12 @@
 import * as nodemailer from 'nodemailer';
-import {authError, IAuthError} from "../postgreSql/base";
+import {HttpError} from "../postgreSql/base";
 
 const config = require('../../../config.json');
 
 const transporter = nodemailer.createTransport(config.mailer);
 
 export function sendMail(users: string[] | string, templateName: ITemplates, data: any) {
-    return new Promise(async (resolve: () => void, reject: (err: IAuthError) => void) => {
+    return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         const mailOptions = {
             from: `Muzikanto <${config.mailer.auth.user}>`,
             to: users.toString(),
@@ -15,7 +15,7 @@ export function sendMail(users: string[] | string, templateName: ITemplates, dat
         };
         transporter.sendMail(mailOptions, function (err: Error | null, info: any) {
             if (err) {
-                reject(new authError(err.message));
+                reject(new HttpError(err.message));
             } else {
                 console.log('Email sent: ' + info.response);
                 resolve();

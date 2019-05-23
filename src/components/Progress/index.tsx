@@ -8,7 +8,7 @@ import {IStore} from "../../reducers/typings";
 
 const cnProgress = cn('LineProgress');
 
-export class Progress extends React.Component<IProgressProps>{
+class Progress extends React.Component<IProgressProps>{
     render(): React.ReactNode {
         const {show} = this.props;
 

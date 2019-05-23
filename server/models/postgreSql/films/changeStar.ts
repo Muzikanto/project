@@ -1,33 +1,33 @@
-import {authError, IAuthError, pool} from "../base";
+import {HttpError,  pool} from "../base";
 import {psqlPromise} from "../utils";
 import {IchangeStarsFilmRouterQuery} from "../../../routes/Films/changeStars";
+import {IUser} from "../../../../src/reducers/User/User.typings";
 
-function getUpdateQuery() {
+function getUpdateQuery(data: IchangeStarsFilmRouterQuery, user: IUser) {
     return `
 UPDATE films
-SET stars = (stars + $1) / 2, stars_users = stars_users + 1
-WHERE id = $2;
-insert into films_user (film_id, user_id, set_star) values ($1, $2, true);
+SET stars = (stars + ${data.stars}) / 2, stars_users = stars_users + 1
+WHERE id = ${data.id};
+WITH upsert AS (
+    UPDATE films_user 
+    SET set_star=true 
+    WHERE film_id=${data.id} and user_id=${user.id} 
+    RETURNING *
+    )
+INSERT INTO films_user (film_id, user_id, set_star) 
+SELECT ${data.id}, ${user.id}, true WHERE NOT EXISTS (SELECT * FROM upsert);
 commit;
 `;
 }
 
-export function ChangeFilmStars(data: IchangeStarsFilmRouterQuery) {
-    return new Promise(async (resolve: () => void, reject: (err: IAuthError) => void) => {
+export function ChangeFilmStars(data: IchangeStarsFilmRouterQuery, user: IUser) {
+    return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         try {
-            const filmsRows = await psqlPromise(pool, {
-                text: getUpdateQuery(),
-                values: [data.stars, data.id]
-            });
-
-            if (filmsRows.rowCount > 0) {
-                resolve();
-            } else {
-                reject(new authError('No Update film'));
-            }
+            await psqlPromise(pool, getUpdateQuery(data, user));
+            resolve();
         } catch (err) {
-            console.log(err);
-            reject(new authError('Error Films Change'));
+            console.log(err)
+            reject(new HttpError('Not Change Star'));
         }
     });
 }

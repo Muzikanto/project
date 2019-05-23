@@ -1,4 +1,4 @@
-import {authError, IAuthError} from "../models/postgreSql/base";
+import {HttpError} from "../models/postgreSql/base";
 
 interface IData {
     nick?: string;
@@ -8,26 +8,26 @@ interface IData {
 }
 
 export function checkValid(obj: IData) {
-    return new Promise((resolve: () => void, reject: (err: IAuthError) => void) => {
+    return new Promise((resolve: () => void, reject: (err: HttpError) => void) => {
         if (typeof obj.nick === "string") {
             const v = checkOtherValid("Nick", obj.nick);
-            if (v) reject(new authError(v));
+            if (v) reject(new HttpError(v));
         }
         if (typeof obj.email === "string") {
             const v = checkEmailValid(obj.email);
-            if (v) reject(new authError(v));
+            if (v) reject(new HttpError(v));
         }
         if (typeof obj.password === "string") {
             const v = checkOtherValid("Password", obj.password);
-            if (v) reject(new authError(v));
+            if (v) reject(new HttpError(v));
         }
         if (typeof obj.password_repeat === "string") {
             const v = checkOtherValid("Password Repeat", obj.password_repeat);
-            if (v) reject(new authError(v));
+            if (v) reject(new HttpError(v));
         }
         if (obj.password && obj.password_repeat)
             if (obj.password !== obj.password_repeat)
-                reject(new authError("Passwords Not Equals"));
+                reject(new HttpError("Passwords Not Equals"));
         resolve();
     });
 }

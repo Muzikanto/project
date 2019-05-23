@@ -20,7 +20,7 @@ export const selectFilmsRouter = (async (req: IRequestSession, res: express.Resp
         const response = await SelectFilms(query);
 
         sendResponse<IselectFilmsRouserResponse>(res, {status: 200, message: 'Success Load Films', response});
-    } catch (err) {
-        sendResponse(res, {status: 403, message: err.message});
+    } catch ({status, message}) {
+        sendResponse(res, {status, message});
     }
 }) as Application;

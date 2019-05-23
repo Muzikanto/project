@@ -31,7 +31,7 @@ export const renderWithApp = (App: ReactType): Application => {
 
         let films: IFilm[] = [];
         try {
-            films = prepareFilms(await SelectFilms(filters))
+            films = prepareFilms(await SelectFilms({...filters, filter_genres: filters.filter_genres}))
         } catch (e) {
             // Need Logic
         }
@@ -47,9 +47,7 @@ export const renderWithApp = (App: ReactType): Application => {
         const store = createStore(Reducers, preloadState, undefined);
 
         const sheetsRegistry = new SheetsRegistry();
-        // Create a sheetsManager instance.
         const sheetsManager = new Map();
-        // Create a new class name generator.
         const generateClassName = createGenerateClassName();
 
         res.write(renderPage(styles, preloadState, sheetsRegistry.toString()));

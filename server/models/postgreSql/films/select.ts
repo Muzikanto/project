@@ -1,11 +1,11 @@
-import {authError, IAuthError, pool} from "../base";
+import {pool, HttpError} from "../base";
 import {IFilm} from "../../../../src/reducers/Films/Films.typings";
 import {IselectFilmsRouterQuery} from "../../../routes/Films/select";
 import {psqlPromise} from "../utils";
 
 function getSelectQuery(filters: IselectFilmsRouterQuery) {
     let genres = filters.filter_genres ?
-        filters.filter_genres.split(',').map(el=> `'${el}'`).join(',') : '';
+        filters.filter_genres.split(',').map(el => `'${el}'`).join(',') : '';
 
     return `
 WITH list_films AS 
@@ -26,16 +26,15 @@ ${filters.filter_stars ? `and f.stars >= ${filters.filter_stars}` : ''}
 `;
 }
 
-
 export function SelectFilms(filters: IselectFilmsRouterQuery) {
-    return new Promise(async (resolve: (films: IFilm[]) => void, reject: (err: IAuthError) => void) => {
+    return new Promise(async (resolve: (films: IFilm[]) => void, reject: (err: HttpError) => void) => {
         try {
             const filmsRows = await psqlPromise(pool, getSelectQuery(filters));
 
             resolve(filmsRows.rows);
         } catch (err) {
             console.log(err);
-            reject(new authError('Error Films Select'));
+            reject(new HttpError('Error Select Films'));
         }
     });
 }

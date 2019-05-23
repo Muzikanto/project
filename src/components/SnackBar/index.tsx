@@ -1,23 +1,37 @@
 import * as React from 'react';
-import {Snackbar} from "@material-ui/core";
-import {ISnackBarProps} from "./SnackBar.typings";
+import UI from './SnackBar'
+import {ISnackBarContainerProps} from "./SnackBar.typings";
+import {IStore} from "../../reducers/typings";
+import {connect} from "react-redux";
+import {actionShowSnackBar} from "../../reducers/Other/Other.actions";
 
-class SnackBar extends React.Component<ISnackBarProps> {
-    render() {
-        const {open, text, handleClose} = this.props;
-
+class SnackBar extends React.Component<ISnackBarContainerProps> {
+    render(): React.ReactNode {
+        const {
+            snack_text,
+            snack_open,
+            snack_variant,
+        } = this.props;
         return (
-            <Snackbar
-                anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                open={open}
-                onClose={handleClose}
-                ContentProps={{
-                    'aria-describedby': 'message-id',
-                }}
-                message={<span id='message-id'>${text}</span>}
-            />
-        );
+            <UI snack_text={snack_text} snack_open={snack_open} snack_variant={snack_variant} handleClose={this.handleClose}/>
+        )
+    }
+
+    protected handleClose = () => {
+        this.props.actionShowSnackBar({
+            snack_open: false,
+        });
     }
 }
 
-export default SnackBar;
+const mapStateToProps = (store: IStore) => ({
+    snack_open: store.OtherReducer.snack_open,
+    snack_text: store.OtherReducer.snack_text,
+    snack_variant: store.OtherReducer.snack_variant,
+});
+
+const mapDispatchesToProps = {
+    actionShowSnackBar,
+};
+
+export default connect(mapStateToProps, mapDispatchesToProps)(SnackBar);

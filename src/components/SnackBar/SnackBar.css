@@ -1,0 +1,24 @@
+.SnackBar-Message {
+    display: flex;
+    align-items: center;
+}
+
+.SnackBar-Icon {
+    margin-right: 15px;
+}
+
+.SnackBar_variant_error {
+    background-color: #d32f2f !important;
+}
+
+.SnackBar_variant_info {
+    background-color: #1976d2 !important;
+}
+
+.SnackBar_variant_success {
+    background-color: #43a047 !important;
+}
+
+.SnackBar_variant_warning {
+    background-color: #ffa000 !important;
+}

@@ -1,4 +1,4 @@
-import {authError, IAuthError, pool} from "../base";
+import {HttpError, pool} from "../base";
 import {IFilm} from "../../../../src/reducers/Films/Films.typings";
 import {psqlPromise} from "../utils";
 
@@ -11,22 +11,16 @@ WHERE id = $6;
 }
 
 export function ChangeFilm(film: IFilm) {
-    return new Promise(async (resolve: () => void, reject: (err: IAuthError) => void) => {
+    return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         try {
-            const filmsRows = await psqlPromise(pool, {
+            await psqlPromise(pool, {
                 text: getUpdateQuery(),
                 values: [film.name, film.avatar, film.date, film.image_src, film.trailer_id, film.id]
             });
 
-            if (filmsRows.rowCount > 0) {
-                resolve();
-            } else {
-                reject(new authError('No Update film'));
-            }
-
+            resolve();
         } catch (err) {
-            console.log(err);
-            reject(new authError('Error Films Select'));
+            reject(new HttpError('Not Change Film'));
         }
     });
 }

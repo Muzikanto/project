@@ -15,8 +15,10 @@ class Thumb extends React.Component<IThumbProps> {
             film,
             className,
             onContentClick,
+            onFavoriteClick,
             onStarClick,
             menuItems,
+            user,
         } = this.props;
 
         return (
@@ -33,7 +35,9 @@ class Thumb extends React.Component<IThumbProps> {
                />
                 <ThumbBottom
                     film={film}
+                    user={user}
                     onStarClick={onStarClick}
+                    onFavoriteClick={onFavoriteClick}
                 />
             </Card>
         );

@@ -1,4 +1,4 @@
-import {authError, IAuthError, pool} from "../base";
+import {HttpError,  pool} from "../base";
 import {IFilm, IFilmToCreate} from "../../../../src/reducers/Films/Films.typings";
 import {psqlPromise} from "../utils";
 
@@ -20,7 +20,7 @@ ${genres.length > 0 ? ') ' + genresQuery : ''}
 };
 
 export function CreateFilm(film: IFilmToCreate) {
-    return new Promise(async (resolve: (film: IFilm) => void, reject: (err: IAuthError) => void) => {
+    return new Promise(async (resolve: (film: IFilm) => void, reject: (err: HttpError) => void) => {
         try {
             const query = getCreateQuery([
                 film.name, film.avatar, film.date, film.image_src, film.trailer_id
@@ -31,17 +31,18 @@ export function CreateFilm(film: IFilmToCreate) {
                 const resultFilm = {
                     ...film,
                     id: response.rows[0].id,
+                    stars: 5,
                 } as IFilm;
 
                 resolve(resultFilm);
             } else {
-                reject(new authError('Film not Created'));
+                reject(new HttpError('Film not Created'));
             }
         } catch (err) {
             if (err.constraint === 'films_name_key') {
-                reject(new authError('Error duplicate Name'));
+                reject(new HttpError('Duplicate Names'));
             } else {
-                reject(new authError('Error FilmCreate'));
+                reject(new HttpError('Error Create'));
             }
             console.log(err)
         }

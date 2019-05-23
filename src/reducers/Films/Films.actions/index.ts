@@ -7,11 +7,18 @@ import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "../../../../ser
 import {IselectFilmsRouserResponse, IselectFilmsRouterQuery} from "../../../../server/routes/Films/select";
 import {IchangeFilmRouterQuery, IchangeFilmRouterResponse} from "../../../../server/routes/Films/change";
 import {IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse} from "../../../../server/routes/Films/changeStars";
-import {actionShowProgress} from "../../Other/Other.actions";
+import {
+    actionShowProgress,
+    actionShowSnackBar,
+    actionShowSnackBarError, actionShowSnackBarSuccess,
+    actionShowSnackBarWarning
+} from "../../Other/Other.actions";
+import {IfavoriteFilmRouterQuery, IfavoriteFilmRouterResponse} from "../../../../server/routes/Films/favorite";
 
 export const actionFilmsTypes = {
     FILMS_SET_FILTER: 'FILMS_SET_FILTER',
     FILMS_SET_STAR: 'FILMS_SET_STAR',
+    FILMS_SET_FAVORITE: 'FILMS_SET_FAVORITE',
     FILMS_FIRST_LOAD: 'FILMS_FIRST_LOAD',
     FILMS_SELECTED: 'FILMS_SELECTED',
     FILM_CREATE: 'FILM_CREATE',
@@ -28,7 +35,7 @@ export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () =
             filter_stars,
         } = getState().FilmsReducer;
 
-        const {response, status} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', {
+        const {response, status, message} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', {
             filter_dates: filter_dates.join(','),
             filter_genres: filter_genres.join(','),
             filter_stars
@@ -40,12 +47,10 @@ export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () =
                 type: actionFilmsTypes.FILMS_SELECTED,
             });
         } else {
-            // Need Logic
-            console.log('Error load no 200');
+            actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
         }
     } catch (e) {
-        // Need Logic
-        console.log('Error load');
+        actionShowSnackBarError('Error actionSelectFilms')(dispatch);
     }
     actionShowProgress({showProgress: false})(dispatch);
 };
@@ -54,7 +59,7 @@ export type IactionCreateFilm = (film: IFilmToCreate) => void;
 export const actionCreateFilm = (film: IFilmToCreate) => async (dispatch: Dispatch) => {
     actionShowProgress({showProgress: true})(dispatch);
     try {
-        const {response, status} = await postFetch<IcreateFilmRouterQuery, IcreateFilmRouterResponse>('/api/films/create', film);
+        const {response, status, message} = await postFetch<IcreateFilmRouterQuery, IcreateFilmRouterResponse>('/api/films/create', film);
 
         if (status === 200) {
             dispatch({
@@ -62,13 +67,12 @@ export const actionCreateFilm = (film: IFilmToCreate) => async (dispatch: Dispat
                 type: actionFilmsTypes.FILM_CREATE
             });
             actionDialog({open: false, film: null, type: null})(dispatch);
+            actionShowSnackBarSuccess(message)(dispatch);
         } else {
-            // Need Logic
-            console.log(status, response)
+            actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
         }
     } catch (e) {
-        // Need Logic
-        console.log('Error Add Film', e);
+        actionShowSnackBarError('Error actionCreateFilm')(dispatch);
     }
     actionShowProgress({showProgress: false})(dispatch);
 };
@@ -77,7 +81,7 @@ export type IactionFilmsChange = (film: IFilm) => void;
 export const actionFilmsChange = (film: IFilm) => async (dispatch: Dispatch) => {
     actionShowProgress({showProgress: true})(dispatch);
     try {
-        const {response, status} = await postFetch<IchangeFilmRouterQuery, IchangeFilmRouterResponse>('/api/films/change', film);
+        const {status, message} = await postFetch<IchangeFilmRouterQuery, IchangeFilmRouterResponse>('/api/films/change', film);
 
         if (status === 200) {
             dispatch({
@@ -85,32 +89,29 @@ export const actionFilmsChange = (film: IFilm) => async (dispatch: Dispatch) => 
                 type: actionFilmsTypes.FILMS_CHANGE
             });
             actionDialog({open: false, film: null, type: null})(dispatch);
+            actionShowSnackBarSuccess(message)(dispatch);
         } else {
-            // Need Logic
-            console.log(response)
+            actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
         }
     } catch (e) {
-        // Need Logic
-        console.log('Error Change Film', e);
+        actionShowSnackBarError('Error actionFilmsChange')(dispatch);
     }
     actionShowProgress({showProgress: false})(dispatch);
 };
 
 export type IactionFilmsFirstLoad = (data: string) => void;
 export const actionFilmsFirstLoad = (data: string) => (dispatch: Dispatch) => {
-    actionShowProgress({showProgress: true})(dispatch);
     dispatch({
         data,
         type: actionFilmsTypes.FILMS_FIRST_LOAD
     });
-    actionShowProgress({showProgress: false})(dispatch);
 };
 
 export type IactionChangeStars = (data: IchangeStarsFilmRouterQuery) => void;
 export const actionChangeStars = (data: IchangeStarsFilmRouterQuery) => async (dispatch: Dispatch) => {
     actionShowProgress({showProgress: true})(dispatch);
     try {
-        const {response, status} = await postFetch<IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse>('/api/films/change_star', data);
+        const {status, message} = await postFetch<IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse>('/api/films/change_star', data);
 
         if (status === 200) {
             dispatch({
@@ -119,12 +120,31 @@ export const actionChangeStars = (data: IchangeStarsFilmRouterQuery) => async (d
             });
             actionDialog({open: false, film: null, type: null})(dispatch);
         } else {
-            // Need Logic
-            console.log(response)
+            actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
         }
     } catch (e) {
-        // Need Logic
-        console.log('Error Change Film', e);
+        actionShowSnackBarError('Error actionChangeStars')(dispatch);
+    }
+    actionShowProgress({showProgress: false})(dispatch);
+};
+
+export type IactionFavoriteFilm = (data: IfavoriteFilmRouterQuery) => void;
+export const actionFavoriteFilm = (data: IfavoriteFilmRouterQuery) => async (dispatch: Dispatch) => {
+    actionShowProgress({showProgress: true})(dispatch);
+    try {
+        const {status, message} = await postFetch<IfavoriteFilmRouterQuery, IfavoriteFilmRouterResponse>('/api/films/set_favorite', data);
+
+        if (status === 200) {
+            dispatch({
+                data,
+                type: actionFilmsTypes.FILMS_SET_FAVORITE
+            });
+            actionDialog({open: false, film: null, type: null})(dispatch);
+        } else {
+            actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
+        }
+    } catch (e) {
+        actionShowSnackBarError('Error actionChangeStars')(dispatch);
     }
     actionShowProgress({showProgress: false})(dispatch);
 };

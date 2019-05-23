@@ -18,12 +18,16 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                 stars_users,
             },
             onStarClick,
+            onFavoriteClick,
+            user,
         } = this.props;
+
+        const tooltipStar = user ? stars_users > 0 ? stars_users + ' users' : 'Set First Star' : 'Need Authorize';
 
         return (
             <>
                 <CardActions>
-                    <Tooltip title={stars_users + ' users'}>
+                    <Tooltip title={tooltipStar}>
                         <div onClick={onStarClick}>
                             <IconButton color={set_star ? 'secondary' : undefined}>
                                 <StarIcon/>
@@ -31,10 +35,12 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                             </IconButton>
                         </div>
                     </Tooltip>
-                    <Tooltip title="Shared">
-                        <IconButton color={is_favorite ? 'secondary' : undefined}>
-                            <ShareIcon/>
-                        </IconButton>
+                    <Tooltip title={is_favorite ? 'Remove from Favorite' : 'Add to Favorite'}>
+                        <div onClick={onFavoriteClick}>
+                            <IconButton color={is_favorite ? 'secondary' : undefined}>
+                                <ShareIcon/>
+                            </IconButton>
+                        </div>
                     </Tooltip>
                     <Tooltip title="Find in Google">
                         <a target={'_blank'} rel="noopener noreferrer" href={'https://www.google.com/search?q=' + name}

@@ -14,7 +14,9 @@ class FilmsList extends React.Component<IFilmsListProps> {
             onStarClick,
             onContentClick,
             onEditFilmClick,
+            onFavoriteClick,
             arr,
+            user,
         } = this.props;
 
         return (
@@ -29,8 +31,10 @@ class FilmsList extends React.Component<IFilmsListProps> {
                                     action: onEditFilmClick(film),
                                 }]
                             }
+                            user={user}
                             onContentClick={onContentClick(film)}
                             onStarClick={film.set_star ? () => {} : onStarClick(film)}
+                            onFavoriteClick={onFavoriteClick(film)}
                             key={'Thumb' + index}
                             className={cnFilms('Item')}
                         />)

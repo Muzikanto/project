@@ -32,10 +32,10 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
             const payload: Partial<IFilmsOptions> = {};
 
             if (filter_genres) {
-                payload.filter_genres = decodeURI(filter_genres).split(';');
+                payload.filter_genres = decodeURI(filter_genres).split(',');
             }
             if (filter_dates) {
-                payload.filter_dates = filter_dates.split(';');
+                payload.filter_dates = filter_dates.split(',');
             }
             if (filter_stars) {
                 payload.filter_stars = filter_stars;
@@ -62,13 +62,24 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
             const arr: IFilm[] = state.arr.map(el => {
                 if (el.id === action.data.id) {
                     el.set_star = true;
-                    el.stars = action.data.star;
+                    el.stars = (action.data.stars + el.stars) / 2;
                 }
 
                 return el;
             });
 
             return {...state, arr};
+
+        case actionFilmsTypes.FILMS_SET_FAVORITE:
+            const arr2: IFilm[] = state.arr.map(el => {
+                if (el.id === action.data.id) {
+                    el.is_favorite = action.data.is_favorite;
+                }
+
+                return el;
+            });
+
+            return {...state, arr: arr2};
 
         case actionFilmsTypes.FILMS_CHANGE:
             const arrFilms = state.arr.map((el: IObject) => {
@@ -88,7 +99,7 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
             const toHistory: IObjectStr = {};
 
             for (const key in data) {
-                toHistory[key] = Array.isArray(data[key]) ? data[key].join(';') : data[key]
+                toHistory[key] = Array.isArray(data[key]) ? data[key].join(',') : data[key]
             }
 
             historyPush(toHistory);

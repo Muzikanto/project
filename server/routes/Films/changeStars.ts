@@ -11,9 +11,12 @@ export const changeFilmStarsRouter = (async (req: IRequestSession, res: express.
     const body = req.body as IchangeStarsFilmRouterQuery;
 
     try {
-        await ChangeFilmStars(body);
-
-        sendResponse(res, {status: 200, message: 'Success Change Film Stars'});
+        if (req.user) {
+            await ChangeFilmStars(body, req.user);
+            sendResponse(res, {status: 200, message: 'Success Change Film Stars'});
+        } else {
+            sendResponse(res, {status: 403, message: 'Need Authorize'});
+        }
     } catch (err) {
         sendResponse(res, {status: 403, message: err.message});
     }
