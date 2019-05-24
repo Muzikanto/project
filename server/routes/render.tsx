@@ -15,8 +15,8 @@ import {SelectFilms} from "../models/postgreSql/films/select";
 import {IselectFilmsRouterQuery} from "./Films/select";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import JssProvider from 'react-jss/lib/JssProvider';
+import {createGenerateClassName} from "react-jss";
 import {SheetsRegistry} from 'jss';
-import createGenerateClassName from "@material-ui/core/styles/createGenerateClassName";
 import {muiTheme} from "../../src/utils/mui";
 import {prepareFilms} from "../../src/reducers/Films/Films.helpers";
 import {IFilm} from "../../src/reducers/Films/Films.typings";
@@ -47,7 +47,6 @@ export const renderWithApp = (App: ReactType): Application => {
         const store = createStore(Reducers, preloadState, undefined);
 
         const sheetsRegistry = new SheetsRegistry();
-        const sheetsManager = new Map();
         const generateClassName = createGenerateClassName();
 
         res.write(renderPage(styles, preloadState, sheetsRegistry.toString()));
@@ -55,7 +54,7 @@ export const renderWithApp = (App: ReactType): Application => {
             <Provider store={store}>
                 <StaticRouter location={req.url} context={{}}>
                     <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-                        <MuiThemeProvider theme={muiTheme} sheetsManager={sheetsManager}>
+                        <MuiThemeProvider theme={muiTheme}>
                             <App/>
                         </MuiThemeProvider>
                     </JssProvider>

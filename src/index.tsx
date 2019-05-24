@@ -13,8 +13,8 @@ import {historyState} from "./history";
 import {actionsChesSocketToDispatchesTypes} from "./reducers/Chess/Chess.actions";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import JssProvider from 'react-jss/lib/JssProvider';
-import createGenerateClassName from "@material-ui/core/styles/createGenerateClassName";
 import {muiTheme} from "./utils/mui";
+import {createGenerateClassName} from "react-jss";
 
 register();
 // @ts-ignore
