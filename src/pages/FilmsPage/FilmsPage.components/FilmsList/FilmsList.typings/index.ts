@@ -2,23 +2,11 @@ import {IFilm, IFilmsFilterSort} from "../../../../../reducers/Films/Films.typin
 import {IactionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 import {IUser} from "../../../../../reducers/User/User.typings";
 import {IactionShowSnackBarWarning} from "../../../../../reducers/Other/Other.actions";
-import {actionFavoriteFilm, IactionFavoriteFilm} from "../../../../../reducers/Films/Films.actions";
-
-export interface IFilmsListProps {
-    className?: string;
-
-    // stateToProps
-    arr: IFilm[];
-    user: IUser | null;
-
-    onEditFilmClick: (film: IFilm) => () => void;
-    onContentClick: (film: IFilm) => () => void;
-    onStarClick: (film: IFilm) => () => void;
-    onFavoriteClick: (film: IFilm) => () => void;
-}
+import {IactionFavoriteFilm} from "../../../../../reducers/Films/Films.actions";
 
 export interface IFilmsListContainerProps {
     className?: string;
+    type: 'grid' | 'scroll';
 
     arr: IFilm[];
     filter_sort: IFilmsFilterSort;

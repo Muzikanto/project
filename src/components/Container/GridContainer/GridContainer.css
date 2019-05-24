@@ -1,11 +1,11 @@
-.FilmsList-Container {
+.GridContainer {
     display: grid;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     justify-items: center;
 }
 
-.FilmsList-Item {
+.GridContainer-Item {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -13,13 +13,13 @@
 }
 
 @media only screen and (min-width: 1050px)  {
-    .FilmsList-Container {
+    .GridContainer {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media only screen and (min-width: 700px) and (max-width: 1050px)  {
-    .FilmsList-Container {
+    .GridContainer {
         grid-template-columns: repeat(2, 1fr);
     }
 }

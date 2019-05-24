@@ -15,7 +15,8 @@
     "build:server": "./node_modules/.bin/cross-env NODE_ENV=production webpack --config .config/webpack.server.js",
     "build:client": "react-app-rewired build --config-overrides ./.config/webpack.client.js",
     "build:docker": "rm -r doc && docker build -t muzikanto-app",
-    "test": "jest"
+    "test": "jest",
+    "load-films": "hermione ./hermione/hack.hermione.js --wait-timeout=100000 --config=./hermione/.hermione.conf.js"
   },
   "husky": {
     "hooks": {

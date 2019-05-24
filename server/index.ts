@@ -25,11 +25,11 @@ let server: Server;
 if (isDev) {
     run();
 
-    // for(const pathToHotFiles of ['./routes/index', './socket/index', '../dist/server/index.js']) {
-    //     module.hot && module.hot.accept(pathToHotFiles, () => {
-    //         // run();
-    //     });
-    // }
+    for(const pathToHotFiles of ['../src/pages/.App/App.routers', '../src/pages/App/App']) {
+        module.hot && module.hot.accept(pathToHotFiles, () => {
+            run();
+        });
+    }
 
     process.argv.push('--config-overrides', './.config/webpack.client.js');
     require('react-app-rewired/scripts/start');
@@ -52,7 +52,6 @@ if (isDev) {
 }
 
 function run() {
-    // const worker_id = cluster.worker.id;
     server && server.close();
     const app = express();
 

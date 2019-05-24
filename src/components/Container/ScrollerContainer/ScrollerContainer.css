@@ -1,0 +1,14 @@
+.ScrollerContainer {
+    margin: 0 auto;
+    max-width: 80%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    height: 453px;
+}
+
+.ScrollerContainer > .Thumb {
+    height: 100%;
+    display: inline-block;
+    margin-right: 20px;
+}

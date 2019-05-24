@@ -1,5 +1,4 @@
 import * as React from 'react';
-import UI from "./FilmsList";
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {IFilmsListContainerProps} from "./FilmsList.typings";
@@ -8,48 +7,73 @@ import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 import {actionShowSnackBarWarning} from "../../../../reducers/Other/Other.actions";
 import {actionFavoriteFilm} from "../../../../reducers/Films/Films.actions";
+import Thumb from "../../../../components/Thumb/Thumb";
+import ScrollerContainer from "../../../../components/Container/ScrollerContainer/ScrollerContainer";
+import GridContainer from "../../../../components/Container/GridContainer/GridContainer";
 
 class FilmsList extends React.Component<IFilmsListContainerProps> {
     public render() {
         const {
-            actionDialog,
-            user,
-            actionShowSnackBarWarning,
-            actionFavoriteFilm,
+            className,
+            type,
         } = this.props;
-        const arr = this.sort(this.props.arr);
 
-        return (
-            <UI
+        const thumbs = this.getThumbs();
+
+        if (type === 'grid') {
+            return (
+                <GridContainer className={className}>
+                    {thumbs}
+                </GridContainer>
+            );
+        } else {
+            return (
+                <ScrollerContainer className={className}>
+                    {thumbs}
+                </ScrollerContainer>
+            );
+        }
+    }
+
+    protected getThumbs() {
+        const {
+            arr,
+            user,
+            actionDialog,
+            actionFavoriteFilm,
+            actionShowSnackBarWarning,
+        } = this.props;
+
+        return this.sort(arr).map((film: IFilm, index: number) =>
+            <Thumb
+                film={film}
+                menuItems={
+                    [{
+                        text: 'Редактировать',
+                        action: () => {
+                            actionDialog({open: true, film, type: 'change_film'})
+                        },
+                    }]
+                }
                 user={user}
-                arr={arr}
-                className={this.props.className}
-                onEditFilmClick={
-                    (film: IFilm) => () => {
-                        actionDialog({open: true, film, type: 'change_film'})
-                    }
-                }
-                onContentClick={
-                    (film: IFilm) => () => actionDialog({
-                        open: true,
-                        film,
-                        type: 'content'
-                    })}
-                onStarClick={
-                    (film: IFilm) => () => user ? actionDialog({
-                        open: true,
-                        film,
-                        type: 'stars'
+                onContentClick={() => actionDialog({
+                    open: true,
+                    film,
+                    type: 'content'
+                })}
+                onStarClick={film.set_star ? () => {
+                } : () => user ? actionDialog({
+                    open: true,
+                    film,
+                    type: 'stars'
+                }) : actionShowSnackBarWarning('Need Authorize')}
+                onFavoriteClick={() =>
+                    user ? actionFavoriteFilm({
+                        id: film.id,
+                        is_favorite: !film.is_favorite,
                     }) : actionShowSnackBarWarning('Need Authorize')}
-                onFavoriteClick={
-                    (film: IFilm) => () =>
-                        user ? actionFavoriteFilm({
-                            id: film.id,
-                            is_favorite: !film.is_favorite,
-                        }) : actionShowSnackBarWarning('Need Authorize')
-                }
-            />
-        )
+                key={'Thumb' + index}
+            />)
     }
 
     protected sort(arr: IFilm[]): IFilm[] {

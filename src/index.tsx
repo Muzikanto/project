@@ -53,6 +53,6 @@ export const reactRender = (Component: React.ComponentType) => preloadReady().th
 
 reactRender(App).then();
 
-module.hot && module.hot.accept('./pages/FilmsPage/FilmsPage', () => {
+module.hot && module.hot.accept('./pages/.App/App', () => {
     reactRender(require('./pages/.App/App').default).then();
 });
