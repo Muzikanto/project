@@ -1,14 +1,27 @@
 .ScrollerContainer {
-    margin: 0 auto;
-    max-width: 80%;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    height: 453px;
+    max-width: 100%;
+    position: relative;
 }
 
 .ScrollerContainer > .Thumb {
     height: 100%;
     display: inline-block;
     margin-right: 20px;
+}
+
+.ScrollerContainer-Left {
+    z-index: 9999;
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.ScrollerContainer-Right {
+    z-index: 9999;
+    position: absolute;
+    top: 50%;
+    right: 0;
 }

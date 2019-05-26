@@ -25,7 +25,7 @@ let server: Server;
 if (isDev) {
     run();
 
-    for(const pathToHotFiles of ['../src/pages/.App/App.routers', '../src/pages/App/App']) {
+    for(const pathToHotFiles of ['../src/pages/.App/App.routers.ts', '../src/pages/App/App', './index.ts']) {
         module.hot && module.hot.accept(pathToHotFiles, () => {
             run();
         });

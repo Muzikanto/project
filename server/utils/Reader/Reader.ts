@@ -3,7 +3,7 @@ import {join, resolve} from "path";
 import {IReader} from "./Reader.typings";
 
 class Reader {
-    public pathToData = resolve('dist');
+    public pathToData = resolve('');
 
     constructor(props: IReader) {
         props.pathToData && (this.pathToData = resolve(props.pathToData));

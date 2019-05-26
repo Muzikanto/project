@@ -122,14 +122,15 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
     }
 
     protected submit = () => {
-        this.props.onCreate({
+        const toCreate = {
             name: this.state.name,
-            avatar: '',
             date: dateToSqlFormat(this.state.date),
             image_src: this.state.image_src,
             genres: this.state.genres,
             trailer_id: parseYoutubeId(this.state.trailer_id),
-        });
+        };
+
+        this.props.onCreate(toCreate);
     }
 }
 

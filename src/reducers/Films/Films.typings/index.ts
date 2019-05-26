@@ -15,8 +15,8 @@ export interface IFilmsOptionsFilters {
 export interface IFilm {
     id: string;
     name: string;
-    avatar: string;
-    date: string;
+    avatar: string | null;
+    date: string | null;
     image_src: string;
     stars: number;
     set_star: boolean;
@@ -28,8 +28,8 @@ export interface IFilm {
 
 export interface IFilmToCreate {
     name: string;
-    avatar: string;
-    date: string;
+    avatar?: string;
+    date?: string;
     image_src: string;
     trailer_id: string;
     genres: string[];

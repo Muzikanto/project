@@ -1,19 +1,20 @@
 import JSONReader from "../../utils/Reader/_json/JSONReader";
 import {SelectFilms} from "./films/select";
-import {IFilm} from "../../../src/reducers/Films/Films.typings";
+import {IFilm, IFilmToCreate} from "../../../src/reducers/Films/Films.typings";
 import {CreateFilm} from "./films/create";
+import {prepareFilms} from "../../../src/reducers/Films/Films.helpers";
 
-const filmReader = new JSONReader({pathToData: './server/resources'});
+const filmReader = new JSONReader({pathToData: ''});
 
-export const SaveFilmsToJSON = () =>
+export const SaveFilmsToJSON = (path: string) =>
     SelectFilms({filter_stars: '0', filter_dates: '', filter_genres: ''})
         .then(data => {
             console.log('Save DB films to JSON');
-            filmReader.write('films.json', data);
+            filmReader.write(path, data);
         });
 
-export const LoadFilmsFromJSON = async () => {
-    const films = filmReader.read('films.json') as IFilm[];
+export const LoadFilmsFromJSON = async (path: string) => {
+    const films = filmReader.read(path) as IFilmToCreate[];
 
     for (const v of films) {
         try {

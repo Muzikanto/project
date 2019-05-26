@@ -21,13 +21,13 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
             <CardHeader
                 avatar={
                     <Avatar aria-label="Recipe">
-                        {avatar.slice(0, 1).toUpperCase() || 'T'}
+                        {avatar && typeof avatar !== 'object' ? avatar.slice(0, 1).toUpperCase() : 'T'}
                     </Avatar>
                 }
                 action={<ThumbMenu items={menuItems}/>}
                 titleTypographyProps={{variant: 'h5'}}
                 title={name}
-                subheader={parseDate(date)}
+                subheader={date && typeof date !== 'object' ? parseDate(date) : undefined}
                 className={className}
             />
         )

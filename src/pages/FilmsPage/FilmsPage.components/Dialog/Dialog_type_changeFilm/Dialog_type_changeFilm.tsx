@@ -10,7 +10,7 @@ class DialogTypeChangeFilm extends DialogTypeAddFilm<IDialogTypeChangeProps> {
 
         this.state = {
             ...props.film,
-            date: new Date(props.film.date),
+            date: new Date(props.film.date || Date.now()),
         };
     }
 

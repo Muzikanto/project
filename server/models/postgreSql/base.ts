@@ -8,9 +8,6 @@ const pool = new Pool({
     ssl: true
 });
 
-// SaveFilmsToJSON();
-// LoadFilmsFromJSON();
-
 function getQuery() {
     const session = `
         create table if not exists session (
@@ -95,6 +92,9 @@ class HttpError {
         this.message = message;
     }
 }
+
+// SaveFilmsToJSON('./dist/films.json').then();
+// LoadFilmsFromJSON('./dist/films.json').then();
 
 export {
     pool,

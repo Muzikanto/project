@@ -44,45 +44,46 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
             actionShowSnackBarWarning,
         } = this.props;
 
-        return this.sort(arr).map((film: IFilm, index: number) =>
-            <Thumb
-                film={film}
-                menuItems={
-                    [{
-                        text: 'Редактировать',
-                        action: () => {
-                            actionDialog({open: true, film, type: 'change_film'})
-                        },
-                    }]
-                }
-                user={user}
-                onContentClick={() => actionDialog({
-                    open: true,
-                    film,
-                    type: 'content'
-                })}
-                onStarClick={film.set_star ? () => {
-                } : () => user ? actionDialog({
-                    open: true,
-                    film,
-                    type: 'stars'
-                }) : actionShowSnackBarWarning('Need Authorize')}
-                onFavoriteClick={() =>
-                    user ? actionFavoriteFilm({
-                        id: film.id,
-                        is_favorite: !film.is_favorite,
+        return this.sort(arr)
+            .map((film: IFilm, index: number) =>
+                <Thumb
+                    film={film}
+                    menuItems={
+                        [{
+                            text: 'Редактировать',
+                            action: () => {
+                                actionDialog({open: true, film, type: 'change_film'})
+                            },
+                        }]
+                    }
+                    user={user}
+                    onContentClick={() => actionDialog({
+                        open: true,
+                        film,
+                        type: 'content'
+                    })}
+                    onStarClick={film.set_star ? () => {
+                    } : () => user ? actionDialog({
+                        open: true,
+                        film,
+                        type: 'stars'
                     }) : actionShowSnackBarWarning('Need Authorize')}
-                key={'Thumb' + index}
-            />)
+                    onFavoriteClick={() =>
+                        user ? actionFavoriteFilm({
+                            id: film.id,
+                            is_favorite: !film.is_favorite,
+                        }) : actionShowSnackBarWarning('Need Authorize')}
+                    key={'Thumb' + index}
+                />);
     }
 
     protected sort(arr: IFilm[]): IFilm[] {
         if (this.props.filter_sort === 'Star') {
-            return deepCopy(arr)
+            return [...arr]
                 .sort((a: IFilm, b: IFilm) => b.stars - a.stars);
         } else {
-            return deepCopy(arr)
-                .sort((a: IFilm, b: IFilm) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            return [...arr]
+                .sort((a: IFilm, b: IFilm) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
         }
     }
 }
