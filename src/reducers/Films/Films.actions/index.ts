@@ -9,7 +9,6 @@ import {IchangeFilmRouterQuery, IchangeFilmRouterResponse} from "../../../../ser
 import {IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse} from "../../../../server/routes/Films/changeStars";
 import {
     actionShowProgress,
-    actionShowSnackBar,
     actionShowSnackBarError, actionShowSnackBarSuccess,
     actionShowSnackBarWarning
 } from "../../Other/Other.actions";
@@ -23,10 +22,11 @@ export const actionFilmsTypes = {
     FILMS_SELECTED: 'FILMS_SELECTED',
     FILM_CREATE: 'FILM_CREATE',
     FILMS_CHANGE: 'FILMS_CHANGE',
+    FILMS_SELECTED_ADD: 'FILMS_SELECTED_ADD',
 };
 
-export type IactionSelectFilms = () => void;
-export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () => IStore) => {
+export type IactionSelectFilms = (page?: number) => void;
+export const actionSelectFilms = (page?: number) => async (dispatch: Dispatch, getState: () => IStore) => {
     actionShowProgress({showProgress: true})(dispatch);
     try {
         const {
@@ -34,17 +34,19 @@ export const actionSelectFilms = () => async (dispatch: Dispatch, getState: () =
             filter_genres,
             filter_stars,
         } = getState().FilmsReducer;
-
-        const {response, status, message} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', {
+        const body = {
             filter_dates: filter_dates.join(','),
             filter_genres: filter_genres.join(','),
-            filter_stars
-        });
+            filter_stars,
+            page,
+        };
+
+        const {response, status, message} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', body);
 
         if (status === 200) {
             dispatch({
                 data: response,
-                type: actionFilmsTypes.FILMS_SELECTED,
+                type: page ? actionFilmsTypes.FILMS_SELECTED_ADD : actionFilmsTypes.FILMS_SELECTED,
             });
         } else {
             actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);

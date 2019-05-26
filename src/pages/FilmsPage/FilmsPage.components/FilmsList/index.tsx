@@ -5,12 +5,27 @@ import {IFilmsListContainerProps} from "./FilmsList.typings";
 import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 import {actionShowSnackBarWarning} from "../../../../reducers/Other/Other.actions";
-import {actionFavoriteFilm} from "../../../../reducers/Films/Films.actions";
+import {actionFavoriteFilm, actionSelectFilms} from "../../../../reducers/Films/Films.actions";
 import Thumb from "../../../../components/Thumb/Thumb";
 import ScrollerContainer from "../../../../components/Container/ScrollerContainer/ScrollerContainer";
 import GridContainer from "../../../../components/Container/GridContainer/GridContainer";
 
 class FilmsList extends React.Component<IFilmsListContainerProps> {
+    page = 0;
+    last = new Date();
+
+    componentDidMount(): void {
+        window.addEventListener('scroll', (_: Event) => {
+            const bodyHeight = document.body.offsetHeight;
+
+            if (window.scrollY + window.innerHeight > bodyHeight - 500 && new Date().getSeconds() - this.last.getSeconds() > 1) {
+                this.page++;
+                this.last = new Date();
+                this.props.actionSelectFilms(this.page);
+            }
+        });
+    }
+
     public render() {
         const {
             className,
@@ -97,6 +112,7 @@ const mapDispatchesToProps = {
     actionDialog,
     actionShowSnackBarWarning,
     actionFavoriteFilm,
+    actionSelectFilms,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(FilmsList);

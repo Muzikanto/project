@@ -58,6 +58,11 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
                 ...state,
                 arr: prepareFilms(action.data),
             };
+        case actionFilmsTypes.FILMS_SELECTED_ADD:
+            return {
+                ...state,
+                arr: [...state.arr, ...prepareFilms(action.data)],
+            };
 
         case actionFilmsTypes.FILMS_SET_STAR:
             const arr: IFilm[] = state.arr.map(el => {
