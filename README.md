@@ -56,3 +56,4 @@ Point your browser to [http://localhost:3000/](http://localhost:3000/).
 - Скролл по жанрам и датам и звёздам
 - Авторизация через вк
 - Таймер до выхода фильма
+- access origin

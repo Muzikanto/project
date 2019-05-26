@@ -16,6 +16,7 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                 stars,
                 name,
                 stars_users,
+                date,
             },
             onStarClick,
             onFavoriteClick,
@@ -43,7 +44,9 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                         </div>
                     </Tooltip>
                     <Tooltip title="Find in Google">
-                        <a target={'_blank'} rel="noopener noreferrer" href={'https://www.google.com/search?q=' + name}
+                        <a target={'_blank'}
+                           rel="noopener noreferrer"
+                           href={'https://www.google.com/search?q=фильм ' + name + ' ' + (date ? new Date(date).getFullYear() : '')}
                            style={{textDecoration: 'none'}}>
                             <Button size="small" color="primary">
                                 Learn More

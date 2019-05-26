@@ -31,7 +31,7 @@ export const renderWithApp = (App: ReactType): Application => {
 
         let films: IFilm[] = [];
         try {
-            films = prepareFilms(await SelectFilms(filters))
+            films = prepareFilms(await SelectFilms(filters));
         } catch (e) {
             // Need Logic
         }

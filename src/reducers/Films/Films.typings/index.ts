@@ -30,7 +30,7 @@ export interface IFilmToCreate {
     name: string;
     avatar?: string;
     date?: string;
-    image_src: string;
+    image_src?: string;
     trailer_id: string;
     genres: string[];
 }

@@ -2,7 +2,6 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {IFilmsListContainerProps} from "./FilmsList.typings";
-import {deepCopy} from "../../../../utils/copy";
 import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 import {actionShowSnackBarWarning} from "../../../../reducers/Other/Other.actions";
@@ -45,7 +44,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
         } = this.props;
 
         return this.sort(arr)
-            .map((film: IFilm, index: number) =>
+            .map((film: IFilm) =>
                 <Thumb
                     film={film}
                     menuItems={
@@ -73,7 +72,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                             id: film.id,
                             is_favorite: !film.is_favorite,
                         }) : actionShowSnackBarWarning('Need Authorize')}
-                    key={'Thumb' + index}
+                    key={'Thumb' + film.id}
                 />);
     }
 

@@ -94,7 +94,7 @@ class HttpError {
 }
 
 // SaveFilmsToJSON('./dist/films.json').then();
-// LoadFilmsFromJSON('./dist/films.json').then();
+// LoadFilmsFromJSON('./hermione/films.json').then();
 
 export {
     pool,

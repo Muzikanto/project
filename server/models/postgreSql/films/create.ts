@@ -4,8 +4,8 @@ import {psqlPromise} from "../utils";
 
 const getCreateQuery = (film: IFilmToCreate) => {
     const genres = film.genres;
-    const names = ['name', 'image_src', 'trailer_id'];
-    const values = [film.name, film.image_src, film.trailer_id];
+    const names = ['name',  'trailer_id'];
+    const values = [film.name,  film.trailer_id];
     if (film.date) {
         names.push('date');
         values.push(film.date);
@@ -14,19 +14,27 @@ const getCreateQuery = (film: IFilmToCreate) => {
         names.push('avatar');
         values.push(film.avatar);
     }
+    if (film.image_src && film.image_src.length <= 200) {
+        names.push('image_src');
+        values.push(film.image_src);
+    }
 
     let genresQuery = "INSERT INTO films_genres (film_id, name) values ";
 
-    for (let i = 0; i < genres.length; i++) {
-        genresQuery += `((SELECT id FROM rows), '${genres[i]}')${i === genres.length - 1 ? '' : ', '}`;
+    try {
+        for (let i = 0; i < genres.length; i++) {
+            genresQuery += `((SELECT id FROM rows), '${genres[i]}')${i === genres.length - 1 ? '' : ', '}`;
+        }
+        genresQuery += 'returning id';
+    } catch (e) {
+        genresQuery = ''
     }
-    genresQuery += 'returning id';
 
     return {
         values, text: `
-${genres.length > 0 ? 'with rows as (' : ''}    
+${genres.length > 0 ? 'with rows as (' : ''}
     INSERT INTO films (${names}) 
-    VALUES (${values.join(',')}) returning id 
+    VALUES (${values.map((_, i) => `$${i + 1}`).join(',')}) returning id 
 ${genres.length > 0 ? ') ' + genresQuery : ''}
 `
     }
@@ -55,7 +63,6 @@ export function CreateFilm(film: IFilmToCreate) {
             } else {
                 reject(new HttpError('Error Create'));
             }
-            console.log(err)
         }
     });
 }
