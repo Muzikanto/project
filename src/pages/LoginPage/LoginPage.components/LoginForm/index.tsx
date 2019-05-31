@@ -33,8 +33,7 @@ class LoginForm extends React.Component<ILoginFormPropsContainerProps> {
                     email: email.state.value,
                     password: password.state.value,
                 });
-            } else {
-                if (!email.state.value) {
+            } else {if (!email.state.value) {
                     email.setState({
                         error: true,
                     });

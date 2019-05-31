@@ -12,6 +12,8 @@ class RegisterForm extends React.Component<IRegisterFormProps> {
     public render() {
         return (
             <form className={cnRegisterForm()} action={'#'}>
+                <img alt="" className={cnRegisterForm('Image')}/>
+                <div className={cnRegisterForm('Block')}>
                 <Input
                     ref={this.props.refNick}
                     label={'Nick'}
@@ -35,6 +37,7 @@ class RegisterForm extends React.Component<IRegisterFormProps> {
                     <Button variant="contained" size="large" color="primary">
                         Sign Up
                     </Button>
+                </div>
                 </div>
             </form>
         )
