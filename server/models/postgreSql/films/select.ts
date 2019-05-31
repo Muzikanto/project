@@ -23,14 +23,15 @@ left join films_user as fu on fu.user_id = 1 and fu.film_id = f.id
 where f.id in (select film_id from list_films) 
 ${filters.filter_dates ? `and date_part('year', f.date) in (${filters.filter_dates}) ` : ''} 
 ${filters.filter_stars ? `and f.stars >= ${filters.filter_stars}` : ''}
-order by f.id limit 12 offset ${(filters.page || 0) * 12}
+order by f.id limit 12 offset ${(Number(filters.page) || 0) * 12}
 `;
 }
 
 export function SelectFilms(filters: IselectFilmsRouterQuery) {
     return new Promise(async (resolve: (films: IFilm[]) => void, reject: (err: HttpError) => void) => {
         try {
-            const filmsRows = await psqlPromise(pool, getSelectQuery(filters));
+            const query = getSelectQuery(filters);
+            const filmsRows = await psqlPromise(pool, query);
 
             resolve(filmsRows.rows);
         } catch (err) {

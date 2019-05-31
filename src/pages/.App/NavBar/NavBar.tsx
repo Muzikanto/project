@@ -3,7 +3,8 @@ import {cn} from "@bem-react/classname";
 import {Link} from "react-router-dom";
 import {shortText} from "./NavBar.helpers";
 import {INavBarProps, INavBarItem} from "./NavBar.typings";
-import './NavBar.css'
+import IconMenu from '@material-ui/icons/MenuRounded'
+import './NavBar.scss'
 
 const cnNav = cn('NavBar');
 
@@ -63,6 +64,9 @@ class NavBar extends React.Component<INavBarProps> {
                     {this.getItems()}
                 </ul>
                 {this.getRight()}
+                {<div className={cnNav('ToggleContainer')}>
+                    <IconMenu className={cnNav('MenuToggle')}/>
+                </div>}
             </header>
         )
     }

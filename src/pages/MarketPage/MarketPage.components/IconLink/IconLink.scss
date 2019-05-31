@@ -1,0 +1,10 @@
+.IconLink{
+  display: flex;
+  align-items: center;
+
+  &-Text {
+    font-weight: bold;
+    border-bottom: dotted gray 2px;
+    margin-left: 7px;
+  }
+}

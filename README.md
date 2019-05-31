@@ -57,3 +57,4 @@ Point your browser to [http://localhost:3000/](http://localhost:3000/).
 - Авторизация через вк
 - Таймер до выхода фильма
 - access origin
+- Починить NavBar

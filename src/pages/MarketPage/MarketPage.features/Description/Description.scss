@@ -1,0 +1,18 @@
+.MarketDescription {
+  background-image: url(https://www.e-katalog.ru/jpg_zoom1/827249.jpg);
+  background-size: cover;
+  background-position: center;
+
+  &-Container {
+    background: rgba(241, 238, 8, 0.5);
+  }
+
+  &-Title{
+    font-weight: bold !important;
+    margin-bottom: 12px !important;
+    font-family: "Arial Black", Gadget, sans-serif !important;
+  }
+  &-Text {
+
+  }
+}

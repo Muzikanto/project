@@ -13,7 +13,7 @@ import {IStore} from "../../src/reducers/typings";
 import {getBaseFilmsReducerState} from "../../src/reducers/Films/Films";
 import {SelectFilms} from "../models/postgreSql/films/select";
 import {IselectFilmsRouterQuery} from "./Films/select";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import {MuiThemeProvider} from "@material-ui/core/styles/";
 import JssProvider from 'react-jss/lib/JssProvider';
 import {createGenerateClassName} from "react-jss";
 import {SheetsRegistry} from 'jss';

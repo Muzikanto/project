@@ -1,0 +1,13 @@
+.MarketContactItem {
+  display: flex;
+
+  &-List {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-Icon {
+    color: darkgray;
+    margin-right: 10px;
+  }
+}

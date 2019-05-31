@@ -1,6 +1,6 @@
 import Gun from "../../Gun";
 import {IVector2D} from "../../../../../../Game.typings";
-import {IGunProps_noName} from "../../Gun.typings";
+import {IGunPropsnoName} from "../../Gun.typings";
 
 class Shotgun extends Gun {
     public loading = 1000;
@@ -11,7 +11,7 @@ class Shotgun extends Gun {
     protected translate = {x: -17.5, y: -17.5};
     protected size = {w: 55, h: 35};
 
-    constructor(props: IGunProps_noName) {
+    constructor(props: IGunPropsnoName) {
         super({...props, name: 'Shotgun'});
     }
 

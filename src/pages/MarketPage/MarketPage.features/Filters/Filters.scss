@@ -1,0 +1,26 @@
+.MarketFilters {
+  display: flex;
+  justify-content: space-between;
+  border-top: 2px solid lightgray;
+  border-bottom: 2px solid lightgray;
+  height: 50px;
+  align-items: center;
+
+  &-Icons {
+    display: flex;
+    align-items: center;
+  }
+}
+
+
+@media only screen and (max-width: 750px) {
+  .MarketFilters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: min-content;
+
+    &-Icons {
+      grid-column: span 2;
+    }
+  }
+}

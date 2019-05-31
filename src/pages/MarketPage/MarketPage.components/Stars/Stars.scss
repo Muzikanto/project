@@ -1,0 +1,18 @@
+.Stars {
+  display: flex;
+  align-items: center;
+
+  &-Star {
+    fill: darkgray !important;
+
+    &_active {
+      fill: gold !important;
+    }
+  }
+
+  &-Text {
+    margin-left: 5px;
+    color: gray;
+    font-size: 12px;
+  }
+}

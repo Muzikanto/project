@@ -4,6 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const StartServerPlugin = require('start-server-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const TSLintPlugin = require('tslint-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const mode = process.env.NODE_ENV;
 const isDev = mode === 'development';
@@ -13,7 +14,6 @@ const entry = ['./server/index'];
 isDev && entry.unshift(hotResolve);
 
 const externalsOptions = isDev ? {whitelist: [hotResolve]} : {};
-
 
 const optimization = isDev ? undefined : {
     minimizer: [
@@ -41,7 +41,6 @@ const optimization = isDev ? undefined : {
     ]
 };
 
-
 const plugins = [
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -60,6 +59,10 @@ const plugins = [
     }),
     new TSLintPlugin({
         files: ['./src/**/*.ts']
+    }),
+    new ExtractTextPlugin({
+        filename: "[name].css",
+        allChunks: true
     })
 ];
 
@@ -67,7 +70,6 @@ isDev && plugins.push(
     new webpack.HotModuleReplacementPlugin(),
     new StartServerPlugin('index.js')
 );
-
 
 module.exports = {
     resolve: {
@@ -106,16 +108,30 @@ module.exports = {
             test: /\.tsx?$/,
             loaders: 'ts-loader',
         }, {
-            test: /\.css$/,
-            loaders: 'null-loader'
+            test: /\.(css|scss)$/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{
+                    loader: "css-loader",
+                    options: {
+                        importLoaders: 1,
+
+                    }
+                }, {
+                    loader: "postcss-loader"
+                }, {
+                    loader: "sass-loader"
+                }]
+            })
         }, {
             test: /\.svg$/,
             loader: 'svg-inline-loader'
         }, {
-            test : /\.png$/,
+            test: /\.png$/,
             exclude: /(node_modules)/,
-            loader : 'file-loader'
-        }]
+            loader: 'file-loader'
+        }
+        ]
     },
     plugins
 };

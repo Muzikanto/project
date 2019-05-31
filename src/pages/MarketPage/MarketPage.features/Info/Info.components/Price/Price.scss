@@ -1,0 +1,17 @@
+.MarketPrice {
+  display: flex;
+  align-items: center;
+  border: gold solid 2px;
+  width: fit-content;
+
+  &-Icon {
+    padding: 5px;
+    background: gold;
+    box-sizing: content-box;
+  }
+
+  &-Text{
+    padding: 0 30px;
+    font-weight: bold;
+  }
+}
