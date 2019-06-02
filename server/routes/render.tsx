@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as express from 'express';
 import * as got from 'got';
-import {renderToNodeStream} from 'react-dom/server';
+import {renderToNodeStream, renderToString} from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 import {createStore, DeepPartial} from "redux";
 import {Provider} from "react-redux";
@@ -45,8 +45,7 @@ export const renderWithApp = (App: ReactType): Application => {
 
         const sheets = new ServerStyleSheets();
 
-        res.write(renderPage(styles, preloadState, sheets.toString()));
-        const stream = renderToNodeStream(
+        const html = renderToString(
             <Provider store={store}>
                 <StaticRouter location={req.url} context={{}}>
                     {
@@ -60,37 +59,36 @@ export const renderWithApp = (App: ReactType): Application => {
             </Provider>
         );
 
-        stream.pipe(res, {end: false});
-        stream.on('end', () => {
-            res.write(`</div>${scripts.join('')}</body></html>`);
-            res.end();
-            next();
-        });
-
-        res.end();
-        next();
+        res.send(renderPage(html, styles, scripts, preloadState, sheets.toString()));
     }) as Application;
 };
 
-export function renderPage(styles: string[], preloadState: DeepPartial<IStore>, css: string) {
+export function renderPage(html: string, styles: string[], scripts: string[], preloadState: DeepPartial<IStore>, css: string) {
     return `<!DOCTYPE html>
             <html lang="en">
             <head>
-            <base href="/">
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="description" content="ReactApp">
-            <meta name="robots" content="all,follow">
-            <meta name="theme-color" content="#000000">
-            <title>Muzikanto</title>
-            <link rel="manifest" href="manifest.json">
-            <link rel="shortcut icon" href="favicon.ico">
-            ${styles.join('')}
-            <style id="jss-server-side">${css}</style>
+                <base href="/">
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <meta name="description" content="ReactApp">
+                <meta name="robots" content="all,follow">
+                <meta name="theme-color" content="#000000">
+                <title>Muzikanto</title>
+                <link rel="manifest" href="manifest.json">
+                <link rel="shortcut icon" href="favicon.ico">
+                ${styles.join('')}
+                <style id="server-styles">${css}</style>
             </head>
             <body>
-            ${getPreloadStateScript(preloadState)}
-            <div id="root">`
+                <script id="server-scripts">window.__PRELOADED_STATE__ = ${JSON.stringify(preloadState).replace(
+            /</g,
+            '\\\\\u003c'
+                )}</script>
+                <div id="root">${html}</div>
+                ${scripts.join('')}
+            </body>
+            </html>
+`
 }
 
 async function assets(host?: string) {
@@ -120,11 +118,4 @@ async function assets(host?: string) {
         styles,
         scripts: bundle.concat(chunks.shift() as string, chunks.reverse()[0])
     };
-}
-
-function getPreloadStateScript(preloadState: DeepPartial<IStore>) {
-    return `<script> window.__PRELOADED_STATE__ = ${JSON.stringify(preloadState).replace(
-        /</g,
-        '\\\\\u003c'
-    )}</script>`
 }

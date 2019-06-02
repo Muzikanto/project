@@ -30,13 +30,15 @@ for (const key in list) {
 }
 
 export const reactRender = (Component: React.ComponentType) => preloadReady().then(() => {
-    // React.useEffect(() => {
-    //     const jssStyles = document.querySelector('#jss-server-side');
-    //
-    //     if (jssStyles && jssStyles.parentNode) {
-    //         jssStyles.parentNode.removeChild(jssStyles);
-    //     }
-    // }, []);
+    const serverStyles = document.querySelector('#server-styles');
+    if (serverStyles && serverStyles.parentNode) {
+        serverStyles.parentNode.removeChild(serverStyles);
+    }
+
+    const serverScripts = document.querySelector('#server-scripts');
+    if (serverScripts && serverScripts.parentNode) {
+        serverScripts.parentNode.removeChild(serverScripts);
+    }
 
     return hydrate(
         <Provider store={store}>
