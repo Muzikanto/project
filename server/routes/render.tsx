@@ -13,10 +13,7 @@ import {IStore} from "../../src/reducers/typings";
 import {getBaseFilmsReducerState} from "../../src/reducers/Films/Films";
 import {SelectFilms} from "../models/postgreSql/films/select";
 import {IselectFilmsRouterQuery} from "./Films/select";
-import {MuiThemeProvider} from "@material-ui/core/styles/";
-import JssProvider from 'react-jss/lib/JssProvider';
-import {createGenerateClassName} from "react-jss";
-import {SheetsRegistry} from 'jss';
+import {ThemeProvider, ServerStyleSheets} from "@material-ui/styles";
 import {muiTheme} from "../../src/utils/mui";
 import {prepareFilms} from "../../src/reducers/Films/Films.helpers";
 import {IFilm} from "../../src/reducers/Films/Films.typings";
@@ -46,18 +43,19 @@ export const renderWithApp = (App: ReactType): Application => {
         };
         const store = createStore(Reducers, preloadState, undefined);
 
-        const sheetsRegistry = new SheetsRegistry();
-        const generateClassName = createGenerateClassName();
+        const sheets = new ServerStyleSheets();
 
-        res.write(renderPage(styles, preloadState, sheetsRegistry.toString()));
+        res.write(renderPage(styles, preloadState, sheets.toString()));
         const stream = renderToNodeStream(
             <Provider store={store}>
                 <StaticRouter location={req.url} context={{}}>
-                    <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-                        <MuiThemeProvider theme={muiTheme}>
-                            <App/>
-                        </MuiThemeProvider>
-                    </JssProvider>
+                    {
+                        sheets.collect(
+                            <ThemeProvider theme={muiTheme}>
+                                <App/>
+                            </ThemeProvider>
+                        )
+                    }
                 </StaticRouter>
             </Provider>
         );
@@ -84,13 +82,15 @@ export function renderPage(styles: string[], preloadState: DeepPartial<IStore>, 
             <meta name="description" content="ReactApp">
             <meta name="robots" content="all,follow">
             <meta name="theme-color" content="#000000">
-            <title>Muziknato</title>
+            <title>Muzikanto</title>
             <link rel="manifest" href="manifest.json">
             <link rel="shortcut icon" href="favicon.ico">
             ${styles.join('')}
             <style id="jss-server-side">${css}</style>
-            </head>${getPreloadStateScript(preloadState)}
-            <body><div id="root">`
+            </head>
+            <body>
+            ${getPreloadStateScript(preloadState)}
+            <div id="root">`
 }
 
 async function assets(host?: string) {

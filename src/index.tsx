@@ -11,40 +11,39 @@ import socket from "./reducers/socket";
 import {Router} from 'react-router';
 import {historyState} from "./history";
 import {actionsChesSocketToDispatchesTypes} from "./reducers/Chess/Chess.actions";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import JssProvider from 'react-jss/lib/JssProvider';
 import {muiTheme} from "./utils/mui";
-import {createGenerateClassName} from "react-jss";
+import {ThemeProvider} from "@material-ui/styles";
 
 register();
 // @ts-ignore
 export const store = createStore(reducers, window.__PRELOADED_STATE__, applyMiddleware(thunk));
 
-(() => {
-    const list = actionsChesSocketToDispatchesTypes as { [key: string]: string };
+const list = actionsChesSocketToDispatchesTypes as { [key: string]: string };
 
-    for (const key in list) {
-        socket.on(list[key], function (data: any) {
-            store.dispatch({
-                data,
-                type: list[key]
-            });
+for (const key in list) {
+    socket.on(list[key], function (data: any) {
+        store.dispatch({
+            data,
+            type: list[key]
         });
-    }
-})();
-
-
-const generateClassName = createGenerateClassName();
+    });
+}
 
 export const reactRender = (Component: React.ComponentType) => preloadReady().then(() => {
-    hydrate(
+    // React.useEffect(() => {
+    //     const jssStyles = document.querySelector('#jss-server-side');
+    //
+    //     if (jssStyles && jssStyles.parentNode) {
+    //         jssStyles.parentNode.removeChild(jssStyles);
+    //     }
+    // }, []);
+
+    return hydrate(
         <Provider store={store}>
             <Router history={historyState}>
-                <JssProvider generateClassName={generateClassName}>
-                    <MuiThemeProvider theme={muiTheme}>
-                        <Component/>
-                    </MuiThemeProvider>
-                </JssProvider>
+                <ThemeProvider theme={muiTheme}>
+                    <Component/>
+                </ThemeProvider>
             </Router>
         </Provider>,
         document.getElementById('root')
