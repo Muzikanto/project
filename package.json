@@ -8,9 +8,9 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/cross-env NODE_ENV=development webpack --config .config/webpack.server.js --watch",
-    "start:production": "./node_modules/.bin/cross-env NODE_ENV=production node dist/server",
+    "start:production": "./node_modules/.bin/cross-env NODE_ENV=production node ./dist/server",
     "start:docker": "docker run -d --rm --name my-running-app muzikanto-app",
-    "build": "npm run build:clean && npm run build:server && npm run build:client && rm -r ./dist/Components",
+    "build": "npm run build:clean && npm run build:server && npm run build:client",
     "build:clean": "rm -r --force dist",
     "build:server": "./node_modules/.bin/cross-env NODE_ENV=production webpack --config .config/webpack.server.js",
     "build:client": "react-app-rewired build --config-overrides ./.config/webpack.client.js",
@@ -18,7 +18,7 @@
     "test": "jest",
     "load-films": "hermione ./hermione/hack.hermione.js --wait-timeout=100000 --config=./hermione/.hermione.conf.js",
     "heroku-prebuild": "echo Heroku Prebuild.",
-    "heroku-postbuild": "echo Heroku PostBuild. && npm run build"
+    "heroku-postbuild": "echo Heroku PostBuild."
   },
   "husky": {
     "hooks": {
