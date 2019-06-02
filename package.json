@@ -16,7 +16,9 @@
     "build:client": "react-app-rewired build --config-overrides ./.config/webpack.client.js",
     "build:docker": "rm -r doc && docker build -t muzikanto-app",
     "test": "jest",
-    "load-films": "hermione ./hermione/hack.hermione.js --wait-timeout=100000 --config=./hermione/.hermione.conf.js"
+    "load-films": "hermione ./hermione/hack.hermione.js --wait-timeout=100000 --config=./hermione/.hermione.conf.js",
+    "heroku-prebuild": "echo Heroku Prebuild.",
+    "heroku-postbuild": "echo Heroku PostBuild. && npm run build"
   },
   "husky": {
     "hooks": {
@@ -139,7 +141,7 @@
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
     "cpx": "1.5.0",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "extract-text-webpack-plugin": "4.0.0-beta.0",
     "file-loader": "^3.0.1",
     "got": "9.3.2",
     "hot-module-replacement": "^3.0.1",

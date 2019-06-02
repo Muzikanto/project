@@ -25,7 +25,7 @@ let server: Server;
 if (isDev) {
     run();
 
-    for(const pathToHotFiles of ['../src/pages/.App/App.routers.ts', '../src/pages/App/App', './index.ts']) {
+    for (const pathToHotFiles of ['../src/pages/.App/App.routers.ts', '../src/pages/App/App', './index.ts']) {
         module.hot && module.hot.accept(pathToHotFiles, () => {
             run();
         });
@@ -55,7 +55,7 @@ function run() {
     server && server.close();
     const app = express();
 
-    app.use(function(req, res, next) {
+    app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
@@ -65,7 +65,7 @@ function run() {
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(morgan('dev'));
 
-    app.use('/resources', express.static(join(__dirname, '..', '..',  '/server/resources')));
+    app.use('/resources', express.static(join(__dirname, '..', '..', '/server/resources')));
 
     if (isDev) {
         const webpackDevServerProxy = require('http-proxy-middleware')({
