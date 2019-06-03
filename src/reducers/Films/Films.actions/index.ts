@@ -26,7 +26,7 @@ export const actionFilmsTypes = {
 };
 
 export type IactionSelectFilms = (page?: number) => void;
-export const actionSelectFilms = (page?: number) => async (dispatch: Dispatch, getState: () => IStore) => {
+export const actionSelectFilms = (page: number = 0) => async (dispatch: Dispatch, getState: () => IStore) => {
     actionShowProgress({showProgress: true})(dispatch);
     try {
         const {

@@ -1,11 +1,9 @@
 .Thumb{
     width: 100%;
-    max-width: 345px;
     display: flex;
     flex-direction: column;
-}
+    justify-content: space-around;
 
-.Thumb_small {
     max-width: 345px;
     grid-column: span 1;
 }

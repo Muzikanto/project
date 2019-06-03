@@ -4,7 +4,6 @@ import {actionFilmsTypes} from "./Films.actions";
 import {historyPush, queryToObject} from "../../utils/historyPush";
 import {IObject, IObjectStr} from "../../utils/typings";
 import {prepareFilms} from "./Films.helpers";
-import {deepCopy} from "../../utils/copy";
 
 export function getBaseFilmsReducerState(): IFilmsOptions {
     return {

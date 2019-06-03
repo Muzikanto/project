@@ -17,10 +17,6 @@ export function postFetch<Body = IObject, Response = IObject>(url: string, body?
     }).then(data => data.json())
 }
 
-function f<t extends IObjectStr>(p: t) {
-    p['test'] = '1';
-}
-
 export function getFetch<Body extends IObject, Response = IObject>(url: string, params: Body): Promise<IfetchData<Response>> {
     const urlWithParams = Object.keys(params).reduce((acc: any, key: string) => {
         return acc + `${key}=${params[key]}&`;

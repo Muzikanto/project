@@ -6,13 +6,6 @@
     grid-auto-flow: dense;
 }
 
-.GridContainer-Item {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    grid-column: span 1;
-}
-
 @media only screen and (min-width: 1050px)  {
     .GridContainer {
         grid-template-columns: repeat(3, 1fr);
