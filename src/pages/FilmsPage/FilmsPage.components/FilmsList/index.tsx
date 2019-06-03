@@ -58,7 +58,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
             actionShowSnackBarWarning,
         } = this.props;
 
-        return this.sort(arr)
+        return arr
             .map((film: IFilm) =>
                 <Thumb
                     film={film}
@@ -89,16 +89,6 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                         }) : actionShowSnackBarWarning('Need Authorize')}
                     key={'Thumb' + film.id}
                 />);
-    }
-
-    protected sort(arr: IFilm[]): IFilm[] {
-        if (this.props.filter_sort === 'Star') {
-            return [...arr]
-                .sort((a: IFilm, b: IFilm) => b.stars - a.stars);
-        } else {
-            return [...arr]
-                .sort((a: IFilm, b: IFilm) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
-        }
     }
 }
 

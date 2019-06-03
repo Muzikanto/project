@@ -3,6 +3,7 @@
     grid-column-gap: 30px;
     grid-row-gap: 30px;
     justify-items: center;
+    grid-auto-flow: dense;
 }
 
 .GridContainer-Item {

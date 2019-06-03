@@ -9,6 +9,7 @@ export interface IselectFilmsRouterQuery {
     filter_dates?: string;
     filter_genres?: string;
     filter_stars?: string;
+    filter_sort?: string;
     page?: number;
 }
 
@@ -18,7 +19,7 @@ export const selectFilmsRouter = (async (req: IRequestSession, res: express.Resp
     const query = req.query as IselectFilmsRouterQuery;
 
     try {
-        const response = await SelectFilms(query);
+        const response = await SelectFilms(query, req.user);
 
         sendResponse<IselectFilmsRouserResponse>(res, {status: 200, message: 'Success Load Films', response});
     } catch ({status, message}) {

@@ -33,11 +33,13 @@ export const actionSelectFilms = (page?: number) => async (dispatch: Dispatch, g
             filter_dates,
             filter_genres,
             filter_stars,
+            filter_sort,
         } = getState().FilmsReducer;
         const body = {
             filter_dates: filter_dates.join(','),
             filter_genres: filter_genres.join(','),
             filter_stars,
+            filter_sort,
             page,
         };
 

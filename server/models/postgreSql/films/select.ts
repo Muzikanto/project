@@ -2,8 +2,9 @@ import {pool, HttpError} from "../base";
 import {IFilm} from "../../../../src/reducers/Films/Films.typings";
 import {IselectFilmsRouterQuery} from "../../../routes/Films/select";
 import {psqlPromise} from "../utils";
+import {IUserSession} from "../../../routes/typings";
 
-function getSelectQuery(filters: IselectFilmsRouterQuery) {
+function getSelectQuery(filters: IselectFilmsRouterQuery, user: IUserSession | null) {
     let genres = filters.filter_genres ?
         filters.filter_genres.split(',').map(el => `'${el}'`).join(',') : '';
 
@@ -22,15 +23,16 @@ from films as f
 left join films_user as fu on fu.user_id = 1 and fu.film_id = f.id
 where f.id in (select film_id from list_films) 
 ${filters.filter_dates ? `and date_part('year', f.date) in (${filters.filter_dates}) ` : ''} 
-${filters.filter_stars ? `and f.stars >= ${filters.filter_stars}` : ''}
-order by f.id limit 12 offset ${(Number(filters.page) || 0) * 12}
+${filters.filter_stars ? `and f.stars >= ${filters.filter_stars}` : ''} 
+order by ${filters.filter_sort === 'star' ? 'f.stars' : 'f.date'} 
+limit 12 offset ${(Number(filters.page) || 0) * 12}
 `;
 }
 
-export function SelectFilms(filters: IselectFilmsRouterQuery) {
+export function SelectFilms(filters: IselectFilmsRouterQuery, user: IUserSession | null) {
     return new Promise(async (resolve: (films: IFilm[]) => void, reject: (err: HttpError) => void) => {
         try {
-            const query = getSelectQuery(filters);
+            const query = getSelectQuery(filters, null);
             const filmsRows = await psqlPromise(pool, query);
 
             resolve(filmsRows.rows);

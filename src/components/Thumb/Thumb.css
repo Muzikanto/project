@@ -5,10 +5,29 @@
     flex-direction: column;
 }
 
+.Thumb_small {
+    max-width: 345px;
+    grid-column: span 1;
+}
+
+.Thumb_medium {
+    max-width: 720px;
+    grid-column: span 2;
+}
+
 .Thumb-Header {
     display: flex;
     padding: 10px;
     white-space: nowrap;
+}
+
+.Thumb-Header .MuiCardHeader-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.Thumb-Header .MuiCardHeader-content{
+    max-width: 220px;
 }
 
 .Thumb-Content{

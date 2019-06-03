@@ -12,7 +12,7 @@ export function getBaseFilmsReducerState(): IFilmsOptions {
         filter_genres: [],
         filter_dates: [],
         filter_stars: '4',
-        filter_sort: 'Star',
+        filter_sort: 'star',
         filter_open: false,
     };
 }
@@ -41,7 +41,7 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
             if (filter_stars) {
                 payload.filter_stars = filter_stars;
             }
-            if (filter_sort === 'Star' || filter_sort === 'Date') {
+            if (filter_sort === 'star' || filter_sort === 'date') {
                 payload.filter_sort = filter_sort;
             }
             if (filter_open) {

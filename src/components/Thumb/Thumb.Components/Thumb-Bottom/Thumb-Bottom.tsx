@@ -32,7 +32,7 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                         <div onClick={onStarClick}>
                             <IconButton color={set_star ? 'secondary' : undefined}>
                                 <StarIcon/>
-                                {stars}
+                                {stars.toFixed(2)}
                             </IconButton>
                         </div>
                     </Tooltip>

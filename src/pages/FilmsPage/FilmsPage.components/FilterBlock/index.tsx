@@ -28,7 +28,7 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
 
         const dates = new Array(10).fill(0).map((_, index: number) => (2019 - index).toString());
         const stars = new Array(7).fill(0).map((_, index: number) => (10 - index).toString());
-        const sortData: IFilmsFilterSort[] = ['Star', 'Date'];
+        const sortData: IFilmsFilterSort[] = ['star', 'date'];
 
         return (
             <UI

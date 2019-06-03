@@ -1,9 +1,9 @@
 import Avatar from "@material-ui/core/Avatar";
 import * as React from "react";
-import CardHeader from "@material-ui/core/CardHeader";
 import {IThumbHeaderProps} from "./Thumb-Header.typings";
 import ThumbMenu from "../Thumb-Menu/Thumb-Menu";
 import {parseDate} from "../../../../utils/parseDate";
+import {Tooltip, CardHeader} from "@material-ui/core";
 
 class ThumbHeader extends React.Component<IThumbHeaderProps> {
     render(): React.ReactNode {
@@ -26,7 +26,7 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
                 }
                 action={<ThumbMenu items={menuItems}/>}
                 titleTypographyProps={{variant: 'h5'}}
-                title={name}
+                title={<Tooltip placement={"top"} title={name}><span>{name}</span></Tooltip>}
                 subheader={date && typeof date !== 'object' ? parseDate(date) : undefined}
                 className={className}
             />

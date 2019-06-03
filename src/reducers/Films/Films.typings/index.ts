@@ -2,7 +2,7 @@ export interface IFilmsOptions extends IFilmsOptionsFilters{
     arr: IFilm[];
 }
 
-export type IFilmsFilterSort = 'Star' | 'Date';
+export type IFilmsFilterSort = 'star' | 'date';
 
 export interface IFilmsOptionsFilters {
     filter_genres: string[];
