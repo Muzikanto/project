@@ -1,15 +1,15 @@
 import {IconButton} from "@material-ui/core";
 import * as React from "react";
 import StarIcon from '@material-ui/icons/Star';
-import {IDialogProps} from "./Dialog.typings";
-import DialogBase from "../Base/DialogBase";
+import {IDialogStarsProps} from "./Dialog.typings";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Slide from "@material-ui/core/Slide";
+import Dialog from "../../../../../components/Dialog";
 
-class DialogTypeStars extends DialogBase<IDialogProps> {
+class DialogTypeStars extends React.Component<IDialogStarsProps> {
     state: { stars: number };
 
-    constructor(props: IDialogProps) {
+    constructor(props: IDialogStarsProps) {
         super(props);
 
         this.state = {
@@ -17,15 +17,21 @@ class DialogTypeStars extends DialogBase<IDialogProps> {
         }
     }
 
-    protected getTransitionComponent(props: TransitionProps): any {
-        return <Slide direction="up" {...props} />
+    render(): React.ReactNode {
+        const {
+            title,
+        } = this.props;
+
+        return (
+            <Dialog
+                transitionComponent={this.getTransitionComponent}
+                title={title}>
+                {this.getStars()}
+            </Dialog>
+        )
     }
 
-    protected getTitle(): string {
-        return "How did you like the movie?";
-    }
-
-    protected getContent() {
+    protected getStars() {
         let arr = [];
 
         for (let i = 1; i <= 10; i++) {
@@ -39,6 +45,10 @@ class DialogTypeStars extends DialogBase<IDialogProps> {
         }
 
         return arr;
+    }
+
+    protected getTransitionComponent(props: TransitionProps): any {
+        return <Slide direction="up" {...props} />
     }
 
     private onFocusStar = (stars: number) => () => {

@@ -9,14 +9,15 @@ import {cn} from "@bem-react/classname";
 import SelectCheckBox from "../../../../../components/Select/Select_checkBox/Select_checkBox";
 import {getGenres} from "../../../base";
 import Thumb from "../../../../../components/Thumb/Thumb";
-import Youtube, {parseYoutubeId} from "../../../../../components/Youtube/Youtube";
-import DialogBase from "../Base/DialogBase";
+import Youtube from "../../../../../components/Youtube/Youtube";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import {dateToSqlFormat} from "../../../../../utils/parseDate";
+import {parseYoutubeId} from "../../../../../components/Youtube/Youtube.helpers";
+import Dialog from "../../../../../components/Dialog";
 
 const cnDialog = cn('DialogAddFilm');
 
-class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Props> {
+class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Component<Props> {
     state: IDialogTypeAddState = {
         name: '',
         date: new Date(),
@@ -25,8 +26,23 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
         trailer_id: '',
     };
 
-    protected getTitle(): string {
-        return 'Enter New Film';
+    protected handleChange = (name: string) => (e: any) => {
+        this.setState({[name]: e.target.value})
+    };
+
+    render(): React.ReactNode {
+        const {
+            title,
+        } = this.props;
+
+        return (
+            <Dialog
+                title={title}
+                transitionComponent={this.getTransitionComponent}
+            >
+                {this.getContent()}
+            </Dialog>
+        )
     }
 
     protected getContent(): React.ReactNode {
@@ -87,9 +103,12 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends DialogBase<Pr
                     <Thumb
                         user={{id: 0, email: '', nick: 'Nick'}}
                         menuItems={[]}
-                        onContentClick={() => {}}
-                        onStarClick={() => {}}
-                        onFavoriteClick={()=>{}}
+                        onContentClick={() => {
+                        }}
+                        onStarClick={() => {
+                        }}
+                        onFavoriteClick={() => {
+                        }}
                         film={{
                             id: 'testID',
                             name: this.state.name || "Name",

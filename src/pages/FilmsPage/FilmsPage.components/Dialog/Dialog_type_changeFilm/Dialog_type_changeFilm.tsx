@@ -1,8 +1,8 @@
 import * as React from "react";
 import DialogTypeAddFilm from "../Dialog_type_addFilm/Dialog_type_addFilm";
 import {IDialogTypeChangeProps} from "./Dialog_type_changeFilm.typings";
-import {parseYoutubeId} from "../../../../../components/Youtube/Youtube";
 import {dateToSqlFormat} from "../../../../../utils/parseDate";
+import {parseYoutubeId} from "../../../../../components/Youtube/Youtube.helpers";
 
 class DialogTypeChangeFilm extends DialogTypeAddFilm<IDialogTypeChangeProps> {
     constructor(props: IDialogTypeChangeProps) {
@@ -12,10 +12,6 @@ class DialogTypeChangeFilm extends DialogTypeAddFilm<IDialogTypeChangeProps> {
             ...props.film,
             date: new Date(props.film.date || Date.now()),
         };
-    }
-
-    protected getTitle(): string {
-        return 'Change Film Fields';
     }
 
     protected submit = () => {

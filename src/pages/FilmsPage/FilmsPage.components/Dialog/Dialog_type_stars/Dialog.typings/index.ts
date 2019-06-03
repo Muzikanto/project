@@ -1,6 +1,6 @@
-import {IDialogBaseProps} from "../../Base/DialogBase.typings";
+import {IDialogProps} from "../../../../../../components/Dialog/Dialog.typings";
 
-export interface IDialogProps  extends IDialogBaseProps{
+export interface IDialogStarsProps  extends IDialogProps{
     stars: number;
     handleChange: (stars: number) => () => void;
 }

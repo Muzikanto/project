@@ -2,18 +2,17 @@ import * as React from "react";
 import {IDialogConteinerProps} from "./Dialog.typings";
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
-import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {actionCreateFilm, actionFilmsChange, actionChangeStars} from "../../../../reducers/Films/Films.actions";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
 import {IFilm, IFilmToCreate} from "../../../../reducers/Films/Films.typings";
 import DialogTypeAddFilm from "./Dialog_type_addFilm/Dialog_type_addFilm";
 import DialogTypeChangeFilm from "./Dialog_type_changeFilm/Dialog_type_changeFilm";
+import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 
 class Dialog extends React.Component<IDialogConteinerProps> {
     render(): React.ReactNode {
         const {
-            open,
             film,
             type,
         } = this.props.dialog;
@@ -25,8 +24,7 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                 case 'stars':
                     return (
                         <DialogTypeStars
-                            open={open}
-                            handleClose={this.handleClose}
+                            title={"How did you like the movie?"}
 
                             stars={stars}
                             handleChange={this.handleChangeStars}
@@ -35,29 +33,27 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                 case 'content':
                     return (
                         <DialogTypeContent
-                            open={open}
-                            handleClose={this.handleClose}
+                            title={film.name}
 
                             film={film}
                         />
                     );
                 case 'change_film':
                     return (<DialogTypeChangeFilm
+                        title={'Change Film Fields'}
                         submitText={'Change'}
-                        open={open}
-                        handleClose={this.handleClose}
 
                         film={film}
                         onChange={(film: IFilm) => this.props.actionFilmsChange(film)}
-                        onCreate={()=>{}}
+                        onCreate={() => {
+                        }}
                     />);
             }
         } else {
             if (type === 'add_film') {
                 return (<DialogTypeAddFilm
+                    title={'Enter New Film'}
                     submitText={'Add'}
-                    open={open}
-                    handleClose={this.handleClose}
 
                     onCreate={(film: IFilmToCreate) => this.props.actionCreateFilm(film)}
                 />);
@@ -72,10 +68,6 @@ class Dialog extends React.Component<IDialogConteinerProps> {
             this.props.actionDialog({open: false, film: null, type: null});
             this.props.actionChangeStars({stars, id: this.props.dialog.film.id});
         }
-    };
-
-    private handleClose = () => {
-        this.props.actionDialog({open: false, film: null, type: null});
     };
 }
 
