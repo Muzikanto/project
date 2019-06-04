@@ -11,7 +11,7 @@ export function getBaseFilmsReducerState(): IFilmsOptions {
         filter_genres: [],
         filter_dates: [],
         filter_stars: '4',
-        filter_sort: 'star',
+        filter_sort: 'date',
         filter_open: false,
     };
 }

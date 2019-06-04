@@ -24,7 +24,7 @@ ${user ? `left join films_user as fu on fu.user_id = ${user.id} and fu.film_id =
 where f.id in (select film_id from list_films) 
 ${filters.filter_dates ? `and date_part('year', f.date) in (${filters.filter_dates}) ` : ''} 
 ${filters.filter_stars ? `and f.stars >= ${filters.filter_stars}` : ''} 
-order by ${filters.filter_sort === 'star' ? 'f.date' : 'f.stars'} desc nulls last 
+order by ${filters.filter_sort === 'star' ? 'f.stars' : 'f.date'} desc nulls last 
 limit 12 offset ${(Number(filters.page) || 0) * 12}
 `;
 }
