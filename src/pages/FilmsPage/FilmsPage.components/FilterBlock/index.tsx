@@ -12,8 +12,11 @@ import {historyState} from "../../../../history";
 import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {getGenres} from "../../base";
 import {IFilmsFilterSort} from "../../../../reducers/Films/Films.typings";
+import Timeout = NodeJS.Timeout;
 
 class FilterBlock extends React.Component<IFilterBlockContainerProps> {
+    private lastTimeOut: Timeout | null = null;
+
     componentDidMount(): void {
         this.props.actionFilmsFirstLoad(historyState.location.search);
     }
@@ -59,8 +62,14 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                 onExpandFilters={() =>
                     this.props.actionFilmsSetFilter({filter_open: !filters.filter_open})
                 }
-                onInputFind={(input) =>
-                    this.props.actionSelectFilms({input, disableFilters: true})
+                onInputFind={(filter_query: string) => {
+                        this.props.actionFilmsSetFilter({filter_query});
+                        this.lastTimeOut && clearTimeout(this.lastTimeOut);
+
+                        this.lastTimeOut = setTimeout(() => {
+                            this.props.actionSelectFilms({filter_query, disableFilters: true})
+                        }, 700);
+                    }
                 }
             />
         );
@@ -74,6 +83,7 @@ const mapStateToProps = (store: IStore) => ({
         filter_open: store.FilmsReducer.filter_open,
         filter_sort: store.FilmsReducer.filter_sort,
         filter_stars: store.FilmsReducer.filter_stars,
+        filter_query: store.FilmsReducer.filter_query,
     }
 });
 

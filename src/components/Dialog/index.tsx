@@ -10,16 +10,18 @@ class Dialog extends React.Component<IDialogContainerProps> {
         const {
             open,
             title,
-            transitionComponent,
             children,
+            dialogCoreProps,
         } = this.props;
 
         return (
             <UI
                 title={title}
                 handleClose={this.handleClose}
-                transitionComponent={transitionComponent}
-                open={open}>
+                dialogCoreProps={{
+                    open,
+                    ...dialogCoreProps,
+                }}>
                 {children}
             </UI>
         )

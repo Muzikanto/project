@@ -45,8 +45,7 @@ class Dialog extends React.Component<IDialogConteinerProps> {
 
                         film={film}
                         onChange={(film: IFilm) => this.props.actionFilmsChange(film)}
-                        onCreate={() => {
-                        }}
+                        onCreate={() => {}}
                     />);
             }
         } else {

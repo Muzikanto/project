@@ -22,7 +22,7 @@ ${user ? 'fu.set_star as set_star, fu.is_favorite as is_favorite,' : ''}
 from films as f 
 ${user ? `left join films_user as fu on fu.user_id = ${user.id} and fu.film_id = f.id` : ''} 
 where f.id in (select film_id from list_films) 
-${filters.input ? `and f.name like '%${filters.input}%'` : ''} 
+${filters.filter_query ? `and f.name like '%${filters.filter_query}%'` : ''} 
 ${filters.filter_dates ? `and date_part('year', f.date) in (${filters.filter_dates})` : ''} 
 ${filters.filter_stars ? `and f.stars >= ${filters.filter_stars}` : ''} 
 order by ${filters.filter_sort === 'star' ? 'f.stars' : 'f.date'} desc nulls last 

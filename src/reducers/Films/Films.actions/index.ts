@@ -27,12 +27,12 @@ export const actionFilmsTypes = {
 
 interface IactionSelectFilmsOptions {
     page?: number;
-    input?: string;
+    filter_query?: string;
     disableFilters?: boolean;
 }
 
 export type IactionSelectFilms = (data: IactionSelectFilmsOptions) => void;
-export const actionSelectFilms = ({page, input, disableFilters}: IactionSelectFilmsOptions) => async (dispatch: Dispatch, getState: () => IStore) => {
+export const actionSelectFilms = ({page, filter_query, disableFilters}: IactionSelectFilmsOptions) => async (dispatch: Dispatch, getState: () => IStore) => {
     actionShowProgress({showProgress: true})(dispatch);
     try {
         const {
@@ -46,11 +46,11 @@ export const actionSelectFilms = ({page, input, disableFilters}: IactionSelectFi
             filter_genres: filter_genres.join(','),
             filter_stars,
             filter_sort,
-            input: input || '',
+            filter_query: filter_query || '',
             page: page || 0,
         };
 
-        const {response, status, message} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', disableFilters ? {input} : body);
+        const {response, status, message} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', disableFilters ? {filter_query} : body);
 
         if (status === 200) {
             dispatch({

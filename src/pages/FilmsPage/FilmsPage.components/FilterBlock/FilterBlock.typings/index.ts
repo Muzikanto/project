@@ -3,8 +3,6 @@ import {
 } from "../../../../../reducers/Films/Films.actions";
 import {IactionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 import {IFilmsFilterSort, IFilmsOptionsFilters} from "../../../../../reducers/Films/Films.typings";
-import {ChangeEvent} from "react";
-import * as React from "react";
 
 export interface IFilterBlockProps {
     className?: string;

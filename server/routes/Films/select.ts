@@ -11,7 +11,7 @@ export interface IselectFilmsRouterQuery {
     filter_stars?: string;
     filter_sort?: string;
     page?: number;
-    input?: string;
+    filter_query?: string;
 }
 
 export type IselectFilmsRouserResponse = IFilm[];

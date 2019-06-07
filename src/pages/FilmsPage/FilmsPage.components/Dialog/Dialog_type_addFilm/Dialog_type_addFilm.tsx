@@ -38,7 +38,9 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
         return (
             <Dialog
                 title={title}
-                transitionComponent={this.getTransitionComponent}
+                dialogCoreProps={{
+                    TransitionComponent: this.getTransitionComponent,
+                }}
             >
                 {this.getContent()}
             </Dialog>

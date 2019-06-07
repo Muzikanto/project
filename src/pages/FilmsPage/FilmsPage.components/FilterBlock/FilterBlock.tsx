@@ -30,7 +30,6 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
             findOnClick,
             addOnClick,
             onExpandFilters,
-            onInputFind,
         } = this.props;
 
         return (
@@ -43,19 +42,7 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
                     focusVisibleClassName={cnFilterBlock('DisableFocus')}
                     classes={{content: cnFilterBlock('Header')}}
                 >
-                    <Typography variant={'h5'}>Filters</Typography>
-                    <Input
-                        textFieldProps={{
-                            className: cnFilterBlock('Search'),
-                        }}
-                        inputProps={{
-                            classes: {root: cnFilterBlock('SearchInput', ['ShadowBox'])},
-                        }}
-                        timeout={500}
-                        label={'Film name'}
-                        onChange={onInputFind}
-                    />
-                    <div/>
+                    {this.getHeaderContent()}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={cnFilterBlock()}>
                     <div className={cnFilterBlock('Items')}>
@@ -105,6 +92,31 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         );
+    }
+
+    protected getHeaderContent() {
+        const {
+            filters,
+            onInputFind,
+        } = this.props;
+
+        return (
+            <>
+                <Typography variant={'h5'}>Filters</Typography>
+                <Input
+                    textFieldProps={{
+                        className: cnFilterBlock('Search'),
+                        value: filters.filter_query,
+                    }}
+                    inputProps={{
+                        classes: {root: cnFilterBlock('SearchInput', ['ShadowBox'])},
+                    }}
+                    label={'Film name'}
+                    onChange={onInputFind}
+                />
+                <div/>
+            </>
+        )
     }
 }
 

@@ -16,6 +16,9 @@ class DialogTypeContent extends React.Component<IDialogContentProps> {
                 title={title}
             >
                 <YouTube id={film.trailer_id} width={640} height={390}/>
+                <YouTube id={film.trailer_id} width={640} height={390}/>
+                <YouTube id={film.trailer_id} width={640} height={390}/>
+                <YouTube id={film.trailer_id} width={640} height={390}/>
             </Dialog>
         )
     }

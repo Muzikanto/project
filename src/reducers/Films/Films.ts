@@ -13,6 +13,7 @@ export function getBaseFilmsReducerState(): IFilmsOptions {
         filter_stars: '4',
         filter_sort: 'date',
         filter_open: false,
+        filter_query: '',
     };
 }
 
@@ -26,7 +27,8 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
                 filter_sort,
                 filter_dates,
                 filter_stars,
-                filter_open
+                filter_open,
+                filter_query,
             } = queryToObject(action.data);
 
             const payload: Partial<IFilmsOptions> = {};
@@ -46,6 +48,7 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
             if (filter_open) {
                 payload.filter_open = filter_open === 'true'
             }
+            payload.filter_query = decodeURI(filter_query) || '';
 
             return {...state, ...payload};
 

@@ -10,6 +10,7 @@ export interface IFilmsOptionsFilters {
     filter_stars: string;
     filter_sort: IFilmsFilterSort;
     filter_open: boolean;
+    filter_query: string;
 }
 
 export interface IFilm {

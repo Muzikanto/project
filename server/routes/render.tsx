@@ -28,7 +28,7 @@ export const renderWithApp = (App: ReactType): Application => {
 
         let films: IFilm[] = [];
         try {
-            films = prepareFilms(await SelectFilms(filters, req.user));
+            films = prepareFilms(await SelectFilms(filters.filter_query ? {filter_query: decodeURI(filters.filter_query)} : filters, req.user));
         } catch (e) {
             // Need Logic
         }
@@ -81,9 +81,9 @@ export function renderPage(html: string, styles: string[], scripts: string[], pr
             </head>
             <body>
                 <script id="server-scripts">window.__PRELOADED_STATE__ = ${JSON.stringify(preloadState).replace(
-            /</g,
-            '\\\\\u003c'
-                )}</script>
+        /</g,
+        '\\\\\u003c'
+    )}</script>
                 <div id="root">${html}</div>
                 ${scripts.join('')}
             </body>

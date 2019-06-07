@@ -13,5 +13,4 @@ export interface IInputProps {
 
     label?: string;
     onChange?: (value: string) => void;
-    timeout?: number;
 }
