@@ -6,6 +6,8 @@
 
     max-width: 345px;
     grid-column: span 1;
+
+    box-shadow: 4px 2px 7px 0px rgba(131, 125, 125, 0.75) !important;
 }
 
 .Thumb_medium {

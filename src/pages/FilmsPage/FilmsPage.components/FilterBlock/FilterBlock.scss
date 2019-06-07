@@ -1,15 +1,28 @@
 .FilterBlock {
+  display: flex;
+  flex-direction: column;
+
+  &-Select {
+    min-width: 100px !important;
+    max-width: 240px;
+    width: 20%;
+  }
+
+  &-Items {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+  }
 
-    &-Select {
-        min-width: 100px !important;
-        max-width: 240px;
-        width: 20%;
-    }
+  &-DisableFocus {
+        background: white !important;
+  }
 
-    &-Items {
-        display: flex;
-        justify-content: space-around;
-    }
+  &-Header {
+    margin: 0 !important;
+    align-items: center;
+  }
+
+  &-Search {
+    margin-left: 50px !important;
+  }
 }

@@ -12,10 +12,23 @@ class LoginForm extends React.Component<ILoginFormProps> {
     public render() {
         return (
             <form className={cnLoginForm()} action={'#'}>
-                <Input label={'Email'} ref={this.props.refEmail} className={cnLoginForm('Item')}/>
-                <InputShow label={'Password'} ref={this.props.refPassword} className={cnLoginForm('Item')}/>
-                <div onClick={this.props.onSubmit} className={cnLoginForm('Btn')}>
-                    <Button variant="contained" size="large" color="primary">
+                <Input
+                    label={'Email'}
+                    ref={this.props.refEmail}
+                    textFieldProps={{className: cnLoginForm('Item')}}
+                />
+                <InputShow
+                    label={'Password'}
+                    ref={this.props.refPassword}
+                    textFieldProps={{className: cnLoginForm('Item')}}
+                />
+                <div
+                    onClick={this.props.onSubmit}
+                    className={cnLoginForm('Btn')}>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        color="primary">
                         Sign In
                     </Button>
                 </div>

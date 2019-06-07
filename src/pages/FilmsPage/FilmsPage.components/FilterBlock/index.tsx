@@ -51,13 +51,16 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                     this.props.actionFilmsSetFilter({filter_sort})
                 }
                 findOnClick={() => {
-                    this.props.actionSelectFilms();
+                    this.props.actionSelectFilms({});
                 }}
                 addOnClick={() => {
                     this.props.actionDialog({type: 'add_film', film: null, open: true});
                 }}
                 onExpandFilters={() =>
                     this.props.actionFilmsSetFilter({filter_open: !filters.filter_open})
+                }
+                onInputFind={(input) =>
+                    this.props.actionSelectFilms({input, disableFilters: true})
                 }
             />
         );

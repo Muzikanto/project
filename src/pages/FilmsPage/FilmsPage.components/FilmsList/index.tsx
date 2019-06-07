@@ -21,7 +21,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
             if (window.scrollY + window.innerHeight > bodyHeight - 500 && new Date().getSeconds() - this.last.getSeconds() > 1) {
                 this.page++;
                 this.last = new Date();
-                this.props.actionSelectFilms(this.page);
+                this.props.actionSelectFilms({page: this.page});
             }
         });
     }

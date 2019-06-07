@@ -9,21 +9,10 @@ import SelectCheckBox from "../../../../components/Select/Select_checkBox/Select
 import {cn} from "@bem-react/classname";
 import Select from "../../../../components/Select/Select/Select";
 import Button from "@material-ui/core/Button";
-import AutoComplete from "../../../../components/AutoComplete/AutoComplete";
 import './FilterBlock.scss';
+import Input from "../../../../components/Input/Input";
 
 const cnFilterBlock = cn('FilterBlock');
-
-const suggestions = [
-    'Afghanistan',
-    'Aland Islands',
-    'Albania',
-    'Algeria',
-    'American Samoa',
-    'Andorra',
-    'Angola',
-    'Anguilla',
-];
 
 class FilterBlock extends React.Component<IFilterBlockProps> {
     render(): React.ReactNode {
@@ -41,12 +30,20 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
             findOnClick,
             addOnClick,
             onExpandFilters,
+            onInputFind,
         } = this.props;
 
         return (
             <ExpansionPanel className={className} onChange={onExpandFilters} expanded={filters.filter_open}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}
+                                       focusVisibleClassName={cnFilterBlock('DisableFocus')}
+                                       classes={{content: cnFilterBlock('Header')}}
+                >
                     <Typography variant={'h5'}>Filters</Typography>
+                    <Input textFieldProps={{className: cnFilterBlock('Search')}}
+                           timeout={500}
+                           label={'Find Film'}
+                           onChange={onInputFind}/>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={cnFilterBlock()}>
                     <div className={cnFilterBlock('Items')}>
@@ -92,9 +89,6 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
                                 Add
                             </Button>
                         </div>
-                    </div>
-                    <div className={cnFilterBlock('Items')}>
-                        {/*<AutoComplete items={suggestions} placeholder={'Enter Film'}/>*/}
                     </div>
                 </ExpansionPanelDetails>
             </ExpansionPanel>

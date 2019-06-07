@@ -2,10 +2,11 @@ import * as React from 'react';
 import {IconButton} from "@material-ui/core";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import {IInputState} from "./Input_show.typings";
+import {IInputShowState} from "./Input_show.typings";
 import Input from "../Input";
+import {TextFieldProps} from "@material-ui/core/TextField";
 
-class InputShow extends Input<IInputState> {
+class InputShow extends Input<IInputShowState> {
     state = {
         ...super.state,
         show: false,
@@ -15,9 +16,6 @@ class InputShow extends Input<IInputState> {
         this.setState({show: !this.state.show});
     };
 
-    protected getType() {
-        return this.state.show ? 'text' : 'password';
-    }
 
     protected getInputProps() {
         return {
@@ -32,7 +30,13 @@ class InputShow extends Input<IInputState> {
                 </InputAdornment>
             ),
         };
+    }
 
+    protected getTextFieldProps(): Partial<TextFieldProps> {
+        return {
+            ...super.getTextFieldProps(),
+            type: this.state.show ? 'text' : 'password',
+        };
     }
 }
 

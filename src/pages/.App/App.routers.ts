@@ -8,7 +8,6 @@ import MarketPage from "../MarketPage/MarketPage";
 
 const AppRouters: Array<{ url: string, el: ComponentClass }> = [
     {url: '/films', el: FilmsPage},
-    {url: '/market', el: MarketPage},
     {url: '/register', el: RegisterPage},
     {url: '/login', el: LoginPage},
     {url: '/games/chess', el: ChessPage},

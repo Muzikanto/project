@@ -47,7 +47,7 @@ class ThumbBottom extends React.Component<IThumbBottomProps> {
                         <a target={'_blank'}
                            rel="noopener noreferrer"
                            href={'https://www.google.com/search?q=фильм ' + name + ' ' + (date ? new Date(date).getFullYear() : '')}
-                           style={{textDecoration: 'none'}}>
+                           style={{textDecoration: 'none', boxShadow: '6px 4px 12px -8px rgba(131, 125, 125, 0.75)'}}>
                             <Button size="small" color="primary">
                                 Learn More
                             </Button>

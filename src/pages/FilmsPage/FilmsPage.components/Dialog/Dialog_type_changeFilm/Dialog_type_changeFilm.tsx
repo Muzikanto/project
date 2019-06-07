@@ -17,6 +17,7 @@ class DialogTypeChangeFilm extends DialogTypeAddFilm<IDialogTypeChangeProps> {
     protected submit = () => {
         this.props.onChange({
             ...this.props.film,
+            ...this.state,
             date: dateToSqlFormat(this.state.date),
             trailer_id: parseYoutubeId(this.state.trailer_id),
         })

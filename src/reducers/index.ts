@@ -11,7 +11,7 @@ const Reducers = combineReducers<IStore>({
     FilmsReducer,
     Chess,
     User,
-    OtherReducer
+    OtherReducer,
 });
 
 export default Reducers;

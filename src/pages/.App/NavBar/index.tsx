@@ -8,7 +8,6 @@ import {IStore} from "../../../reducers/typings";
 class NavBar extends React.Component<INavBarContainerProps> {
     protected items = [
         {url: '/films', text: 'Films'},
-        {url: '/market', text: 'Market'},
         {url: '#', text: 'Games', popup: [{url: '/games/chess', text: 'Chess'}, {url: '/games/test', text: 'Test'}]},
         {url: '/page2', text: 'NotFound'},
     ];

@@ -15,19 +15,31 @@ class RegisterForm extends React.Component<IRegisterFormProps> {
                 <Input
                     ref={this.props.refNick}
                     label={'Nick'}
-                    className={cnRegisterForm('Item')}/>
+                    textFieldProps={{
+                        className: cnRegisterForm('Item')
+                    }}
+                />
                 <Input
                     ref={this.props.refEmail}
                     label={'Email'}
-                    className={cnRegisterForm('Item')}/>
+                    textFieldProps={{
+                        className: cnRegisterForm('Item')
+                    }}
+                />
                 <InputShow
                     ref={this.props.refPassword}
                     label={'Password'}
-                    className={cnRegisterForm('Item')}/>
+                    textFieldProps={{
+                        className: cnRegisterForm('Item')
+                    }}
+                />
                 <InputShow
                     ref={this.props.refPassword2}
                     label={'Repeat Password'}
-                    className={cnRegisterForm('Item')}/>
+                    textFieldProps={{
+                        className: cnRegisterForm('Item')
+                    }}
+                />
                 <div
                     onClick={this.props.onSubmit}
                     className={cnRegisterForm('Btn')}
