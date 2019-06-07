@@ -7,7 +7,7 @@ import {prepareFilms} from "../../../src/reducers/Films/Films.helpers";
 const filmReader = new JSONReader({pathToData: ''});
 
 export const SaveFilmsToJSON = (path: string) =>
-    SelectFilms({filter_stars: '0'}, null)
+    SelectFilms({stars: '0'}, null)
         .then(data => {
             console.log('Save DB films to JSON');
             filmReader.write(path, data);

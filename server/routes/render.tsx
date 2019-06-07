@@ -28,7 +28,7 @@ export const renderWithApp = (App: ReactType): Application => {
 
         let films: IFilm[] = [];
         try {
-            films = prepareFilms(await SelectFilms(filters.filter_query ? {filter_query: decodeURI(filters.filter_query)} : filters, req.user));
+            films = prepareFilms(await SelectFilms(filters.query ? {query: decodeURI(filters.query)} : filters, req.user));
         } catch (e) {
             // Need Logic
         }

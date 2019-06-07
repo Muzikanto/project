@@ -3,6 +3,7 @@ import {IThumbContentProps} from "./Thumb-Content.typings";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import local from "../../../../pages/FilmsPage/FilmsPage.strings";
 
 class ThumbContent extends React.Component<IThumbContentProps> {
     render(): React.ReactNode {
@@ -24,7 +25,7 @@ class ThumbContent extends React.Component<IThumbContentProps> {
                         image={image_src}
                     />
                     <CardContent>
-                        <b>Genres:</b> {genres.join()}
+                        <b>{local.Genres}:</b> {genres.join()}
                     </CardContent>
                 </CardActionArea>
             </div>

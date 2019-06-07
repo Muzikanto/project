@@ -10,9 +10,9 @@ import {
 } from "../../../../reducers/Films/Films.actions";
 import {historyState} from "../../../../history";
 import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
-import {getGenres} from "../../base";
 import {IFilmsFilterSort} from "../../../../reducers/Films/Films.typings";
 import Timeout = NodeJS.Timeout;
+import {getGenres} from "../../FilmsPage.strings/genres";
 
 class FilterBlock extends React.Component<IFilterBlockContainerProps> {
     private lastTimeOut: Timeout | null = null;
@@ -38,20 +38,20 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                 className={className}
                 filters={filters}
                 genres={genres}
-                genresOnChange={(filter_genres: string[]) =>
-                    this.props.actionFilmsSetFilter({filter_genres})
+                genresOnChange={(genres: string[]) =>
+                    this.props.actionFilmsSetFilter({genres})
                 }
                 dates={dates}
-                datesOnChange={(filter_dates: string[]) =>
-                    this.props.actionFilmsSetFilter({filter_dates})
+                datesOnChange={(dates: string[]) =>
+                    this.props.actionFilmsSetFilter({dates})
                 }
                 stars={stars}
-                starsOnChange={(filter_stars: string) =>
-                    this.props.actionFilmsSetFilter({filter_stars})
+                starsOnChange={(stars: string) =>
+                    this.props.actionFilmsSetFilter({stars})
                 }
                 sort={sortData}
-                sortOnChange={(filter_sort: IFilmsFilterSort) =>
-                    this.props.actionFilmsSetFilter({filter_sort})
+                sortOnChange={(sort: IFilmsFilterSort) =>
+                    this.props.actionFilmsSetFilter({sort})
                 }
                 findOnClick={() => {
                     this.props.actionSelectFilms({});
@@ -62,12 +62,12 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                 onExpandFilters={() =>
                     this.props.actionFilmsSetFilter({filter_open: !filters.filter_open})
                 }
-                onInputFind={(filter_query: string) => {
-                        this.props.actionFilmsSetFilter({filter_query});
+                onInputFind={(query: string) => {
+                        this.props.actionFilmsSetFilter({query});
                         this.lastTimeOut && clearTimeout(this.lastTimeOut);
 
                         this.lastTimeOut = setTimeout(() => {
-                            this.props.actionSelectFilms({filter_query, disableFilters: true})
+                            this.props.actionSelectFilms({query, disableFilters: true})
                         }, 700);
                     }
                 }
@@ -78,12 +78,12 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
 
 const mapStateToProps = (store: IStore) => ({
     filters: {
-        filter_dates: store.FilmsReducer.filter_dates,
-        filter_genres: store.FilmsReducer.filter_genres,
+        dates: store.FilmsReducer.dates,
+        genres: store.FilmsReducer.genres,
         filter_open: store.FilmsReducer.filter_open,
-        filter_sort: store.FilmsReducer.filter_sort,
-        filter_stars: store.FilmsReducer.filter_stars,
-        filter_query: store.FilmsReducer.filter_query,
+        sort: store.FilmsReducer.sort,
+        stars: store.FilmsReducer.stars,
+        query: store.FilmsReducer.query,
     }
 });
 

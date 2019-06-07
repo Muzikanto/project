@@ -27,6 +27,7 @@ class DialogTypeStars extends React.Component<IDialogStarsProps> {
                 dialogCoreProps={{
                     TransitionComponent: this.getTransitionComponent
                 }}
+                dialogContentProps={{style: {display: 'flex'}}}
                 title={title}>
                 {this.getStars()}
             </Dialog>

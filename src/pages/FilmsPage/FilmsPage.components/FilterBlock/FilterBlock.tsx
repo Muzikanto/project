@@ -11,6 +11,7 @@ import Select from "../../../../components/Select/Select/Select";
 import Button from "@material-ui/core/Button";
 import './FilterBlock.scss';
 import Input from "../../../../components/Input/Input";
+import local from "../../FilmsPage.strings";
 
 const cnFilterBlock = cn('FilterBlock');
 
@@ -50,42 +51,42 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
                             onChange={genresOnChange}
                             className={cnFilterBlock('Select')}
                             arr={genres}
-                            current={filters.filter_genres}
-                            label={'Genres'}
+                            current={filters.genres}
+                            label={local['Genres']}
                         />
                         <SelectCheckBox
                             onChange={datesOnChange}
                             className={cnFilterBlock('Select')}
                             arr={dates}
-                            label={'Date'}
-                            current={filters.filter_dates}
+                            label={local['Date']}
+                            current={filters.dates}
                         />
                         <Select
                             onChange={starsOnChange}
                             className={cnFilterBlock('Select')}
                             arr={stars}
-                            current={filters.filter_stars}
-                            label={'Min Stars'}
+                            current={filters.stars}
+                            label={local['Min Stars']}
                         />
                         <Select
                             onChange={sortOnChange}
                             className={cnFilterBlock('Select')}
-                            label={'Sort'}
-                            current={filters.filter_sort}
+                            label={local.Sort}
+                            current={filters.sort}
                             arr={sort}
                         />
                         <div style={{display: 'flex'}} onClick={findOnClick}>
                             <Button variant="contained"
                                     size="medium"
                                     color="primary">
-                                Find
+                                {local['Find']}
                             </Button>
                         </div>
                         <div style={{display: 'flex'}} onClick={addOnClick}>
                             <Button variant="contained"
                                     size="medium"
                                     color="secondary">
-                                Add
+                                {local['Add'].toUpperCase()}
                             </Button>
                         </div>
                     </div>
@@ -102,16 +103,16 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
 
         return (
             <>
-                <Typography variant={'h5'}>Filters</Typography>
+                <Typography variant={'h5'} style={{width: 100}}>{local['Filters']}</Typography>
                 <Input
                     textFieldProps={{
                         className: cnFilterBlock('Search'),
-                        value: filters.filter_query,
+                        value: filters.query,
                     }}
                     inputProps={{
                         classes: {root: cnFilterBlock('SearchInput', ['ShadowBox'])},
                     }}
-                    label={'Film name'}
+                    label={local['Film name']}
                     onChange={onInputFind}
                 />
                 <div/>

@@ -11,6 +11,7 @@ class Dialog extends React.Component<IDialogBaseProps> {
         const {
             title,
             children,
+            dialogContentProps,
         } = this.props;
 
         return (
@@ -20,7 +21,7 @@ class Dialog extends React.Component<IDialogBaseProps> {
                         {title}
                     </DialogTitle>)
                 }
-                <DialogContent style={{display: 'flex'}}>
+                <DialogContent {...dialogContentProps}>
                     {children}
                 </DialogContent>
             </DialogCore>

@@ -5,12 +5,12 @@ export interface IFilmsOptions extends IFilmsOptionsFilters{
 export type IFilmsFilterSort = 'star' | 'date';
 
 export interface IFilmsOptionsFilters {
-    filter_genres: string[];
-    filter_dates: string[];
-    filter_stars: string;
-    filter_sort: IFilmsFilterSort;
+    genres: string[];
+    dates: string[];
+    stars: string;
+    sort: IFilmsFilterSort;
     filter_open: boolean;
-    filter_query: string;
+    query: string;
 }
 
 export interface IFilm {

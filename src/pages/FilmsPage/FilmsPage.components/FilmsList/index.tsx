@@ -9,6 +9,7 @@ import {actionFavoriteFilm, actionSelectFilms} from "../../../../reducers/Films/
 import Thumb from "../../../../components/Thumb/Thumb";
 import ScrollerContainer from "../../../../components/Container/ScrollerContainer/ScrollerContainer";
 import GridContainer from "../../../../components/Container/GridContainer/GridContainer";
+import local from "../../FilmsPage.strings";
 
 class FilmsList extends React.Component<IFilmsListContainerProps> {
     page = 0;
@@ -64,7 +65,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                     film={film}
                     menuItems={
                         [{
-                            text: 'Редактировать',
+                            text: local.Edit,
                             action: () => {
                                 actionDialog({open: true, film, type: 'change_film'})
                             },
@@ -81,12 +82,12 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                         open: true,
                         film,
                         type: 'stars'
-                    }) : actionShowSnackBarWarning('Need Authorize')}
+                    }) : actionShowSnackBarWarning(local['Need Authorize'])}
                     onFavoriteClick={() =>
                         user ? actionFavoriteFilm({
                             id: film.id,
                             is_favorite: !film.is_favorite,
-                        }) : actionShowSnackBarWarning('Need Authorize')}
+                        }) : actionShowSnackBarWarning(local['Need Authorize'])}
                     key={'Thumb' + film.id}
                 />);
     }
@@ -94,7 +95,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
 
 const mapStateToProps = (store: IStore) => ({
     arr: store.FilmsReducer.arr,
-    filter_sort: store.FilmsReducer.filter_sort,
+    sort: store.FilmsReducer.sort,
     user: store.User.user,
 });
 

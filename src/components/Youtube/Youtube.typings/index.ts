@@ -3,4 +3,5 @@ export interface IYoutubeProps {
     height: number;
     id: string;
     autoplay?: boolean;
+    className?: string;
 }

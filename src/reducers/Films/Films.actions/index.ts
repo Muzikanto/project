@@ -27,30 +27,30 @@ export const actionFilmsTypes = {
 
 interface IactionSelectFilmsOptions {
     page?: number;
-    filter_query?: string;
+    query?: string;
     disableFilters?: boolean;
 }
 
 export type IactionSelectFilms = (data: IactionSelectFilmsOptions) => void;
-export const actionSelectFilms = ({page, filter_query, disableFilters}: IactionSelectFilmsOptions) => async (dispatch: Dispatch, getState: () => IStore) => {
+export const actionSelectFilms = ({page, query, disableFilters}: IactionSelectFilmsOptions) => async (dispatch: Dispatch, getState: () => IStore) => {
     actionShowProgress({showProgress: true})(dispatch);
     try {
         const {
-            filter_dates,
-            filter_genres,
-            filter_stars,
-            filter_sort,
+            dates,
+            genres,
+            stars,
+            sort,
         } = getState().FilmsReducer;
         const body = {
-            filter_dates: filter_dates.join(','),
-            filter_genres: filter_genres.join(','),
-            filter_stars,
-            filter_sort,
-            filter_query: filter_query || '',
+            dates: dates.join(','),
+            genres: genres.join(','),
+            stars,
+            sort,
+            query: query || '',
             page: page || 0,
         };
 
-        const {response, status, message} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', disableFilters ? {filter_query} : body);
+        const {response, status, message} = await getFetch<IselectFilmsRouterQuery, IselectFilmsRouserResponse>('/api/films/select', disableFilters ? {query} : body);
 
         if (status === 200) {
             dispatch({

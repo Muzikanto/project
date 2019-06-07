@@ -8,12 +8,12 @@ import {prepareFilms} from "./Films.helpers";
 export function getBaseFilmsReducerState(): IFilmsOptions {
     return {
         arr: [],
-        filter_genres: [],
-        filter_dates: [],
-        filter_stars: '4',
-        filter_sort: 'date',
+        genres: [],
+        dates: [],
+        stars: '4',
+        sort: 'date',
         filter_open: false,
-        filter_query: '',
+        query: '',
     };
 }
 
@@ -23,32 +23,32 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
     switch (action.type) {
         case actionFilmsTypes.FILMS_FIRST_LOAD:
             const {
-                filter_genres,
-                filter_sort,
-                filter_dates,
-                filter_stars,
+                genres,
+                sort,
+                dates,
+                stars,
                 filter_open,
-                filter_query,
+                query,
             } = queryToObject(action.data);
 
             const payload: Partial<IFilmsOptions> = {};
 
-            if (filter_genres) {
-                payload.filter_genres = decodeURI(filter_genres).split(',');
+            if (genres) {
+                payload.genres = decodeURI(genres).split(',');
             }
-            if (filter_dates) {
-                payload.filter_dates = filter_dates.split(',');
+            if (dates) {
+                payload.dates = dates.split(',');
             }
-            if (filter_stars) {
-                payload.filter_stars = filter_stars;
+            if (stars) {
+                payload.stars = stars;
             }
-            if (filter_sort === 'star' || filter_sort === 'date') {
-                payload.filter_sort = filter_sort;
+            if (sort === 'star' || sort === 'date') {
+                payload.sort = sort;
             }
             if (filter_open) {
                 payload.filter_open = filter_open === 'true'
             }
-            payload.filter_query = decodeURI(filter_query) || '';
+            payload.query = query  ?decodeURI(query) : '';
 
             return {...state, ...payload};
 

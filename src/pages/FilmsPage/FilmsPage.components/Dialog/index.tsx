@@ -9,6 +9,7 @@ import {IFilm, IFilmToCreate} from "../../../../reducers/Films/Films.typings";
 import DialogTypeAddFilm from "./Dialog_type_addFilm/Dialog_type_addFilm";
 import DialogTypeChangeFilm from "./Dialog_type_changeFilm/Dialog_type_changeFilm";
 import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
+import local from "../../FilmsPage.strings";
 
 class Dialog extends React.Component<IDialogConteinerProps> {
     render(): React.ReactNode {
@@ -24,7 +25,7 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                 case 'stars':
                     return (
                         <DialogTypeStars
-                            title={"How did you like the movie?"}
+                            title={local["How did you like the movie?"]}
 
                             stars={stars}
                             handleChange={this.handleChangeStars}
@@ -40,8 +41,8 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                     );
                 case 'change_film':
                     return (<DialogTypeChangeFilm
-                        title={'Change Film Fields'}
-                        submitText={'Change'}
+                        title={local['Change Film Fields']}
+                        submitText={local.Change}
 
                         film={film}
                         onChange={(film: IFilm) => this.props.actionFilmsChange(film)}
@@ -51,8 +52,8 @@ class Dialog extends React.Component<IDialogConteinerProps> {
         } else {
             if (type === 'add_film') {
                 return (<DialogTypeAddFilm
-                    title={'Enter New Film'}
-                    submitText={'Add'}
+                    title={local['Enter new Film']}
+                    submitText={local['Add']}
 
                     onCreate={(film: IFilmToCreate) => this.props.actionCreateFilm(film)}
                 />);

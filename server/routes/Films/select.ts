@@ -6,12 +6,12 @@ import {IFilm} from "../../../src/reducers/Films/Films.typings";
 import {SelectFilms} from "../../models/postgreSql/films/select";
 
 export interface IselectFilmsRouterQuery {
-    filter_dates?: string;
-    filter_genres?: string;
-    filter_stars?: string;
-    filter_sort?: string;
+    dates?: string;
+    genres?: string;
+    stars?: string;
+    sort?: string;
     page?: number;
-    filter_query?: string;
+    query?: string;
 }
 
 export type IselectFilmsRouserResponse = IFilm[];

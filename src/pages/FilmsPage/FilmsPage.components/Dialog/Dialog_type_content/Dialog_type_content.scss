@@ -1,0 +1,14 @@
+.FilmContent {
+  &-Image {
+    background-size: cover !important;
+    background-position: center !important;
+    width: 350px;
+    height: 500px;
+    border: solid 2px white;
+  }
+
+  &-Trailer {
+    border: solid 2px white;
+    margin-left: 20px;
+  }
+}

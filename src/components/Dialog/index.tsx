@@ -12,6 +12,7 @@ class Dialog extends React.Component<IDialogContainerProps> {
             title,
             children,
             dialogCoreProps,
+            dialogContentProps,
         } = this.props;
 
         return (
@@ -21,7 +22,9 @@ class Dialog extends React.Component<IDialogContainerProps> {
                 dialogCoreProps={{
                     open,
                     ...dialogCoreProps,
-                }}>
+                }}
+                dialogContentProps={dialogContentProps}
+            >
                 {children}
             </UI>
         )

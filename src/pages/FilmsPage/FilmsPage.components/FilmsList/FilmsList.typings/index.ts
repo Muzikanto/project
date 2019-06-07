@@ -9,7 +9,7 @@ export interface IFilmsListContainerProps {
     type: 'grid' | 'scroll';
 
     arr: IFilm[];
-    filter_sort: IFilmsFilterSort;
+    sort: IFilmsFilterSort;
     user: IUser | null;
 
     actionDialog: IactionDialog;

@@ -7,13 +7,14 @@ import DatePicker from "../../../../../components/DatePicker/DatePicker";
 import './Dialog_type_addFilms.css';
 import {cn} from "@bem-react/classname";
 import SelectCheckBox from "../../../../../components/Select/Select_checkBox/Select_checkBox";
-import {getGenres} from "../../../base";
 import Thumb from "../../../../../components/Thumb/Thumb";
 import Youtube from "../../../../../components/Youtube/Youtube";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import {dateToSqlFormat} from "../../../../../utils/parseDate";
 import {parseYoutubeId} from "../../../../../components/Youtube/Youtube.helpers";
 import Dialog from "../../../../../components/Dialog";
+import {getGenres} from "../../../FilmsPage.strings/genres";
+import local from "../../../FilmsPage.strings";
 
 const cnDialog = cn('DialogAddFilm');
 
@@ -41,6 +42,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                 dialogCoreProps={{
                     TransitionComponent: this.getTransitionComponent,
                 }}
+                dialogContentProps={{style: {display: 'flex'}}}
             >
                 {this.getContent()}
             </Dialog>
@@ -55,7 +57,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                 <div className={cnDialog('Controls')}>
                     <DatePicker
                         className={cnDialog('Date')}
-                        label={'Date'}
+                        label={local['Date']}
                         value={this.state.date}
                         onChange={(date) => {
                             this.setState({date})
@@ -64,7 +66,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                     <TextField
                         className={cnDialog('Name')}
                         id="add-film-name"
-                        label="Name"
+                        label={local['Name']}
                         value={this.state.name}
                         onChange={this.handleChange('name')}
                         margin="normal"
@@ -72,7 +74,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                     <SelectCheckBox
                         className={cnDialog('Genres')}
                         arr={getGenres()}
-                        label={'Genres'}
+                        label={local['Genres']}
                         current={this.state.genres}
                         onChange={(genres: string[]) => {
                             this.setState({genres});
@@ -81,7 +83,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                     <TextField
                         className={cnDialog('Name')}
                         id="add-film-image-src"
-                        label="Image url"
+                        label={local["Image url"]}
                         value={this.state.image_src}
                         onChange={this.handleChange('image_src')}
                         margin="normal"
@@ -95,7 +97,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                     <TextField
                         className={cnDialog('Name')}
                         id="add-film-trailer-id"
-                        label="Trailer id"
+                        label={local["Trailer ID"]}
                         value={this.state.trailer_id}
                         onChange={this.handleChange('trailer_id')}
                         margin="normal"
@@ -113,7 +115,7 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                         }}
                         film={{
                             id: 'testID',
-                            name: this.state.name || "Name",
+                            name: this.state.name || local['Name'],
                             avatar: 'T',
                             date: dateToSqlFormat(this.state.date),
                             image_src: this.state.image_src || 'https://www.ticketpro.by/storage/img/no-image.png',

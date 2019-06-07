@@ -10,6 +10,7 @@ class Youtube extends React.Component<IYoutubeProps> {
             width,
             height,
             autoplay,
+            className,
         } = this.props;
 
         const opts: Options = {
@@ -22,6 +23,7 @@ class Youtube extends React.Component<IYoutubeProps> {
 
         return (
             <YouTubeBase
+                className={className}
                 videoId={parseYoutubeId(id)}
                 opts={opts}
                 onReady={this._onReady}
