@@ -34,16 +34,28 @@ class FilterBlock extends React.Component<IFilterBlockProps> {
         } = this.props;
 
         return (
-            <ExpansionPanel className={className} onChange={onExpandFilters} expanded={filters.filter_open}>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}
-                                       focusVisibleClassName={cnFilterBlock('DisableFocus')}
-                                       classes={{content: cnFilterBlock('Header')}}
+            <ExpansionPanel
+                className={cnFilterBlock('Container', [className, 'ShadowBox'])}
+                onChange={onExpandFilters}
+                expanded={filters.filter_open}>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon/>}
+                    focusVisibleClassName={cnFilterBlock('DisableFocus')}
+                    classes={{content: cnFilterBlock('Header')}}
                 >
                     <Typography variant={'h5'}>Filters</Typography>
-                    <Input textFieldProps={{className: cnFilterBlock('Search')}}
-                           timeout={500}
-                           label={'Find Film'}
-                           onChange={onInputFind}/>
+                    <Input
+                        textFieldProps={{
+                            className: cnFilterBlock('Search'),
+                        }}
+                        inputProps={{
+                            classes: {root: cnFilterBlock('SearchInput', ['ShadowBox'])},
+                        }}
+                        timeout={500}
+                        label={'Film name'}
+                        onChange={onInputFind}
+                    />
+                    <div/>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={cnFilterBlock()}>
                     <div className={cnFilterBlock('Items')}>

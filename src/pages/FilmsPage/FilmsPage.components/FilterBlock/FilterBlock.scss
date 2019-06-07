@@ -14,15 +14,27 @@
   }
 
   &-DisableFocus {
-        background: white !important;
+    background: white !important;
   }
 
   &-Header {
     margin: 0 !important;
     align-items: center;
+    display: flex;
+    justify-content: space-between;
   }
 
   &-Search {
-    margin-left: 50px !important;
+    margin-left: -28px !important;
+
+    &Input {
+      transition: width;
+      transition-duration: .7s;
+      width: 350px !important;
+
+      &.Mui-focused {
+        width: 450px !important;
+      }
+    }
   }
 }
