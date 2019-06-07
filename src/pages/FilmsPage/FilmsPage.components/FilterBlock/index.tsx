@@ -57,7 +57,7 @@ class FilterBlock extends React.Component<IFilterBlockContainerProps> {
                     this.props.actionSelectFilms({});
                 }}
                 addOnClick={() => {
-                    this.props.actionDialog({type: 'add_film', film: null, open: true});
+                    this.props.actionDialog({type: 'add_film', open: true});
                 }}
                 onExpandFilters={() =>
                     this.props.actionFilmsSetFilter({filter_open: !filters.filter_open})

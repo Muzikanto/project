@@ -7,6 +7,8 @@ import {prepareFilms} from "./Films.helpers";
 
 export function getBaseFilmsReducerState(): IFilmsOptions {
     return {
+        film: null,
+        filmData: null,
         arr: [],
         genres: [],
         dates: [],
@@ -65,6 +67,8 @@ const FilmsReducer = (state = initialState, action: IReducerAction) => {
                 ...state,
                 arr: [...state.arr, ...prepareFilms(action.data)],
             };
+        case actionFilmsTypes.FILM_FIELDS:
+            return {...state, ...action.data};
 
         case actionFilmsTypes.FILMS_SET_STAR:
             const arr: IFilm[] = state.arr.map(el => {

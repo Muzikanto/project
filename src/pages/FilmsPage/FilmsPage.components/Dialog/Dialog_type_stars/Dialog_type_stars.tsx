@@ -5,6 +5,9 @@ import {IDialogStarsProps} from "./Dialog.typings";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "../../../../../components/Dialog";
+import {connect} from "react-redux";
+import {actionChangeStars} from "../../../../../reducers/Films/Films.actions";
+import {actionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 
 class DialogTypeStars extends React.Component<IDialogStarsProps> {
     state: { stars: number };
@@ -39,7 +42,7 @@ class DialogTypeStars extends React.Component<IDialogStarsProps> {
 
         for (let i = 1; i <= 10; i++) {
             arr.push(
-                <div key={'Star' + i} onClick={this.props.handleChange(i)} onMouseEnter={this.onFocusStar(i)}>
+                <div key={'Star' + i} onClick={this.handleChangeStars(i)} onMouseEnter={this.onFocusStar(i)}>
                     <IconButton color={i <= this.state.stars ? 'secondary' : undefined}>
                         <StarIcon/>
                     </IconButton>
@@ -56,7 +59,19 @@ class DialogTypeStars extends React.Component<IDialogStarsProps> {
 
     private onFocusStar = (stars: number) => () => {
         this.setState({stars});
-    }
+    };
+
+    private handleChangeStars = (stars: number) => () => {
+        this.props.actionDialog({open: false, type: null});
+        this.props.actionChangeStars({stars, id: this.props.film.id});
+    };
 }
 
-export default DialogTypeStars;
+const mapStateToProps = () => ({});
+
+const mapDispatchesToProps = {
+    actionChangeStars,
+    actionDialog,
+};
+
+export default connect(mapStateToProps, mapDispatchesToProps)(DialogTypeStars);

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {IFilm, IFilmsOptionsFilters, IFilmToCreate} from "../Films.typings";
+import {IFilm, IFilmsOptions, IFilmsOptionsFilters, IFilmToCreate} from "../Films.typings";
 import {getFetch, postFetch} from "../../../utils/fetch";
 import {IStore} from "../../typings";
 import {actionDialog} from "../../Dialog/Dialog.actions";
@@ -13,6 +13,7 @@ import {
     actionShowSnackBarWarning
 } from "../../Other/Other.actions";
 import {IfavoriteFilmRouterQuery, IfavoriteFilmRouterResponse} from "../../../../server/routes/Films/favorite";
+import {IselectFilmRouserResponse, IselectFilmRouterQuery} from "../../../../server/routes/Films/selectSingle";
 
 export const actionFilmsTypes = {
     FILMS_SET_FILTER: 'FILMS_SET_FILTER',
@@ -21,6 +22,7 @@ export const actionFilmsTypes = {
     FILMS_FIRST_LOAD: 'FILMS_FIRST_LOAD',
     FILMS_SELECTED: 'FILMS_SELECTED',
     FILM_CREATE: 'FILM_CREATE',
+    FILM_FIELDS: 'FILM_FIELDS',
     FILMS_CHANGE: 'FILMS_CHANGE',
     FILMS_SELECTED_ADD: 'FILMS_SELECTED_ADD',
 };
@@ -66,6 +68,32 @@ export const actionSelectFilms = ({page, query, disableFilters}: IactionSelectFi
     actionShowProgress({showProgress: false})(dispatch);
 };
 
+export type IactionSelectSingleFilm = (id: string) => void;
+export const actionSelectSingleFilm = (id: string) => async (dispatch: Dispatch) => {
+    try {
+        const {response, status, message} = await getFetch<IselectFilmRouterQuery, IselectFilmRouserResponse>('/api/films/select/' + id, {});
+
+        if (status === 200) {
+            dispatch({
+                data: {filmData: response},
+                type: actionFilmsTypes.FILM_FIELDS
+            });
+        } else {
+            actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
+        }
+    } catch (e) {
+        actionShowSnackBarError('Error actionSelectSingleFilm')(dispatch);
+    }
+};
+
+export type IactionFilmSetField = (data: Partial<IFilmsOptions>) => void;
+export const actionFilmSetField= (data:  Partial<IFilmsOptions>) => async (dispatch: Dispatch) => {
+    dispatch({
+        data,
+        type: actionFilmsTypes.FILM_FIELDS
+    });
+};
+
 export type IactionCreateFilm = (film: IFilmToCreate) => void;
 export const actionCreateFilm = (film: IFilmToCreate) => async (dispatch: Dispatch) => {
     actionShowProgress({showProgress: true})(dispatch);
@@ -77,7 +105,7 @@ export const actionCreateFilm = (film: IFilmToCreate) => async (dispatch: Dispat
                 data: response,
                 type: actionFilmsTypes.FILM_CREATE
             });
-            actionDialog({open: false, film: null, type: null})(dispatch);
+            actionDialog({open: false, type: null})(dispatch);
             actionShowSnackBarSuccess(message)(dispatch);
         } else {
             actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
@@ -99,7 +127,7 @@ export const actionFilmsChange = (film: IFilm) => async (dispatch: Dispatch) => 
                 data: film,
                 type: actionFilmsTypes.FILMS_CHANGE
             });
-            actionDialog({open: false, film: null, type: null})(dispatch);
+            actionDialog({open: false, type: null})(dispatch);
             actionShowSnackBarSuccess(message)(dispatch);
         } else {
             actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
@@ -129,7 +157,7 @@ export const actionChangeStars = (data: IchangeStarsFilmRouterQuery) => async (d
                 data,
                 type: actionFilmsTypes.FILMS_SET_STAR
             });
-            actionDialog({open: false, film: null, type: null})(dispatch);
+            actionDialog({open: false, type: null})(dispatch);
         } else {
             actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
         }
@@ -150,7 +178,7 @@ export const actionFavoriteFilm = (data: IfavoriteFilmRouterQuery) => async (dis
                 data,
                 type: actionFilmsTypes.FILMS_SET_FAVORITE
             });
-            actionDialog({open: false, film: null, type: null})(dispatch);
+            actionDialog({open: false, type: null})(dispatch);
         } else {
             actionShowSnackBarWarning(`Status: ${status}, ${message}`)(dispatch);
         }

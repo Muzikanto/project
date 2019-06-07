@@ -5,7 +5,7 @@ import {IFilmsListContainerProps} from "./FilmsList.typings";
 import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 import {actionShowSnackBarWarning} from "../../../../reducers/Other/Other.actions";
-import {actionFavoriteFilm, actionSelectFilms} from "../../../../reducers/Films/Films.actions";
+import {actionFavoriteFilm, actionFilmSetField, actionSelectFilms} from "../../../../reducers/Films/Films.actions";
 import Thumb from "../../../../components/Thumb/Thumb";
 import ScrollerContainer from "../../../../components/Container/ScrollerContainer/ScrollerContainer";
 import GridContainer from "../../../../components/Container/GridContainer/GridContainer";
@@ -57,6 +57,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
             actionDialog,
             actionFavoriteFilm,
             actionShowSnackBarWarning,
+            actionFilmSetField,
         } = this.props;
 
         return arr
@@ -67,22 +68,31 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                         [{
                             text: local.Edit,
                             action: () => {
-                                actionDialog({open: true, film, type: 'change_film'})
+                                actionFilmSetField({film});
+                                actionDialog({open: true, type: 'change_film'})
                             },
                         }]
                     }
                     user={user}
-                    onContentClick={() => actionDialog({
-                        open: true,
-                        film,
-                        type: 'content'
-                    })}
+                    onContentClick={() => {
+                        actionFilmSetField({film});
+                        actionDialog({
+                            open: true,
+                            type: 'content'
+                        })
+                    }}
                     onStarClick={film.set_star ? () => {
-                    } : () => user ? actionDialog({
-                        open: true,
-                        film,
-                        type: 'stars'
-                    }) : actionShowSnackBarWarning(local['Need Authorize'])}
+                    } : () => {
+                        if (user) {
+                            actionDialog({
+                                open: true,
+                                type: 'stars'
+                            });
+                            actionFilmSetField({film});
+                        } else {
+                            actionShowSnackBarWarning(local['Need Authorize'])
+                        }
+                    }}
                     onFavoriteClick={() =>
                         user ? actionFavoriteFilm({
                             id: film.id,
@@ -104,6 +114,7 @@ const mapDispatchesToProps = {
     actionShowSnackBarWarning,
     actionFavoriteFilm,
     actionSelectFilms,
+    actionFilmSetField,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(FilmsList);

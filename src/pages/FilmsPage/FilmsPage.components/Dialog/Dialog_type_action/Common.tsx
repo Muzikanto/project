@@ -1,0 +1,118 @@
+import * as React from 'react';
+import {Button} from "@material-ui/core";
+import {cn} from "@bem-react/classname";
+import local from "../../../FilmsPage.strings";
+import SelectCheckBox from "../../../../../components/Select/Select_checkBox/Select_checkBox";
+import Thumb from "../../../../../components/Thumb/Thumb";
+import Youtube from "../../../../../components/Youtube/Youtube";
+import TextField from "@material-ui/core/TextField";
+import DatePicker from "../../../../../components/DatePicker/DatePicker";
+import {getGenres} from "../../../FilmsPage.strings/genres";
+import {ICommonDialogActionProps} from "./Dialog_type_action.typings";
+import {dateToSqlFormat} from "../../../../../utils/parseDate";
+import './Dialog_action.css';
+
+const cnDialog = cn('DialogAddFilm');
+
+class CommonDialogFilm extends React.Component<ICommonDialogActionProps> {
+    render(): React.ReactNode {
+        const {
+            btnText,
+            date,
+            name,
+            genres,
+            image_src,
+            trailer_id,
+            onSubmit,
+            handleChange,
+        } = this.props;
+
+        return (
+            <>
+                <div className={cnDialog('Controls')}>
+                    <DatePicker
+                        className={cnDialog('Date')}
+                        label={local['Date']}
+                        value={date || new Date()}
+                        onChange={(date: Date) => {
+                            handleChange({date});
+                        }}
+                    />
+                    <TextField
+                        className={cnDialog('Name')}
+                        id="add-film-name"
+                        label={local['Name']}
+                        value={name}
+                        onChange={(e) => handleChange({name: e.target.value})}
+                        margin="normal"
+                    />
+                    <SelectCheckBox
+                        className={cnDialog('Genres')}
+                        arr={getGenres()}
+                        label={local['Genres']}
+                        current={genres}
+                        onChange={(genres: string[]) => {
+                            handleChange({genres})
+                        }}
+                    />
+                    <TextField
+                        className={cnDialog('Name')}
+                        id="add-film-image-src"
+                        label={local["Image url"]}
+                        value={image_src}
+                        onChange={(e) => handleChange({image_src: e.target.value})}
+                        margin="normal"
+                    />
+                    <Youtube
+                        autoplay={false}
+                        id={trailer_id || ''}
+                        width={345}
+                        height={190}
+                    />
+                    <TextField
+                        className={cnDialog('Name')}
+                        id="add-film-trailer-id"
+                        label={local["Trailer ID"]}
+                        value={trailer_id}
+                        onChange={(e) => handleChange({trailer_id: e.target.value})}
+                        margin="normal"
+                    />
+                </div>
+                <div>
+                    <Thumb
+                        user={{id: 0, email: '', nick: 'Nick'}}
+                        menuItems={[]}
+                        onContentClick={() => {
+                        }}
+                        onStarClick={() => {
+                        }}
+                        onFavoriteClick={() => {
+                        }}
+                        film={{
+                            id: 'testID',
+                            name: this.props.name || local['Name'],
+                            avatar: 'T',
+                            date: date ? dateToSqlFormat(date) : undefined,
+                            image_src: this.props.image_src || 'https://www.ticketpro.by/storage/img/no-image.png',
+                            genres: this.props.genres,
+                            stars: 0,
+                            is_favorite: false,
+                            set_star: false,
+                            stars_users: 0,
+                        }}
+                    />
+                    <div onClick={onSubmit} className={cnDialog('Btn')}>
+                        <Button variant="contained"
+                                size="medium"
+                                color="secondary"
+                        >
+                            {btnText}
+                        </Button>
+                    </div>
+                </div>
+            </>
+        );
+    }
+}
+
+export default CommonDialogFilm;

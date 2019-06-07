@@ -2,7 +2,10 @@ import {IFilm, IFilmsFilterSort} from "../../../../../reducers/Films/Films.typin
 import {IactionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 import {IUser} from "../../../../../reducers/User/User.typings";
 import {IactionShowSnackBarWarning} from "../../../../../reducers/Other/Other.actions";
-import {IactionFavoriteFilm, IactionSelectFilms} from "../../../../../reducers/Films/Films.actions";
+import {
+    IactionFavoriteFilm, IactionFilmSetField,
+    IactionSelectFilms
+} from "../../../../../reducers/Films/Films.actions";
 
 export interface IFilmsListContainerProps {
     className?: string;
@@ -16,4 +19,5 @@ export interface IFilmsListContainerProps {
     actionShowSnackBarWarning: IactionShowSnackBarWarning;
     actionFavoriteFilm: IactionFavoriteFilm;
     actionSelectFilms: IactionSelectFilms;
+    actionFilmSetField: IactionFilmSetField;
 }

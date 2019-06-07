@@ -1,5 +1,5 @@
 import {HttpError, pool} from "../base";
-import {IFilm} from "../../../../src/reducers/Films/Films.typings";
+import {IFilmFull} from "../../../../src/reducers/Films/Films.typings";
 import {psqlPromise} from "../utils";
 
 function getUpdateQuery() {
@@ -10,7 +10,7 @@ WHERE id = $6;
 `;
 }
 
-export function ChangeFilm(film: IFilm) {
+export function ChangeFilm(film: IFilmFull) {
     return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         try {
             await psqlPromise(pool, {

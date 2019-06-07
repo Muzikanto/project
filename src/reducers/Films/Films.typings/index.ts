@@ -1,5 +1,7 @@
 export interface IFilmsOptions extends IFilmsOptionsFilters{
     arr: IFilm[];
+    film: IFilm | null;
+    filmData: IFilmFull | null;
 }
 
 export type IFilmsFilterSort = 'star' | 'date';
@@ -16,15 +18,19 @@ export interface IFilmsOptionsFilters {
 export interface IFilm {
     id: string;
     name: string;
-    avatar: string | null;
-    date: string | null;
-    image_src: string;
+    avatar?: string ;
+    date?: string;
+    image_src?: string;
     stars: number;
     set_star: boolean;
     is_favorite: boolean;
-    trailer_id: string;
     genres: string[];
     stars_users: number;
+}
+
+export interface IFilmFull extends IFilm{
+    trailer_id?: string;
+    description?: string;
 }
 
 export interface IFilmToCreate {
@@ -32,6 +38,6 @@ export interface IFilmToCreate {
     avatar?: string;
     date?: string;
     image_src?: string;
-    trailer_id: string;
+    trailer_id?: string;
     genres: string[];
 }

@@ -1,7 +1,4 @@
-import {IFilm} from "../../Films/Films.typings";
-
 export interface IDialogOptions {
-    film: IFilm | null;
     open: boolean;
     type: IDialogTypes | null;
 }

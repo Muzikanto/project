@@ -1,4 +1,7 @@
 .FilmContent {
+  display: flex;
+  min-height: 550px;
+
   &-Image {
     background-size: cover !important;
     background-position: center !important;
@@ -9,6 +12,32 @@
 
   &-Trailer {
     border: solid 2px white;
-    margin-left: 20px;
+    margin: auto;
+  }
+
+  &-Title {
+    text-align: center;
+  }
+
+  &-Loader {
+    margin: auto;
+  }
+
+  &-Date {
+    &_new {
+      color: #d0af00;
+    }
+
+    &_fresh_ {
+      &hard {
+        color: #00a800;
+      }
+      &mid {
+        color: #00a6af;
+      }
+      &low {
+        color: #0026ff;
+      }
+    }
   }
 }

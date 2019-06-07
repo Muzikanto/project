@@ -13,6 +13,7 @@ import {createFilmRouter} from "./Films/create";
 import {changeFilmRouter} from "./Films/change";
 import {changeFilmStarsRouter} from "./Films/changeStars";
 import {favoriteFilmRouter} from "./Films/favorite";
+import {selectSingleFilmRouter} from "./Films/selectSingle";
 
 export default function apiRoutes(router: Router): Router {
     router.get(['/', ...AppRouters.map(el => el.url)], renderWithApp(App));
@@ -29,6 +30,7 @@ export default function apiRoutes(router: Router): Router {
 
     /* Films */
     router.get('/api/films/select', selectFilmsRouter);
+    router.get('/api/films/select/:id', selectSingleFilmRouter);
     router.post('/api/films/create', createFilmRouter);
     router.post('/api/films/change', changeFilmRouter);
     router.post('/api/films/change_star', changeFilmStarsRouter);

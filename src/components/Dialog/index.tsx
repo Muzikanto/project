@@ -31,7 +31,8 @@ class Dialog extends React.Component<IDialogContainerProps> {
     }
 
     private handleClose = () => {
-        this.props.actionDialog({open: false, film: null, type: null});
+        this.props.onClose && this.props.onClose();
+        this.props.actionDialog({open: false, type: null});
     };
 }
 

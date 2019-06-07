@@ -5,9 +5,9 @@ export function parseDate(d: string) {
 }
 
 export function nameMonth(v: number) {
-    return ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'][v + 1];
+    return ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'][v];
 }
 
 export function dateToSqlFormat(date: Date) {
-    return date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 }

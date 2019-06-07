@@ -65,7 +65,7 @@ function getQuery() {
         );
     `;
 
-    //'alter table films alter column image_src type varchar(200);'
+    // const add ='alter table films add column description varchar(1500);';
 
     return session + users + films + films_genres + user_films;
 }
