@@ -2,20 +2,20 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {IFilmsListContainerProps} from "./FilmsList.typings";
-import {actionDialog} from "../../../../reducers/Dialog/Dialog.actions";
+import {actionDialog, actionDialogWithFilm} from "../../../../reducers/Dialog/Dialog.actions";
 import {IFilm} from "../../../../reducers/Films/Films.typings";
 import {actionShowSnackBarWarning} from "../../../../reducers/Other/Other.actions";
-import {actionFavoriteFilm, actionFilmSetField, actionSelectFilms} from "../../../../reducers/Films/Films.actions";
+import {actionFavoriteFilm, actionSelectFilms} from "../../../../reducers/Films/Films.actions";
 import Thumb from "../../../../components/Thumb/Thumb";
 import ScrollerContainer from "../../../../components/Container/ScrollerContainer/ScrollerContainer";
 import GridContainer from "../../../../components/Container/GridContainer/GridContainer";
 import local from "../../FilmsPage.strings";
 
 class FilmsList extends React.Component<IFilmsListContainerProps> {
-    page = 0;
-    last = new Date();
+    private page = 0;
+    private last = new Date();
 
-    componentDidMount(): void {
+    public componentDidMount(): void {
         window.addEventListener('scroll', (_: Event) => {
             const bodyHeight = document.body.offsetHeight;
 
@@ -54,10 +54,9 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
         const {
             arr,
             user,
-            actionDialog,
             actionFavoriteFilm,
             actionShowSnackBarWarning,
-            actionFilmSetField,
+            actionDialogWithFilm,
         } = this.props;
 
         return arr
@@ -67,32 +66,20 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                     menuItems={
                         [{
                             text: local.Edit,
-                            action: () => {
-                                actionFilmSetField({film});
-                                actionDialog({open: true, type: 'change_film'})
-                            },
+                            action: () => actionDialogWithFilm({dialog: {open: true, type: 'change_film'}, film}),
                         }]
                     }
                     user={user}
-                    onContentClick={() => {
-                        actionFilmSetField({film});
-                        actionDialog({
-                            open: true,
-                            type: 'content'
-                        })
-                    }}
+                    onContentClick={() => actionDialogWithFilm({dialog: {open: true, type: 'content'}, film})}
                     onStarClick={film.set_star ? () => {
-                    } : () => {
-                        if (user) {
-                            actionDialog({
-                                open: true,
-                                type: 'stars'
-                            });
-                            actionFilmSetField({film});
-                        } else {
-                            actionShowSnackBarWarning(local['Need Authorize'])
-                        }
-                    }}
+                        } :
+                        () => {
+                            if (user) {
+                                actionDialogWithFilm({dialog: {open: true, type: 'stars'}, film});
+                            } else {
+                                actionShowSnackBarWarning(local['Need Authorize'])
+                            }
+                        }}
                     onFavoriteClick={() =>
                         user ? actionFavoriteFilm({
                             id: film.id,
@@ -114,7 +101,7 @@ const mapDispatchesToProps = {
     actionShowSnackBarWarning,
     actionFavoriteFilm,
     actionSelectFilms,
-    actionFilmSetField,
+    actionDialogWithFilm,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(FilmsList);

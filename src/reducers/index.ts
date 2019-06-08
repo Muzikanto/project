@@ -9,9 +9,9 @@ import OtherReducer from "./Other/Other";
 const Reducers = combineReducers<IStore>({
     DialogReducer,
     FilmsReducer,
+    OtherReducer,
     Chess,
     User,
-    OtherReducer,
 });
 
 export default Reducers;

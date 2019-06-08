@@ -1,12 +1,12 @@
-import {IUserSession} from "../../../routes/typings";
 import {HttpError,  pool} from "../base";
 import {encriptString} from "../../crypto";
 import * as DB from "@muzikanto/pg";
+import {IUser} from "../../../../src/reducers/User/User.typings";
 
 const table = 'users';
 
 export function UserRegister(nick: string, email: string, password: string) {
-    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err: HttpError) => void) => {
+    return new Promise(async (resolve: (user: IUser) => void, reject: (err: HttpError) => void) => {
         try {
             const selectQuery = DB.getParamsSelect(table, {}, {email});
             const select = await DB.psqlPromise(pool, selectQuery);
@@ -36,14 +36,14 @@ export function UserRegister(nick: string, email: string, password: string) {
 }
 
 export function UserAuthorize(email: string, password: string) {
-    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err: HttpError) => void) => {
+    return new Promise(async (resolve: (user: IUser) => void, reject: (err: HttpError) => void) => {
         try {
             const sqlFindUser = DB.getParamsSelect(table, {select: ['id', 'nick', 'hashed_password']}, {email});
             const findUser = await DB.psqlPromise(pool, sqlFindUser);
             if (findUser.rows.length === 0) {
                 reject(new HttpError('Пользователь не найден'));
             } else {
-                const user = findUser.rows[0] as IUserSession & {hashed_password:string};
+                const user = findUser.rows[0] as IUser & {hashed_password:string};
                 if (user.hashed_password !== encriptString(password))
                     reject(new HttpError('Пароль неверен'));
                 else
@@ -60,7 +60,7 @@ export function UserAuthorize(email: string, password: string) {
 }
 
 export function UserFindById(id: number) {
-    return new Promise(async (resolve: (user: IUserSession) => void, reject: (err?: HttpError) => void) => {
+    return new Promise(async (resolve: (user: IUser) => void, reject: (err?: HttpError) => void) => {
         try {
             const selectQuery = DB.getParamsSelect(table, {}, {id});
             const select = await DB.psqlPromise(pool, selectQuery);

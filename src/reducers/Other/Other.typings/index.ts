@@ -1,7 +1,7 @@
 export type IOtherOptions = IOtherSnackBarOptions & IOtherProgressOptions;
 
 export interface IOtherProgressOptions {
-    showProgress: boolean;
+    progress_show: boolean;
 }
 
 export interface IOtherSnackBarOptions {

@@ -7,7 +7,7 @@ import {
     actionFilmsChange,
     actionChangeStars,
     actionSelectSingleFilm,
-    actionFilmSetField,
+    actionFilmsSet,
 } from "../../../../reducers/Films/Films.actions";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
@@ -18,7 +18,7 @@ import local from "../../FilmsPage.strings";
 import {RefObject} from "react";
 
 class Dialog extends React.Component<IDialogConteinerProps> {
-    refChange: RefObject<DialogTypeChangeFilm>;
+    protected refChange: RefObject<DialogTypeChangeFilm>;
 
     constructor(props: IDialogConteinerProps) {
         super(props);
@@ -31,7 +31,6 @@ class Dialog extends React.Component<IDialogConteinerProps> {
             dialog: {
                 type,
             },
-            actionFilmSetField,
             actionSelectSingleFilm,
             filmData,
             film,
@@ -60,7 +59,7 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                             film={film}
                             filmData={filmData}
                             onClose={() => {
-                                actionFilmSetField({film: null, filmData: null});
+                                actionFilmsSet({film: null, filmData: null});
                             }}
                         />
                     );
@@ -82,7 +81,7 @@ class Dialog extends React.Component<IDialogConteinerProps> {
 
                             onChange={(film: IFilm) => this.props.actionFilmsChange(film)}
                             onClose={() => {
-                                actionFilmSetField({film: null, filmData: null});
+                                actionFilmsSet({film: null, filmData: null});
                             }}
                         />);
             }
@@ -115,7 +114,6 @@ const mapDispatchesToProps = {
     actionCreateFilm,
     actionFilmsChange,
     actionSelectSingleFilm,
-    actionFilmSetField,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(Dialog);

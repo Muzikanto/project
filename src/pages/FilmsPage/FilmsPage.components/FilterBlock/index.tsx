@@ -17,11 +17,11 @@ import {getGenres} from "../../FilmsPage.strings/genres";
 class FilterBlock extends React.Component<IFilterBlockContainerProps> {
     private lastTimeOut: Timeout | null = null;
 
-    componentDidMount(): void {
+    public componentDidMount(): void {
         this.props.actionFilmsFirstLoad(historyState.location.search);
     }
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             className,
             filters,

@@ -1,7 +1,8 @@
-import {IactionRegister} from "../../../../../reducers/User/User.actions/User.typings";
 import {FormEvent, RefObject} from "react";
 import Input from "../../../../../components/Input/Input";
 import InputShow from "../../../../../components/Input/Input_show/InputShow";
+import {IActionType} from "../../../../../reducers/typings";
+import {actionRegister} from "../../../../../reducers/User/User.actions";
 
 export interface IRegisterFormProps {
     onSubmit: (e: FormEvent) => void;
@@ -13,5 +14,5 @@ export interface IRegisterFormProps {
 }
 
 export interface IRegisterFormContainerProps {
-    actionRegister: IactionRegister;
+    actionRegister: IActionType<typeof actionRegister>;
 }

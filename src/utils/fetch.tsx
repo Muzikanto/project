@@ -1,4 +1,4 @@
-import {IObject, IObjectStr} from "./typings";
+import {IObject} from "./typings";
 
 interface IfetchData<Response> {
     response: Response;

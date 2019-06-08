@@ -1,5 +1,13 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rulesDirectory": [
+    "./server/",
+    "./src/"
+  ],
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -7,7 +15,7 @@
       "coverage/lcov-report/*.js"
     ]
   },
-  "rules":{
+  "rules": {
     "no-console": false,
     "curly": false,
     "ordered-imports": false,
@@ -19,7 +27,8 @@
     "variable-name": false,
     "forin": false,
     "no-namespace": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "jsx-no-lambda": false
   },
   "jsRules": {
     "forin": true

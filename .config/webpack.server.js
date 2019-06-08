@@ -72,6 +72,7 @@ isDev && plugins.push(
 );
 
 module.exports = {
+    stats: {children: false},
     resolve: {
         modules: ['node_modules'],
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']

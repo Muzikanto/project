@@ -4,4 +4,4 @@ export interface IChessOptions {
     state: IChessState;
     room: string;
     users: { [key: string]: string };
-};
+}

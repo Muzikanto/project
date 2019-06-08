@@ -13,7 +13,7 @@ socket.on('connect', () => {
 socket.on('disconnect', () => {
     console.log('соединение разорвано')
 });
-socket.on('error', (reason: any) => {
+socket.on('error', (reason: string) => {
     if (reason === "handshake unauthorized")
         console.log("вы вышли из сайта");
     else

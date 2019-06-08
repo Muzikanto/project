@@ -101,7 +101,6 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.6",
     "util": "^0.11.1",
     "webpack": "^4.31.0"
   },
@@ -166,9 +165,9 @@
     "ts-node": "7.0.1",
     "ts-node-dev": "1.0.0-pre.30",
     "tslib": "^1.9.3",
-    "tslint": "^5.11.0",
+    "tslint": "^5.17.0",
     "tslint-webpack-plugin": "^2.0.2",
-    "typescript": "3.4.5",
+    "typescript": "^3.4.5",
     "webpack-cli": "3.1.2",
     "webpack-node-externals": "1.7.2"
   },

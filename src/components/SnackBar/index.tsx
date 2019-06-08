@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {actionShowSnackBar} from "../../reducers/Other/Other.actions";
 
 class SnackBar extends React.Component<ISnackBarContainerProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             snack_text,
             snack_open,
@@ -18,9 +18,7 @@ class SnackBar extends React.Component<ISnackBarContainerProps> {
     }
 
     protected handleClose = () => {
-        this.props.actionShowSnackBar({
-            snack_open: false,
-        });
+        this.props.actionShowSnackBar(false);
     }
 }
 

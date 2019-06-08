@@ -3,4 +3,4 @@ export interface IDialogOptions {
     type: IDialogTypes | null;
 }
 
-export type IDialogTypes =  'content' | 'stars' | 'add_film' | 'change_film';
+export type IDialogTypes = 'content' | 'stars' | 'add_film' | 'change_film';

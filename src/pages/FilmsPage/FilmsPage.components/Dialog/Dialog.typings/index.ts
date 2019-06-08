@@ -1,11 +1,12 @@
-import {
-    IactionCreateFilm,
-    IactionFilmsChange,
-    IactionChangeStars,
-     IactionSelectSingleFilm, IactionFilmSetField
-} from "../../../../../reducers/Films/Films.actions";
 import {IDialogOptions} from "../../../../../reducers/Dialog/Dialog.typings";
 import {IFilm, IFilmFull} from "../../../../../reducers/Films/Films.typings";
+import {IActionType} from "../../../../../reducers/typings";
+import {
+    actionChangeStars,
+    actionCreateFilm,
+    actionFilmsChange,
+    actionSelectSingleFilm
+} from "../../../../../reducers/Films/Films.actions";
 
 export interface IDialogConteinerProps {
     dialog: IDialogOptions;
@@ -13,9 +14,8 @@ export interface IDialogConteinerProps {
     film: IFilm | null;
     filmData: IFilmFull | null;
 
-    actionChangeStars: IactionChangeStars;
-    actionCreateFilm: IactionCreateFilm;
-    actionFilmsChange: IactionFilmsChange;
-    actionSelectSingleFilm: IactionSelectSingleFilm;
-    actionFilmSetField: IactionFilmSetField;
+    actionChangeStars: IActionType<typeof actionChangeStars>;
+    actionCreateFilm: IActionType<typeof actionCreateFilm>;
+    actionFilmsChange: IActionType<typeof actionFilmsChange>;
+    actionSelectSingleFilm: IActionType<typeof actionSelectSingleFilm>;
 }

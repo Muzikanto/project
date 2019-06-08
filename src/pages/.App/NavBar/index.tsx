@@ -21,7 +21,7 @@ class NavBar extends React.Component<INavBarContainerProps> {
     }
 
     private dropSession = () => {
-        this.props.actionDropSession();
+        this.props.actionDropSession(true);
     };
 }
 

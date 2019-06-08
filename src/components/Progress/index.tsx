@@ -9,7 +9,7 @@ import {IStore} from "../../reducers/typings";
 const cnProgress = cn('LineProgress');
 
 class Progress extends React.Component<IProgressProps>{
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {show} = this.props;
 
         return (<LinearProgress className={cnProgress({show})}/>)
@@ -17,7 +17,7 @@ class Progress extends React.Component<IProgressProps>{
 }
 
 const mapStateToProps = (store: IStore) => ({
-    show: store.OtherReducer.showProgress,
+    show: store.OtherReducer.progress_show,
 });
 
 export default connect(mapStateToProps, {})(Progress);

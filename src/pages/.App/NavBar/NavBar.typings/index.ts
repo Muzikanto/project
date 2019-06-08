@@ -1,19 +1,20 @@
 import {IUser} from "../../../../reducers/User/User.typings";
-import {IactionDropSession} from "../../../../reducers/User/User.actions/User.typings";
+import {IActionType} from "../../../../reducers/typings";
+import {actionDropSession} from "../../../../reducers/User/User.actions";
 
 export interface INavBarItem {
     url: string;
     text: string;
-    popup?: Array<{ url: string, text: string, isHref?: boolean}>;
+    popup?: Array<{ url: string, text: string, isHref?: boolean }>;
 }
 
 export interface INavBarProps {
     user: IUser | null;
-    dropSession: IactionDropSession;
+    dropSession: () => void;
     items: INavBarItem[];
 }
 
-export type INavBarContainerProps = {
+export interface INavBarContainerProps {
     user: IUser | null;
-    actionDropSession: IactionDropSession;
-};
+    actionDropSession: IActionType<typeof actionDropSession>;
+}

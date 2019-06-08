@@ -1,14 +1,14 @@
 import {Dispatch} from "redux";
 import {IDialogOptions} from "../Dialog.typings";
+import {actionDialogProps} from "./actions";
+import {actionFilmsSetProps} from "../../Films/Films.actions/actions";
+import {IFilm} from "../../Films/Films.typings";
 
-export const actionDialogTypes = {
-    DIALOG_ACTION: 'DIALOG_ACTION',
+export const actionDialog = (data: IDialogOptions) => (dispatch: Dispatch) => {
+    dispatch(actionDialogProps(data));
 };
 
-export type IactionDialog = (data: IDialogOptions) => void;
-export const actionDialog = (data: IDialogOptions) => (dispatch: Dispatch) => {
-    dispatch({
-        data,
-        type: actionDialogTypes.DIALOG_ACTION
-    });
+export const actionDialogWithFilm = ({dialog, film}: {dialog: IDialogOptions, film: IFilm}) => (dispatch: Dispatch) => {
+    dispatch(actionDialogProps(dialog));
+    dispatch(actionFilmsSetProps({film}));
 };

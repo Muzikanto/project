@@ -1,8 +1,10 @@
 import {
-    IactionFilmsFirstLoad, IactionSelectFilms, IactionFilmsSetFilter
+    actionFilmsFirstLoad,
+    actionFilmsSetFilter, actionSelectFilms,
 } from "../../../../../reducers/Films/Films.actions";
-import {IactionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 import {IFilmsFilterSort, IFilmsOptionsFilters} from "../../../../../reducers/Films/Films.typings";
+import {IActionType} from "../../../../../reducers/typings";
+import {actionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 
 export interface IFilterBlockProps {
     className?: string;
@@ -31,8 +33,8 @@ export interface IFilterBlockContainerProps {
     filters: IFilmsOptionsFilters;
 
     // dispatches
-    actionFilmsSetFilter: IactionFilmsSetFilter;
-    actionFilmsFirstLoad: IactionFilmsFirstLoad;
-    actionSelectFilms: IactionSelectFilms;
-    actionDialog: IactionDialog;
+    actionFilmsSetFilter: IActionType<typeof actionFilmsSetFilter>;
+    actionFilmsFirstLoad: IActionType<typeof actionFilmsFirstLoad>;
+    actionSelectFilms: IActionType<typeof actionSelectFilms>;
+    actionDialog: IActionType<typeof actionDialog>;
 }

@@ -1,11 +1,9 @@
 import {IFilm, IFilmsFilterSort} from "../../../../../reducers/Films/Films.typings";
-import {IactionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
 import {IUser} from "../../../../../reducers/User/User.typings";
-import {IactionShowSnackBarWarning} from "../../../../../reducers/Other/Other.actions";
-import {
-    IactionFavoriteFilm, IactionFilmSetField,
-    IactionSelectFilms
-} from "../../../../../reducers/Films/Films.actions";
+import {IActionType} from "../../../../../reducers/typings";
+import {actionDialogWithFilm} from "../../../../../reducers/Dialog/Dialog.actions";
+import {actionFavoriteFilm, actionSelectFilms} from "../../../../../reducers/Films/Films.actions";
+import {actionShowSnackBarWarning} from "../../../../../reducers/Other/Other.actions";
 
 export interface IFilmsListContainerProps {
     className?: string;
@@ -15,9 +13,8 @@ export interface IFilmsListContainerProps {
     sort: IFilmsFilterSort;
     user: IUser | null;
 
-    actionDialog: IactionDialog;
-    actionShowSnackBarWarning: IactionShowSnackBarWarning;
-    actionFavoriteFilm: IactionFavoriteFilm;
-    actionSelectFilms: IactionSelectFilms;
-    actionFilmSetField: IactionFilmSetField;
+    actionShowSnackBarWarning: IActionType<typeof actionShowSnackBarWarning>;
+    actionFavoriteFilm: IActionType<typeof actionFavoriteFilm>;
+    actionSelectFilms: IActionType<typeof actionSelectFilms>;
+    actionDialogWithFilm: IActionType<typeof actionDialogWithFilm>;
 }

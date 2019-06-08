@@ -41,3 +41,9 @@ export interface IFilmToCreate {
     trailer_id?: string;
     genres: string[];
 }
+
+export interface IactionSelectFilmsOptions {
+    page?: number;
+    query?: string;
+    disableFilters?: boolean;
+}

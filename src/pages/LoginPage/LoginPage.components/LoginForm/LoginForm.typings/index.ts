@@ -1,7 +1,8 @@
-import {IactionAuthorize} from "../../../../../reducers/User/User.actions/User.typings";
 import {FormEvent, RefObject} from "react";
 import Input from "../../../../../components/Input/Input";
 import InputShow from "../../../../../components/Input/Input_show/InputShow";
+import {IActionType} from "../../../../../reducers/typings";
+import {actionAuthorize} from "../../../../../reducers/User/User.actions";
 
 export interface ILoginFormProps {
     onSubmit: (e: FormEvent) => void;
@@ -11,5 +12,5 @@ export interface ILoginFormProps {
 }
 
 export interface ILoginFormPropsContainerProps {
-    actionAuthorize: IactionAuthorize;
+    actionAuthorize: IActionType<typeof actionAuthorize>;
 }

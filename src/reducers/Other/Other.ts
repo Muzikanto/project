@@ -1,19 +1,18 @@
-import {IReducerAction} from "../typings";
+import {IReducerActionsTypes} from "../typings";
 import {IOtherOptions} from "./Other.typings";
-import {actionOtherTypes} from "./Other.actions";
+import {OTHER_ACTIONS} from "./Other.actions/keys";
+import * as actions from './Other.actions/actions';
 
 const initialState: IOtherOptions = {
-    showProgress: false,
+    progress_show: false,
     snack_open: false,
     snack_text: '',
     snack_variant: 'info',
 };
 
-const OtherReducer = (state = initialState, action: IReducerAction) => {
+const OtherReducer = (state = initialState, action: IReducerActionsTypes<typeof actions>): IOtherOptions => {
     switch (action.type) {
-        case actionOtherTypes.SHOW_PROGRESS:
-            return {...state, ...action.data};
-        case actionOtherTypes.SHOW_SNACKBAR:
+        case OTHER_ACTIONS.SET:
             return {...state, ...action.data};
         default:
             return state

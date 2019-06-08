@@ -1,15 +1,16 @@
 import {IDialogOptions} from "./Dialog.typings";
-import {IReducerAction} from "../typings";
-import {actionDialogTypes} from "./Dialog.actions";
+import * as actions from './Dialog.actions/actions';
+import {IReducerActionsTypes} from "../typings";
+import {DIALOG_ACTIONS} from "./Dialog.actions/keys";
 
 const initialState: IDialogOptions = {
     open: false,
     type: 'content',
 };
 
-const DialogReducer = (state = initialState, action: IReducerAction) => {
+const DialogReducer = (state = initialState, action: IReducerActionsTypes<typeof actions>):IDialogOptions => {
     switch (action.type) {
-        case actionDialogTypes.DIALOG_ACTION:
+        case DIALOG_ACTIONS.SET:
             return {...state, ...action.data};
         default:
             return state
