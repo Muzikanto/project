@@ -16,7 +16,7 @@ WITH list_films AS
         ${genres ? `where fg.name in (${genres}) ` : ''}
         group by fg.film_id
     )
-select f.id,f.avatar,f.created,f.date,f.image_src,f.name,f.stars,f.stars_users,
+select f.id,f.studio,f.date,f.preview,f.name,f.stars,f.stars_users,
 ${user ? 'fu.set_star as set_star, fu.is_favorite as is_favorite,' : ''}
 (select fl.name from list_films as fl where fl.film_id = f.id) as genres
 from films as f 
@@ -40,39 +40,6 @@ export function SelectFilms(filters: IselectFilmsRouterQuery, user: IUserSession
         } catch (err) {
             console.log(err);
             reject(new HttpError('Error Select Films'));
-        }
-    });
-}
-
-const querySingleSelect = (id: string) => `
-WITH list_genres AS 
-( 
-    select fg.film_id as film_id, array_agg(fg.name) as name
-    from films_genres as fg 
-    where fg.film_id = ${id} 
-    group by fg.film_id
-)
-select f.*, fg.name,
-(select fl.name from list_genres as fl where fl.film_id = f.id) as genres
-from films as f 
-left join films_genres as fg on f.id = fg.id 
-where fg.id = ${id};
-`;
-
-export function SelectFilm(id: string) {
-    return new Promise(async (resolve: (films: IFilm) => void, reject: (err: HttpError) => void) => {
-        try {
-            const query = querySingleSelect(id);
-            const filmsRows = await psqlPromise(pool, query);
-
-            if (filmsRows.rows.length > 0) {
-                resolve(filmsRows.rows[0]);
-            } else {
-                reject(new HttpError('Not Found Film', 404));
-            }
-        } catch (err) {
-            console.log(err);
-            reject(new HttpError('Error Select Film'));
         }
     });
 }

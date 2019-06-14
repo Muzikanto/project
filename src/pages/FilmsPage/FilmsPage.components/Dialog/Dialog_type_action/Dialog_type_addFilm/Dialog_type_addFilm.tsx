@@ -3,34 +3,33 @@ import Slide from "@material-ui/core/Slide";
 import {IDialogTypeAddProps} from "./Dialog_type_addFilm.typings";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import {dateToSqlFormat} from "../../../../../../utils/parseDate";
-import {parseYoutubeId} from "../../../../../../components/Youtube/Youtube.helpers";
 import Dialog from "../../../../../../components/Dialog";
 import CommonDialogFilm from "../Common";
 import {ICommonDialogActionState} from "../Dialog_type_action.typings";
 
 class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Component<Props> {
-    state: ICommonDialogActionState = {
+    public state: ICommonDialogActionState = {
+        id: '',
         name: '',
         date: new Date(),
         genres: [],
-        image_src: '',
-        trailer_id: '',
+        preview: '',
     };
 
     protected handleChange = (value: Partial<ICommonDialogActionState>) => {
         this.setState({...this.state, ...value});
     };
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             title,
             onClose,
             submitText,
         } = this.props;
         const {
+            id,
             genres,
-            image_src,
-            trailer_id,
+            preview,
             name,
             date,
         } = this.state;
@@ -45,11 +44,11 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
                 dialogContentProps={{style: {display: 'flex'}}}
             >
                 <CommonDialogFilm
+                    id={id}
                     btnText={submitText}
                     genres={genres}
-                    image_src={image_src}
+                    preview={preview}
                     name={name}
-                    trailer_id={trailer_id}
                     date={date}
                     onSubmit={this.submit}
                     handleChange={this.handleChange}
@@ -64,11 +63,8 @@ class DialogTypeAddFilm<Props extends IDialogTypeAddProps> extends React.Compone
 
     protected submit = () => {
         const toCreate = {
-            name: this.state.name,
+            ...this.state,
             date: dateToSqlFormat(this.state.date),
-            image_src: this.state.image_src,
-            genres: this.state.genres,
-            trailer_id: this.state.trailer_id ? parseYoutubeId(this.state.trailer_id) : undefined,
         };
 
         this.props.onCreate(toCreate);

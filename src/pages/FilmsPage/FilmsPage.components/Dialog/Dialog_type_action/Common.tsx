@@ -15,14 +15,14 @@ import './Dialog_action.css';
 const cnDialog = cn('DialogAddFilm');
 
 class CommonDialogFilm extends React.Component<ICommonDialogActionProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
+            id,
             btnText,
             date,
             name,
             genres,
-            image_src,
-            trailer_id,
+            preview,
             onSubmit,
             handleChange,
         } = this.props;
@@ -37,6 +37,14 @@ class CommonDialogFilm extends React.Component<ICommonDialogActionProps> {
                         onChange={(date: Date) => {
                             handleChange({date});
                         }}
+                    />
+                    <TextField
+                        className={cnDialog('id')}
+                        id="add-film-id"
+                        label={local['ID']}
+                        value={id}
+                        onChange={(e) => handleChange({id: e.target.value})}
+                        margin="normal"
                     />
                     <TextField
                         className={cnDialog('Name')}
@@ -59,22 +67,8 @@ class CommonDialogFilm extends React.Component<ICommonDialogActionProps> {
                         className={cnDialog('Name')}
                         id="add-film-image-src"
                         label={local["Image url"]}
-                        value={image_src}
-                        onChange={(e) => handleChange({image_src: e.target.value})}
-                        margin="normal"
-                    />
-                    <Youtube
-                        autoplay={false}
-                        id={trailer_id || ''}
-                        width={345}
-                        height={190}
-                    />
-                    <TextField
-                        className={cnDialog('Name')}
-                        id="add-film-trailer-id"
-                        label={local["Trailer ID"]}
-                        value={trailer_id}
-                        onChange={(e) => handleChange({trailer_id: e.target.value})}
+                        value={preview}
+                        onChange={(e) => handleChange({preview: e.target.value})}
                         margin="normal"
                     />
                 </div>
@@ -82,18 +76,15 @@ class CommonDialogFilm extends React.Component<ICommonDialogActionProps> {
                     <Thumb
                         user={{id: 0, email: '', nick: 'Nick'}}
                         menuItems={[]}
-                        onContentClick={() => {
-                        }}
-                        onStarClick={() => {
-                        }}
-                        onFavoriteClick={() => {
-                        }}
+                        onContentClick={() => {}}
+                        onStarClick={() => {}}
+                        onFavoriteClick={() => {}}
                         film={{
                             id: 'testID',
                             name: this.props.name || local['Name'],
-                            avatar: 'T',
+                            studio: 'T',
                             date: date ? dateToSqlFormat(date) : undefined,
-                            image_src: this.props.image_src || 'https://www.ticketpro.by/storage/img/no-image.png',
+                            preview: this.props.preview || 'https://www.ticketpro.by/storage/img/no-image.png',
                             genres: this.props.genres,
                             stars: 0,
                             is_favorite: false,

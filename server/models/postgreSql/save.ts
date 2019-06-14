@@ -1,26 +1,27 @@
 import JSONReader from "../../utils/Reader/_json/JSONReader";
-import {SelectFilms} from "./films/select";
-import { IFilmToCreate} from "../../../src/reducers/Films/Films.typings";
 import {CreateFilm} from "./films/create";
-import {prepareFilms} from "../../../src/reducers/Films/Films.helpers";
+import moonRequest from "../../routes/Films/utils/moonwalkRequest";
 
 const filmReader = new JSONReader({pathToData: ''});
 
-export const SaveFilmsToJSON = (path: string) =>
-    SelectFilms({stars: '0'}, null)
-        .then(data => {
-            console.log('Save DB films to JSON');
-            filmReader.write(path, data);
-        });
-
 export const LoadFilmsFromJSON = async (path: string) => {
-    const films = filmReader.read(path) as IFilmToCreate[];
+    const films = filmReader.read(path) as Array<{ name: string, id: string, date: string }>;
 
     for (const v of films) {
         try {
-            await CreateFilm(v);
+            const {kinopoisk_id, title_ru, material_data: {genres, poster, studios}} = await moonRequest(v.id);
+
+            await CreateFilm({
+                id: kinopoisk_id,
+                studio: studios[0],
+                name: title_ru,
+                date: v.date,
+                genres,
+                preview: poster,
+            });
         } catch (e) {
-            console.log(v.name, e);
+            if (e.message !== 'Duplicate Names')
+            console.log(v.name, e.message);
         }
     }
 };

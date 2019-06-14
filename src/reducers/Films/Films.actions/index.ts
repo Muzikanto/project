@@ -1,5 +1,11 @@
 import {Dispatch} from "redux";
-import {IactionSelectFilmsOptions, IFilm, IFilmsOptions, IFilmsOptionsFilters, IFilmToCreate} from "../Films.typings";
+import {
+    IactionSelectFilmsOptions,
+    IFilm,
+    IFilmsOptions,
+    IFilmsOptionsFilters,
+    IFilmToCreate
+} from "../Films.typings";
 import {getFetch, postFetch} from "../../../utils/fetch";
 import {IStore} from "../../typings";
 import {actionDialog} from "../../Dialog/Dialog.actions";
@@ -28,6 +34,7 @@ export const actionFilmsFirstLoad = (params: string) => (dispatch: Dispatch) => 
         stars,
         filter_open,
         query,
+        film_id,
     } = queryToObject(params);
 
     const payload: Partial<IFilmsOptions> = {};
@@ -47,6 +54,11 @@ export const actionFilmsFirstLoad = (params: string) => (dispatch: Dispatch) => 
     if (filter_open) {
         payload.filter_open = filter_open === 'true'
     }
+    if (film_id) {
+        dispatch(actionDialogProps({open: true, type: 'content'}));
+        actionSelectSingleFilm(film_id)(dispatch);
+    }
+
     payload.query = query ? decodeURI(query) : '';
 
     dispatch(actionFilmsSetProps(payload));

@@ -1,4 +1,5 @@
 {
+  "moonwalk_token": "6eb82f15e2d7c6cbb2fdcebd05a197a2",
   "postgresSqlUrl": "postgres://gfwftheeeavotf:1987a39db698e6dbaa0574eb432ebb47849a51edfcdf3c4b27759f0c509839d9@ec2-54-228-212-134.eu-west-1.compute.amazonaws.com:5432/d6it1c423h0h5d",
   "session": {
     "secret": "12345",

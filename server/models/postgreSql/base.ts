@@ -1,6 +1,6 @@
 import {Pool} from "pg";
 import {psqlPromise} from "./utils";
-import {SaveFilmsToJSON, LoadFilmsFromJSON} from "./save";
+import {LoadFilmsFromJSON} from "./save";
 
 const config = require('../../../config.json');
 const pool = new Pool({
@@ -21,13 +21,11 @@ function getQuery() {
         create table if not exists films (
             id serial primary key,
             name varchar(50) NOT NULL UNIQUE,
-            avatar varchar(10),
+            studio varchar(50),
             date Date,
-            image_src varchar(100),
+            preview varchar(100),
             stars float default 5,
-            stars_users bigint default 0,
-            trailer_id varchar(20),
-            created timestamp default current_timestamp
+            stars_users bigint default 0
         );
     `;
 
@@ -35,7 +33,7 @@ function getQuery() {
         create table if not exists films_genres (
             id serial primary key,
             name varchar(50) NOT NULL,
-            film_id bigint,
+            film_id bigint NOT NULL,
             FOREIGN KEY (film_id) REFERENCES films(id) ON DELETE CASCADE,
             unique (name, film_id)
         );
@@ -69,7 +67,6 @@ function getQuery() {
 
     return session + users + films + films_genres + user_films;
 }
-
 
 
 (async () => {

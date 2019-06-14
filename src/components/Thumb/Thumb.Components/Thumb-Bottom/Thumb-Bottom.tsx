@@ -9,7 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import local from "../../../../pages/FilmsPage/FilmsPage.strings";
 
 class ThumbBottom extends React.Component<IThumbBottomProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             film: {
                 set_star,

@@ -16,6 +16,7 @@ import DialogTypeAddFilm from "./Dialog_type_action/Dialog_type_addFilm/Dialog_t
 import DialogTypeChangeFilm from "./Dialog_type_action/Dialog_type_changeFilm/Dialog_type_changeFilm";
 import local from "../../FilmsPage.strings";
 import {RefObject} from "react";
+import {actionDialogWithFilm} from "../../../../reducers/Dialog/Dialog.actions";
 
 class Dialog extends React.Component<IDialogConteinerProps> {
     protected refChange: RefObject<DialogTypeChangeFilm>;
@@ -26,11 +27,12 @@ class Dialog extends React.Component<IDialogConteinerProps> {
         this.refChange = React.createRef();
     }
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             dialog: {
                 type,
             },
+            actionDialogWithFilm,
             actionSelectSingleFilm,
             filmData,
             film,
@@ -46,21 +48,6 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                             title={local["How did you like the movie?"]}
                             stars={stars}
                             film={film}
-                        />
-                    );
-                case 'content':
-                    if (!filmData) {
-                        actionSelectSingleFilm(film.id);
-                    }
-
-                    return (
-                        <DialogTypeContent
-                            title={film.name}
-                            film={film}
-                            filmData={filmData}
-                            onClose={() => {
-                                actionFilmsSet({film: null, filmData: null});
-                            }}
                         />
                     );
                 case 'change_film':
@@ -98,6 +85,24 @@ class Dialog extends React.Component<IDialogConteinerProps> {
             }
         }
 
+        if (type === 'content' && film) {
+            if (!filmData) {
+                actionSelectSingleFilm(film.id);
+            }
+            return (
+                <DialogTypeContent
+                    title={film.name}
+                    film={film}
+                    filmData={filmData}
+                    onClose={() => actionDialogWithFilm({
+                        dialog: {open: false, type: null},
+                        film: null,
+                        filmData: null
+                    })}
+                />
+            );
+        }
+
         return null;
     }
 }
@@ -114,6 +119,7 @@ const mapDispatchesToProps = {
     actionCreateFilm,
     actionFilmsChange,
     actionSelectSingleFilm,
+    actionDialogWithFilm,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(Dialog);

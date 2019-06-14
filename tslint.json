@@ -28,7 +28,8 @@
     "forin": false,
     "no-namespace": false,
     "member-ordering": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-string-literal": false
   },
   "jsRules": {
     "forin": true

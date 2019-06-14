@@ -4,19 +4,19 @@ import {psqlPromise} from "../utils";
 
 const getCreateQuery = (film: IFilmToCreate) => {
     const genres = film.genres;
-    const names = ['name',  'trailer_id'];
-    const values = [film.name,  film.trailer_id];
+    const names = ['id', 'name'];
+    const values = [film.id, film.name];
     if (film.date) {
         names.push('date');
         values.push(film.date);
     }
-    if (film.avatar) {
-        names.push('avatar');
-        values.push(film.avatar);
+    if (film.studio) {
+        names.push('studio');
+        values.push(film.studio);
     }
-    if (film.image_src && film.image_src.length <= 200) {
-        names.push('image_src');
-        values.push(film.image_src);
+    if (film.preview) {
+        names.push('preview');
+        values.push(film.preview);
     }
 
     let genresQuery = "INSERT INTO films_genres (film_id, name) values ";
@@ -49,7 +49,6 @@ export function CreateFilm(film: IFilmToCreate) {
             if (response.rows.length > 0) {
                 const resultFilm = {
                     ...film,
-                    id: response.rows[0].id,
                     stars: 5,
                 } as IFilm;
 

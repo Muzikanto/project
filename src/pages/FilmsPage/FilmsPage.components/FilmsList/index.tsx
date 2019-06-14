@@ -71,8 +71,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
                     }
                     user={user}
                     onContentClick={() => actionDialogWithFilm({dialog: {open: true, type: 'content'}, film})}
-                    onStarClick={film.set_star ? () => {
-                        } :
+                    onStarClick={film.set_star ? () => {} :
                         () => {
                             if (user) {
                                 actionDialogWithFilm({dialog: {open: true, type: 'stars'}, film});

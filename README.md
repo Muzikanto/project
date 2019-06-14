@@ -10,6 +10,8 @@
 - [Redux](https://github.com/reduxjs/redux) a predictable state container for JavaScript apps.
 - [Socket IO](https://github.com/socketio/socket.io) featuring the fastest and most reliable real-time engine
 - [Bem](https://github.com/bem/bem-react) classname, di, core
+- [WebTorrent](https://www.npmjs.com/package/webtorrent)  films
+- [Simple-Peer](https://github.com/feross/simple-peer) Peers of torrent
 
 ## For React
 - [bit](https://github.com/teambit/bit) Components
@@ -21,6 +23,9 @@
 
 ## Material-ui
 - server-rendering [docs](https://material-ui.com/guides/server-rendering/)
+
+## Films player
+- [moonwalk](http://docs.moonwalk.cc/docs/api-docs) players
 
 ## Usage
 

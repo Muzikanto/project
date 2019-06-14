@@ -1,4 +1,4 @@
-const local1 = {
+const local = {
     'Filters': 'Filters',
     'Film name': 'Film name',
     'Dates': 'Dates',
@@ -16,6 +16,7 @@ const local1 = {
     'Change Film Fields': 'Change Film Fields',
     'Date': 'Date',
     'Name': 'Name',
+    'ID': 'ID',
     'Genres': 'Genres',
     'Image url': 'Image url',
     'Trailer ID': 'Trailer ID',
@@ -28,7 +29,7 @@ const local1 = {
     "How did you like the movie?": "How did you like the movie?",
 };
 
-const local = {
+const local1 = {
     'Filters': 'Фильтры',
     'Film name': 'Название фильма',
     'Dates': 'Даты',

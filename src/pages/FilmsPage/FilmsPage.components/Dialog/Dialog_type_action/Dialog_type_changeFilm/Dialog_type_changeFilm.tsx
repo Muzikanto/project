@@ -2,14 +2,13 @@ import * as React from "react";
 import Slide from "@material-ui/core/Slide";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 import {dateToSqlFormat} from "../../../../../../utils/parseDate";
-import {parseYoutubeId} from "../../../../../../components/Youtube/Youtube.helpers";
 import Dialog from "../../../../../../components/Dialog";
 import CommonDialogFilm from "../Common";
 import {IDialogTypeChangeProps} from "./Dialog_type_changeFilm.typings";
 import {ICommonDialogActionState} from "../Dialog_type_action.typings";
 
 class DialogTypeChangeFilm extends React.Component<IDialogTypeChangeProps> {
-    state: ICommonDialogActionState;
+    public state: ICommonDialogActionState;
 
     constructor(props: IDialogTypeChangeProps) {
         super(props);
@@ -17,7 +16,7 @@ class DialogTypeChangeFilm extends React.Component<IDialogTypeChangeProps> {
         this.state = {
             name: '',
             genres: [],
-            image_src: '',
+            preview: '',
             ...props.film,
             date: props.film.date ? new Date(props.film.date) : new Date(),
         };
@@ -27,16 +26,16 @@ class DialogTypeChangeFilm extends React.Component<IDialogTypeChangeProps> {
         this.setState({...this.state, ...value});
     };
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             title,
             onClose,
             submitText,
         } = this.props;
         const {
+            id,
             genres,
-            image_src,
-            trailer_id,
+            preview,
             name,
             date,
         } = this.state;
@@ -51,11 +50,11 @@ class DialogTypeChangeFilm extends React.Component<IDialogTypeChangeProps> {
                 dialogContentProps={{style: {display: 'flex'}}}
             >
                 <CommonDialogFilm
+                    id={id}
                     btnText={submitText}
                     genres={genres}
-                    image_src={image_src}
+                    preview={preview}
                     name={name}
-                    trailer_id={trailer_id}
                     date={date}
                     onSubmit={this.submit}
                     handleChange={this.handleChange}
@@ -73,7 +72,6 @@ class DialogTypeChangeFilm extends React.Component<IDialogTypeChangeProps> {
             ...this.props.film,
             ...this.state,
             date: dateToSqlFormat(this.state.date),
-            trailer_id: this.state.trailer_id ? parseYoutubeId(this.state.trailer_id) : undefined,
         });
     }
 }

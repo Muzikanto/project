@@ -6,12 +6,12 @@ import {parseDate} from "../../../../utils/parseDate";
 import {Tooltip, CardHeader} from "@material-ui/core";
 
 class ThumbHeader extends React.Component<IThumbHeaderProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             film: {
                 name,
                 date,
-                avatar,
+                studio,
             },
             className,
             menuItems,
@@ -21,7 +21,7 @@ class ThumbHeader extends React.Component<IThumbHeaderProps> {
             <CardHeader
                 avatar={
                     <Avatar aria-label="Recipe">
-                        {avatar && typeof avatar !== 'object' ? avatar.slice(0, 1).toUpperCase() : 'T'}
+                        {studio && typeof studio !== 'object' ? studio.slice(0, 1).toUpperCase() : 'T'}
                     </Avatar>
                 }
                 action={<ThumbMenu items={menuItems}/>}

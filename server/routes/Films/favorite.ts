@@ -2,7 +2,6 @@ import * as express from 'express';
 import {sendResponse} from "../../utils/SendData";
 import {IRequestSession} from "../typings";
 import {Application} from "express";
-import {ChangeFilmStars} from "../../models/postgreSql/films/changeStar";
 import {FavoriteFilm} from "../../models/postgreSql/films/setFavorite";
 
 export type IfavoriteFilmRouterResponse = undefined;

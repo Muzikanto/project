@@ -14,6 +14,7 @@ export function getBaseFilmsReducerState(): IFilmsOptions {
         sort: 'date',
         filter_open: false,
         query: '',
+        film_id: null,
     };
 }
 

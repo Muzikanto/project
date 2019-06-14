@@ -6,11 +6,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import local from "../../../../pages/FilmsPage/FilmsPage.strings";
 
 class ThumbContent extends React.Component<IThumbContentProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             film: {
                 genres,
-                image_src,
+                preview,
             },
             className,
             onContentClick,
@@ -22,7 +22,7 @@ class ThumbContent extends React.Component<IThumbContentProps> {
                     <CardMedia
                         component="img"
                         className={className}
-                        image={image_src}
+                        image={preview}
                     />
                     <CardContent>
                         <b>{local.Genres}:</b> {genres.join()}

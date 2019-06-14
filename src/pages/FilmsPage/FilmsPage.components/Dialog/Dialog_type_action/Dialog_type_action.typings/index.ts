@@ -5,9 +5,9 @@ export interface ICommonDialogActionProps extends ICommonDialogActionState{
 }
 
 export interface ICommonDialogActionState {
+    id: string;
     name: string;
     date: Date;
     genres: string[];
-    image_src?: string;
-    trailer_id?: string;
+    preview?: string;
 }

@@ -10,7 +10,7 @@ import ThumbContent from "./Thumb.Components/Thumb-Content/Thumb-Content";
 const cnThumb = cn('Thumb');
 
 class Thumb extends React.Component<IThumbProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             film,
             className,
