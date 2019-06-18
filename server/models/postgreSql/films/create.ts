@@ -44,7 +44,7 @@ export function CreateFilm(film: IFilmToCreate) {
     return new Promise(async (resolve: (film: IFilm) => void, reject: (err: HttpError) => void) => {
         try {
             const query = getCreateQuery(film);
-            const response = await psqlPromise(pool, query);
+            const response = await psqlPromise(query);
 
             if (response.rows.length > 0) {
                 const resultFilm = {

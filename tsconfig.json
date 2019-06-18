@@ -10,7 +10,6 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "resolveJsonModule": true,
-    "incremental": true,
 
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
@@ -39,4 +38,3 @@
     "node_modules"
   ]
 }
-  

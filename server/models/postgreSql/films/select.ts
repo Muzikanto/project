@@ -1,4 +1,4 @@
-import {pool, HttpError} from "../base";
+import {HttpError} from "../base";
 import {IFilm} from "../../../../src/reducers/Films/Films.typings";
 import {IselectFilmsRouterQuery} from "../../../routes/Films/select";
 import {psqlPromise} from "../utils";
@@ -34,7 +34,7 @@ export function SelectFilms(filters: IselectFilmsRouterQuery, user: IUserSession
     return new Promise(async (resolve: (films: IFilm[]) => void, reject: (err: HttpError) => void) => {
         try {
             const query = getSelectQuery(filters, user);
-            const filmsRows = await psqlPromise(pool, query);
+            const filmsRows = await psqlPromise(query);
 
             resolve(filmsRows.rows);
         } catch (err) {

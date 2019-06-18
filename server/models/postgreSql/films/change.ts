@@ -1,4 +1,4 @@
-import {HttpError, pool} from "../base";
+import {HttpError} from "../base";
 import {IFilm} from "../../../../src/reducers/Films/Films.typings";
 import {psqlPromise} from "../utils";
 
@@ -13,7 +13,7 @@ WHERE id = $5;
 export function ChangeFilm(film: IFilm) {
     return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         try {
-            await psqlPromise(pool, {
+            await psqlPromise({
                 text: getUpdateQuery(),
                 values: [film.name, film.studio, film.date, film.preview,  film.id]
             });

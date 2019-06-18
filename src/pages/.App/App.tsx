@@ -6,6 +6,8 @@ import FrontPage from "../FrontPage/FrontPage";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import AppRouters from "./App.routers";
 import './App.css';
+import SnackBar from "../../components/SnackBar";
+import Progress from "../../components/Progress";
 
 class App extends React.Component {
     public render() {
@@ -20,6 +22,8 @@ class App extends React.Component {
                     </Switch>
                 </main>
                 <Footer/>
+                <Progress/>
+                <SnackBar/>
             </div>
         )
     }

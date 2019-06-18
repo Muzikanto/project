@@ -2,6 +2,7 @@ import {Pool} from "pg";
 import {psqlPromise} from "./utils";
 import {LoadFilmsFromJSON} from "./save";
 
+
 const config = require('../../../config.json');
 const pool = new Pool({
     connectionString: config.postgresSqlUrl,
@@ -71,7 +72,7 @@ function getQuery() {
 
 (async () => {
     try {
-        await psqlPromise(pool, getQuery());
+        await psqlPromise(getQuery());
     } catch (err) {
         console.log('Error Create Tables', err);
     }
@@ -91,7 +92,6 @@ class HttpError {
 }
 
 // SaveFilmsToJSON('./dist/films.json').then();
-// LoadFilmsFromJSON('./hermione/films.json').then();
 
 export {
     pool,

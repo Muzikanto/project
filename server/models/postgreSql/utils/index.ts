@@ -1,10 +1,14 @@
-function psqlPromise(pool: any, query: string | { text: string, values: any[] }): Promise<any> {
-    return new Promise((resolve: any, reject: any) => {
-        pool.query(query, (err: Error, result: any) => {
+import {pool} from "../base";
+import {QueryResult} from "pg";
+
+function psqlPromise(query: string | { text: string, values: any[] }): Promise<QueryResult> {
+    return new Promise((resolve: (data: QueryResult) => void, reject: (error: Error) => void) => {
+        pool.query(query, (err: Error, result: QueryResult) => {
             if (err)
                 reject(err);
-            else
+            else {
                 resolve(result);
+            }
         });
     });
 }

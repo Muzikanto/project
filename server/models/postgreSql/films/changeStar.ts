@@ -1,4 +1,4 @@
-import {HttpError,  pool} from "../base";
+import {HttpError} from "../base";
 import {psqlPromise} from "../utils";
 import {IchangeStarsFilmRouterQuery} from "../../../routes/Films/changeStars";
 import {IUser} from "../../../../src/reducers/User/User.typings";
@@ -23,7 +23,7 @@ commit;
 export function ChangeFilmStars(data: IchangeStarsFilmRouterQuery, user: IUser) {
     return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         try {
-            await psqlPromise(pool, getUpdateQuery(data, user));
+            await psqlPromise(getUpdateQuery(data, user));
             resolve();
         } catch (err) {
             console.log(err)

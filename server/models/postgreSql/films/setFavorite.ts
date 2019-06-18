@@ -1,4 +1,4 @@
-import {HttpError,  pool} from "../base";
+import {HttpError} from "../base";
 import {psqlPromise} from "../utils";
 import {IUser} from "../../../../src/reducers/User/User.typings";
 import {IfavoriteFilmRouterQuery} from "../../../routes/Films/favorite";
@@ -19,7 +19,7 @@ SELECT ${data.id}, ${user.id}, ${data.is_favorite} WHERE NOT EXISTS (SELECT * FR
 export function FavoriteFilm(data: IfavoriteFilmRouterQuery, user: IUser) {
     return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         try {
-            await psqlPromise(pool, getUpdateQuery(data, user));
+            await psqlPromise(getUpdateQuery(data, user));
             resolve();
         } catch (err) {
             reject(new HttpError('No set favorite'));
