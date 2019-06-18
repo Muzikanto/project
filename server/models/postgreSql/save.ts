@@ -13,7 +13,7 @@ export const LoadFilmsFromJSON = async (path: string) => {
 
             await CreateFilm({
                 id: kinopoisk_id,
-                studio: studios[0],
+                studio: studios[0].length < 50 ? studios[0] : undefined,
                 name: title_ru,
                 date: v.date,
                 genres,

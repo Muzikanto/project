@@ -57,9 +57,10 @@ export function CreateFilm(film: IFilmToCreate) {
                 reject(new HttpError('Film not Created'));
             }
         } catch (err) {
-            if (err.constraint === 'films_name_key') {
+            if (err.constraint === 'films_pkey') {
                 reject(new HttpError('Duplicate Names'));
             } else {
+                console.log(err);
                 reject(new HttpError('Error Create'));
             }
         }

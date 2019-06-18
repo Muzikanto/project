@@ -56,7 +56,6 @@
     "@date-io/date-fns": "1.3.5",
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^3.0.2",
-    "@muzikanto/pg": "2.0.5",
     "body-parser": "1.18.3",
     "cluster": "^0.7.7",
     "compression": "1.7.3",

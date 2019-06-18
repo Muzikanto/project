@@ -1,11 +1,14 @@
 .FilmContent {
   display: flex;
   min-height: 550px;
+  width: 1173px;
+  padding: 15px;
 
   &-Image {
     background-size: cover !important;
     background-position: center !important;
     width: 350px;
+    min-width: 350px;
     height: 500px;
     border: solid 2px white;
   }
@@ -27,12 +30,18 @@
       &hard {
         color: #00a800;
       }
+
       &mid {
         color: #00a6af;
       }
+
       &low {
         color: #0026ff;
       }
     }
+  }
+
+  &-Description {
+    text-align: justify;
   }
 }

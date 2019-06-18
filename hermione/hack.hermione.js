@@ -1,12 +1,13 @@
 const fs = require("fs");
 
 const arr = require('./list.json');
-const data = [];
 let current;
+const loaded = require('../dist/films.json');
+const data = [...loaded];
 
-// бот поиска на кинопоиске
+const find = arr.filter(el => loaded.map(el => el.name).indexOf(el) === -1);
 
-arr.forEach((name, i) => {
+find.forEach((name, i) => {
     it('Download ' + name, function () {
         current = {};
 
@@ -35,8 +36,8 @@ arr.forEach((name, i) => {
             })
             .then(function () {
                 data.push(current);
-                if (i % 10 === 0 || i === arr.length - 1) {
-                    fs.writeFile(`./hermione/films.json`, JSON.stringify(data));
+                if (i % 10 === 0 || i === find.length - 1) {
+                    fs.writeFile(`./dist/films.json`, JSON.stringify(data));
                 }
             })
     });

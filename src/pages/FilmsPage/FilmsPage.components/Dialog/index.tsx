@@ -72,17 +72,17 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                             }}
                         />);
             }
-        } else {
-            if (type === 'add_film') {
-                return (
-                    <DialogTypeAddFilm
-                        title={local['Enter new Film']}
-                        submitText={local['Add']}
+        }
 
-                        onCreate={(film: IFilmToCreate) => this.props.actionCreateFilm(film)}
-                    />
-                );
-            }
+        if (type === 'add_film') {
+            return (
+                <DialogTypeAddFilm
+                    title={local['Enter new Film']}
+                    submitText={local['Add']}
+
+                    onCreate={(film: IFilmToCreate) => this.props.actionCreateFilm(film)}
+                />
+            );
         }
 
         if (type === 'content' && film) {

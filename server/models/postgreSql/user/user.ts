@@ -30,7 +30,7 @@ export function UserRegister(nick: string, email: string, password: string) {
 export function UserAuthorize(email: string, password: string) {
     return new Promise(async (resolve: (user: IUser) => void, reject: (err: HttpError) => void) => {
         try {
-            const {rows} = await psqlPromise(`select * from users where email = '${email}';`);
+            const {rows} = await psqlPromise(`select * from users where email = '${email}'`);
 
             if (rows.length === 0) {
                 reject(new HttpError('Пользователь не найден'));
