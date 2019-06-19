@@ -4,11 +4,11 @@
   "private": true,
   "description": "ssr react app",
   "engines": {
-    "node": "8.9.x"
+    "node": "8.x.x"
   },
   "scripts": {
     "start": "./node_modules/.bin/cross-env NODE_ENV=development webpack --config .config/webpack.server.js --watch",
-    "start:production": "./node_modules/.bin/cross-env NODE_ENV=production node ./dist/server",
+    "start:production": "./node_modules/.bin/cross-env NODE_ENV=production node --optimize_for_size --max_old_space_size=460 index.js",
     "start:docker": "docker run -d --rm --name my-running-app muzikanto-app",
     "build": "npm run build:clean && npm run build:server && npm run build:client",
     "build:clean": "rm -r --force dist",
@@ -97,6 +97,7 @@
     "got": "9.3.2"
   },
   "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^3.0.0",
     "@babel/core": "^7.4.4",
     "@types/body-parser": "1.17.0",
     "@types/chai": "^4.1.7",

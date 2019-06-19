@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as express from 'express';
 import * as got from 'got';
-import {renderToNodeStream, renderToString} from 'react-dom/server';
+import {renderToString} from 'react-dom/server';
 import {StaticRouter} from 'react-router';
 import {createStore, DeepPartial} from "redux";
 import {Provider} from "react-redux";
