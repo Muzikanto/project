@@ -62,3 +62,15 @@ Point your browser to [http://localhost:3000/](http://localhost:3000/).
 - access origin
 - Починить NavBar
 - Разобрать src/reducers/Films/Films.actions/index.ts
+
+# VM
+ ```
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo apt install git
+git clone https://github.com/Muzikanto/React.git
+cd React
+sudo npm i
+npm run build
+npm run start:production
+```
