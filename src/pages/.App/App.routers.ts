@@ -4,7 +4,6 @@ import LoginPage from "../LoginPage/LoginPage";
 import ChessPage from "../ChessPage/ChessPage";
 import GamePage from "../GamePage/GamePage";
 import FilmsPage from "../FilmsPage/FilmsPage";
-import MarketPage from "../MarketPage/MarketPage";
 
 const AppRouters: Array<{ url: string, el: ComponentClass }> = [
     {url: '/films', el: FilmsPage},

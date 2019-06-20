@@ -14,7 +14,7 @@ class Footer extends React.Component {
                 <a href="#">Условия использования</a>
             </div>
             <div className={cnFooter('Right')}>
-                <a href="#">2001-2017 ООО "Яндекс"</a>
+                <a href="#">2001-2019 ООО "Muzikanto"</a>
             </div>
         </footer>)
     }

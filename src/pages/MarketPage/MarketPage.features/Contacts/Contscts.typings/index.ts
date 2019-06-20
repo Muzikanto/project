@@ -1,3 +1,0 @@
-interface IMarketContactsProps {
-    className?: string;
-}

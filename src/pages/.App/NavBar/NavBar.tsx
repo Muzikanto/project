@@ -9,7 +9,6 @@ import './NavBar.scss'
 const cnNav = cn('NavBar');
 
 class NavBar extends React.Component<INavBarProps> {
-
     protected getItems() {
         return this.props.items.map((el: INavBarItem) => {
             if (!el.popup) {
