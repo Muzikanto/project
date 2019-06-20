@@ -47,7 +47,7 @@ export const renderWithApp = (App: ReactType): Application => {
 
         const html = renderToString(
             <Provider store={store}>
-                <StaticRouter location={req.url} context={{}}>
+                <StaticRouter location={req.url === '/index.html' ? '/' : req.url} context={{}}>
                     {
                         sheets.collect(
                             <ThemeProvider theme={muiTheme}>

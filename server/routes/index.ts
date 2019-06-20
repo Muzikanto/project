@@ -16,7 +16,7 @@ import {favoriteFilmRouter} from "./Films/favorite";
 import {selectSingleFilmRouter} from "./Films/selectSingle";
 
 export default function apiRoutes(router: Router): Router {
-    router.get(['/', ...AppRouters.map(el => el.url)], renderWithApp(App));
+    router.get(['/', ...AppRouters.map(el => el.url), '/index.html'], renderWithApp(App));
 
     /* User */
     router.post('/api/authorize', loginRouter);
