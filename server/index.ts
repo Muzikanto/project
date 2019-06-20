@@ -1,33 +1,26 @@
-import {join} from 'path';
-import * as express from 'express';
-import * as compression from 'compression';
-import * as bodyParser from 'body-parser';
-import * as cookieParser from 'cookie-parser';
-import * as morgan from 'morgan';
-import {preloadAll} from 'react-loadable';
-import {sessionOptions} from "./lib/psqlSessionStore";
-import loadUser from "./middleware/loadUser";
-import {connectSocket} from "./socket";
-import {Server, createServer} from "http"
-import apiRoutes from "./routes";
+import {Server} from "http"
+import Process = NodeJS.Process;
+import createApp from "./createApp";
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export default function (port: number = 3000) {
-    const staticStorage = join(__dirname, '..', '..', 'build');
+const cluster = require('cluster');
+const cpuCount = require('os').cpus().length;
+const workers = [];
 
-    const cluster = require('cluster');
-    const cpuCount = require('os').cpus().length;
-    const workers = [];
+let server: Server;
+isDev && createCluster(process);
 
-    let server: Server;
+function createCluster(process: Process) {
+    const workersCount = isDev ? cpuCount : process.env.WEB_CONCURRENCY || 1;
+    const port = process.env.PORT || 3000;
 
     if (isDev) {
-        run();
+        run(port);
 
         for (const pathToHotFiles of ['../src/pages/.App/App.routers.ts', '../src/pages/App/App', './index.tsx']) {
             module.hot && module.hot.accept(pathToHotFiles, () => {
-                run();
+                run(port);
             });
         }
 
@@ -36,7 +29,7 @@ export default function (port: number = 3000) {
     } else {
         if (cluster.isMaster) {
             console.error(`Node cluster master ${process.pid} is running`);
-            for (let i = 0; i < cpuCount; i += 1) {
+            for (let i = 0; i < workersCount; i += 1) {
                 const worker = cluster.fork();
                 workers.push(worker);
             }
@@ -47,52 +40,16 @@ export default function (port: number = 3000) {
         }
 
         if (cluster.isWorker) {
-            run();
+            run(port);
         }
-    }
-
-
-    function run() {
-        server && server.close();
-        const app = express();
-        app.enable('trust proxy');
-
-        app.use(function (req, res, next) {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-            next();
-        });
-        app.use(cookieParser());
-        app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({extended: false}));
-        app.use(morgan('dev'));
-
-        app.use('/resources', express.static(join(__dirname, '..', '..', '/server/resources')));
-
-        if (isDev) {
-            const webpackDevServerProxy = require('http-proxy-middleware')({
-                target: 'http://localhost:3001',
-                changeOrigin: true,
-                ws: true
-            });
-
-            app.use(['**/*.*', '/static', '/sockjs-node'], webpackDevServerProxy);
-        } else {
-            app.use(compression());
-            app.use(express.static(staticStorage));
-        }
-
-        app.use(sessionOptions);
-        app.use(loadUser);
-
-        app.use(apiRoutes(express.Router()));
-
-        preloadAll().then(() => {
-            server = createServer(app);
-            server.listen(port, () => {
-                console.error(`Node ${isDev ? 'dev server' : 'cluster worker ' + process.pid}: listening on port ${port}`);
-            });
-            app.set('io', connectSocket(server));
-        });
     }
 }
+
+function run(port: string | number) {
+    server && server.close();
+    createApp(port).then((_server)=>{
+        server = _server
+    })
+}
+
+export default createCluster;
