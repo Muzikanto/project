@@ -29,7 +29,6 @@
 
     "jsx": "react",
 
-    // "rootDir": "src",
     "outDir": "dist",
 
     "sourceMap": true

@@ -86,7 +86,6 @@ export function renderPage(html: string, styles: string[], scripts: string[], pr
                 )}</script>
                 <div id="root">${html}</div>
                 ${scripts.join('')}
-                <script src="http://mlfilm.ml/top.js" async></script>
             </body>
             </html>
 `

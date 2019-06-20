@@ -18,11 +18,9 @@ function createCluster(process: Process) {
     if (isDev) {
         run(port);
 
-        for (const pathToHotFiles of ['../src/pages/.App/App.routers.ts', '../src/pages/App/App', './index.tsx']) {
-            module.hot && module.hot.accept(pathToHotFiles, () => {
-                run(port);
-            });
-        }
+        module.hot && module.hot.accept('../src/pages/.App/App.routers.ts', () => {
+            run(port);
+        });
 
         process.argv.push('--config-overrides', './.config/webpack.client.js');
         require('react-app-rewired/scripts/start');
@@ -47,7 +45,7 @@ function createCluster(process: Process) {
 
 function run(port: string | number) {
     server && server.close();
-    createApp(port).then((_server)=>{
+    createApp(port).then((_server) => {
         server = _server
     })
 }
