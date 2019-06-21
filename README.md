@@ -1,5 +1,7 @@
 # React SSR-Project
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Muzikanto/React.svg?token=afe4d9a79f8fcedc954d67a08bfd2704e621389e5330fbd179e6fa447b490b99&ts=1561140118465)](https://greenkeeper.io/)
+
 ## What's inside?
 
 - [create-react-app](https://github.com/facebook/create-react-app) as base and `react-scripts` without ejecting;
