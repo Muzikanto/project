@@ -1,10 +1,10 @@
 import {pool} from "../models/postgreSql/base";
 
-export const session = require('express-session');
+const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const config = require('../../config.json');
 
-export const sessionStore = new pgSession({
+const sessionStore = new pgSession({
     pool,
     tableName: 'session'
 });

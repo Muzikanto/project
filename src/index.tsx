@@ -14,7 +14,6 @@ import {actionsChesSocketToDispatchesTypes} from "./reducers/Chess/Chess.actions
 import {muiTheme} from "./utils/mui";
 import {ThemeProvider} from "@material-ui/styles";
 
-
 register();
 // @ts-ignore
 export const store = createStore(reducers, window.__PRELOADED_STATE__, applyMiddleware(thunk));

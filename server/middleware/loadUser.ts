@@ -3,7 +3,6 @@ import {UserFindById} from "../models/postgreSql/user/user";
 import {RequestHandlerParams} from "express-serve-static-core";
 import {IRequestSession} from "../routes/typings";
 
-
 const loadUser = async (req: IRequestSession, res: express.Response, next: express.NextFunction) => {
     req.user = res.locals.user = null;
 
@@ -21,7 +20,6 @@ const loadUser = async (req: IRequestSession, res: express.Response, next: expre
     } catch (err) {
         next();
     }
-
 };
 
 export default loadUser as RequestHandlerParams;
