@@ -16,7 +16,7 @@ import local from "../../FilmsPage.strings";
 const cnFilterBlock = cn('FilterBlock');
 
 class FilterBlock extends React.Component<IFilterBlockProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             genres,
             dates,

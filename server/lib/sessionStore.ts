@@ -1,4 +1,4 @@
-import {pool} from "../models/postgreSql/base";
+import {pool} from "../models";
 
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
@@ -9,7 +9,7 @@ const sessionStore = new pgSession({
     tableName: 'session'
 });
 
-export const sessionOptions = session({
+export default session({
     store: sessionStore,
     secret: config.session.secret,
     key: config.session.key,

@@ -1,6 +1,6 @@
-import {HttpError} from "../models/postgreSql/base";
-import {UserFindById} from "../models/postgreSql/user/user";
-import {LoadSession} from "../models/postgreSql/session/session";
+import HttpError from "../error";
+import {UserFindById} from "../models/user/user";
+import {LoadSession} from "../models/session/session";
 import {ISession, IUserSession} from "../routes/typings";
 import {IHandshake, ISocket} from "./socket.typings";
 
@@ -35,7 +35,7 @@ export function socketCheckAuth(handshake: IHandshake, mainCallback: (e: Event |
     ], function (err: Error) {
         if (!err) return mainCallback(null, true);
         else {
-            if (err instanceof HttpError) return mainCallback(null, false);
+            if (err.name === 'HttpError') return mainCallback(null, false);
             else mainCallback(err);
         }
     });

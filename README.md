@@ -61,5 +61,5 @@ Point your browser to [http://localhost:3000/](http://localhost:3000/).
 - Таймер до выхода фильма
 - access origin
 - Починить NavBar
-- Разобрать src/reducers/Films/Films.actions/index.ts
+- Разобрать src/reducers/Films/Films.actions/promise.ts
 

@@ -1,9 +1,8 @@
 import * as express from 'express';
 import {Application} from 'express';
-import {UserRegister} from "../../models/postgreSql/user/user";
-import {sendResponse} from "../../utils/SendData";
-import {IRequestSession} from "../typings";
+import {UserRegister} from "../../models/user/user";
 import {IUser} from "../../../src/reducers/User/User.typings";
+import {IRequest, IResponse} from "../typings";
 
 export interface IregisterRouterQuery {
     nick: string,
@@ -14,16 +13,16 @@ export interface IregisterRouterQuery {
 
 export type IregisterRouterResponse = IUser;
 
-export const registerRouter = (async (req: IRequestSession, res: express.Response, _: express.NextFunction) => {
+export const registerRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
     const {nick, email, password, password2} = req.body as IregisterRouterQuery;
 
     try {
         const user = await UserRegister(nick, email, password);
 
         req.session.user = user;
-        sendResponse<IregisterRouterResponse>(res, {status: 200, message: `Success Register`, response: user});
+        res.sendResponse<IregisterRouterResponse>( {status: 200, message: `Success Register`, response: user});
     } catch (err) {
-        sendResponse(res, {status: err.status, message: err.message});
+        res.sendResponse( err);
     }
 }) as Application;
 

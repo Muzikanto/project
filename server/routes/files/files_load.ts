@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as path from 'path';
-import {sendResponse} from "../../utils/SendData";
+import {Application} from "express";
+import {IRequest, IResponse} from "../typings";
 
 const multer = require('multer');
 
@@ -21,7 +22,7 @@ function fileFilter(_: Express.Request, file: any, callback: (err: Error | null,
     callback(null, true);
 }
 
-export const loadFileRouter = (req: express.Request, res: express.Response) => {
+export const loadFileRouter = ((req: IRequest, res: IResponse, next: express.NextFunction) => {
     const loader = multer({
         storage,
         fileFilter,
@@ -32,11 +33,11 @@ export const loadFileRouter = (req: express.Request, res: express.Response) => {
 
     loader(req, res, (err: Error) => {
         if (err instanceof multer.MulterError) {
-            sendResponse(res, {status: 403, message: err.message});
+            res.sendResponse( {status: 403, message: err.message});
         } else if (err) {
-            sendResponse(res, {status: 400, message: err.message});
+            res.sendResponse( {status: 400, message: err.message});
         } else
-            sendResponse(res, {status: 200, message: 'Success Load'});
+            res.sendResponse( {status: 200, message: 'Success Load'});
     });
-};
+}) as Application;
 

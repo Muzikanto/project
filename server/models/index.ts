@@ -1,9 +1,6 @@
 import {Pool} from "pg";
-import {psqlPromise} from "./utils";
-import {LoadFilmsFromJSON} from "./save";
 
-
-const config = require('../../../config.json');
+const config = require('../../config.json');
 const pool = new Pool({
     connectionString: config.postgresSqlUrl,
     ssl: true
@@ -64,36 +61,13 @@ function getQuery() {
         );
     `;
 
-    // const add ='alter table films add column description varchar(1500);';
-
     return session + users + films + films_genres + user_films;
 }
 
-
-(async () => {
-    try {
-        await psqlPromise(getQuery());
-    } catch (err) {
-        console.log('Error Create Tables', err);
-    }
-})();
-
-class HttpError {
-    public status: number;
-    public name = 'HttpError';
-    public message: string;
-
-    constructor(message: string, status: number = 403) {
-        Error.apply(this, [message]);
-        Error.captureStackTrace(this, this.constructor);
-        this.status = status;
-        this.message = message;
-    }
-}
-
-LoadFilmsFromJSON('./dist/films.json').then();
+pool.query(getQuery(), (err: Error) => {
+    err && console.log(err);
+});
 
 export {
     pool,
-    HttpError
 };

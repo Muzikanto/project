@@ -1,13 +1,14 @@
 import * as express from 'express';
-import {sendResponse} from "../../utils/SendData";
+import {Application} from "express";
+import {IRequest, IResponse} from "../typings";
 
 const fs = require('fs');
 
-export const getPublicFilesListRouter = function(_: express.Request, res: express.Response, __: express.NextFunction) {
+export const getPublicFilesListRouter = function(_: IRequest, res: IResponse, __: express.NextFunction) {
     fs.readdir('./server/resources', function (err: Error, files: string[]) {
         if (err)
             console.log(err);
-        sendResponse(res, {status: 200, message: 'Load Public Files Names', response: {files}});
+        res.sendResponse( {status: 200, message: 'Load Public Files Names', response: files});
     });
-};
+} as Application;
 

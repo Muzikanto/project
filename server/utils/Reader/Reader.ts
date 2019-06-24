@@ -1,18 +1,17 @@
 import * as fs from 'fs';
 import {join, resolve} from "path";
-import {IReader} from "./Reader.typings";
 
 class Reader {
     public pathToData = resolve('');
 
-    constructor(props: IReader) {
+    constructor(props: { pathToData?: string; }) {
         props.pathToData && (this.pathToData = resolve(props.pathToData));
     }
 
     public write(name: string, data: string): Promise<boolean> {
         const pathToFile = join(this.pathToData, name);
 
-        return new Promise((resolve) => {
+        return new Promise((resolve: (t: boolean) => void) => {
             fs.writeFile(pathToFile, data, (err: Error) => {
                 if (err) {
                     resolve(false);
@@ -31,18 +30,6 @@ class Reader {
         } else {
             return fs.readFileSync(pathToFile, 'utf8');
         }
-    }
-
-    protected createFolder(path: string): Promise<boolean> {
-        const pathToFolder = resolve(this.pathToData, path);
-
-        return new Promise((resolve) => {
-            if (!fs.existsSync(path)) {
-                fs.mkdir(pathToFolder, (err: Error) => {
-                    resolve(!err);
-                });
-            }
-        })
     }
 }
 

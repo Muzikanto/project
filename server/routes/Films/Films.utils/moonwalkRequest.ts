@@ -1,5 +1,5 @@
 import * as config from "../../../../config.json";
-import {HttpError} from "../../../models/postgreSql/base";
+import HttpError from "../../../error";
 
 const request = require('request');
 

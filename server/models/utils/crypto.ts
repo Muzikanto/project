@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const config = require('../../config.json');
+const config = require('../../../config.json');
 const secret = config.crypto.secret;
 const iv = config.crypto.iv;
 const key = crypto.createHash("sha256").update(secret, "ascii").digest();

@@ -1,4 +1,5 @@
 import * as express from 'express';
+import {ISendData} from "../middleware/sendResponse";
 
 export interface IUserSession {
     id: number;
@@ -13,9 +14,13 @@ export interface ISession extends Express.Session {
     id: string;
 }
 
-export interface IRequestSession extends express.Request {
+export interface IRequest extends express.Request {
     user: IUserSession | null;
     session: ISession;
+}
+
+export interface IResponse extends express.Response {
+    sendResponse: <Response = undefined>(this: express.Response, data: ISendData<Response>) => void;
 }
 
 

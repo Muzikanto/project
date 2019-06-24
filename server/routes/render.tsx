@@ -6,23 +6,23 @@ import {StaticRouter} from 'react-router';
 import {createStore, DeepPartial} from "redux";
 import {Provider} from "react-redux";
 import Reducers from "../../src/reducers";
-import {IRequestSession} from "./typings";
 import {ReactType} from "react";
 import {Application} from "express";
 import {IStore} from "../../src/reducers/typings";
 import {getBaseFilmsReducerState} from "../../src/reducers/Films/Films";
-import {SelectFilms} from "../models/postgreSql/films/select";
+import {SelectFilms} from "../models/films/select";
 import {IselectFilmsRouterQuery} from "./Films/select";
 import {ThemeProvider, ServerStyleSheets} from "@material-ui/styles";
 import {muiTheme} from "../../src/utils/mui";
 import {prepareFilms} from "../../src/reducers/Films/Films.helpers";
 import {IFilm} from "../../src/reducers/Films/Films.typings";
+import {IRequest, IResponse} from "./typings";
 
 const script = (url: string) => `<script type="text/javascript" src="${url}" async></script>`;
 const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
 
 export const renderWithApp = (App: ReactType): Application => {
-    return (async (req: IRequestSession, res: express.Response, next: express.NextFunction) => {
+    return (async (req: IRequest, res: IResponse, next: express.NextFunction) => {
         const filters = req.query as IselectFilmsRouterQuery;
         const {styles, scripts} = await assets(req.headers.host);
 
@@ -59,7 +59,7 @@ export const renderWithApp = (App: ReactType): Application => {
             </Provider>
         );
 
-        res.send(renderPage(html, styles, scripts, preloadState, sheets.toString()));
+        res.status(200).send(renderPage(html, styles, scripts, preloadState, sheets.toString()));
     }) as Application;
 };
 

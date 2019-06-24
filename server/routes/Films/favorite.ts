@@ -1,23 +1,23 @@
 import * as express from 'express';
-import {sendResponse} from "../../utils/SendData";
-import {IRequestSession} from "../typings";
+import {IRequest, IResponse} from "../typings";
 import {Application} from "express";
-import {FavoriteFilm} from "../../models/postgreSql/films/setFavorite";
+import {FavoriteFilm} from "../../models/films/setFavorite";
 
 export type IfavoriteFilmRouterResponse = undefined;
-export type IfavoriteFilmRouterQuery = {id: string, is_favorite: boolean};
+export type IfavoriteFilmRouterQuery = { id: string, is_favorite: boolean };
 
-export const favoriteFilmRouter = (async (req: IRequestSession, res: express.Response, _: express.NextFunction) => {
+export const favoriteFilmRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
     const body = req.body as IfavoriteFilmRouterQuery;
 
     try {
         if (req.user) {
             await FavoriteFilm(body, req.user);
-            sendResponse(res, {status: 200, message: 'Success Set is_favorite'});
+
+            res.sendResponse( {status: 200, message: 'Success Set is_favorite'});
         } else {
-            sendResponse(res, {status: 403, message: 'Need Authorize'});
+            res.sendResponse( {status: 403, message: 'Need Authorize'});
         }
     } catch (err) {
-        sendResponse(res, {status: 403, message: err.message});
+        res.sendResponse(err);
     }
 }) as Application;

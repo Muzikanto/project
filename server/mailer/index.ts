@@ -1,7 +1,7 @@
 import * as nodemailer from 'nodemailer';
-import {HttpError} from "../postgreSql/base";
+import HttpError from "../error";
 
-const config = require('../../../config.json');
+const config = require('../../config.json');
 
 const transporter = nodemailer.createTransport(config.mailer);
 

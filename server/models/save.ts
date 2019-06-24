@@ -1,10 +1,10 @@
-import JSONReader from "../../utils/Reader/_json/JSONReader";
+import JSONReader from "../utils/Reader/_json/JSONReader";
 import {CreateFilm} from "./films/create";
-import moonRequest from "../../routes/Films/utils/moonwalkRequest";
+import moonRequest from "../routes/Films/Films.utils/moonwalkRequest";
 
 const filmReader = new JSONReader({pathToData: ''});
 
-export const LoadFilmsFromJSON = async (path: string) => {
+export const LoadFilmsFromJSON = async (path: string = './dist/films.json') => {
     const films = filmReader.read(path) as Array<{ name: string, id: string, date: string }>;
     if (films) {
         for (const v of films) {

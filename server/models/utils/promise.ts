@@ -1,4 +1,4 @@
-import {pool} from "../base";
+import {pool} from "../";
 import {QueryResult} from "pg";
 
 function psqlPromise(query: string | { text: string, values: any[] }): Promise<QueryResult> {

@@ -8,7 +8,7 @@ module.exports = {
     ],
     testURL: 'http://localhost',
     transform: {
-        '^.+\\.(js|jsx|mjs)$': './node_modules/react-app-rewired/scripts/utils/babelTransform.js',
+        '^.+\\.(js|jsx|mjs)$': './node_modules/react-app-rewired/scripts/Films.server.utils/babelTransform.js',
         '^.+\\.css$': './node_modules/react-scripts/config/jest/cssTransform.js',
         '^(?!.*\\.(js|ts|tsx|jsx|mjs|css|json)$)': './node_modules/react-scripts/config/jest/fileTransform.js',
         '^.+\\.(ts|tsx)$': 'ts-jest'

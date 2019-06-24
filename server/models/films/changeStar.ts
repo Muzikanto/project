@@ -1,7 +1,7 @@
-import {HttpError} from "../base";
-import {psqlPromise} from "../utils";
-import {IchangeStarsFilmRouterQuery} from "../../../routes/Films/changeStars";
-import {IUser} from "../../../../src/reducers/User/User.typings";
+import HttpError from "../../error";
+import {psqlPromise} from "../utils/promise";
+import {IchangeStarsFilmRouterQuery} from "../../routes/Films/changeStars";
+import {IUser} from "../../../src/reducers/User/User.typings";
 
 function getUpdateQuery(data: IchangeStarsFilmRouterQuery, user: IUser) {
     return `

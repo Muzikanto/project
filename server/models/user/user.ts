@@ -1,7 +1,7 @@
-import {HttpError} from "../base";
-import {encriptString} from "../../crypto";
-import {IUser} from "../../../../src/reducers/User/User.typings";
-import {psqlPromise} from "../utils";
+import HttpError from "../../error";
+import {decriptString, encriptString} from "../utils/crypto";
+import {IUser} from "../../../src/reducers/User/User.typings";
+import {psqlPromise} from "../utils/promise";
 
 export function UserRegister(nick: string, email: string, password: string) {
     return new Promise(async (resolve: (user: IUser) => void, reject: (err: HttpError) => void) => {
@@ -37,7 +37,7 @@ export function UserAuthorize(email: string, password: string) {
             } else {
                 const user = rows[0] as IUser & { hashed_password: string };
 
-                if (user.hashed_password !== encriptString(password)) {
+                if (decriptString(user.hashed_password) !== password) {
                     reject(new HttpError('Пароль неверен'));
                 } else {
                     resolve({

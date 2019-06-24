@@ -1,6 +1,6 @@
-import {HttpError} from "../base";
-import {IFilm} from "../../../../src/reducers/Films/Films.typings";
-import {psqlPromise} from "../utils";
+import HttpError from "../../error";
+import {IFilm} from "../../../src/reducers/Films/Films.typings";
+import {psqlPromise} from "../utils/promise";
 
 function getUpdateQuery() {
     return `
