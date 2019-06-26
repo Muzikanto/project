@@ -1,7 +1,7 @@
 import {IReducerAction} from "../typings";
 import Chess from "../../pages/ChessPage/ChessPage.components/Chess/Chess";
 import {IChessOptions} from "./Chess.typings";
-import socket from "../socket";
+import socket from "../../socket";
 import {actionsChessTypes} from "./Chess.actions";
 
 const initialState: IChessOptions = {

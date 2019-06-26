@@ -4,13 +4,13 @@ import {actionUserSetProps} from "./actions";
 import {actionShowSnackBarErrorProps, actionShowSnackBarWarningProps} from "../../Other/Other.actions/actions";
 import {actionCommonShowProgressProps} from "../../Other/Other.actions/actions";
 import {historyState} from "../../../history";
-import {IloginRouterQuery, IloginRouterResponse} from "../../../../server/routes/authorize/login";
-import {IregisterRouterQuery, IregisterRouterResponse} from "../../../../server/routes/authorize/register";
+import {IloginRouterQuery, IloginRouterResponse} from "../../../../server/routes/auth/login";
+import {IregisterRouterQuery, IregisterRouterResponse} from "../../../../server/routes/auth/register";
 
 export const actionDropSession = (drop: boolean) => async (dispatch: Dispatch) => {
     dispatch(actionCommonShowProgressProps(true));
     try {
-        await postFetch('/api/logout');
+        await postFetch('/auth/logout');
 
         dispatch(actionUserSetProps({user: null}));
     } catch (err) {
@@ -22,7 +22,7 @@ export const actionDropSession = (drop: boolean) => async (dispatch: Dispatch) =
 export const actionAuthorize = (params: IloginRouterQuery) => async (dispatch: Dispatch) => {
     dispatch(actionCommonShowProgressProps(true));
     try {
-        const {response, status, message} = await postFetch<IloginRouterQuery, IloginRouterResponse>('/api/authorize', params);
+        const {response, status, message} = await postFetch<IloginRouterQuery, IloginRouterResponse>('/auth/local', params);
 
         if (status === 200) {
             dispatch(actionUserSetProps({user: response}));
@@ -39,7 +39,7 @@ export const actionAuthorize = (params: IloginRouterQuery) => async (dispatch: D
 export const actionRegister = (params: IregisterRouterQuery) => async (dispatch: Dispatch) => {
     dispatch(actionCommonShowProgressProps(true));
     try {
-        const {response, status, message} = await postFetch<IregisterRouterQuery, IregisterRouterResponse>('/api/register', params);
+        const {response, status, message} = await postFetch<IregisterRouterQuery, IregisterRouterResponse>('/auth/register', params);
 
         if (status === 200) {
             dispatch(actionUserSetProps({user: response}));

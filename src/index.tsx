@@ -7,7 +7,7 @@ import {applyMiddleware, createStore} from 'redux';
 import {register} from './registerServiceWorker';
 import reducers from "./reducers";
 import App from "./pages/.App/App";
-import socket from "./reducers/socket";
+import socket from "./socket";
 import {Router} from 'react-router';
 import {historyState} from "./history";
 import {actionsChesSocketToDispatchesTypes} from "./reducers/Chess/Chess.actions";

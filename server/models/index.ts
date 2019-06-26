@@ -1,7 +1,7 @@
 import {Pool} from "pg";
 
 const pool = new Pool({
-    connectionString: process.env.PSQL,
+    connectionString: process.env.POSTGRESQL_SSH,
     ssl: true
 });
 
@@ -59,6 +59,8 @@ function getQuery() {
             CONSTRAINT unique_film_user UNIQUE (film_id,user_id)
         );
     `;
+
+    // const add = 'alter table users add column google_id varchar(30);';
 
     return session + users + films + films_genres + user_films;
 }

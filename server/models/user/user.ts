@@ -6,7 +6,7 @@ import {psqlPromise} from "../utils/promise";
 function Create(nick: string, email: string, password: string) {
     return new Promise(async (resolve: (user: IUser) => void, reject: (err: HttpError) => void) => {
         try {
-            await psqlPromise(`insert into users (nick, email, hashed_password, salt) values ('${nick}', '${email}', '${encriptString(password)}', 'n');`);
+            await psqlPromise(`insert into users (nick,email,hashed_password,salt) values ('${nick}', '${email}', '${encriptString(password)}','n');`);
 
             const {rows} = await psqlPromise(`select * from users where email = '${email}'`);
 
@@ -53,10 +53,10 @@ function Auth(email: string, password: string) {
     });
 }
 
-function Find(id: string) {
+function Find(value: string, column: 'id' | 'email' = 'id') {
     return new Promise(async (resolve: (user: IUser) => void, reject: (err?: HttpError) => void) => {
         try {
-            const {rows} = await psqlPromise(`select * from users where id = '${id}'`);
+            const {rows} = await psqlPromise(`select * from users where ${column} = '${value}'`);
 
             if (rows.length > 0) {
                 resolve(rows[0]);
@@ -64,6 +64,7 @@ function Find(id: string) {
                 reject(new HttpError('Пользователь не существует'));
             }
         } catch (err) {
+            console.log(err);
             reject(new HttpError('Error UserFindById', err.status));
         }
     });

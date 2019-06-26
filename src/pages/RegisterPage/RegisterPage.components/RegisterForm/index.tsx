@@ -35,7 +35,7 @@ class RegisterForm extends React.Component<IRegisterFormContainerProps> {
         )
     }
 
-    onSubmit = (e: FormEvent) => {
+    protected onSubmit = (e: FormEvent) => {
         e.preventDefault();
         const nick = this.refNick.current;
         const email = this.refEmail.current;

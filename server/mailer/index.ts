@@ -5,18 +5,18 @@ const transporter = nodemailer.createTransport({
     "service": "gmail",
     "auth": {
         "type": "OAuth2",
-        "user": process.env.GMAIL_USER,
-        "clientId": process.env.GMAIL_CLIENT_ID,
-        "clientSecret": process.env.GMAIL_CLIENT_SECKRET,
-        "refreshToken": process.env.GMAIL_REFRESH_TOKEN,
-        "accessToken": process.env.GMAIL_ACESS_TOKEN,
+        "user": process.env.GOOGLE_USER,
+        "clientId": process.env.GOOGLE_CLIENT_ID,
+        "clientSecret": process.env.GOOGLE_CLIENT_SECKRET,
+        "refreshToken": process.env.GOOGLE_REFRESH_TOKEN,
+        "accessToken": process.env.GOOGLE_ACESS_TOKEN,
     }
 });
 
 export function sendMail(users: string[] | string, templateName: ITemplates, data: any) {
     return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         const mailOptions = {
-            from: `Muzikanto <${process.env.GMAIL_USER}>`,
+            from: `Muzikanto <${process.env.GOOGLE_USER}>`,
             to: users.toString(),
             subject: "Kipu Message",
             html: templates[templateName](data)

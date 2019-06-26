@@ -40,13 +40,20 @@ class RegisterForm extends React.Component<IRegisterFormProps> {
                         className: cnRegisterForm('Item')
                     }}
                 />
-                <div
-                    onClick={this.props.onSubmit}
-                    className={cnRegisterForm('Btn')}
-                >
-                    <Button variant="contained" size="large" color="primary">
-                        Sign Up
+                <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+                    <Button variant="contained" size="large" color="primary" href={'/auth/google'}>
+                        Google
                     </Button>
+                    <Button variant="contained" size="large" color="primary" href={'/auth/vkontakte'}>
+                        VK
+                    </Button>
+                    <div
+                        onClick={this.props.onSubmit}
+                    >
+                        <Button variant="contained" size="large" color="primary">
+                            Create
+                        </Button>
+                    </div>
                 </div>
             </form>
         )

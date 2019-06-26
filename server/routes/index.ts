@@ -1,7 +1,7 @@
 import {Router} from "express-serve-static-core";
-import {loginRouter} from "./authorize/login";
-import {logoutRouter} from "./authorize/logout";
-import {registerRouter} from "./authorize/register";
+import {loginRouter} from "./auth/login";
+import {logoutRouter} from "./auth/logout";
+import {registerRouter} from "./auth/register";
 import {sendFileRouter} from "./files/files_send";
 import {getPublicFilesListRouter} from "./files/files_list";
 import {loadFileRouter} from "./files/files_load";
@@ -15,14 +15,24 @@ import {changeFilmStarsRouter} from "./Films/setStar";
 import {favoriteFilmRouter} from "./Films/setFavorite";
 import {selectSingleFilmRouter} from "./Films/selectSingle";
 import * as passport from "passport";
+import {googleAuthRouter} from "./auth/google";
+import {googleAuthCallbackRouter} from "./auth/google_cb";
+import {vkontakteAuthRouter} from "./auth/vkontakte_auth";
+import {vkontakteAuthCallbackRouter} from "./auth/vkontakte_auth_cb";
 
 export default function apiRoutes(router: Router): Router {
     router.get(['/', ...AppRouters.map(el => el.url), '/index.html'], renderWithApp(App));
 
     /* User */
-    router.post('/api/authorize', loginRouter);
-    router.post('/api/logout', logoutRouter);
-    router.post('/api/register', registerRouter);
+    router.post('/auth/local', loginRouter);
+    router.post('/auth/logout', logoutRouter);
+    router.post('/auth/register', registerRouter);
+
+    router.get('/auth/google', googleAuthRouter);
+    router.get('/auth/google/callback', googleAuthCallbackRouter);
+
+    router.get('/auth/vkontakte', vkontakteAuthRouter);
+    router.get('/auth/vkontakte/callback', vkontakteAuthCallbackRouter);
 
     /* Resources */
     router.post('/api/data/image', loadFileRouter);

@@ -1,7 +1,7 @@
 import * as io from 'socket.io-client';
 import {ISocketOptions} from "./socket.typings";
 
-const host = process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'localhost:3000';
+const host = process.env.NODE_ENV === 'development' ? `localhost:${process.env.PORT}`: process.env.HOSTNAME || 'NEED .env.HOSTNAME';
 const socket: ISocketOptions = io(host, {
     reconnection: false,
     transports: ['websocket']
