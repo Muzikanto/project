@@ -6,15 +6,14 @@ import {IHandshake, ISocket} from "./socket.typings";
 
 const cookie = require('cookie');
 const async = require('async');
-const config = require('../../config.json');
 const cookieParser = require('cookie-parser');
 
 export function socketCheckAuth(handshake: IHandshake, mainCallback: (e: Event | Error | null, check?: boolean) => void) {
     async.waterfall([
         function (callback: (e: Event | null) => void) {
             handshake.cookies = cookie.parse(handshake.headers.cookie || '');
-            const sidCookie = handshake.cookies[config.session.key];
-            const sid = cookieParser.signedCookie(sidCookie, config.session.secret);
+            const sidCookie = handshake.cookies[process.env.SESSION_COOKIE_KEY || 'key'];
+            const sid = cookieParser.signedCookie(sidCookie, process.env.SESSION_COOKIE_SECRET);
             loadSession(sid, callback);
         },
         function (session: ISession, callback: (e: Event | Error | null) => void) {

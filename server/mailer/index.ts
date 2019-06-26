@@ -1,14 +1,22 @@
 import * as nodemailer from 'nodemailer';
 import HttpError from "../error";
 
-const config = require('../../config.json');
-
-const transporter = nodemailer.createTransport(config.mailer);
+const transporter = nodemailer.createTransport({
+    "service": "gmail",
+    "auth": {
+        "type": "OAuth2",
+        "user": process.env.GMAIL_USER,
+        "clientId": process.env.GMAIL_CLIENT_ID,
+        "clientSecret": process.env.GMAIL_CLIENT_SECKRET,
+        "refreshToken": process.env.GMAIL_REFRESH_TOKEN,
+        "accessToken": process.env.GMAIL_ACESS_TOKEN,
+    }
+});
 
 export function sendMail(users: string[] | string, templateName: ITemplates, data: any) {
     return new Promise(async (resolve: () => void, reject: (err: HttpError) => void) => {
         const mailOptions = {
-            from: `Muzikanto <${config.mailer.auth.user}>`,
+            from: `Muzikanto <${process.env.GMAIL_USER}>`,
             to: users.toString(),
             subject: "Kipu Message",
             html: templates[templateName](data)
@@ -29,11 +37,11 @@ type ITemplates = "auth" | "message" | 'reset_pass';
 const templates: { [key: string]: (data: { [key: string]: any }) => string } = {
     auth: ({email, token, name, id}: any) => {
         console.log(`/user/action?id=${id}&email=${email}&token=${token}&action=activate_email`);
-        return renderMessage(`${config.host}/action?id=${id}&email=${email}&token=${token}&action=activate_email`, 'Подтвердить email', `Пользователь ${name}`);
+        return renderMessage(`${process.env.SENDMAIL_HOST}/action?id=${id}&email=${email}&token=${token}&action=activate_email`, 'Подтвердить email', `Пользователь ${name}`);
     },
     reset_pass: ({email, token, name}: any) => {
         console.log(`/user/action?email=${email}&token=${token}&action=reset_pass_new`);
-        return renderMessage(`${config.host}/action?email=${email}&token=${token}&action=reset_pass_new`, 'Сменить пароль', `Пользователь ${name}`);
+        return renderMessage(`${process.env.SENDMAIL_HOST}/action?email=${email}&token=${token}&action=reset_pass_new`, 'Сменить пароль', `Пользователь ${name}`);
 
     },
     message: (_: any) => `<b>Hello world?</b>`

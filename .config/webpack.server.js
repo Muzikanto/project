@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const TSLintPlugin = require('tslint-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+const env = require('dotenv').config().parsed;
 const mode = process.env.NODE_ENV;
 const isDev = mode === 'development';
 const hotResolve = 'webpack/hot/poll?1000';
@@ -47,7 +48,10 @@ const plugins = [
     new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-            PORT: JSON.stringify(process.env.PORT)
+            ...Object.keys(env).reduce((acc, key)=>{
+                acc[key] = JSON.stringify(env[key]);
+                return acc;
+            }, {}),
         }
     }),
     new webpack.LoaderOptionsPlugin({

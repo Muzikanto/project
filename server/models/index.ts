@@ -1,8 +1,7 @@
 import {Pool} from "pg";
 
-const config = require('../../config.json');
 const pool = new Pool({
-    connectionString: config.postgresSqlUrl,
+    connectionString: process.env.PSQL,
     ssl: true
 });
 

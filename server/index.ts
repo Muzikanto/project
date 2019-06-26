@@ -18,12 +18,15 @@ function createCluster(process: Process) {
     if (isDev) {
         run(port);
 
-        module.hot && module.hot.accept('../src/pages/.App/App.routers.ts', () => {
+        module.hot && module.hot.accept('./createApp.ts', () => {
             run(port);
         });
 
+        const _port = process.env.PORT;
+        process.env.PORT = process.env.PROXY || '3001';
         process.argv.push('--config-overrides', './.config/webpack.client.js');
         require('react-app-rewired/scripts/start');
+        process.env.PORT = _port;
     } else {
         if (cluster.isMaster) {
             console.error(`Node cluster master ${process.pid} is running`);

@@ -2,7 +2,6 @@ import {pool} from "../models";
 
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
-const config = require('../../config.json');
 
 const sessionStore = new pgSession({
     pool,
@@ -11,8 +10,8 @@ const sessionStore = new pgSession({
 
 export default session({
     store: sessionStore,
-    secret: config.session.secret,
-    key: config.session.key,
+    secret: process.env.SESSION_COOKIE_SECRET,
+    key: process.env.SESSION_COOKIE_KEY,
     resave: false,
-    cookie: {maxAge: config.session.cookie.maxAge} // 30 days
+    cookie: {maxAge: process.env.SESSION_MAX_AGE} // 603600000 -> 30 days
 });

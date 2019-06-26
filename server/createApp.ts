@@ -34,7 +34,7 @@ async function createApp(port: number | string): Promise<Server> {
     if (isDev) {
         app.use(morgan('dev'));
         const webpackDevServerProxy = require('http-proxy-middleware')({
-            target: 'http://localhost:3001',
+            target: `http://localhost:${process.env.PROXY}`,
             changeOrigin: true,
             ws: true
         });

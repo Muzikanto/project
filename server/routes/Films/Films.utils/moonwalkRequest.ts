@@ -1,4 +1,3 @@
-import * as config from "../../../../config.json";
 import HttpError from "../../../error";
 
 const request = require('request');
@@ -53,7 +52,7 @@ interface IMoonWalkFilm {
 
 function moonRequest(id: string): Promise<IMoonWalkFilm> {
     return new Promise((resolve: (data: IMoonWalkFilm) => void, reject: (err: HttpError) => void) => {
-            request(`http://moonwalk.cc/api/videos.json?kinopoisk_id=${id}&api_token=${config.moonwalk_token}`, function (error: Error, response: any, body: string) {
+            request(`http://moonwalk.cc/api/videos.json?kinopoisk_id=${id}&api_token=${process.env.MOONWALK_TOKEN}`, function (error: Error, response: any, body: string) {
                 if (error) {
                     reject(new HttpError('Err load film', 500));
                 } else {
