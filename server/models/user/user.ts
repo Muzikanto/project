@@ -3,7 +3,7 @@ import {decriptString, encriptString} from "../utils/crypto";
 import {IUser} from "../../../src/reducers/User/User.typings";
 import {psqlPromise} from "../utils/promise";
 
-export function UserRegister(nick: string, email: string, password: string) {
+function Create(nick: string, email: string, password: string) {
     return new Promise(async (resolve: (user: IUser) => void, reject: (err: HttpError) => void) => {
         try {
             await psqlPromise(`insert into users (nick, email, hashed_password, salt) values ('${nick}', '${email}', '${encriptString(password)}', 'n');`);
@@ -27,7 +27,7 @@ export function UserRegister(nick: string, email: string, password: string) {
     });
 }
 
-export function UserAuthorize(email: string, password: string) {
+function Auth(email: string, password: string) {
     return new Promise(async (resolve: (user: IUser) => void, reject: (err: HttpError) => void) => {
         try {
             const {rows} = await psqlPromise(`select * from users where email = '${email}'`);
@@ -53,7 +53,7 @@ export function UserAuthorize(email: string, password: string) {
     });
 }
 
-export function UserFindById(id: number) {
+function Find(id: string) {
     return new Promise(async (resolve: (user: IUser) => void, reject: (err?: HttpError) => void) => {
         try {
             const {rows} = await psqlPromise(`select * from users where id = '${id}'`);
@@ -68,3 +68,11 @@ export function UserFindById(id: number) {
         }
     });
 }
+
+const User = {
+    Create,
+    Auth,
+    Find,
+};
+
+export default User;

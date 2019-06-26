@@ -5,16 +5,19 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import {preloadAll} from 'react-loadable';
-import sessionStore from "./lib/sessionStore";
-import loadUser from "./middleware/loadUser";
 import {connectSocket} from "./socket";
 import {createServer} from "http"
 import apiRoutes from "./routes";
 import {Server} from "http"
 import sendResponse from "./middleware/sendResponse";
+import {session} from "./lib/session";
+import * as passport from "passport";
+import {connectStrategy} from "./lib/passport";
 
 const isDev = process.env.NODE_ENV === 'development';
 const staticStorage = join(__dirname, '..', '..', 'build');
+
+connectStrategy(passport);
 
 async function createApp(port: number | string): Promise<Server> {
     let server: Server;
@@ -45,8 +48,9 @@ async function createApp(port: number | string): Promise<Server> {
         app.use(express.static(staticStorage));
     }
 
-    app.use(sessionStore);
-    app.use(loadUser);
+    app.use(session);
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use(sendResponse);
 

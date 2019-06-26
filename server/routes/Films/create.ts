@@ -1,6 +1,6 @@
 import * as express from 'express';
 import {Application} from "express";
-import {CreateFilm} from "../../models/films/create";
+import Film from "../../models/films";
 import {IFilm, IFilmToCreate} from "../../../src/reducers/Films/Films.typings";
 import {IRequest, IResponse} from "../typings";
 
@@ -11,7 +11,7 @@ export const createFilmRouter = (async (req: IRequest, res: IResponse, _: expres
     const body = req.body as IcreateFilmRouterQuery;
 
     try {
-        const response = await CreateFilm(body);
+        const response = await Film.Create(body);
 
         res.sendResponse<IcreateFilmRouterResponse>({status: 200, message: 'Success Create Film', response});
     } catch (err) {

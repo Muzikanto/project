@@ -1,6 +1,6 @@
 import HttpError from "../../error";
 import {psqlPromise} from "../utils/promise";
-import {IchangeStarsFilmRouterQuery} from "../../routes/Films/changeStars";
+import {IchangeStarsFilmRouterQuery} from "../../routes/Films/setStar";
 import {IUser} from "../../../src/reducers/User/User.typings";
 
 function getUpdateQuery(data: IchangeStarsFilmRouterQuery, user: IUser) {

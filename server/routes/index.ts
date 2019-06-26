@@ -11,9 +11,10 @@ import AppRouters from "../../src/pages/.App/App.routers";
 import {selectFilmsRouter} from "./Films/select";
 import {createFilmRouter} from "./Films/create";
 import {changeFilmRouter} from "./Films/change";
-import {changeFilmStarsRouter} from "./Films/changeStars";
-import {favoriteFilmRouter} from "./Films/favorite";
+import {changeFilmStarsRouter} from "./Films/setStar";
+import {favoriteFilmRouter} from "./Films/setFavorite";
 import {selectSingleFilmRouter} from "./Films/selectSingle";
+import * as passport from "passport";
 
 export default function apiRoutes(router: Router): Router {
     router.get(['/', ...AppRouters.map(el => el.url), '/index.html'], renderWithApp(App));

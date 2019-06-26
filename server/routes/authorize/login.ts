@@ -1,9 +1,9 @@
 import * as express from 'express';
-import {UserAuthorize} from "../../models/user/user";
 import {IRequest, IResponse} from "../typings";
 import {Application} from "express";
 import {IUser} from "../../../src/reducers/User/User.typings";
-import {IregisterRouterResponse} from "./register";
+import HttpError from "../../error";
+import * as passport from "passport";
 
 export interface IloginRouterQuery {
     email: string;
@@ -12,15 +12,21 @@ export interface IloginRouterQuery {
 
 export type IloginRouterResponse = IUser;
 
-export const loginRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
-    const {password, email} = req.body as IloginRouterQuery;
+export const loginRouter = ((req: IRequest, res: IResponse, next: express.NextFunction) => {
+    passport.authenticate('local', function (err: HttpError, user: IUser, info: string) {
+        if (err) {
+            return res.sendResponse(err);
+        }
 
-    try {
-        const user = await UserAuthorize(email, password);
+        if (!user) {
+            return res.sendResponse({status: 403, message: 'Not Found User'});
+        }
 
-        req.session.user = user;
-        res.sendResponse<IregisterRouterResponse>( {status: 200, message: 'Success Authorize', response: user});
-    } catch (err) {
-        res.sendResponse(err);
-    }
+        req.login(user, (err2: HttpError) => {
+            if (err2) {
+                return res.sendResponse(err2);
+            }
+            return  res.sendResponse<IloginRouterResponse>( {status: 200, message: 'Success Authorize', response: user});
+        });
+    })(req, res, next);
 }) as Application;

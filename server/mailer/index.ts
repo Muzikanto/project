@@ -37,11 +37,11 @@ type ITemplates = "auth" | "message" | 'reset_pass';
 const templates: { [key: string]: (data: { [key: string]: any }) => string } = {
     auth: ({email, token, name, id}: any) => {
         console.log(`/user/action?id=${id}&email=${email}&token=${token}&action=activate_email`);
-        return renderMessage(`${process.env.SENDMAIL_HOST}/action?id=${id}&email=${email}&token=${token}&action=activate_email`, 'Подтвердить email', `Пользователь ${name}`);
+        return renderMessage(`${process.env.HOSTNAME}/action?id=${id}&email=${email}&token=${token}&action=activate_email`, 'Подтвердить email', `Пользователь ${name}`);
     },
     reset_pass: ({email, token, name}: any) => {
         console.log(`/user/action?email=${email}&token=${token}&action=reset_pass_new`);
-        return renderMessage(`${process.env.SENDMAIL_HOST}/action?email=${email}&token=${token}&action=reset_pass_new`, 'Сменить пароль', `Пользователь ${name}`);
+        return renderMessage(`${process.env.HOSTNAME}/action?email=${email}&token=${token}&action=reset_pass_new`, 'Сменить пароль', `Пользователь ${name}`);
 
     },
     message: (_: any) => `<b>Hello world?</b>`

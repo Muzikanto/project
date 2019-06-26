@@ -1,7 +1,7 @@
 import HttpError from "../../error";
 import {psqlPromise} from "../utils/promise";
 import {IUser} from "../../../src/reducers/User/User.typings";
-import {IfavoriteFilmRouterQuery} from "../../routes/Films/favorite";
+import {IfavoriteFilmRouterQuery} from "../../routes/Films/setFavorite";
 
 function getUpdateQuery(data: IfavoriteFilmRouterQuery, user: IUser) {
     return `

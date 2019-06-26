@@ -2,7 +2,7 @@ import * as express from 'express';
 import {ISendData} from "../middleware/sendResponse";
 
 export interface IUserSession {
-    id: number;
+    id: string;
     email: string;
     nick: string;
 }

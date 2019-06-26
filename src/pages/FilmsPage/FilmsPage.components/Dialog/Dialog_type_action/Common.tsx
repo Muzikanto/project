@@ -74,7 +74,7 @@ class CommonDialogFilm extends React.Component<ICommonDialogActionProps> {
                 </div>
                 <div>
                     <Thumb
-                        user={{id: 0, email: '', nick: 'Nick'}}
+                        user={{id: '0', email: '', nick: 'Nick'}}
                         menuItems={[]}
                         onContentClick={() => {}}
                         onStarClick={() => {}}

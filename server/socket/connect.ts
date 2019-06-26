@@ -1,8 +1,8 @@
 import HttpError from "../error";
-import {UserFindById} from "../models/user/user";
 import {LoadSession} from "../models/session/session";
 import {ISession, IUserSession} from "../routes/typings";
 import {IHandshake, ISocket} from "./socket.typings";
+import User from "../models/user/user";
 
 const cookie = require('cookie');
 const async = require('async');
@@ -76,7 +76,7 @@ function loadUser(session: ISession, callback: (e: Event | Error | null, user?: 
         callback(null, null);
     }
     else {
-        UserFindById(session.user.id)
+        User.Find(session.user.id)
             .then((user: IUserSession) => {
                 callback(null, user);
             })
