@@ -18,7 +18,7 @@ export const registerRouter = (async (req: IRequest, res: IResponse, _: express.
     const {nick, email, password, password2} = req.body as IregisterRouterQuery;
 
     try {
-        const user = await User.Create(nick, email, password);
+        const user = await User.Create({nick, email, password});
 
         passport.authenticate('local')(req, res, () => {
             req.session.save((err) => {

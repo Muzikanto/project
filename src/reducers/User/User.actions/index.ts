@@ -4,7 +4,7 @@ import {actionUserSetProps} from "./actions";
 import {actionShowSnackBarErrorProps, actionShowSnackBarWarningProps} from "../../Other/Other.actions/actions";
 import {actionCommonShowProgressProps} from "../../Other/Other.actions/actions";
 import {historyState} from "../../../history";
-import {IloginRouterQuery, IloginRouterResponse} from "../../../../server/routes/auth/login";
+import {IloginRouterQuery, IloginRouterResponse} from "../../../../server/routes/auth/local_auth";
 import {IregisterRouterQuery, IregisterRouterResponse} from "../../../../server/routes/auth/register";
 
 export const actionDropSession = (drop: boolean) => async (dispatch: Dispatch) => {
@@ -23,7 +23,7 @@ export const actionAuthorize = (params: IloginRouterQuery) => async (dispatch: D
     dispatch(actionCommonShowProgressProps(true));
     try {
         const {response, status, message} = await postFetch<IloginRouterQuery, IloginRouterResponse>('/auth/local', params);
-
+        console.log(response, status, message)
         if (status === 200) {
             dispatch(actionUserSetProps({user: response}));
             historyState.replace('/');

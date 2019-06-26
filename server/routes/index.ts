@@ -1,7 +1,4 @@
 import {Router} from "express-serve-static-core";
-import {loginRouter} from "./auth/login";
-import {logoutRouter} from "./auth/logout";
-import {registerRouter} from "./auth/register";
 import {sendFileRouter} from "./files/files_send";
 import {getPublicFilesListRouter} from "./files/files_list";
 import {loadFileRouter} from "./files/files_load";
@@ -14,17 +11,21 @@ import {changeFilmRouter} from "./Films/change";
 import {changeFilmStarsRouter} from "./Films/setStar";
 import {favoriteFilmRouter} from "./Films/setFavorite";
 import {selectSingleFilmRouter} from "./Films/selectSingle";
-import * as passport from "passport";
-import {googleAuthRouter} from "./auth/google";
-import {googleAuthCallbackRouter} from "./auth/google_cb";
+import {localAuthRouter} from "./auth/local_auth";
+import {logoutRouter} from "./auth/logout";
+import {registerRouter} from "./auth/register";
+import {googleAuthRouter} from "./auth/google_auth";
+import {googleAuthCallbackRouter} from "./auth/google_auth_cb";
 import {vkontakteAuthRouter} from "./auth/vkontakte_auth";
 import {vkontakteAuthCallbackRouter} from "./auth/vkontakte_auth_cb";
+import {yandexAuthRouter} from "./auth/yandex_auth";
+import {yandexeAuthCallbackRouter} from "./auth/yandex_auth_cb";
 
 export default function apiRoutes(router: Router): Router {
     router.get(['/', ...AppRouters.map(el => el.url), '/index.html'], renderWithApp(App));
 
     /* User */
-    router.post('/auth/local', loginRouter);
+    router.post('/auth/local', localAuthRouter);
     router.post('/auth/logout', logoutRouter);
     router.post('/auth/register', registerRouter);
 
@@ -33,6 +34,9 @@ export default function apiRoutes(router: Router): Router {
 
     router.get('/auth/vkontakte', vkontakteAuthRouter);
     router.get('/auth/vkontakte/callback', vkontakteAuthCallbackRouter);
+
+    router.get('/auth/yandex', yandexAuthRouter);
+    router.get('/auth/yandex/callback', yandexeAuthCallbackRouter);
 
     /* Resources */
     router.post('/api/data/image', loadFileRouter);

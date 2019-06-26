@@ -4,14 +4,14 @@ import * as express from "express";
 import {Application} from "express";
 import HttpError from "../../error";
 
-export const vkontakteAuthCallbackRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
-    passport.authenticate('vkontakte', {
+export const googleAuthCallbackRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
+    passport.authenticate('google', {
         successRedirect: '/',
         failureRedirect: '/register'
     })(req, res, () => {
         req.session.save((err: HttpError) => {
             if (err) {
-                return res.redirect('/register');
+                return res.sendResponse(err);
             }
             res.redirect('/');
         });

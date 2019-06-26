@@ -63,3 +63,5 @@ Point your browser to [http://localhost:3000/](http://localhost:3000/).
 - Починить NavBar
 - Разобрать src/reducers/Films/Films.actions/promise.ts
 
+## Icons 
+- [Icons](https://iconmonstr.com)

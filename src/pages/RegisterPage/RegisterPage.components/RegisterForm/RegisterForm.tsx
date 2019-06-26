@@ -5,6 +5,10 @@ import Input from "../../../../components/Input/Input";
 import InputShow from "../../../../components/Input/Input_show/InputShow";
 import {IRegisterFormProps} from "./RegisterForm.typings";
 import './RegisterForm.css';
+import GoogleIcon from "../../../../components/Icons/GoogleIcon";
+import VkIcon from "../../../../components/Icons/VkIcon";
+import SvgIcon from "@material-ui/core/SvgIcon";
+import YandexIcon from "../../../../components/Icons/YandexIcon";
 
 const cnRegisterForm = cn('RegisterForm');
 
@@ -42,10 +46,13 @@ class RegisterForm extends React.Component<IRegisterFormProps> {
                 />
                 <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
                     <Button variant="contained" size="large" color="primary" href={'/auth/google'}>
-                        Google
+                        <GoogleIcon/>
                     </Button>
                     <Button variant="contained" size="large" color="primary" href={'/auth/vkontakte'}>
-                        VK
+                        <VkIcon/>
+                    </Button>
+                    <Button variant="contained" size="large" color="primary" href={'/auth/yandex'}>
+                        <YandexIcon/>
                     </Button>
                     <div
                         onClick={this.props.onSubmit}

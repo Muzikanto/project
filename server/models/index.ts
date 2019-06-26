@@ -41,8 +41,8 @@ function getQuery() {
             id SERIAL PRIMARY KEY,
             nick varchar(50) NOT NULL,
             email varchar(30) NOT NULL UNIQUE,
-            hashed_password varchar(50) NOT NULL,
-            salt varchar(50) NOT NULL,
+            hashed_password varchar(30) NOT NULL,
+            salt varchar(15) NOT NULL,
             created timestamp DEFAULT CURRENT_TIMESTAMP
         );
     `;

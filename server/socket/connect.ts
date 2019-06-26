@@ -76,7 +76,7 @@ function loadUser(session: ISession, callback: (e: Event | Error | null, user?: 
         callback(null, null);
     }
     else {
-        User.Find(session.user.id)
+        User.Find({value: session.user.id})
             .then((user: IUserSession) => {
                 callback(null, user);
             })
