@@ -2,7 +2,7 @@ import Avatar from "@material-ui/core/Avatar";
 import * as React from "react";
 import {IThumbHeaderProps} from "./Thumb-Header.typings";
 import ThumbMenu from "../Thumb-Menu/Thumb-Menu";
-import {parseDate} from "../../../../utils/parseDate";
+import {parseDate} from "../../../../src.utils/parseDate";
 import {Tooltip, CardHeader} from "@material-ui/core";
 
 class ThumbHeader extends React.Component<IThumbHeaderProps> {

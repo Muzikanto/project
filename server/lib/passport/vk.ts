@@ -1,6 +1,6 @@
 import HttpError from "../../error";
 import {IUser} from "../../../src/reducers/User/User.typings";
-import User from "../../models/user/user";
+import User from "../../models/User/user";
 import {IStrategyType} from "./index";
 
 const isDev = process.env.NODE_ENV === 'development';

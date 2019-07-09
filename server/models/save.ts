@@ -1,5 +1,5 @@
-import JSONReader from "../utils/Reader/_json/JSONReader";
-import {CreateFilm} from "./films/create";
+import JSONReader from "../server.utils/Reader/_json/JSONReader";
+import {CreateFilm} from "./Film/create";
 import moonRequest from "../routes/Films/Films.utils/moonwalkRequest";
 
 const filmReader = new JSONReader({pathToData: ''});

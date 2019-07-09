@@ -3,12 +3,10 @@ import {Application} from "express";
 import moonRequest from "./Films.utils/moonwalkRequest";
 import {IFilmData} from "../../../src/reducers/Films/Films.typings";
 import {IRequest, IResponse} from "../typings";
-
-export interface IselectFilmRouterQuery {}
-
-export type IselectFilmRouserResponse = IFilmData;
+import {IselectFilmRouserResponse, IselectFilmRouterQuery} from "./Films.typings";
 
 export const selectSingleFilmRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
+    const query = req.query as IselectFilmRouterQuery;
     const {id} = req.params;
 
     try {

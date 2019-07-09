@@ -9,7 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import DatePicker from "../../../../../components/DatePicker/DatePicker";
 import {getGenres} from "../../../FilmsPage.strings/genres";
 import {ICommonDialogActionProps} from "./Dialog_type_action.typings";
-import {dateToSqlFormat} from "../../../../../utils/parseDate";
+import {dateToSqlFormat} from "../../../../../src.utils/parseDate";
 import './Dialog_action.css';
 
 const cnDialog = cn('DialogAddFilm');

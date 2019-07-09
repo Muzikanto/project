@@ -1,6 +1,6 @@
 import {IUser} from "../../../src/reducers/User/User.typings";
 import HttpError from "../../error";
-import User from "../../models/user/user";
+import User from "../../models/User/user";
 import googleStrategy from "./google";
 import {PassportStatic} from "passport";
 import vkStrategy from "./vk";

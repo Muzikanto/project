@@ -1,5 +1,5 @@
 import {IUserSession} from "../../routes/typings";
-import {psqlPromise} from "../utils/promise";
+import {psqlPromise} from "../models.utils/promise";
 
 export function LoadSession(sid: string) {
     return new Promise(async (resolve: (user: IUserSession | null) => void) => {

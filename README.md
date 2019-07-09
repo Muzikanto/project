@@ -10,20 +10,12 @@
 - [Redux](https://github.com/reduxjs/redux) a predictable state container for JavaScript apps.
 - [Socket IO](https://github.com/socketio/socket.io) featuring the fastest and most reliable real-time engine
 - [Bem](https://github.com/bem/bem-react) classname, di, core
-
-## For React
-- [bit](https://github.com/teambit/bit) Components
-- [toolbox](https://github.com/react-toolbox/react-toolbox) Components
-- [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap) Components
 - [material-ui](https://github.com/mui-org/material-ui) Components
+- [material-ui](https://material-ui.com/guides/server-rendering/) Server Render
+- [moonwalk](http://docs.moonwalk.cc/docs/api-docs) films player
+
+## Other
 - [storybook](https://github.com/storybooks/storybook) Helper for components
-- [material-ui-pickers](https://material-ui-pickers-v2.dmtr-kovalenko.now.sh/api/datepicker) Date and Time Pickers
-
-## Material-ui
-- server-rendering [docs](https://material-ui.com/guides/server-rendering/)
-
-## Films player
-- [moonwalk](http://docs.moonwalk.cc/docs/api-docs) players
 
 ## Usage
 
@@ -51,13 +43,12 @@ Point your browser to [http://localhost:3000/](http://localhost:3000/).
 ### License [MIT](LICENSE)
 
 ### Поиск в проекте
-- // Need Logic - нужна реализация
-- // Need Refac - нужны изменения
+- TODO need logic
+- TODO need refac
 
 # Идеи
 - Горизонтальный скролл
 - Скролл по жанрам и датам и звёздам
-- Авторизация через вк
 - Таймер до выхода фильма
 - access origin
 - Починить NavBar

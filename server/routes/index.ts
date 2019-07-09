@@ -1,7 +1,7 @@
 import {Router} from "express-serve-static-core";
-import {sendFileRouter} from "./files/files_send";
-import {getPublicFilesListRouter} from "./files/files_list";
-import {loadFileRouter} from "./files/files_load";
+import {sendFileRouter} from "./Files/files_send";
+import {getPublicFilesListRouter} from "./Files/files_list";
+import {loadFileRouter} from "./Files/files_load";
 import {renderWithApp} from "./render";
 import App from "../../src/pages/.App/App";
 import AppRouters from "../../src/pages/.App/App.routers";
@@ -11,19 +11,17 @@ import {changeFilmRouter} from "./Films/change";
 import {changeFilmStarsRouter} from "./Films/setStar";
 import {favoriteFilmRouter} from "./Films/setFavorite";
 import {selectSingleFilmRouter} from "./Films/selectSingle";
-import {localAuthRouter} from "./auth/local_auth";
-import {logoutRouter} from "./auth/logout";
-import {registerRouter} from "./auth/register";
-import {googleAuthRouter} from "./auth/google_auth";
-import {googleAuthCallbackRouter} from "./auth/google_auth_cb";
-import {vkontakteAuthRouter} from "./auth/vkontakte_auth";
-import {vkontakteAuthCallbackRouter} from "./auth/vkontakte_auth_cb";
-import {yandexAuthRouter} from "./auth/yandex_auth";
-import {yandexeAuthCallbackRouter} from "./auth/yandex_auth_cb";
+import {localAuthRouter} from "./Authorize/local_auth";
+import {logoutRouter} from "./Authorize/logout";
+import {registerRouter} from "./Authorize/register";
+import {googleAuthRouter} from "./Authorize/google_auth";
+import {googleAuthCallbackRouter} from "./Authorize/google_auth_cb";
+import {vkontakteAuthRouter} from "./Authorize/vkontakte_auth";
+import {vkontakteAuthCallbackRouter} from "./Authorize/vkontakte_auth_cb";
+import {yandexAuthRouter} from "./Authorize/yandex_auth";
+import {yandexeAuthCallbackRouter} from "./Authorize/yandex_auth_cb";
 
 export default function apiRoutes(router: Router): Router {
-    router.get(['/', ...AppRouters.map(el => el.url), '/index.html'], renderWithApp(App));
-
     /* User */
     router.post('/auth/local', localAuthRouter);
     router.post('/auth/logout', logoutRouter);
@@ -50,6 +48,8 @@ export default function apiRoutes(router: Router): Router {
     router.post('/api/films/change', changeFilmRouter);
     router.post('/api/films/change_star', changeFilmStarsRouter);
     router.post('/api/films/set_favorite', favoriteFilmRouter);
+
+    router.get(['/', ...AppRouters.map(el => el.url), '/index.html'], renderWithApp(App));
 
     return router;
 };

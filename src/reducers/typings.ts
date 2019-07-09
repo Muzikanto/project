@@ -3,7 +3,7 @@ import {IChessOptions} from "./Chess/Chess.typings";
 import {IDialogOptions} from "./Dialog/Dialog.typings";
 import {IFilmsOptions} from "./Films/Films.typings";
 import {IOtherOptions} from "./Other/Other.typings";
-import {IObject} from "../utils/typings";
+import {IObject} from "../src.utils/typings";
 
 export interface IStore {
     DialogReducer: IDialogOptions;

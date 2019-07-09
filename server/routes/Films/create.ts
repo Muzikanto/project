@@ -1,11 +1,11 @@
 import * as express from 'express';
 import {Application} from "express";
-import Film from "../../models/films";
+import Film from "../../models/Film";
 import {IFilm, IFilmToCreate} from "../../../src/reducers/Films/Films.typings";
 import {IRequest, IResponse} from "../typings";
+import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "./Films.typings";
 
-export type IcreateFilmRouterQuery = IFilmToCreate;
-export type IcreateFilmRouterResponse = IFilm;
+
 
 export const createFilmRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
     const body = req.body as IcreateFilmRouterQuery;

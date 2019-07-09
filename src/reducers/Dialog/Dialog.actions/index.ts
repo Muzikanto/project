@@ -3,7 +3,7 @@ import {IDialogOptions} from "../Dialog.typings";
 import {actionDialogProps} from "./actions";
 import {actionFilmsSetProps} from "../../Films/Films.actions/actions";
 import {IFilm} from "../../Films/Films.typings";
-import {historyPush} from "../../../utils/historyPush";
+import {historyPush} from "../../../src.utils/historyPush";
 
 export const actionDialog = (data: IDialogOptions) => (dispatch: Dispatch) => {
     dispatch(actionDialogProps(data));

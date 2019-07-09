@@ -1,8 +1,8 @@
 import HttpError from "../error";
-import {LoadSession} from "../models/session/session";
+import {LoadSession} from "../models/Session/session";
 import {ISession, IUserSession} from "../routes/typings";
 import {IHandshake, ISocket} from "./socket.typings";
-import User from "../models/user/user";
+import User from "../models/User/user";
 
 const cookie = require('cookie');
 const async = require('async');

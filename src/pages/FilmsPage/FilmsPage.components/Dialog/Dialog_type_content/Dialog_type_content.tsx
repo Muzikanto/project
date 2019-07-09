@@ -5,7 +5,7 @@ import './Dialog_type_content.scss';
 import {cn} from "@bem-react/classname";
 import {CircularProgress, Typography} from "@material-ui/core";
 import {IFullFilm} from "../../../../../reducers/Films/Films.typings";
-import {parseDate} from "../../../../../utils/parseDate";
+import {parseDate} from "../../../../../src.utils/parseDate";
 
 const cnFilmContent = cn('FilmContent');
 

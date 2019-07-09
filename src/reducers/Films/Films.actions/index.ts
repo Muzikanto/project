@@ -6,18 +6,26 @@ import {
     IFilmsOptionsFilters,
     IFilmToCreate
 } from "../Films.typings";
-import {getFetch, postFetch} from "../../../utils/fetch";
+import {getFetch, postFetch} from "../../../src.utils/fetch";
 import {IStore} from "../../typings";
 import {actionDialog} from "../../Dialog/Dialog.actions";
-import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "../../../../server/routes/Films/create";
-import {IselectFilmsRouserResponse, IselectFilmsRouterQuery} from "../../../../server/routes/Films/select";
-import {IchangeFilmRouterQuery, IchangeFilmRouterResponse} from "../../../../server/routes/Films/change";
-import {IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse} from "../../../../server/routes/Films/setStar";
-import {IfavoriteFilmRouterQuery, IfavoriteFilmRouterResponse} from "../../../../server/routes/Films/setFavorite";
-import {IselectFilmRouserResponse, IselectFilmRouterQuery} from "../../../../server/routes/Films/selectSingle";
+import {
+    IchangeFilmRouterQuery,
+    IchangeFilmRouterResponse,
+    IchangeStarsFilmRouterQuery,
+    IchangeStarsFilmRouterResponse,
+    IcreateFilmRouterQuery,
+    IcreateFilmRouterResponse,
+    IfavoriteFilmRouterQuery,
+    IfavoriteFilmRouterResponse,
+    IselectFilmRouserResponse,
+    IselectFilmRouterQuery,
+    IselectFilmsRouserResponse,
+    IselectFilmsRouterQuery
+} from "../../../../server/routes/Films/Films.typings";
 import {actionFilmsSetProps,} from "./actions";
-import {IObject, IObjectStr} from "../../../utils/typings";
-import {historyPush, queryToObject} from "../../../utils/historyPush";
+import {IObject, IObjectStr} from "../../../src.utils/typings";
+import {historyPush, queryToObject} from "../../../src.utils/historyPush";
 import {
     actionCommonShowProgressProps,
     actionShowSnackBarErrorProps,

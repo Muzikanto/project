@@ -10,13 +10,13 @@ import {ReactType} from "react";
 import {Application} from "express";
 import {IStore} from "../../src/reducers/typings";
 import {getBaseFilmsReducerState} from "../../src/reducers/Films/Films";
-import {SelectFilms} from "../models/films/select";
-import {IselectFilmsRouterQuery} from "./Films/select";
+import {SelectFilms} from "../models/Film/select";
 import {ThemeProvider, ServerStyleSheets} from "@material-ui/styles";
-import {muiTheme} from "../../src/utils/mui";
+import {muiTheme} from "../../src/src.utils/mui";
 import {prepareFilms} from "../../src/reducers/Films/Films.helpers";
 import {IFilm} from "../../src/reducers/Films/Films.typings";
 import {IRequest, IResponse} from "./typings";
+import {IselectFilmsRouterQuery} from "./Films/Films.typings";
 
 const script = (url: string) => `<script type="text/javascript" src="${url}" async></script>`;
 const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
@@ -30,7 +30,7 @@ export const renderWithApp = (App: ReactType): Application => {
         try {
             films = prepareFilms(await SelectFilms(filters.query ? {query: decodeURI(filters.query)} : filters, req.user));
         } catch (e) {
-            // Need Logic
+            // TODO need Logic
         }
         const preloadState: Partial<IStore> = {
             User: {

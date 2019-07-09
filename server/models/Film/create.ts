@@ -1,6 +1,6 @@
 import HttpError from "../../error";
 import {IFilm, IFilmToCreate} from "../../../src/reducers/Films/Films.typings";
-import {psqlPromise} from "../utils/promise";
+import {psqlPromise} from "../models.utils/promise";
 
 const getCreateQuery = (film: IFilmToCreate) => {
     const genres = film.genres;

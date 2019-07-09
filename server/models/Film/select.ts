@@ -1,8 +1,8 @@
 import HttpError from "../../error";
 import {IFilm} from "../../../src/reducers/Films/Films.typings";
-import {IselectFilmsRouterQuery} from "../../routes/Films/select";
-import {psqlPromise} from "../utils/promise";
+import {psqlPromise} from "../models.utils/promise";
 import {IUserSession} from "../../routes/typings";
+import {IselectFilmsRouterQuery} from "../../routes/Films/Films.typings";
 
 function getSelectQuery(filters: IselectFilmsRouterQuery, user: IUserSession | null) {
     let genres = filters.genres ?

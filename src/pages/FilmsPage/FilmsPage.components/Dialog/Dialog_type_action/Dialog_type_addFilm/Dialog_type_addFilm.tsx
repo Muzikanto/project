@@ -2,7 +2,7 @@ import * as React from "react";
 import Slide from "@material-ui/core/Slide";
 import {IDialogTypeAddProps} from "./Dialog_type_addFilm.typings";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
-import {dateToSqlFormat} from "../../../../../../utils/parseDate";
+import {dateToSqlFormat} from "../../../../../../src.utils/parseDate";
 import Dialog from "../../../../../../components/Dialog";
 import CommonDialogFilm from "../Common";
 import {ICommonDialogActionState} from "../Dialog_type_action.typings";

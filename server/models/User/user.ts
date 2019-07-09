@@ -1,6 +1,6 @@
 import HttpError from "../../error";
 import {IUser} from "../../../src/reducers/User/User.typings";
-import {psqlPromise} from "../utils/promise";
+import {psqlPromise} from "../models.utils/promise";
 import {decriptString, generatePassword, hashedPassword} from "../../lib/password";
 import SendMail from "../../mailer";
 import {IUserModel} from "./index";

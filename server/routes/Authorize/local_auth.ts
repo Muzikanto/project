@@ -6,13 +6,7 @@ import HttpError from "../../error";
 import * as passport from "passport";
 import {IStrategyType} from "../../lib/passport";
 import {HttpStatus} from "../../lib/HttpStatus";
-
-export interface IloginRouterQuery {
-    email: string;
-    password: string;
-}
-
-export type IloginRouterResponse = IUser;
+import {IloginRouterResponse} from "./Authorize.typings";
 
 export const localAuthRouter = ((req: IRequest, res: IResponse, next: express.NextFunction) => {
     passport.authenticate('local', function (err: HttpError, data: {user: IUser, strategy: IStrategyType}, info: string) {

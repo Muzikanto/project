@@ -1,19 +1,11 @@
 import * as express from 'express';
 import {Application} from "express";
 import {IFilm} from "../../../src/reducers/Films/Films.typings";
-import Film from "../../models/films";
+import Film from "../../models/Film";
 import {IRequest, IResponse} from "../typings";
+import {IselectFilmsRouserResponse, IselectFilmsRouterQuery} from "./Films.typings";
 
-export interface IselectFilmsRouterQuery {
-    dates?: string;
-    genres?: string;
-    stars?: string;
-    sort?: string;
-    page?: number;
-    query?: string;
-}
 
-export type IselectFilmsRouserResponse = IFilm[];
 
 export const selectFilmsRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
     const query = req.query as IselectFilmsRouterQuery;

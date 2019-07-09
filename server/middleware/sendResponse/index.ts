@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {IObject} from "../../../src/utils/typings";
+import {IObject} from "../../../src/src.utils/typings";
 import {RequestHandlerParams} from "express-serve-static-core";
 import {IResponse} from "../../routes/typings";
 import {HttpStatus} from "../../lib/HttpStatus";

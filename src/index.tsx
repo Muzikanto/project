@@ -11,7 +11,7 @@ import socket from "./socket";
 import {Router} from 'react-router';
 import {historyState} from "./history";
 import {actionsChesSocketToDispatchesTypes} from "./reducers/Chess/Chess.actions";
-import {muiTheme} from "./utils/mui";
+import {muiTheme} from "./src.utils/mui";
 import {ThemeProvider} from "@material-ui/styles";
 
 register();

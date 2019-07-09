@@ -1,6 +1,6 @@
 import HttpError from "../../error";
 import {IFilm} from "../../../src/reducers/Films/Films.typings";
-import {psqlPromise} from "../utils/promise";
+import {psqlPromise} from "../models.utils/promise";
 
 function getUpdateQuery() {
     return `
