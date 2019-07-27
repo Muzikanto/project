@@ -2,7 +2,7 @@ import * as express from 'express';
 import {Application} from "express";
 import {IRequest, IResponse} from "../typings";
 
-export const logoutRouter = ((req: IRequest, res: IResponse, _: express.NextFunction) => {
+export const Logout = ((req: IRequest, res: IResponse, _: express.NextFunction) => {
     req.logout();
     req.session.destroy((err: Error) => {
         if (err) {

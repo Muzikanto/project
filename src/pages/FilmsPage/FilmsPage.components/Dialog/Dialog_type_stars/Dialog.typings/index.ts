@@ -1,13 +1,13 @@
 import {IDialogProps} from "../../../../../../components/Dialog/Dialog.typings";
-import {actionChangeStars} from "../../../../../../reducers/Films/Films.actions";
-import {IFilm} from "../../../../../../reducers/Films/Films.typings";
+import FilmActions from "../../../../../../reducers/Films/Films.actions";
+import {IFilmTypings} from "../../../../../../reducers/Films/Films.typings";
 import {IActionType} from "../../../../../../reducers/typings";
-import {actionDialog} from "../../../../../../reducers/Dialog/Dialog.actions";
+import DialogActions from "../../../../../../reducers/Dialog/Dialog.actions";
 
 export interface IDialogStarsProps extends IDialogProps {
     stars: number;
-    film: IFilm;
+    film: IFilmTypings.Item;
 
-    actionChangeStars: IActionType<typeof actionChangeStars>;
-    actionDialog: IActionType<typeof actionDialog>;
+    SetStar: IActionType<typeof FilmActions.SetStar>;
+    DialogBase: IActionType<typeof DialogActions.base>;
 }

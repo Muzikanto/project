@@ -4,7 +4,7 @@ import * as express from "express";
 import {Application} from "express";
 import HttpError from "../../error";
 
-export const vkontakteAuthCallbackRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
+export const VkAuthCB = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
     passport.authenticate('vkontakte', {
         successRedirect: '/',
         failureRedirect: '/register'

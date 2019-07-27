@@ -1,19 +1,16 @@
 import * as express from 'express';
 import {Application} from "express";
-import Film from "../../models/Film";
-import {IFilm, IFilmToCreate} from "../../../src/reducers/Films/Films.typings";
+import FilmModel from "../../models/Film";
 import {IRequest, IResponse} from "../typings";
-import {IcreateFilmRouterQuery, IcreateFilmRouterResponse} from "./Films.typings";
+import {IFilmTypings} from "./Films.typings";
 
-
-
-export const createFilmRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
-    const body = req.body as IcreateFilmRouterQuery;
+export const Create = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
+    const body = req.body as IFilmTypings.CreateQuery;
 
     try {
-        const response = await Film.Create(body);
+        const response = await FilmModel.Create(body);
 
-        res.sendResponse<IcreateFilmRouterResponse>({status: 200, message: 'Success Create Film', response});
+        res.sendResponse<IFilmTypings.CreateResponse>({status: 200, message: 'Success Create Film', response});
     } catch (err) {
         res.sendResponse(err);
     }

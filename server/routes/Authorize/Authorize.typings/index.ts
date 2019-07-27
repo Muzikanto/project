@@ -1,15 +1,17 @@
 import {IUser} from "../../../../src/reducers/User/User.typings";
 
-export interface IregisterRouterQuery {
-    nick: string,
-    email: string,
-    password: string,
-    password2: string
-}
-export type IregisterRouterResponse = IUser;
+export namespace IAuthorizeTypings {
+    export interface RegisterQuery {
+        nick: string,
+        email: string,
+        password: string,
+        password2: string
+    }
+    export type RegisterResponse = IUser;
 
-export interface IloginRouterQuery {
-    email: string;
-    password: string;
+    export interface LoginQuery {
+        email: string;
+        password: string;
+    }
+    export type LoginResponse = IUser;
 }
-export type IloginRouterResponse = IUser;

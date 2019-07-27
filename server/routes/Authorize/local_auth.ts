@@ -6,9 +6,9 @@ import HttpError from "../../error";
 import * as passport from "passport";
 import {IStrategyType} from "../../lib/passport";
 import {HttpStatus} from "../../lib/HttpStatus";
-import {IloginRouterResponse} from "./Authorize.typings";
+import {IAuthorizeTypings} from "./Authorize.typings";
 
-export const localAuthRouter = ((req: IRequest, res: IResponse, next: express.NextFunction) => {
+export const LocalAuth = ((req: IRequest, res: IResponse, next: express.NextFunction) => {
     passport.authenticate('local', function (err: HttpError, data: {user: IUser, strategy: IStrategyType}, info: string) {
         if (err) {
             return res.sendResponse(err);
@@ -23,7 +23,7 @@ export const localAuthRouter = ((req: IRequest, res: IResponse, next: express.Ne
                 return res.sendResponse({message: 'Error login', status: HttpStatus.INTERNAL_SERVER_ERROR});
             }
 
-            return res.sendResponse<IloginRouterResponse>( {status: HttpStatus.OK, message: 'Success Authorize', response: data.user});
+            return res.sendResponse<IAuthorizeTypings.LoginResponse>( {status: HttpStatus.OK, message: 'Success Authorize', response: data.user});
         });
     })(req, res, next);
 }) as Application;

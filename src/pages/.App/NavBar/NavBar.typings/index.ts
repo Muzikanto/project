@@ -1,6 +1,6 @@
 import {IUser} from "../../../../reducers/User/User.typings";
 import {IActionType} from "../../../../reducers/typings";
-import {actionDropSession} from "../../../../reducers/User/User.actions";
+import UserActions from "../../../../reducers/User/User.actions";
 
 export interface INavBarItem {
     url: string;
@@ -16,5 +16,5 @@ export interface INavBarProps {
 
 export interface INavBarContainerProps {
     user: IUser | null;
-    actionDropSession: IActionType<typeof actionDropSession>;
+    Logout: IActionType<typeof UserActions.Logout>;
 }

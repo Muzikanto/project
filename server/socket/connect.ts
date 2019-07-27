@@ -1,8 +1,8 @@
 import HttpError from "../error";
-import {LoadSession} from "../models/Session/session";
+import SessionModel from "../models/Session";
 import {ISession, IUserSession} from "../routes/typings";
 import {IHandshake, ISocket} from "./socket.typings";
-import User from "../models/User/user";
+import User from "../models/User";
 
 const cookie = require('cookie');
 const async = require('async');
@@ -62,7 +62,7 @@ export const socketSessionReload = (io: any) => (sid: string) => {
 };
 
 function loadSession(sid: string, callback: (e: Event | null, session?: ISession | null) => void) {
-    LoadSession(sid)
+    SessionModel.Load(sid)
         .then((session: any) => {
             return callback(null, session);
         })

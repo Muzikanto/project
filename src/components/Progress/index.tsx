@@ -17,7 +17,7 @@ class Progress extends React.Component<IProgressProps>{
 }
 
 const mapStateToProps = (store: IStore) => ({
-    show: store.OtherReducer.progress_show,
+    show: store.Other.progress_show,
 });
 
 export default connect(mapStateToProps, {})(Progress);

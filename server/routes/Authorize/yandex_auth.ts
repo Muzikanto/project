@@ -1,3 +1,3 @@
 import * as passport from "passport";
 
-export const yandexAuthRouter =  passport.authenticate('yandex');
+export const YandexAuth =  passport.authenticate('yandex');

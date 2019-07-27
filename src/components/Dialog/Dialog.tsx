@@ -7,7 +7,7 @@ import {IDialogBaseProps} from "./Dialog.typings";
 import {TransitionProps} from "@material-ui/core/transitions/transition";
 
 class Dialog extends React.Component<IDialogBaseProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             title,
             children,

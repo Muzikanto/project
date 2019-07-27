@@ -6,11 +6,11 @@ import {TransitionProps} from "@material-ui/core/transitions/transition";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "../../../../../components/Dialog";
 import {connect} from "react-redux";
-import {actionChangeStars} from "../../../../../reducers/Films/Films.actions";
-import {actionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
+import FilmActions from "../../../../../reducers/Films/Films.actions";
+import DialogActions from "../../../../../reducers/Dialog/Dialog.actions";
 
 class DialogTypeStars extends React.Component<IDialogStarsProps> {
-    state: { stars: number };
+   public state: { stars: number };
 
     constructor(props: IDialogStarsProps) {
         super(props);
@@ -20,7 +20,7 @@ class DialogTypeStars extends React.Component<IDialogStarsProps> {
         }
     }
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             title,
         } = this.props;
@@ -38,7 +38,7 @@ class DialogTypeStars extends React.Component<IDialogStarsProps> {
     }
 
     protected getStars() {
-        let arr = [];
+        const arr = [];
 
         for (let i = 1; i <= 10; i++) {
             arr.push(
@@ -62,16 +62,16 @@ class DialogTypeStars extends React.Component<IDialogStarsProps> {
     };
 
     private handleChangeStars = (stars: number) => () => {
-        this.props.actionDialog({open: false, type: null});
-        this.props.actionChangeStars({stars, id: this.props.film.id});
+        this.props.DialogBase({open: false, type: null});
+        this.props.SetStar({stars, id: this.props.film.id});
     };
 }
 
 const mapStateToProps = () => ({});
 
 const mapDispatchesToProps = {
-    actionChangeStars,
-    actionDialog,
+    SetStar: FilmActions.SetStar,
+    DialogBase: DialogActions.base,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(DialogTypeStars);

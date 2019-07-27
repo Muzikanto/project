@@ -1,5 +1,5 @@
-import JSONReader from "../server.utils/Reader/_json/JSONReader";
-import {CreateFilm} from "./Film/create";
+import JSONReader from "../utils/Reader/_json/JSONReader";
+import FilmModel from "./Film";
 import moonRequest from "../routes/Films/Films.utils/moonwalkRequest";
 
 const filmReader = new JSONReader({pathToData: ''});
@@ -11,7 +11,7 @@ export const LoadFilmsFromJSON = async (path: string = './dist/films.json') => {
             try {
                 const {kinopoisk_id, title_ru, material_data: {genres, poster, studios}} = await moonRequest(v.id);
 
-                await CreateFilm({
+                await FilmModel.Create({
                     id: kinopoisk_id,
                     studio: studios[0].length < 50 ? studios[0] : undefined,
                     name: title_ru,

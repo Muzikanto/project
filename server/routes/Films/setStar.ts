@@ -1,16 +1,16 @@
 import * as express from 'express';
 import {IRequest, IResponse} from "../typings";
 import {Application} from "express";
-import Film from "../../models/Film";
-import {IchangeStarsFilmRouterQuery, IchangeStarsFilmRouterResponse} from "./Films.typings";
+import FilmModel from "../../models/Film";
+import {IFilmTypings} from "./Films.typings";
 
-export const changeFilmStarsRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
-    const body = req.body as IchangeStarsFilmRouterQuery;
+export const setStar = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
+    const body = req.body as IFilmTypings.setStarQuery;
 
     try {
         if (req.user) {
-            await Film.setStar(body, req.user);
-            res.sendResponse<IchangeStarsFilmRouterResponse>( {status: 200, message: 'Success Change Film Stars'});
+            await FilmModel.SetStar(body, req.user);
+            res.sendResponse<IFilmTypings.setStarResponse>( {status: 200, message: 'Success Change Film Stars'});
         } else {
             res.sendResponse( {status: 403, message: 'Need Authorize'});
         }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FormEvent, RefObject} from 'react';
 import {connect} from "react-redux";
-import {actionAuthorize} from "../../../../reducers/User/User.actions";
+import UserActions from "../../../../reducers/User/User.actions";
 import UI from "./LoginForm";
 import {ILoginFormPropsContainerProps} from "./LoginForm.typings";
 import {IStore} from "../../../../reducers/typings";
@@ -9,8 +9,8 @@ import Input from "../../../../components/Input/Input";
 import InputShow from "../../../../components/Input/Input_show/InputShow";
 
 class LoginForm extends React.Component<ILoginFormPropsContainerProps> {
-    refEmail: RefObject<Input> = React.createRef();
-    refPassword: RefObject<InputShow> = React.createRef();
+    public refEmail: RefObject<Input> = React.createRef();
+    public refPassword: RefObject<InputShow> = React.createRef();
 
     public render() {
         return (
@@ -22,14 +22,14 @@ class LoginForm extends React.Component<ILoginFormPropsContainerProps> {
         )
     }
 
-    onSubmit = (e: FormEvent) => {
+    public onSubmit = (e: FormEvent) => {
         e.preventDefault();
         const email = this.refEmail.current;
         const password = this.refPassword.current;
 
         if (email && password) {
             if (email.state.value && password.state.value) {
-                this.props.actionAuthorize({
+                this.props.Authorize({
                     email: email.state.value,
                     password: password.state.value,
                 });
@@ -54,7 +54,7 @@ class LoginForm extends React.Component<ILoginFormPropsContainerProps> {
 const mapStateToProps = (_: IStore) => ({});
 
 const mapDispatchToProps = {
-    actionAuthorize,
+    Authorize: UserActions.Authorize,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

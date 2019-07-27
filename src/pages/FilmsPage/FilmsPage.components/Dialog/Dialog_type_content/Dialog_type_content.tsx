@@ -4,7 +4,7 @@ import {IDialogContentProps} from "./Dialog.typings";
 import './Dialog_type_content.scss';
 import {cn} from "@bem-react/classname";
 import {CircularProgress, Typography} from "@material-ui/core";
-import {IFullFilm} from "../../../../../reducers/Films/Films.typings";
+import {IFilmTypings} from "../../../../../reducers/Films/Films.typings";
 import {parseDate} from "../../../../../src.utils/parseDate";
 
 const cnFilmContent = cn('FilmContent');
@@ -39,7 +39,7 @@ class DialogTypeContent extends React.Component<IDialogContentProps> {
         );
     }
 
-    protected getContent(film: IFullFilm) {
+    protected getContent(film: IFilmTypings.FullItem) {
 
         return (
             <>
@@ -59,7 +59,7 @@ class DialogTypeContent extends React.Component<IDialogContentProps> {
         );
     }
 
-    protected getDate(film: IFullFilm) {
+    protected getDate(film: IFilmTypings.FullItem) {
         const isNew = film.date ? new Date(film.date) > new Date() : null;
         const fresh_date = film.date && !isNew ?
             Math.ceil(Math.abs(new Date(film.date).getTime() - new Date().getTime()) / (1000 * 3600 * 24)) : null;

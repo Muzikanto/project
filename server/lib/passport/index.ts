@@ -1,6 +1,6 @@
 import {IUser} from "../../../src/reducers/User/User.typings";
 import HttpError from "../../error";
-import User from "../../models/User/user";
+import UserModel from "../../models/User";
 import googleStrategy from "./google";
 import {PassportStatic} from "passport";
 import vkStrategy from "./vk";
@@ -24,7 +24,7 @@ function connectStrategy(passport: PassportStatic) {
     });
 
     passport.deserializeUser(({value, strategy}: { strategy: IStrategyType, value: string }, done: (err: Error | null, user?: IUser) => void) => {
-        User.Find({value, column: strategy === 'local' ? 'id' : 'email'}).then((user: IUser) => {
+        UserModel.Find({value, column: strategy === 'local' ? 'id' : 'email'}).then((user: IUser) => {
             done(null, user);
         }).catch((err: HttpError) => {
             done(err);

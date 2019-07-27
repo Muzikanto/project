@@ -7,27 +7,14 @@ import {applyMiddleware, createStore} from 'redux';
 import {register} from './registerServiceWorker';
 import reducers from "./reducers";
 import App from "./pages/.App/App";
-import socket from "./socket";
 import {Router} from 'react-router';
 import {historyState} from "./history";
-import {actionsChesSocketToDispatchesTypes} from "./reducers/Chess/Chess.actions";
 import {muiTheme} from "./src.utils/mui";
 import {ThemeProvider} from "@material-ui/styles";
 
 register();
 // @ts-ignore
 export const store = createStore(reducers, window.__PRELOADED_STATE__, applyMiddleware(thunk));
-
-const list = actionsChesSocketToDispatchesTypes as { [key: string]: string };
-
-for (const key in list) {
-    socket.on(list[key], function (data: any) {
-        store.dispatch({
-            data,
-            type: list[key]
-        });
-    });
-}
 
 export const reactRender = (Component: React.ComponentType) => preloadReady().then(() => {
     const serverStyles = document.querySelector('#server-styles');

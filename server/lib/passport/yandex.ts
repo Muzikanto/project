@@ -1,7 +1,7 @@
 import HttpError from "../../error";
 import {IUser} from "../../../src/reducers/User/User.typings";
 import {IStrategyType} from "./index";
-import User from "../../models/User/user";
+import UserModel from "../../models/User";
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -17,7 +17,7 @@ const yandexStrategy = new YandexStrategy({
         const nick = profile.displayName;
 
         try {
-            const user = await User.FindOrCrate(
+            const user = await UserModel.FindOrCreate(
                 {value: email, column: 'email'},
                 {nick, email}
             );

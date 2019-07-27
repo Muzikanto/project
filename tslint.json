@@ -29,7 +29,8 @@
     "no-namespace": false,
     "member-ordering": false,
     "jsx-no-lambda": false,
-    "no-string-literal": false
+    "no-string-literal": false,
+    "interface-name": false
   },
   "jsRules": {
     "forin": true

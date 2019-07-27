@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import {actionDropSession} from "../../../reducers/User/User.actions";
+import UserActions from "../../../reducers/User/User.actions";
 import UI from "./NavBar";
 import {INavBarContainerProps} from "./NavBar.typings";
 import {IStore} from "../../../reducers/typings";
@@ -8,7 +8,7 @@ import {IStore} from "../../../reducers/typings";
 class NavBar extends React.Component<INavBarContainerProps> {
     protected items = [
         {url: '/films', text: 'Films'},
-        {url: '#', text: 'Games', popup: [{url: '/games/chess', text: 'Chess'}, {url: '/games/test', text: 'Test'}]},
+        {url: '#', text: 'Test', popup: [{url: '#', text: 'Test1'}, {url: '#', text: 'Test2'}]},
     ];
 
     public render() {
@@ -20,7 +20,7 @@ class NavBar extends React.Component<INavBarContainerProps> {
     }
 
     private dropSession = () => {
-        this.props.actionDropSession(true);
+        this.props.Logout(true);
     };
 }
 
@@ -29,7 +29,7 @@ const mapStateToProps = (state: IStore) => ({
 });
 
 const mapDispatchToProps = {
-    actionDropSession,
+    Logout: UserActions.Logout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

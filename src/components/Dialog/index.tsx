@@ -1,12 +1,12 @@
 import * as React from "react";
 import UI from "./Dialog";
 import {IStore} from "../../reducers/typings";
-import {actionDialog} from "../../reducers/Dialog/Dialog.actions";
 import {connect} from "react-redux";
 import {IDialogContainerProps} from "./Dialog.typings";
+import DialogActions from '../../reducers/Dialog/Dialog.actions'
 
 class Dialog extends React.Component<IDialogContainerProps> {
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const {
             open,
             title,
@@ -32,16 +32,16 @@ class Dialog extends React.Component<IDialogContainerProps> {
 
     private handleClose = () => {
         this.props.onClose && this.props.onClose();
-        this.props.actionDialog({open: false, type: null});
+        this.props.DialogBase({open: false, type: null});
     };
 }
 
 const mapStateToProps = (store: IStore) => ({
-    open: store.DialogReducer.open,
+    open: store.Dialog.open,
 });
 
 const mapDispatchesToProps = {
-    actionDialog,
+    DialogBase: DialogActions.base,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(Dialog);

@@ -2,7 +2,7 @@ import * as SocketIO from "socket.io";
 import {Socket} from "socket.io";
 import {socketCheckAuth, socketSessionReload} from "./connect";
 import {Server} from "http";
-import {connectChessSockets} from "./Chess/Chess";
+// import {connectChessSockets} from "./Chess/Chess";
 
 export const connectSocket = (server: Server) => {
     const io: any = require('socket.io').listen(server);
@@ -14,7 +14,7 @@ export const connectSocket = (server: Server) => {
     io.sockets.on('connection', (socket: Socket) => {
         // console.log(socket.client.id);
         const arr: Array<(socket: SocketIO.Socket, io: SocketIO.Server) => void> = [
-          connectChessSockets,
+          // connectChessSockets,
         ];
 
         arr.map(func => func(socket, io));

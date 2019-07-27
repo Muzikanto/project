@@ -1,6 +1,6 @@
 import HttpError from "../../error";
 import {IUser} from "../../../src/reducers/User/User.typings";
-import User from "../../models/User/user";
+import UserModel from "../../models/User";
 import {IStrategyType} from "./index";
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -17,7 +17,7 @@ const vkStrategy = new VKontakteStrategy({
         const nick = profile.displayName;
 
         try {
-            const user = await User.FindOrCrate(
+            const user = await UserModel.FindOrCreate(
                 {value: email, column: 'email'},
                 {nick, email}
             );

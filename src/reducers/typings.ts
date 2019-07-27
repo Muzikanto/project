@@ -1,16 +1,14 @@
 import {IUserOptions} from "./User/User.typings";
-import {IChessOptions} from "./Chess/Chess.typings";
 import {IDialogOptions} from "./Dialog/Dialog.typings";
-import {IFilmsOptions} from "./Films/Films.typings";
+import {IFilmTypings} from "./Films/Films.typings";
 import {IOtherOptions} from "./Other/Other.typings";
 import {IObject} from "../src.utils/typings";
 
 export interface IStore {
-    DialogReducer: IDialogOptions;
-    FilmsReducer: IFilmsOptions;
+    Dialog: IDialogOptions;
+    Films: IFilmTypings.ReducerOptions;
     User: IUserOptions;
-    Chess: IChessOptions
-    OtherReducer: IOtherOptions;
+    Other: IOtherOptions;
 }
 
 export interface IReducerAction {

@@ -1,5 +1,5 @@
 import {IUser} from "../../../src/reducers/User/User.typings";
-import User from "../../models/User/user";
+import UserModel from "../../models/User";
 import {IStrategyType} from "./index";
 
 const LocalStrategy = require('passport-local').Strategy;
@@ -10,7 +10,7 @@ const localStrategy = new LocalStrategy({
     },
     async (email: string, password: string, done: (err: Error | null, data?: {user: IUser, strategy: IStrategyType }) => void) => {
         try {
-            const user = await User.Auth({email, password});
+            const user = await UserModel.Authorize({email, password});
 
             done(null, {user, strategy: 'local'});
         } catch (err) {

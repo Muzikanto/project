@@ -2,10 +2,10 @@ import * as React from 'react';
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
 import {IFilmsListContainerProps} from "./FilmsList.typings";
-import {actionDialog, actionDialogWithFilm} from "../../../../reducers/Dialog/Dialog.actions";
-import {IFilm} from "../../../../reducers/Films/Films.typings";
-import {actionShowSnackBarWarning} from "../../../../reducers/Other/Other.actions";
-import {actionFavoriteFilm, actionSelectFilms} from "../../../../reducers/Films/Films.actions";
+import DialogActions from "../../../../reducers/Dialog/Dialog.actions";
+import {IFilmTypings} from "../../../../reducers/Films/Films.typings";
+import OtherActions from "../../../../reducers/Other/Other.actions";
+import FilmActions from "../../../../reducers/Films/Films.actions";
 import Thumb from "../../../../components/Thumb/Thumb";
 import ScrollerContainer from "../../../../components/Container/ScrollerContainer/ScrollerContainer";
 import GridContainer from "../../../../components/Container/GridContainer/GridContainer";
@@ -22,7 +22,7 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
             if (window.scrollY + window.innerHeight > bodyHeight - 500 && new Date().getSeconds() - this.last.getSeconds() > 1) {
                 this.page++;
                 this.last = new Date();
-                this.props.actionSelectFilms({page: this.page});
+                this.props.Select({page: this.page});
             }
         });
     }
@@ -54,53 +54,53 @@ class FilmsList extends React.Component<IFilmsListContainerProps> {
         const {
             arr,
             user,
-            actionFavoriteFilm,
-            actionShowSnackBarWarning,
-            actionDialogWithFilm,
+            SetFavorite,
+            SnackBarWarning,
+            DialogWithFilm,
         } = this.props;
 
         return arr
-            .map((film: IFilm) =>
+            .map((item: IFilmTypings.Item) =>
                 <Thumb
-                    film={film}
+                    film={item}
                     menuItems={
                         [{
                             text: local.Edit,
-                            action: () => actionDialogWithFilm({dialog: {open: true, type: 'change_film'}, film}),
+                            action: () => DialogWithFilm({dialog: {open: true, type: 'change_film'}, item}),
                         }]
                     }
                     user={user}
-                    onContentClick={() => actionDialogWithFilm({dialog: {open: true, type: 'content'}, film})}
-                    onStarClick={film.set_star ? () => {} :
+                    onContentClick={() => DialogWithFilm({dialog: {open: true, type: 'content'}, item})}
+                    onStarClick={item.set_star ? () => {} :
                         () => {
                             if (user) {
-                                actionDialogWithFilm({dialog: {open: true, type: 'stars'}, film});
+                                DialogWithFilm({dialog: {open: true, type: 'stars'}, item});
                             } else {
-                                actionShowSnackBarWarning(local['Need Authorize'])
+                                SnackBarWarning(local['Need Authorize'])
                             }
                         }}
                     onFavoriteClick={() =>
-                        user ? actionFavoriteFilm({
-                            id: film.id,
-                            is_favorite: !film.is_favorite,
-                        }) : actionShowSnackBarWarning(local['Need Authorize'])}
-                    key={'Thumb' + film.id}
+                        user ? SetFavorite({
+                            id: item.id,
+                            is_favorite: !item.is_favorite,
+                        }) : SnackBarWarning(local['Need Authorize'])}
+                    key={'Thumb' + item.id}
                 />);
     }
 }
 
 const mapStateToProps = (store: IStore) => ({
-    arr: store.FilmsReducer.arr,
-    sort: store.FilmsReducer.sort,
+    arr: store.Films.arr,
+    sort: store.Films.sort,
     user: store.User.user,
 });
 
 const mapDispatchesToProps = {
-    actionDialog,
-    actionShowSnackBarWarning,
-    actionFavoriteFilm,
-    actionSelectFilms,
-    actionDialogWithFilm,
+    DialogBase: DialogActions.base,
+    SnackBarWarning: OtherActions.ShowSnackBarWarning,
+    SetFavorite: FilmActions.SetFavorite,
+    Select: FilmActions.Select,
+    DialogWithFilm: FilmActions.DialogWithFilm,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(FilmsList);

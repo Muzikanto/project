@@ -4,13 +4,9 @@ import {actionUserSetProps} from "./actions";
 import {actionShowSnackBarErrorProps, actionShowSnackBarWarningProps} from "../../Other/Other.actions/actions";
 import {actionCommonShowProgressProps} from "../../Other/Other.actions/actions";
 import {historyState} from "../../../history";
-import {
-    IloginRouterQuery,
-    IloginRouterResponse, IregisterRouterQuery,
-    IregisterRouterResponse
-} from "../../../../server/routes/Authorize/Authorize.typings";
+import {IAuthorizeTypings} from "../../../../server/routes/Authorize/Authorize.typings";
 
-export const actionDropSession = (drop: boolean) => async (dispatch: Dispatch) => {
+const Logout = (drop: boolean) => async (dispatch: Dispatch) => {
     dispatch(actionCommonShowProgressProps(true));
     try {
         await postFetch('/auth/logout');
@@ -22,10 +18,10 @@ export const actionDropSession = (drop: boolean) => async (dispatch: Dispatch) =
     dispatch(actionCommonShowProgressProps(false));
 };
 
-export const actionAuthorize = (params: IloginRouterQuery) => async (dispatch: Dispatch) => {
+const Authorize = (params: IAuthorizeTypings.LoginQuery) => async (dispatch: Dispatch) => {
     dispatch(actionCommonShowProgressProps(true));
     try {
-        const {response, status, message} = await postFetch<IloginRouterQuery, IloginRouterResponse>('/auth/local', params);
+        const {response, status, message} = await postFetch<IAuthorizeTypings.LoginQuery, IAuthorizeTypings.LoginResponse>('/auth/local', params);
 
         if (status === 200) {
             dispatch(actionUserSetProps({user: response}));
@@ -39,10 +35,10 @@ export const actionAuthorize = (params: IloginRouterQuery) => async (dispatch: D
     dispatch(actionCommonShowProgressProps(false));
 };
 
-export const actionRegister = (params: IregisterRouterQuery) => async (dispatch: Dispatch) => {
+const Create = (params: IAuthorizeTypings.RegisterQuery) => async (dispatch: Dispatch) => {
     dispatch(actionCommonShowProgressProps(true));
     try {
-        const {response, status, message} = await postFetch<IregisterRouterQuery, IregisterRouterResponse>('/auth/register', params);
+        const {response, status, message} = await postFetch<IAuthorizeTypings.RegisterQuery, IAuthorizeTypings.RegisterResponse>('/auth/register', params);
 
         if (status === 200) {
             dispatch(actionUserSetProps({user: response}));
@@ -55,3 +51,11 @@ export const actionRegister = (params: IregisterRouterQuery) => async (dispatch:
     }
     dispatch(actionCommonShowProgressProps(false));
 };
+
+const UserActions = {
+    Logout,
+    Authorize,
+    Create,
+};
+
+export default UserActions;

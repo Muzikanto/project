@@ -1,16 +1,14 @@
 import {combineReducers} from 'redux'
 import {IStore} from "./typings";
-import User  from "./User/User";
-import Chess from "./Chess/Chess";
-import DialogReducer from "./Dialog/Dialog";
-import FilmsReducer from "./Films/Films";
-import OtherReducer from "./Other/Other";
+import User  from "./User";
+import Dialog from "./Dialog";
+import Films from "./Films";
+import Other from "./Other";
 
 const Reducers = combineReducers<IStore>({
-    DialogReducer,
-    FilmsReducer,
-    OtherReducer,
-    Chess,
+    Dialog,
+    Films,
+    Other,
     User,
 });
 

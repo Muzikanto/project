@@ -1,7 +1,7 @@
 import {FILMS_ACTIONS} from "./keys";
-import {IFilmsOptions} from "../Films.typings";
+import {IFilmTypings} from "../Films.typings";
 
-export const actionFilmsSetProps = (state: Partial<IFilmsOptions>) => ({
+export const actionFilmsSetProps = (state: Partial<IFilmTypings.ReducerOptions>) => ({
     state,
     type: FILMS_ACTIONS.SET,
 } as const);

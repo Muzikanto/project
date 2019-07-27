@@ -3,7 +3,7 @@ import UI from './SnackBar'
 import {ISnackBarContainerProps} from "./SnackBar.typings";
 import {IStore} from "../../reducers/typings";
 import {connect} from "react-redux";
-import {actionShowSnackBar} from "../../reducers/Other/Other.actions";
+import OtherActions from "../../reducers/Other/Other.actions";
 
 class SnackBar extends React.Component<ISnackBarContainerProps> {
     public render(): React.ReactNode {
@@ -18,18 +18,18 @@ class SnackBar extends React.Component<ISnackBarContainerProps> {
     }
 
     protected handleClose = () => {
-        this.props.actionShowSnackBar(false);
+        this.props.ShowSnackBar(false);
     }
 }
 
 const mapStateToProps = (store: IStore) => ({
-    snack_open: store.OtherReducer.snack_open,
-    snack_text: store.OtherReducer.snack_text,
-    snack_variant: store.OtherReducer.snack_variant,
+    snack_open: store.Other.snack_open,
+    snack_text: store.Other.snack_text,
+    snack_variant: store.Other.snack_variant,
 });
 
 const mapDispatchesToProps = {
-    actionShowSnackBar,
+    ShowSnackBar: OtherActions.ShowSnackBar,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(SnackBar);

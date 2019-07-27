@@ -1,9 +1,9 @@
-import {IFilm} from "../../../../../../../reducers/Films/Films.typings";
+import {IFilmTypings} from "../../../../../../../reducers/Films/Films.typings";
 import {IDialogProps} from "../../../../../../../components/Dialog/Dialog.typings";
 
 export interface IDialogTypeChangeProps extends IDialogProps {
     submitText: string;
-    onChange: (film: IFilm) => void;
+    onChange: (film: IFilmTypings.Item) => void;
 
-    film: IFilm;
+    film: IFilmTypings.Item;
 }

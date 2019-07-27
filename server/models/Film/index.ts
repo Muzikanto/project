@@ -1,15 +1,15 @@
-import {ChangeFilm} from "./change";
-import {CreateFilm} from "./create";
-import {SelectFilms} from "./select";
-import {FavoriteFilm} from "./setFavorite";
-import {ChangeFilmStars} from "./setStar";
+import {Change} from "./Change";
+import {Create} from "./Create";
+import {Select} from "./Select";
+import {SetStar} from "./SetStar";
+import {SetFavorite} from "./SetFavorite";
 
-const Film = {
-    Change: ChangeFilm,
-    Create: CreateFilm,
-    Select: SelectFilms,
-    setFavorite: FavoriteFilm,
-    setStar: ChangeFilmStars,
+const FilmModel = {
+    Change,
+    Create,
+    Select,
+    SetStar,
+    SetFavorite,
 };
 
-export default Film;
+export default FilmModel;

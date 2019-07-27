@@ -4,7 +4,7 @@ import * as express from "express";
 import {Application} from "express";
 import HttpError from "../../error";
 
-export const googleAuthCallbackRouter = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
+export const GoogleAuthCB = (async (req: IRequest, res: IResponse, _: express.NextFunction) => {
     passport.authenticate('google', {
         successRedirect: '/',
         failureRedirect: '/register'

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FormEvent, RefObject} from 'react';
 import {connect} from "react-redux";
-import {actionRegister} from "../../../../reducers/User/User.actions";
+import UserActions from "../../../../reducers/User/User.actions";
 import UI from "./RegisterForm";
 import {IRegisterFormContainerProps} from "./RegisterForm.typings";
 import {IStore} from "../../../../reducers/typings";
@@ -10,10 +10,10 @@ import InputShow from "../../../../components/Input/Input_show/InputShow";
 
 
 class RegisterForm extends React.Component<IRegisterFormContainerProps> {
-    refNick: RefObject<Input>;
-    refEmail: RefObject<Input>;
-    refPassword: RefObject<InputShow>;
-    refPassword2: RefObject<InputShow>;
+   public refNick: RefObject<Input>;
+    public refEmail: RefObject<Input>;
+    public refPassword: RefObject<InputShow>;
+    public refPassword2: RefObject<InputShow>;
 
     constructor(props: IRegisterFormContainerProps) {
         super(props);
@@ -44,7 +44,7 @@ class RegisterForm extends React.Component<IRegisterFormContainerProps> {
 
         if (nick && email && password && password2) {
             if (nick.state.value && email.state.value && password.state.value && password2.state.value) {
-                this.props.actionRegister({
+                this.props.Create({
                     nick: nick.state.value,
                     email: email.state.value,
                     password: password.state.value,
@@ -62,7 +62,7 @@ class RegisterForm extends React.Component<IRegisterFormContainerProps> {
 const mapStateToProps = (_: IStore) => ({});
 
 const mapDispatchToProps = {
-    actionRegister,
+    Create: UserActions.Create,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

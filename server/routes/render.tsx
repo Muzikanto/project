@@ -9,26 +9,26 @@ import Reducers from "../../src/reducers";
 import {ReactType} from "react";
 import {Application} from "express";
 import {IStore} from "../../src/reducers/typings";
-import {getBaseFilmsReducerState} from "../../src/reducers/Films/Films";
-import {SelectFilms} from "../models/Film/select";
+import {getBaseFilmsReducerState} from "../../src/reducers/Films";
+import FilmModel from "../models/Film";
 import {ThemeProvider, ServerStyleSheets} from "@material-ui/styles";
 import {muiTheme} from "../../src/src.utils/mui";
 import {prepareFilms} from "../../src/reducers/Films/Films.helpers";
-import {IFilm} from "../../src/reducers/Films/Films.typings";
+import {IFilmTypings as IFilmTypingsClient} from "../../src/reducers/Films/Films.typings";
 import {IRequest, IResponse} from "./typings";
-import {IselectFilmsRouterQuery} from "./Films/Films.typings";
+import {IFilmTypings} from "./Films/Films.typings";
 
 const script = (url: string) => `<script type="text/javascript" src="${url}" async></script>`;
 const style = (url: string) => `<link rel="stylesheet" href="${url}">`;
 
 export const renderWithApp = (App: ReactType): Application => {
     return (async (req: IRequest, res: IResponse, next: express.NextFunction) => {
-        const filters = req.query as IselectFilmsRouterQuery;
+        const filters = req.query as IFilmTypings.SelectQuery;
         const {styles, scripts} = await assets(req.headers.host);
 
-        let films: IFilm[] = [];
+        let films: IFilmTypingsClient.Item[] = [];
         try {
-            films = prepareFilms(await SelectFilms(filters.query ? {query: decodeURI(filters.query)} : filters, req.user));
+            films = prepareFilms(await FilmModel.Select(filters.query ? {query: decodeURI(filters.query)} : filters, req.user));
         } catch (e) {
             // TODO need Logic
         }
@@ -36,7 +36,7 @@ export const renderWithApp = (App: ReactType): Application => {
             User: {
                 user: req.user
             },
-            FilmsReducer: {
+            Films: {
                 ...getBaseFilmsReducerState(),
                 arr: films,
             },

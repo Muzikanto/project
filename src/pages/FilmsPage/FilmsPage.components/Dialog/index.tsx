@@ -2,21 +2,14 @@ import * as React from "react";
 import {IDialogConteinerProps} from "./Dialog.typings";
 import {connect} from "react-redux";
 import {IStore} from "../../../../reducers/typings";
-import {
-    actionCreateFilm,
-    actionFilmsChange,
-    actionChangeStars,
-    actionSelectSingleFilm,
-    actionFilmsSet,
-} from "../../../../reducers/Films/Films.actions";
+import FilmActions from "../../../../reducers/Films/Films.actions";
 import DialogTypeStars from "./Dialog_type_stars/Dialog_type_stars";
 import DialogTypeContent from "./Dialog_type_content/Dialog_type_content";
-import {IFilm, IFilmToCreate} from "../../../../reducers/Films/Films.typings";
+import {IFilmTypings} from "../../../../reducers/Films/Films.typings";
 import DialogTypeAddFilm from "./Dialog_type_action/Dialog_type_addFilm/Dialog_type_addFilm";
 import DialogTypeChangeFilm from "./Dialog_type_action/Dialog_type_changeFilm/Dialog_type_changeFilm";
 import local from "../../FilmsPage.strings";
 import {RefObject} from "react";
-import {actionDialogWithFilm} from "../../../../reducers/Dialog/Dialog.actions";
 
 class Dialog extends React.Component<IDialogConteinerProps> {
     protected refChange: RefObject<DialogTypeChangeFilm>;
@@ -32,14 +25,17 @@ class Dialog extends React.Component<IDialogConteinerProps> {
             dialog: {
                 type,
             },
-            actionDialogWithFilm,
-            actionSelectSingleFilm,
-            filmData,
-            film,
+            itemPart2,
+            DialogWithFilm,
+            Change,
+            Create,
+            FilmsBase,
+            SelectOne,
+            item,
         } = this.props;
 
-        if (film) {
-            const {stars} = film;
+        if (item) {
+            const {stars} = item;
 
             switch (type) {
                 case 'stars':
@@ -47,15 +43,15 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                         <DialogTypeStars
                             title={local["How did you like the movie?"]}
                             stars={stars}
-                            film={film}
+                            film={item}
                         />
                     );
                 case 'change_film':
-                    if (!filmData) {
-                        actionSelectSingleFilm(film.id);
+                    if (!itemPart2) {
+                        SelectOne(item.id);
                     } else {
-                        const item = this.refChange.current;
-                        item && item.setState({...filmData, ...item.state});
+                        const itemRef = this.refChange.current;
+                        itemRef && itemRef.setState({...itemPart2, ...itemRef.state});
                     }
 
                     return (
@@ -64,11 +60,11 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                             title={local['Change Film Fields']}
                             submitText={local.Change}
 
-                            film={film}
+                            film={item}
 
-                            onChange={(film: IFilm) => this.props.actionFilmsChange(film)}
+                            onChange={(film: IFilmTypings.Item) => Change(film)}
                             onClose={() => {
-                                actionFilmsSet({film: null, filmData: null});
+                                FilmsBase({item: null, itemPart2: null});
                             }}
                         />);
             }
@@ -80,24 +76,24 @@ class Dialog extends React.Component<IDialogConteinerProps> {
                     title={local['Enter new Film']}
                     submitText={local['Add']}
 
-                    onCreate={(film: IFilmToCreate) => this.props.actionCreateFilm(film)}
+                    onCreate={(film: IFilmTypings.ItemToCreate) => Create(film)}
                 />
             );
         }
 
-        if (type === 'content' && film) {
-            if (!filmData) {
-                actionSelectSingleFilm(film.id);
+        if (type === 'content' && item) {
+            if (!itemPart2) {
+                SelectOne(item.id);
             }
             return (
                 <DialogTypeContent
-                    title={film.name}
-                    film={film}
-                    filmData={filmData}
-                    onClose={() => actionDialogWithFilm({
+                    title={item.name}
+                    film={item}
+                    filmData={itemPart2}
+                    onClose={() => DialogWithFilm({
                         dialog: {open: false, type: null},
-                        film: null,
-                        filmData: null
+                        item: null,
+                        itemPart2: null
                     })}
                 />
             );
@@ -108,18 +104,18 @@ class Dialog extends React.Component<IDialogConteinerProps> {
 }
 
 const mapStateToProps = (store: IStore) => ({
-    dialog: store.DialogReducer,
-    arr: store.FilmsReducer.arr,
-    film: store.FilmsReducer.film,
-    filmData: store.FilmsReducer.filmData,
+    dialog: store.Dialog,
+    arr: store.Films.arr,
+    item: store.Films.item,
+    itemPart2: store.Films.itemPart2,
 });
 
 const mapDispatchesToProps = {
-    actionChangeStars,
-    actionCreateFilm,
-    actionFilmsChange,
-    actionSelectSingleFilm,
-    actionDialogWithFilm,
+    Create: FilmActions.Create,
+    Change: FilmActions.Change,
+    SelectOne: FilmActions.SelectOne,
+    DialogWithFilm: FilmActions.DialogWithFilm,
+    FilmsBase: FilmActions.base,
 };
 
 export default connect(mapStateToProps, mapDispatchesToProps)(Dialog);

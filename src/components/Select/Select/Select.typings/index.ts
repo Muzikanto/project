@@ -1,4 +1,4 @@
-import {IFilmsFilterSort} from "../../../../reducers/Films/Films.typings";
+import {IFilmTypings} from "../../../../reducers/Films/Films.typings";
 
 export interface ISelectProps {
     current: string;
@@ -6,5 +6,5 @@ export interface ISelectProps {
     arr: string[];
     className?: string;
 
-    onChange: (current: IFilmsFilterSort) => void;
+    onChange: (current: IFilmTypings.Sort) => void;
 }

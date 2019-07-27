@@ -4,7 +4,6 @@ import {cn} from "@bem-react/classname";
 import local from "../../../FilmsPage.strings";
 import SelectCheckBox from "../../../../../components/Select/Select_checkBox/Select_checkBox";
 import Thumb from "../../../../../components/Thumb/Thumb";
-import Youtube from "../../../../../components/Youtube/Youtube";
 import TextField from "@material-ui/core/TextField";
 import DatePicker from "../../../../../components/DatePicker/DatePicker";
 import {getGenres} from "../../../FilmsPage.strings/genres";

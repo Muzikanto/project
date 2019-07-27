@@ -1,20 +1,17 @@
-import {
-    actionFilmsFirstLoad,
-    actionFilmsSetFilter, actionSelectFilms,
-} from "../../../../../reducers/Films/Films.actions";
-import {IFilmsFilterSort, IFilmsOptionsFilters} from "../../../../../reducers/Films/Films.typings";
+import FilmActions from "../../../../../reducers/Films/Films.actions";
+import {IFilmTypings} from "../../../../../reducers/Films/Films.typings";
 import {IActionType} from "../../../../../reducers/typings";
-import {actionDialog} from "../../../../../reducers/Dialog/Dialog.actions";
+import DialogAction from "../../../../../reducers/Dialog/Dialog.actions";
 
 export interface IFilterBlockProps {
     className?: string;
 
-    filters: IFilmsOptionsFilters;
+    filters: IFilmTypings.ReducerFiltersOptions;
 
     genresOnChange: (current: string[]) => void;
     datesOnChange: (current: string[]) => void;
     starsOnChange: (current: string) => void;
-    sortOnChange: (current: IFilmsFilterSort) => void;
+    sortOnChange: (current: IFilmTypings.Sort) => void;
     findOnClick: () => void;
     addOnClick: () => void;
     onExpandFilters: () => void;
@@ -23,18 +20,18 @@ export interface IFilterBlockProps {
     genres: string[];
     dates: string[];
     stars: string[];
-    sort: IFilmsFilterSort[];
+    sort: IFilmTypings.Sort[];
 }
 
 export interface IFilterBlockContainerProps {
     className?: string;
 
     // stateToProps
-    filters: IFilmsOptionsFilters;
+    filters: IFilmTypings.ReducerFiltersOptions;
 
     // dispatches
-    actionFilmsSetFilter: IActionType<typeof actionFilmsSetFilter>;
-    actionFilmsFirstLoad: IActionType<typeof actionFilmsFirstLoad>;
-    actionSelectFilms: IActionType<typeof actionSelectFilms>;
-    actionDialog: IActionType<typeof actionDialog>;
+    SetFilter: IActionType<typeof FilmActions.SetFilter>;
+    FirstLoad: IActionType<typeof FilmActions.FirstLoad>;
+    Select: IActionType<typeof FilmActions.Select>;
+    DialogBase: IActionType<typeof DialogAction.base>;
 }

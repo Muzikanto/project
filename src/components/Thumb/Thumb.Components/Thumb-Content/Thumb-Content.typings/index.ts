@@ -1,7 +1,7 @@
-import {IFilm} from "../../../../../reducers/Films/Films.typings";
+import {IFilmTypings} from "../../../../../reducers/Films/Films.typings";
 
 export interface IThumbContentProps {
-    film: IFilm;
+    film: IFilmTypings.Item;
 
     className?: string;
     onContentClick: () => void;
